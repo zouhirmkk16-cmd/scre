@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 🛡️ OgAds Fast Loading JavaScript Layer -->
     <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
     
     <style>
@@ -100,469 +99,115 @@
             z-index: 10;
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { width: 32px; height: 32px; background: var(--snap-yellow); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #000; font-size: 18px; box-shadow: 0 4px 12px rgba(255, 252, 0, 0.3); overflow: hidden; position: relative; }
+        .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .logo-text { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; line-height: 1.2; }
+        .logo-text span { display: block; color: var(--text-sub); font-size: 11px; font-weight: 400; }
 
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--snap-yellow);
-            border-radius: 9px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-size: 18px;
-            box-shadow: 0 4px 12px rgba(255, 252, 0, 0.3);
-        }
+        .header-controls { display: flex; align-items: center; gap: 8px; }
+        .theme-toggle-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); cursor: pointer; font-size: 14px; transition: 0.2s; }
+        .menu-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--text-main); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
 
-        .logo-text {
-            font-size: 15px;
-            font-weight: 700;
-            letter-spacing: -0.2px;
-            line-height: 1.2;
-        }
+        .main-search-view { display: block; }
+        .main-search-view.hidden { display: none; }
 
-        .logo-text span {
-            display: block;
-            color: var(--text-sub);
-            font-size: 11px;
-            font-weight: 400;
-        }
+        .hero-section { text-align: center; margin-top: 15px; margin-bottom: 35px; }
+        .user-welcome-tag { font-size: 12px; color: #000; background: var(--snap-yellow); padding: 4px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px; font-weight: 600; letter-spacing: 0.5px; opacity: 0; transform: translateY(-5px); transition: all 0.4s ease; }
+        .welcome-avatar-mini { width: 18px; height: 18px; border-radius: 50%; background: rgba(0,0,0,0.1); object-fit: cover; }
 
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .theme-toggle-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-main);
-            cursor: pointer;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-        [data-theme="light"] .theme-toggle-btn { background: rgba(0,0,0,0.05); }
-        .theme-toggle-btn:active { transform: scale(0.9); }
-
-        .menu-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-main);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-        }
-        [data-theme="light"] .menu-btn { background: rgba(0,0,0,0.05); }
-        .menu-btn:active { transform: scale(0.95); }
-
-        .menu-drawer {
-            position: fixed;
-            top: 0;
-            right: 0;
-            transform: translateX(100vw); 
-            width: 100%;
-            max-width: 320px;
-            height: 100%;
-            background: var(--drawer-bg);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            z-index: 150;
-            box-shadow: -10px 0 40px rgba(0,0,0,0.3);
-            padding: 30px 24px;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @media(min-width: 440px) {
-            .menu-drawer { 
-                right: calc(50% - 220px); 
-                transform: translateX(320px);
-            }
-        }
-
-        .menu-drawer.active { transform: translateX(0) !important; }
-
-        .drawer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 35px;
-            border-bottom: 1px solid var(--border-glass);
-            padding-bottom: 15px;
-        }
-
-        .drawer-back-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glass);
-            padding: 6px 14px;
-            border-radius: 14px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        [data-theme="light"] .drawer-back-btn { background: rgba(0,0,0,0.05); }
-
-        .menu-section-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-sub);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .menu-links {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 30px;
-        }
-
-        .menu-link-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 16px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid transparent;
-            border-radius: 14px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        [data-theme="light"] .menu-link-item { background: rgba(0,0,0,0.02); }
-        .menu-link-item i { width: 20px; color: var(--text-sub); font-size: 16px; }
-        .menu-link-item:active { background: rgba(255,255,255,0.05); border-color: var(--border-glass); color: var(--snap-yellow); }
-
-        .drawer-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 140;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-        .drawer-overlay.active { opacity: 1; pointer-events: auto; }
-
-        .hero-section {
-            text-align: center;
-            margin-top: 15px;
-            margin-bottom: 35px;
-        }
-
-        .user-welcome-tag {
-            font-size: 12px;
-            color: #000;
-            background: var(--snap-yellow);
-            padding: 4px 12px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            opacity: 0;
-            transform: translateY(-5px);
-            transition: all 0.4s ease;
-        }
-
-        .hero-title {
-            font-size: 34px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            line-height: 1.15;
-            margin-bottom: 12px;
-        }
-
+        .hero-title { font-size: 34px; font-weight: 700; letter-spacing: -1px; line-height: 1.15; margin-bottom: 12px; }
         .hero-title span { color: var(--snap-yellow); text-shadow: 0 0 20px rgba(255, 252, 0, 0.2); }
-        [data-theme="light"] .hero-title span { color: #b3a900; text-shadow: none; }
         .hero-subtitle { font-size: 14px; color: var(--text-sub); line-height: 1.5; max-width: 320px; margin: 0 auto 28px auto; font-weight: 300; }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 14px;
-            max-width: 340px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .input-field {
-            width: 100%;
-            background: var(--input-bg);
-            border: 1px solid var(--border-glass);
-            padding: 16px 20px;
-            border-radius: 16px;
-            color: var(--text-main);
-            font-size: 15px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
+        /* 🎯 تطوير صندوق الإدخال لاستيعاب الأنميشن الداخلي والبيتموجي المصغر تماماً كالفيديو */
+        .input-group { position: relative; max-width: 340px; margin: 0 auto 14px auto; }
+        .input-field { width: 100%; background: var(--input-bg); border: 1px solid var(--border-glass); padding: 16px 55px 16px 20px; border-radius: 16px; color: var(--text-main); font-size: 15px; text-align: left; transition: 0.3s; }
         .input-field:focus { outline: none; border-color: rgba(255, 252, 0, 0.6); }
+        
+        .input-right-container { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+        .input-loading-spinner { width: 20px; height: 20px; border: 2px solid var(--text-sub); border-top-color: var(--snap-yellow); border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
+        .input-inline-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; display: none; background: rgba(255,255,255,0.05); }
 
-        .btn-google {
-            width: 100%;
-            max-width: 340px;
-            background: linear-gradient(135deg, #FFFC00 0%, #D4D100 100%);
-            border: none;
-            padding: 16px;
-            border-radius: 16px;
-            color: #000;
-            font-size: 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            margin: 0 auto;
-            box-shadow: 0 8px 24px rgba(255, 252, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            position: relative;
-        }
-
+        .btn-google { width: 100%; max-width: 340px; background: linear-gradient(135deg, #FFFC00 0%, #D4D100 100%); border: none; padding: 16px; border-radius: 16px; color: #000; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; margin: 0 auto; box-shadow: 0 8px 24px rgba(255, 252, 0, 0.2); transition: all 0.2s; }
         .btn-google:active { transform: scale(0.97); }
-        .btn-spinner { width: 18px; height: 18px; border: 2px solid #000; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        /* 🔄 المرحلة الثانية والثالثة من الفيديو */
+        .system-loading-view { display: none; flex-direction: column; align-items: center; text-align: center; margin-top: 20px; animation: scaleUp 0.4s ease forwards; }
+        .big-avatar-container { width: 110px; height: 110px; border-radius: 28px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .big-avatar-container img { width: 90%; height: 90%; object-fit: contain; }
+        .target-username-display { font-size: 18px; font-weight: 700; color: var(--snap-yellow); margin-bottom: 5px; }
+        .account-status-badge { font-size: 11px; background: rgba(52, 199, 89, 0.15); color: #34c759; border: 1px solid rgba(52, 199, 89, 0.3); padding: 4px 12px; border-radius: 20px; font-weight: 600; margin-bottom: 30px; display: none; }
 
-        .features-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 45px;
-        }
+        .loading-sequence-card { width: 100%; max-width: 360px; background: #0d0d0d; border: 1px solid var(--border-glass); border-radius: 24px; padding: 24px; text-align: left; box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+        .sequence-header { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+        .sequence-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+        .sequence-item { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--text-sub); font-weight: 500; }
+        .sequence-item i { width: 16px; font-size: 14px; text-align: center; }
+        .sequence-item.active { color: var(--text-main); font-weight: 600; }
+        .sequence-item.completed { color: #34c759; }
+        .sequence-item.completed i { color: #34c759; }
+        .sequence-item.pending i { color: var(--text-sub); opacity: 0.4; }
 
-        .feature-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-premium);
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            position: relative;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            opacity: 0.35;
-            cursor: pointer;
-        }
+        .horizontal-bar-bg { width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; position: relative; margin-bottom: 10px; }
+        .horizontal-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #FFFC00, #b3a900); border-radius: 10px; transition: width 0.1s linear; }
+        .horizontal-bar-text { font-size: 18px; font-weight: 700; text-align: center; color: var(--text-main); margin-top: 5px; }
 
+        .final-lock-card { display: none; width: 100%; max-width: 360px; background: #0d0d0d; border: 1px solid var(--border-glass); border-radius: 24px; padding: 24px; text-align: center; animation: scaleUp 0.4s ease forwards; margin-top: 20px; }
+        .lock-success-header { font-size: 15px; font-weight: 600; color: #34c759; background: rgba(52, 199, 89, 0.1); border: 1px solid rgba(52, 199, 89, 0.2); padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+        .mock-blur-content { background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); padding: 20px; border-radius: 16px; position: relative; margin-bottom: 20px; filter: blur(1px); pointer-events: none; }
+        .mock-row { height: 10px; background: rgba(255,255,255,0.1); border-radius: 4px; margin-bottom: 10px; }
+        .mock-row.short { width: 60%; margin: 0 auto; }
+        .content-lock-badge { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+        .lock-badge-inside { background: rgba(255, 252, 0, 0.15); border: 1px solid var(--snap-yellow); color: var(--snap-yellow); padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(8px); }
+        
+        .unlock-instructions-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+        .unlock-instructions-p { font-size: 12px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; font-weight: 300; }
+        .btn-main-unlock { width: 100%; background: linear-gradient(135deg, #FFFC00 0%, #D4D100 100%); border: none; padding: 16px; border-radius: 16px; color: #000; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 8px 24px rgba(255, 252, 0, 0.2); display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+        /* ستايلات الهيكل العام والكروت */
+        .features-stack { display: flex; flex-direction: column; gap: 16px; margin-bottom: 45px; }
+        .feature-card { background: var(--card-bg); border: 1px solid var(--border-glass); border-radius: var(--radius-premium); padding: 16px; display: flex; align-items: center; gap: 16px; position: relative; backdrop-filter: blur(20px); opacity: 0.35; cursor: pointer; }
         .feature-card.unlocked { opacity: 1; }
-        .feature-card.unlocked:active { transform: scale(0.97); border-color: rgba(255, 252, 0, 0.4); }
-        
         .thumb-wrapper { width: 75px; height: 75px; border-radius: 16px; overflow: hidden; background: rgba(0,0,0,0.05); border: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: center; }
-        [data-theme="dark"] .thumb-wrapper { background: #111; }
-        .thumb-icon-placeholder { font-size: 24px; color: #b3a900; }
-        [data-theme="dark"] .thumb-icon-placeholder { color: var(--snap-yellow); }
-        
+        .thumb-icon-placeholder { font-size: 24px; color: var(--snap-yellow); }
         .card-content { flex-grow: 1; }
         .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
         .card-desc { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
-
         .badge { position: absolute; top: 16px; right: 16px; padding: 3px 8px; border-radius: 20px; font-size: 9px; font-weight: 700; }
         .badge.live { background: rgba(255, 69, 58, 0.15); color: #ff453a; border: 1px solid rgba(255, 69, 58, 0.3); }
-        .badge.new { background: rgba(255, 252, 0, 0.15); color: #b3a900; border: 1px solid rgba(255, 252, 0, 0.4); }
-        [data-theme="dark"] .badge.new { color: var(--snap-yellow); }
+        .badge.new { background: rgba(255, 252, 0, 0.15); color: var(--snap-yellow); border: 1px solid rgba(255, 252, 0, 0.4); }
         .badge.pro { background: rgba(120, 120, 120, 0.15); color: var(--text-main); border: 1px solid var(--border-glass); }
 
-        .toast-alert {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translate(-50%, 40px);
-            background: #FFFC00;
-            color: #000;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            box-shadow: 0 8px 30px rgba(255, 252, 0, 0.3);
-            z-index: 200;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .toast-alert { position: fixed; bottom: 30px; left: 50%; transform: translate(-50%, 40px); background: #FFFC00; color: #000; padding: 12px 24px; border-radius: 30px; font-size: 13px; font-weight: 700; letter-spacing: 0.3px; box-shadow: 0 8px 30px rgba(255, 252, 0, 0.3); z-index: 200; opacity: 0; pointer-events: none; transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; gap: 8px; }
         .toast-alert.show { opacity: 1; transform: translate(-50%, 0); }
 
-        .how-it-works {
-            background: var(--how-bg);
-            border-top: 1px solid var(--border-glass);
-            padding: 30px 10px 10px 10px;
-            border-radius: var(--radius-premium);
-            margin-top: 20px;
-            margin-bottom: 30px;
-        }
-
-        .steps-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 24px; letter-spacing: -0.3px; }
-        .steps-title span { color: #b3a900; }
-        [data-theme="dark"] .steps-title span { color: var(--snap-yellow); }
-
+        .how-it-works { background: var(--how-bg); border-top: 1px solid var(--border-glass); padding: 30px 10px 10px 10px; border-radius: var(--radius-premium); margin-top: 20px; margin-bottom: 30px; }
+        .steps-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 24px; }
+        .steps-title span { color: var(--snap-yellow); }
         .step-container { display: flex; flex-direction: column; gap: 20px; }
         .step-item { display: flex; align-items: flex-start; gap: 16px; }
-        .step-number { width: 28px; height: 28px; background: rgba(255, 252, 0, 0.15); border: 1px solid rgba(255, 252, 0, 0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #b3a900; font-size: 13px; font-weight: 700; flex-shrink: 0; }
-        [data-theme="dark"] .step-number { color: var(--snap-yellow); }
-
+        .step-number { width: 28px; height: 28px; background: rgba(255, 252, 0, 0.15); border: 1px solid rgba(255, 252, 0, 0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--snap-yellow); font-size: 13px; font-weight: 700; flex-shrink: 0; }
         .step-info h4 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
         .step-info p { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
 
         .custom-footer { text-align: center; padding: 20px 0 10px 0; border-top: 1px solid var(--border-glass); margin-top: auto; }
-        .footer-text { font-size: 12px; color: var(--text-sub); letter-spacing: 0.8px; font-weight: 400; display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .footer-text i { color: #34c759; font-size: 13px; }
+        .footer-text { font-size: 12px; color: var(--text-sub); display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .footer-text i { color: #34c759; }
 
-        .preview-panel {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translate(-50%, 100%);
-            width: 100%;
-            max-width: 440px;
-            height: 100%;
-            background: var(--panel-bg);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            z-index: 100;
-            border-top-left-radius: 32px;
-            border-top-right-radius: 32px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .menu-drawer { position: fixed; top: 0; right: 0; transform: translateX(100vw); width: 100%; max-width: 320px; height: 100%; background: var(--drawer-bg); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); z-index: 150; box-shadow: -10px 0 40px rgba(0,0,0,0.3); padding: 30px 24px; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        @media(min-width: 440px) { .menu-drawer { right: calc(50% - 220px); transform: translateX(320px); } }
+        .menu-drawer.active { transform: translateX(0) !important; }
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; border-bottom: 1px solid var(--border-glass); padding-bottom: 15px; }
+        .drawer-back-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); padding: 6px 14px; border-radius: 14px; font-size: 12px; font-weight: 500; color: var(--text-main); display: flex; align-items: center; gap: 6px; cursor: pointer; }
+        .menu-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub); margin-bottom: 12px; font-weight: 600; }
+        .menu-links { display: flex; flex-direction: column; gap: 6px; margin-bottom: 30px; }
+        .menu-link-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: rgba(255,255,255,0.02); border: 1px solid transparent; border-radius: 14px; color: var(--text-main); text-decoration: none; font-size: 14px; font-weight: 500; }
+        .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 140; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .drawer-overlay.active { opacity: 1; pointer-events: auto; }
 
-        .preview-panel.active { transform: translate(-50%, 0); }
-        .panel-handle { width: 36px; height: 5px; background: rgba(120,120,120,0.3); border-radius: 10px; margin: 0 auto 16px auto; flex-shrink: 0; }
-        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-shrink: 0; }
-        
-        .panel-close {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.04);
-            border: 1px solid var(--border-glass);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-main);
-            cursor: pointer;
-        }
-        [data-theme="dark"] .panel-close { background: rgba(255,255,255,0.06); }
-
-        .panel-image-container {
-            width: 100%;
-            height: 220px;
-            border-radius: 20px;
-            overflow: hidden;
-            background: rgba(0,0,0,0.04);
-            border: 1px solid var(--border-glass);
-            margin-bottom: 16px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        [data-theme="dark"] .panel-image-container { background: #141414; }
-
-        .panel-image-container img { width: 100%; height: 100%; object-fit: cover; display: none; filter: blur(4px); transform: scale(1.05); }
-        
-        .blur-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); display: none; flex-direction: column; align-items: center; justify-content: center; gap: 8px; z-index: 2; }
-        .blur-overlay i { font-size: 28px; color: var(--snap-yellow); }
-        .blur-overlay span { font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
-
-        .panel-default-icon { font-size: 55px; color: rgba(180,170,0,0.15); }
-        [data-theme="dark"] .panel-default-icon { color: rgba(255,252,0,0.15); }
-
-        .panel-mockup-overlay { position: absolute; inset: 0; top: auto; background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.85) 100%); display: flex; align-items: flex-end; padding: 14px; font-size: 12px; color: var(--snap-yellow); font-weight: 500; z-index: 3; }
-
-        .panel-body { margin-bottom: 20px; }
-        .panel-body h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
-        .panel-body p { font-size: 14px; color: var(--text-sub); line-height: 1.45; font-weight: 300; }
-
-        .btn-verify {
-            width: 100%;
-            background: linear-gradient(135deg, #FFFC00 0%, #D4D100 100%);
-            border: none;
-            padding: 16px;
-            border-radius: 16px;
-            color: #000;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(255, 252, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 5px; 
-            flex-shrink: 0;
-        }
-
-        .loading-overlay { position: absolute; inset: 0; background: var(--phone-bg); z-index: 110; border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-        .loading-overlay.active { opacity: 1; pointer-events: auto; }
-        
-        .progress-box { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
-        .progress-container { position: relative; width: 120px; height: 120px; }
-        .progress-svg { transform: rotate(-90deg); width: 120px; height: 120px; }
-        .progress-svg circle { width: 100%; height: 100%; fill: none; stroke-width: 6; stroke-linecap: round; }
-        .progress-track { stroke: var(--border-glass); }
-        .progress-bar { stroke: var(--snap-yellow); stroke-dasharray: 345; stroke-dashoffset: 345; transition: stroke-dashoffset 0.1s linear; }
-        .progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--text-main); }
-        .loading-status { margin-top: 24px; font-size: 14px; color: var(--text-sub); letter-spacing: 0.5px; text-align: center; padding: 0 20px; font-weight: 500;}
-
-        .final-offer-box { display: none; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; width: 100%; margin-top: 30px; animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        .final-offer-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; color: #34c759; }
-        .final-offer-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; font-weight: 300; }
-        .final-offer-desc span { color: var(--text-main); font-weight: 600; }
-        
-        .btn-final-verify {
-            width: 100%;
-            background: linear-gradient(135deg, #34c759 0%, #28a745 100%);
-            border: none;
-            padding: 16px;
-            border-radius: 16px;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(52, 199, 89, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn-final-verify:active { transform: scale(0.97); }
-
-        @keyframes scaleUp { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -580,382 +225,273 @@
             <span style="font-size: 14px; font-weight: 600; color: #b3a900;">System Console</span>
             <div class="drawer-back-btn" onclick="toggleMenu(false)"><i class="fa-solid fa-chevron-left"></i> Back</div>
         </div>
-
         <div class="menu-section-title">Account Services</div>
         <div class="menu-links">
-            <a href="#profile" class="menu-link-item" onclick="toggleMenu(false)">
-                <i class="fa-solid fa-user-gear"></i> Profile Management
-            </a>
-            <a href="#security" class="menu-link-item" onclick="toggleMenu(false)">
-                <i class="fa-solid fa-shield-halved"></i> Encryption & Security
-            </a>
-        </div>
-
-        <div class="menu-section-title">Legal & Integrity</div>
-        <div class="menu-links">
-            <a href="#privacy" class="menu-link-item" onclick="toggleMenu(false)">
-                <i class="fa-solid fa-lock"></i> Privacy Policy
-            </a>
-            <a href="#terms" class="menu-link-item" onclick="toggleMenu(false)">
-                <i class="fa-solid fa-file-contract"></i> Terms of Service
-            </a>
-        </div>
-
-        <div class="menu-section-title">Support</div>
-        <div class="menu-links">
-            <a href="#help" class="menu-link-item" onclick="toggleMenu(false)">
-                <i class="fa-solid fa-circle-question"></i> Help Core Diagnostics
-            </a>
+            <a href="#profile" class="menu-link-item" onclick="toggleMenu(false)"><i class="fa-solid fa-user-gear"></i> Profile Management</a>
         </div>
     </nav>
 
     <div class="phone-container">
         <header class="nav-bar">
             <div class="logo-area">
-                <div class="logo-icon"><i class="fa-ghost fa-solid"></i></div>
+                <div class="logo-icon" id="logoIconContainer">
+                    <i class="fa-ghost fa-solid" id="logoGhostIcon"></i>
+                    <img id="logoAvatarImg" src="" alt="Avatar">
+                </div>
                 <div class="logo-text">SnapTools<span>Premium System</span></div>
             </div>
-            
             <div class="header-controls">
-                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
-                    <i class="fa-solid fa-sun"></i>
-                </button>
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()"><i class="fa-solid fa-sun"></i></button>
                 <button class="menu-btn" onclick="toggleMenu(true)"><i class="fa-solid fa-bars-staggered"></i></button>
             </div>
         </header>
 
-        <section class="hero-section">
-            <div class="user-welcome-tag" id="userWelcomeTag">ACCOUNT ACTIVE: @<span id="welcomeName">User</span></div>
-            <h1 class="hero-title">Snap Analytics<br><span>Core Insights</span></h1>
-            <p class="hero-subtitle">Generate comprehensive profile performance metrics and visualize advanced data trends seamlessly.</p>
-            
-            <div class="input-group">
-                <input type="text" class="input-field" id="usernameInput" placeholder="Username">
-            </div>
-            <button class="btn-google" id="connectBtn" onclick="handleAccountConnection()">
-                <span class="btn-spinner" id="btnSpinner"></span>
-                <span id="btnText">Connect Account</span>
-            </button>
-        </section>
-
-        <main class="features-stack" id="featuresStack">
-            <div class="feature-card" onclick="handleCardClick('Live Activity Feed', 'Real-time telemetry mapping of active conversation streams.', 'fa-comment-dots', 'typing.jpg')">
-                <div class="badge live">● LIVE</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-comment-dots thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">Live Activity Feed</h2>
-                    <p class="card-desc">Subtle live session analytics and metadata stream generation.</p>
+        <div class="main-search-view" id="mainSearchView">
+            <section class="hero-section">
+                <div class="user-welcome-tag" id="userWelcomeTag">
+                    <img id="welcomeTagAvatar" class="welcome-avatar-mini" src="" alt="Bitmoji">
+                    ACCOUNT ACTIVE: @<span id="welcomeName">User</span>
                 </div>
-            </div>
-
-            <div class="feature-card" onclick="handleCardClick('Analyze Best Friends', 'Advanced structural hierarchy mapping algorithms for core connections.', 'fa-user-group', 'friends.jpg')">
-                <div class="badge new">NEW</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-user-group thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">Analyze Best Friends</h2>
-                    <p class="card-desc">Deep structural indexing of interaction frequency nodes.</p>
-                </div>
-            </div>
-
-            <div class="feature-card" onclick="handleCardClick('Access Private Folders', 'Secure recovery layer verification interface simulations.', 'fa-eye-slash', 'eyes.jpg')">
-                <div class="badge pro">PRO</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-eye-slash thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">Access Private Folders</h2>
-                    <p class="card-desc">Systematic metadata diagnostic access visualization panel.</p>
-                </div>
-            </div>
-
-            <div class="feature-card" onclick="handleCardClick('Retrieve Chat History', 'Automated cloud database backup logs sorting & structural analysis.', 'fa-clock-rotate-left', 'chat.jpg')">
-                <div class="badge pro">PRO</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-clock-rotate-left thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">Retrieve Chat History</h2>
-                    <p class="card-desc">Secure restoration protocols for temporary platform logs.</p>
-                </div>
-            </div>
-
-            <div class="feature-card" onclick="handleCardClick('View Live Location', 'Geospatial mapping and accurate node tracking diagnostics.', 'fa-location-dot', 'location.jpg')">
-                <div class="badge pro">PRO</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-location-dot thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">View Live Location</h2>
-                    <p class="card-desc">High-fidelity triangulation simulations on vectorized maps.</p>
-                </div>
-            </div>
-        </main>
-
-        <!-- 🔄 Re-added all 4 original steps smoothly here -->
-        <section class="how-it-works">
-            <h3 class="steps-title">How To <span>Get Started</span></h3>
-            <div class="step-container">
-                <div class="step-item">
-                    <div class="step-number">1</div>
-                    <div class="step-info">
-                        <h4>Enter Account Details</h4>
-                        <p>Write down the target username inside the field box above.</p>
+                <h1 class="hero-title">Snap Analytics<br><span>Core Insights</span></h1>
+                <p class="hero-subtitle">Generate comprehensive profile performance metrics and visualize advanced data trends seamlessly.</p>
+                
+                <div class="input-group">
+                    <input type="text" class="input-field" id="usernameInput" placeholder="Enter Snapchat Username" oninput="liveUsernameCheck()">
+                    <div class="input-right-container">
+                        <div class="input-loading-spinner" id="inputSpinner"></div>
+                        <img class="input-inline-avatar" id="inputInlineAvatar" src="" alt="preview">
                     </div>
                 </div>
-                <div class="step-item">
-                    <div class="step-number">2</div>
-                    <div class="step-info">
-                        <h4>Connect with System</h4>
-                        <p>Tap "Connect Account" button to initialize the simulation connection.</p>
-                    </div>
+                <button class="btn-google" id="connectBtn" onclick="triggerReveal()">
+                    <span id="btnText">Reveal</span>
+                </button>
+            </section>
+
+            <main class="features-stack" id="featuresStack">
+                <div class="feature-card" onclick="handleCardClick()">
+                    <div class="badge live">● LIVE</div>
+                    <div class="thumb-wrapper"><i class="fa-solid fa-comment-dots thumb-icon-placeholder"></i></div>
+                    <div class="card-content"><h2 class="card-title">Live Activity Feed</h2><p class="card-desc">Subtle live session analytics metadata stream.</p></div>
                 </div>
-                <div class="step-item">
-                    <div class="step-number">3</div>
-                    <div class="step-info">
-                        <h4>Select Insight Feature</h4>
-                        <p>Choose any unlocked metric diagnostic card above to begin retrieval.</p>
-                    </div>
+                <div class="feature-card" onclick="handleCardClick()">
+                    <div class="badge new">NEW</div>
+                    <div class="thumb-wrapper"><i class="fa-solid fa-user-group thumb-icon-placeholder"></i></div>
+                    <div class="card-content"><h2 class="card-title">Analyze Best Friends</h2><p class="card-desc">Deep structural indexing of interaction frequency.</p></div>
                 </div>
-                <div class="step-item">
-                    <div class="step-number">4</div>
-                    <div class="step-info">
-                        <h4>Human Verification</h4>
-                        <p>Complete the quick ecosystem sync layout to view secure files instantly.</p>
-                    </div>
-                </div>
+            </main>
+        </div>
+
+        <div class="system-loading-view" id="systemLoadingView">
+            <div class="big-avatar-container">
+                <img id="loadingBigAvatar" src="" alt="Target Bitmoji">
             </div>
-        </section>
+            <div class="target-username-display" id="targetUserDisplay">@username</div>
+            <div class="account-status-badge" id="accountStatusBadge"><i class="fa-solid fa-circle-check"></i> Account Found</div>
+
+            <div class="loading-sequence-card" id="loadingSequenceCard">
+                <div class="sequence-header">
+                    <i class="fa-solid fa-circle-notch fa-spin" style="color: var(--snap-yellow);"></i> 
+                    <span>Reveal - Unlock Insights</span>
+                </div>
+                <div class="sequence-list">
+                    <div class="sequence-item pending" id="step1"><i class="fa-solid fa-circle-notch"></i> Locating account...</div>
+                    <div class="sequence-item pending" id="step2"><i class="fa-solid fa-circle-notch"></i> Syncing Bitmoji...</div>
+                    <div class="sequence-item pending" id="step3"><i class="fa-solid fa-circle-notch"></i> Decrypting recent activity...</div>
+                    <div class="sequence-item pending" id="step4"><i class="fa-solid fa-circle-notch"></i> Compiling results...</div>
+                </div>
+                <div class="horizontal-bar-bg">
+                    <div class="horizontal-bar-fill" id="horizontalBarFill"></div>
+                </div>
+                <div class="horizontal-bar-text" id="horizontalBarText">0%</div>
+            </div>
+
+            <div class="final-lock-card" id="finalLockCard">
+                <div class="lock-success-header">
+                    <i class="fa-solid fa-circle-check"></i> Results found for <span id="lockUserSpan">@user</span>
+                </div>
+                <div class="mock-blur-content">
+                    <div class="mock-row" style="width: 80%;"></div>
+                    <div class="mock-row" style="width: 95%;"></div>
+                    <div class="mock-row short"></div>
+                    <div class="content-lock-badge">
+                        <div class="lock-badge-inside"><i class="fa-solid fa-lock"></i> Content Locked</div>
+                    </div>
+                </div>
+                <h3 class="unlock-instructions-title">Unlock Access</h3>
+                <p class="unlock-instructions-p">Complete 2 offers below to verify you are a human. Once completed, your requested layout will reveal instantly.</p>
+                <button class="btn-main-unlock" onclick="callOgadsLocker()">
+                    <i class="fa-solid fa-lock-open"></i> Unlock Now
+                </button>
+            </div>
+        </div>
 
         <footer class="custom-footer">
             <p class="footer-text"><i class="fa-solid fa-circle-check"></i> Verified Page by SnapTools © 2026</p>
         </footer>
     </div>
 
-    <div class="preview-panel" id="previewPanel">
-        <div class="panel-handle"></div>
-        <div class="panel-header">
-            <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #b3a900; font-weight: 600;">Secure Insight Module</span>
-            <div class="panel-close" onclick="closePreview()"><i class="fa-solid fa-xmark"></i></div>
-        </div>
-        
-        <div class="panel-image-container">
-            <div class="blur-overlay" id="blurOverlay">
-                <i class="fa-solid fa-lock"></i>
-                <span>Content Locked</span>
-            </div>
-            <i class="fa-solid fa-chart-line panel-default-icon" id="panelDefaultIcon"></i>
-            <img src="" id="panelCustomImage" alt="Preview Graphics">
-            <div class="panel-mockup-overlay">
-                <i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Verified Ecosystem Diagnostic Link Active
-            </div>
-        </div>
-
-        <div class="panel-body">
-            <h3 id="panelTitle">Feature Title</h3>
-            <p id="panelDesc">Detailed architectural telemetry configurations overlay right here seamlessly.</p>
-        </div>
-
-        <button class="btn-verify" id="mainVerifyBtn" onclick="startVerification()">Verify to Continue</button>
-
-        <div class="loading-overlay" id="loadingOverlay">
-            <div class="progress-box" id="progressBox">
-                <div class="progress-container">
-                    <svg class="progress-svg">
-                        <circle class="progress-track" cx="60" cy="60" r="55"></circle>
-                        <circle class="progress-bar" id="progressBar" cx="60" cy="60" r="55"></circle>
-                    </svg>
-                    <div class="progress-text" id="progressText">0%</div>
-                </div>
-                <div class="loading-status" id="loadingStatus">LOADING INSIGHT COUNTERS...</div>
-            </div>
-
-            <div class="final-offer-box" id="finalOfferBox">
-                <h3 class="final-offer-title">System Synced Successfully!</h3>
-                <p class="final-offer-desc">To access the full configuration layer and download logs, you must complete <span>(1) offer</span> below to verify you are a human. Once completed, your requested layout will reveal instantly here.</p>
-                
-                <!-- 🛡️ Anti-Adblocker / Safe Lead JavaScript Target -->
-                <button class="btn-final-verify" onclick="callOgadsLocker()">
-                    <i class="fa-solid fa-shield-checkmark"></i> Complete Final Verification
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
         let isConnected = false;
+        let globalBitmojiUrl = "";
+        let globalUsername = "";
+        let typingTimer;
+        const doneTypingInterval = 600; // مدة الانتظار بعد توقف المستخدم عن الكتابة للتحقق (بالملي ثانية)
 
-        const panel = document.getElementById('previewPanel');
-        const pTitle = document.getElementById('panelTitle');
-        const pDesc = document.getElementById('panelDesc');
-        const defaultIcon = document.getElementById('panelDefaultIcon');
-        const customImage = document.getElementById('panelCustomImage');
-        const blurOverlay = document.getElementById('blurOverlay');
+        const mainSearchView = document.getElementById('mainSearchView');
+        const systemLoadingView = document.getElementById('systemLoadingView');
+        const loadingBigAvatar = document.getElementById('loadingBigAvatar');
+        const targetUserDisplay = document.getElementById('targetUserDisplay');
+        const accountStatusBadge = document.getElementById('accountStatusBadge');
+        const loadingSequenceCard = document.getElementById('loadingSequenceCard');
+        const finalLockCard = document.getElementById('finalLockCard');
+        const lockUserSpan = document.getElementById('lockUserSpan');
+        const horizontalBarFill = document.getElementById('horizontalBarFill');
+        const horizontalBarText = document.getElementById('horizontalBarText');
         
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        const progressBox = document.getElementById('progressBox');
-        const finalOfferBox = document.getElementById('finalOfferBox');
-        const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
-        const loadingStatus = document.getElementById('loadingStatus');
-
+        const inputSpinner = document.getElementById('inputSpinner');
+        const inputInlineAvatar = document.getElementById('inputInlineAvatar');
+        const connectBtn = document.getElementById('connectBtn');
+        const toast = document.getElementById('toastAlert');
         const menuDrawer = document.getElementById('menuDrawer');
         const drawerOverlay = document.getElementById('drawerOverlay');
-        const toast = document.getElementById('toastAlert');
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
 
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-            }
+            document.documentElement.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
         }
 
         function toggleMenu(open) {
-            if(open) {
-                menuDrawer.classList.add('active');
-                drawerOverlay.classList.add('active');
-            } else {
-                menuDrawer.classList.remove('active');
-                drawerOverlay.classList.remove('active');
-            }
+            if(open) { menuDrawer.classList.add('active'); drawerOverlay.classList.add('active'); }
+            else { menuDrawer.classList.remove('active'); drawerOverlay.classList.remove('active'); }
         }
 
-        function handleCardClick(title, description, iconClass, imageUrl) {
-            if (!isConnected) {
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 1500);
-            } else {
-                openPreview(title, description, iconClass, imageUrl);
-            }
+        function showToast(message) {
+            toast.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${message}`;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
         }
 
-        function handleAccountConnection() {
+        function handleCardClick() {
+            showToast("Enter Username First");
+        }
+
+        // 👀 سكريبت ذكي جداً: مراقبة الكتابة لايف وجلب الصورة تلقائياً لداخل الـ Input
+        function liveUsernameCheck() {
+            clearTimeout(typingTimer);
             const usernameInput = document.getElementById('usernameInput');
-            const connectBtn = document.getElementById('connectBtn');
-            const btnSpinner = document.getElementById('btnSpinner');
-            const btnText = document.getElementById('btnText');
-            const welcomeTag = document.getElementById('userWelcomeTag');
-            const welcomeName = document.getElementById('welcomeName');
-
             let inputValue = usernameInput.value.trim();
+
             if (inputValue === "") {
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 1500);
+                inputInlineAvatar.style.display = "none";
+                inputSpinner.style.display = "none";
                 return;
             }
 
-            btnSpinner.style.display = "block";
-            btnText.innerHTML = " Connecting via System...";
-            connectBtn.style.pointerEvents = "none";
-            connectBtn.style.opacity = "0.8";
+            // إظهار الـ Spinner فورا بمجرد البدء في الكتابة
+            inputInlineAvatar.style.display = "none";
+            inputSpinner.style.display = "block";
 
-            setTimeout(() => {
-                btnSpinner.style.display = "none";
-                btnText.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#ffffff;"></i> Connected`;
-                
-                connectBtn.style.background = "linear-gradient(135deg, #34c759 0%, #28a745 100%)";
-                connectBtn.style.color = "#ffffff";
-                connectBtn.style.border = "none";
-                connectBtn.style.boxShadow = "0 8px 24px rgba(52, 199, 89, 0.3)";
-                
-                welcomeName.innerText = inputValue;
-                welcomeTag.style.opacity = "1";
-                welcomeTag.style.transform = "translateY(0)";
+            // فاش يحبس المستخدم يديه على الكيبورد بـ 600ms كيبدا التحقق تلقائيا
+            typingTimer = setTimeout(() => {
+                let testUrl = `https://kit.snapchat.com/v1/avatar/request?username=${inputValue}&style=20&view=2`;
+                let imgTester = new Image();
+                imgTester.src = testUrl;
 
-                isConnected = true;
-                unlockFeatures();
-
-            }, 1800); 
-        }
-
-        function unlockFeatures() {
-            const cards = document.querySelectorAll('.feature-card');
-            cards.forEach(card => {
-                card.classList.add('unlocked');
-            });
-        }
-
-        function openPreview(title, description, iconClass, imageUrl) {
-            progressBox.style.display = 'flex';
-            finalOfferBox.style.display = 'none';
-            progressBar.style.strokeDashoffset = 345;
-            progressText.innerText = '0%';
-            loadingStatus.style.color = "var(--text-sub)";
-
-            pTitle.innerText = title;
-            pDesc.innerText = description;
-            
-            if(imageUrl && imageUrl !== '') {
-                customImage.src = imageUrl;
-                customImage.style.display = 'block';
-                defaultIcon.style.display = 'none';
-                blurOverlay.style.display = 'flex';
-                
-                customImage.onerror = function() {
-                    customImage.style.display = 'none';
-                    defaultIcon.style.display = 'block';
-                    blurOverlay.style.display = 'none';
-                    defaultIcon.className = `fa-solid ${iconClass} panel-default-icon`;
+                imgTester.onload = function() {
+                    // إذا كان الحساب حقيقي، كيظهر البيتموجي الصغير فالبلاصة لداخل
+                    inputSpinner.style.display = "none";
+                    inputInlineAvatar.src = testUrl;
+                    inputInlineAvatar.style.display = "block";
+                    globalBitmojiUrl = testUrl;
                 };
-            } else {
-                customImage.style.display = 'none';
-                blurOverlay.style.display = 'none';
-                defaultIcon.style.display = 'block';
-                defaultIcon.className = `fa-solid ${iconClass} panel-default-icon`;
+
+                imgTester.onerror = function() {
+                    // كتمويه احترافي: يلا ما لقاش الصورة كيعطي أفاتار افتراضي ومكيوقفش الموقع
+                    inputSpinner.style.display = "none";
+                    let placeholderAvatar = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80";
+                    inputInlineAvatar.src = placeholderAvatar;
+                    inputInlineAvatar.style.display = "block";
+                    globalBitmojiUrl = placeholderAvatar;
+                };
+            }, doneTypingInterval);
+        }
+
+        // 🚀 تشغيل الانتقال التام عند الضغط على زر Reveal
+        function triggerReveal() {
+            const usernameInput = document.getElementById('usernameInput');
+            let inputValue = usernameInput.value.trim();
+            if (inputValue === "") {
+                showToast("Username First");
+                return;
             }
-            panel.classList.add('active');
-        }
 
-        function closePreview() {
-            panel.classList.remove('active');
-            loadingOverlay.classList.remove('active');
-        }
+            globalUsername = inputValue;
+            connectBtn.style.pointerEvents = "none";
+            connectBtn.style.opacity = "0.6";
 
-        function startVerification() {
-            loadingOverlay.classList.add('active');
-            let progress = 0;
-            const radius = 55;
-            const circumference = 2 * Math.PI * radius;
+            // الانتقال الفوري للواجهة الثانية
+            mainSearchView.classList.add('hidden');
+            systemLoadingView.style.display = "flex";
             
-            const messages = [
-                "PREPARING PROFILE METRICS...",
-                "GENERATING STATS OVERVIEW...",
-                "LOADING INSIGHT COUNTERS...",
-                "RENDERING DASHBOARD PANEL..."
+            loadingBigAvatar.src = globalBitmojiUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80";
+            targetUserDisplay.innerText = `@${globalUsername}`;
+            lockUserSpan.innerText = `@${globalUsername}`;
+            
+            runLoadingSequence();
+        }
+
+        // 📈 إدارة عداد السيكوانس المتتالي والخطوات بحال الفيديو تماما
+        function runLoadingSequence() {
+            let progress = 0;
+            const steps = [
+                document.getElementById('step1'),
+                document.getElementById('step2'),
+                document.getElementById('step3'),
+                document.getElementById('step4')
             ];
 
             const interval = setInterval(() => {
                 progress += 1;
-                progressText.innerText = `${progress}%`;
-                
-                const offset = circumference - (progress / 100) * circumference;
-                progressBar.style.strokeDashoffset = offset;
+                horizontalBarFill.style.width = `${progress}%`;
+                horizontalBarText.innerText = `${progress}%`;
 
-                if (progress < 25) loadingStatus.innerText = messages[0];
-                else if (progress < 55) loadingStatus.innerText = messages[1];
-                else if (progress < 80) loadingStatus.innerText = messages[2];
-                else loadingStatus.innerText = messages[3];
+                if (progress < 25) {
+                    updateStepState(steps[0], 'loading');
+                } else if (progress >= 25 && progress < 50) {
+                    updateStepState(steps[0], 'done');
+                    updateStepState(steps[1], 'loading');
+                    accountStatusBadge.style.display = "inline-block"; // ظهور الشارة الخضراء الحساب موثق
+                } else if (progress >= 50 && progress < 75) {
+                    updateStepState(steps[1], 'done');
+                    updateStepState(steps[2], 'loading');
+                } else if (progress >= 75 && progress < 100) {
+                    updateStepState(steps[2], 'done');
+                    updateStepState(steps[3], 'loading');
+                }
 
                 if (progress >= 100) {
                     clearInterval(interval);
+                    updateStepState(steps[3], 'done');
                     
-                    loadingStatus.style.color = "#34c759";
-                    loadingStatus.innerText = "DASHBOARD READY!";
-                    
+                    // إخفاء كرت الـ Progress وظهور الـ Locker النهائي المقفول
                     setTimeout(() => {
-                        progressBox.style.display = 'none';
-                        finalOfferBox.style.display = 'flex';
-                    }, 500);
+                        loadingSequenceCard.style.display = "none";
+                        finalLockCard.style.display = "block";
+                    }, 600);
                 }
-            }, 35);
+            }, 45); 
         }
 
-        /**
-         * 🛡️ Safe JavaScript Fallback Execution
-         * Opens native og_load lock stream or fallbacks to domain routing if blocked.
-         */
+        function updateStepState(element, state) {
+            if (state === 'loading') {
+                element.className = "sequence-item active";
+                element.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin" style="color: var(--snap-yellow);"></i> ${element.innerText.replace(/^[^\w]*/, '')}`;
+            } else if (state === 'done') {
+                element.className = "sequence-item completed";
+                element.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${element.innerText.replace(/^[^\w]*/, '')}`;
+            }
+        }
+
         function callOgadsLocker() {
             if (typeof og_load === 'function') {
                 og_load(); 
