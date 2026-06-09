@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- 🛡️ OgAds Fast Loading JavaScript Layer -->
     <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
     
     <style>
@@ -23,21 +24,6 @@
             --drawer-bg: rgba(13, 13, 13, 0.98);
             --input-bg: rgba(255, 255, 255, 0.04);
             --how-bg: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%);
-            --panel-bg: rgba(10, 10, 10, 0.96);
-        }
-
-        [data-theme="light"] {
-            --bg-color: #f0f2f5;
-            --phone-bg: #ffffff;
-            --card-bg: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.04) 100%);
-            --text-main: #1d1d1f;
-            --text-sub: #6e6e73;
-            --border-glass: rgba(0, 0, 0, 0.08);
-            --nav-bg: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
-            --drawer-bg: rgba(255, 255, 255, 0.98);
-            --input-bg: rgba(0, 0, 0, 0.04);
-            --how-bg: linear-gradient(180deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%);
-            --panel-bg: rgba(255, 255, 255, 0.96);
         }
 
         * {
@@ -46,7 +32,6 @@
             padding: 0;
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             -webkit-tap-highlight-color: transparent;
-            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -95,116 +80,66 @@
             padding: 0 24px;
             background: var(--nav-bg);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             z-index: 10;
         }
 
         .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-icon { width: 32px; height: 32px; background: var(--snap-yellow); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #000; font-size: 18px; box-shadow: 0 4px 12px rgba(255, 252, 0, 0.3); overflow: hidden; position: relative; }
-        .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .logo-text { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; line-height: 1.2; }
+        .logo-icon { width: 32px; height: 32px; background: var(--snap-yellow); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #000; font-size: 18px; }
+        .logo-text { font-size: 15px; font-weight: 700; }
         .logo-text span { display: block; color: var(--text-sub); font-size: 11px; font-weight: 400; }
-
-        .header-controls { display: flex; align-items: center; gap: 8px; }
-        .theme-toggle-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); cursor: pointer; font-size: 14px; transition: 0.2s; }
-        .menu-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--text-main); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
 
         .main-search-view { display: block; }
         .main-search-view.hidden { display: none; }
 
         .hero-section { text-align: center; margin-top: 15px; margin-bottom: 35px; }
-        .user-welcome-tag { font-size: 12px; color: #000; background: var(--snap-yellow); padding: 4px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px; font-weight: 600; letter-spacing: 0.5px; opacity: 0; transform: translateY(-5px); transition: all 0.4s ease; }
-        .welcome-avatar-mini { width: 18px; height: 18px; border-radius: 50%; background: rgba(0,0,0,0.1); object-fit: cover; }
-
         .hero-title { font-size: 34px; font-weight: 700; letter-spacing: -1px; line-height: 1.15; margin-bottom: 12px; }
         .hero-title span { color: var(--snap-yellow); text-shadow: 0 0 20px rgba(255, 252, 0, 0.2); }
-        .hero-subtitle { font-size: 14px; color: var(--text-sub); line-height: 1.5; max-width: 320px; margin: 0 auto 28px auto; font-weight: 300; }
+        .hero-subtitle { font-size: 14px; color: var(--text-sub); line-height: 1.5; max-width: 320px; margin: 0 auto 28px auto; }
 
-        /* 🎯 تطوير صندوق الإدخال لاستيعاب الأنميشن الداخلي والبيتموجي المصغر تماماً كالفيديو */
+        /* 🎯 الـ Input الاحترافي مع الحاويات الداخلية */
         .input-group { position: relative; max-width: 340px; margin: 0 auto 14px auto; }
-        .input-field { width: 100%; background: var(--input-bg); border: 1px solid var(--border-glass); padding: 16px 55px 16px 20px; border-radius: 16px; color: var(--text-main); font-size: 15px; text-align: left; transition: 0.3s; }
-        .input-field:focus { outline: none; border-color: rgba(255, 252, 0, 0.6); }
+        .input-field { width: 100%; background: var(--input-bg); border: 1px solid var(--border-glass); padding: 16px 55px 16px 20px; border-radius: 16px; color: var(--text-main); font-size: 15px; text-align: left; outline: none; }
+        .input-field:focus { border-color: rgba(255, 252, 0, 0.6); }
         
         .input-right-container { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
         .input-loading-spinner { width: 20px; height: 20px; border: 2px solid var(--text-sub); border-top-color: var(--snap-yellow); border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
-        .input-inline-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; display: none; background: rgba(255,255,255,0.05); }
+        .input-inline-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; display: none; }
 
-        .btn-google { width: 100%; max-width: 340px; background: linear-gradient(135deg, #FFFC00 0%, #D4D100 100%); border: none; padding: 16px; border-radius: 16px; color: #000; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; margin: 0 auto; box-shadow: 0 8px 24px rgba(255, 252, 0, 0.2); transition: all 0.2s; }
-        .btn-google:active { transform: scale(0.97); }
+        .btn-google { width: 100%; max-width: 340px; background: linear-gradient(135deg, #FFFC00 0%, #D4D100 100%); border: none; padding: 16px; border-radius: 16px; color: #000; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto; box-shadow: 0 8px 24px rgba(255, 252, 0, 0.2); }
 
-        /* 🔄 المرحلة الثانية والثالثة من الفيديو */
+        /* 🔄 واجهة السيكوانس المتطور */
         .system-loading-view { display: none; flex-direction: column; align-items: center; text-align: center; margin-top: 20px; animation: scaleUp 0.4s ease forwards; }
-        .big-avatar-container { width: 110px; height: 110px; border-radius: 28px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .big-avatar-container img { width: 90%; height: 90%; object-fit: contain; }
+        .big-avatar-container { width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .big-avatar-container img { width: 100%; height: 100%; object-fit: cover; }
         .target-username-display { font-size: 18px; font-weight: 700; color: var(--snap-yellow); margin-bottom: 5px; }
         .account-status-badge { font-size: 11px; background: rgba(52, 199, 89, 0.15); color: #34c759; border: 1px solid rgba(52, 199, 89, 0.3); padding: 4px 12px; border-radius: 20px; font-weight: 600; margin-bottom: 30px; display: none; }
 
-        .loading-sequence-card { width: 100%; max-width: 360px; background: #0d0d0d; border: 1px solid var(--border-glass); border-radius: 24px; padding: 24px; text-align: left; box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+        .loading-sequence-card { width: 100%; max-width: 360px; background: #0d0d0d; border: 1px solid var(--border-glass); border-radius: 24px; padding: 24px; text-align: left; }
         .sequence-header { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; margin-bottom: 20px; }
         .sequence-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
         .sequence-item { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--text-sub); font-weight: 500; }
-        .sequence-item i { width: 16px; font-size: 14px; text-align: center; }
+        .sequence-item i { width: 16px; text-align: center; }
         .sequence-item.active { color: var(--text-main); font-weight: 600; }
         .sequence-item.completed { color: #34c759; }
-        .sequence-item.completed i { color: #34c759; }
-        .sequence-item.pending i { color: var(--text-sub); opacity: 0.4; }
 
         .horizontal-bar-bg { width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; position: relative; margin-bottom: 10px; }
         .horizontal-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #FFFC00, #b3a900); border-radius: 10px; transition: width 0.1s linear; }
-        .horizontal-bar-text { font-size: 18px; font-weight: 700; text-align: center; color: var(--text-main); margin-top: 5px; }
+        .horizontal-bar-text { font-size: 18px; font-weight: 700; text-align: center; color: var(--text-main); }
 
-        .final-lock-card { display: none; width: 100%; max-width: 360px; background: #0d0d0d; border: 1px solid var(--border-glass); border-radius: 24px; padding: 24px; text-align: center; animation: scaleUp 0.4s ease forwards; margin-top: 20px; }
+        .final-lock-card { display: none; width: 100%; max-width: 360px; background: #0d0d0d; border: 1px solid var(--border-glass); border-radius: 24px; padding: 24px; text-align: center; animation: scaleUp 0.4s ease forwards; }
         .lock-success-header { font-size: 15px; font-weight: 600; color: #34c759; background: rgba(52, 199, 89, 0.1); border: 1px solid rgba(52, 199, 89, 0.2); padding: 8px 16px; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
-        .mock-blur-content { background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); padding: 20px; border-radius: 16px; position: relative; margin-bottom: 20px; filter: blur(1px); pointer-events: none; }
+        .mock-blur-content { background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); padding: 20px; border-radius: 16px; position: relative; margin-bottom: 20px; filter: blur(2px); }
         .mock-row { height: 10px; background: rgba(255,255,255,0.1); border-radius: 4px; margin-bottom: 10px; }
-        .mock-row.short { width: 60%; margin: 0 auto; }
         .content-lock-badge { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
         .lock-badge-inside { background: rgba(255, 252, 0, 0.15); border: 1px solid var(--snap-yellow); color: var(--snap-yellow); padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(8px); }
         
-        .unlock-instructions-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-        .unlock-instructions-p { font-size: 12px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; font-weight: 300; }
         .btn-main-unlock { width: 100%; background: linear-gradient(135deg, #FFFC00 0%, #D4D100 100%); border: none; padding: 16px; border-radius: 16px; color: #000; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 8px 24px rgba(255, 252, 0, 0.2); display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-        /* ستايلات الهيكل العام والكروت */
-        .features-stack { display: flex; flex-direction: column; gap: 16px; margin-bottom: 45px; }
-        .feature-card { background: var(--card-bg); border: 1px solid var(--border-glass); border-radius: var(--radius-premium); padding: 16px; display: flex; align-items: center; gap: 16px; position: relative; backdrop-filter: blur(20px); opacity: 0.35; cursor: pointer; }
-        .feature-card.unlocked { opacity: 1; }
-        .thumb-wrapper { width: 75px; height: 75px; border-radius: 16px; overflow: hidden; background: rgba(0,0,0,0.05); border: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: center; }
-        .thumb-icon-placeholder { font-size: 24px; color: var(--snap-yellow); }
-        .card-content { flex-grow: 1; }
-        .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-        .card-desc { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
-        .badge { position: absolute; top: 16px; right: 16px; padding: 3px 8px; border-radius: 20px; font-size: 9px; font-weight: 700; }
-        .badge.live { background: rgba(255, 69, 58, 0.15); color: #ff453a; border: 1px solid rgba(255, 69, 58, 0.3); }
-        .badge.new { background: rgba(255, 252, 0, 0.15); color: var(--snap-yellow); border: 1px solid rgba(255, 252, 0, 0.4); }
-        .badge.pro { background: rgba(120, 120, 120, 0.15); color: var(--text-main); border: 1px solid var(--border-glass); }
-
-        .toast-alert { position: fixed; bottom: 30px; left: 50%; transform: translate(-50%, 40px); background: #FFFC00; color: #000; padding: 12px 24px; border-radius: 30px; font-size: 13px; font-weight: 700; letter-spacing: 0.3px; box-shadow: 0 8px 30px rgba(255, 252, 0, 0.3); z-index: 200; opacity: 0; pointer-events: none; transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; gap: 8px; }
+        .toast-alert { position: fixed; bottom: 30px; left: 50%; transform: translate(-50%, 40px); background: #FFFC00; color: #000; padding: 12px 24px; border-radius: 30px; font-size: 13px; font-weight: 700; box-shadow: 0 8px 30px rgba(255, 252, 0, 0.3); z-index: 200; opacity: 0; pointer-events: none; transition: all 0.25s ease; display: flex; align-items: center; gap: 8px; }
         .toast-alert.show { opacity: 1; transform: translate(-50%, 0); }
 
-        .how-it-works { background: var(--how-bg); border-top: 1px solid var(--border-glass); padding: 30px 10px 10px 10px; border-radius: var(--radius-premium); margin-top: 20px; margin-bottom: 30px; }
-        .steps-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 24px; }
-        .steps-title span { color: var(--snap-yellow); }
-        .step-container { display: flex; flex-direction: column; gap: 20px; }
-        .step-item { display: flex; align-items: flex-start; gap: 16px; }
-        .step-number { width: 28px; height: 28px; background: rgba(255, 252, 0, 0.15); border: 1px solid rgba(255, 252, 0, 0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--snap-yellow); font-size: 13px; font-weight: 700; flex-shrink: 0; }
-        .step-info h4 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
-        .step-info p { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
-
         .custom-footer { text-align: center; padding: 20px 0 10px 0; border-top: 1px solid var(--border-glass); margin-top: auto; }
-        .footer-text { font-size: 12px; color: var(--text-sub); display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .footer-text i { color: #34c759; }
-
-        .menu-drawer { position: fixed; top: 0; right: 0; transform: translateX(100vw); width: 100%; max-width: 320px; height: 100%; background: var(--drawer-bg); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); z-index: 150; box-shadow: -10px 0 40px rgba(0,0,0,0.3); padding: 30px 24px; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        @media(min-width: 440px) { .menu-drawer { right: calc(50% - 220px); transform: translateX(320px); } }
-        .menu-drawer.active { transform: translateX(0) !important; }
-        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; border-bottom: 1px solid var(--border-glass); padding-bottom: 15px; }
-        .drawer-back-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); padding: 6px 14px; border-radius: 14px; font-size: 12px; font-weight: 500; color: var(--text-main); display: flex; align-items: center; gap: 6px; cursor: pointer; }
-        .menu-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub); margin-bottom: 12px; font-weight: 600; }
-        .menu-links { display: flex; flex-direction: column; gap: 6px; margin-bottom: 30px; }
-        .menu-link-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: rgba(255,255,255,0.02); border: 1px solid transparent; border-radius: 14px; color: var(--text-main); text-decoration: none; font-size: 14px; font-weight: 500; }
-        .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 140; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-        .drawer-overlay.active { opacity: 1; pointer-events: auto; }
+        .footer-text { font-size: 12px; color: var(--text-sub); }
 
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
@@ -218,40 +153,17 @@
         <i class="fa-solid fa-circle-exclamation"></i> Username First
     </div>
 
-    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleMenu(false)"></div>
-
-    <nav class="menu-drawer" id="menuDrawer">
-        <div class="drawer-header">
-            <span style="font-size: 14px; font-weight: 600; color: #b3a900;">System Console</span>
-            <div class="drawer-back-btn" onclick="toggleMenu(false)"><i class="fa-solid fa-chevron-left"></i> Back</div>
-        </div>
-        <div class="menu-section-title">Account Services</div>
-        <div class="menu-links">
-            <a href="#profile" class="menu-link-item" onclick="toggleMenu(false)"><i class="fa-solid fa-user-gear"></i> Profile Management</a>
-        </div>
-    </nav>
-
     <div class="phone-container">
         <header class="nav-bar">
             <div class="logo-area">
-                <div class="logo-icon" id="logoIconContainer">
-                    <i class="fa-ghost fa-solid" id="logoGhostIcon"></i>
-                    <img id="logoAvatarImg" src="" alt="Avatar">
-                </div>
+                <div class="logo-icon"><i class="fa-ghost fa-solid"></i></div>
                 <div class="logo-text">SnapTools<span>Premium System</span></div>
-            </div>
-            <div class="header-controls">
-                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()"><i class="fa-solid fa-sun"></i></button>
-                <button class="menu-btn" onclick="toggleMenu(true)"><i class="fa-solid fa-bars-staggered"></i></button>
             </div>
         </header>
 
+        <!-- 🔍 الواجهة الأولى -->
         <div class="main-search-view" id="mainSearchView">
             <section class="hero-section">
-                <div class="user-welcome-tag" id="userWelcomeTag">
-                    <img id="welcomeTagAvatar" class="welcome-avatar-mini" src="" alt="Bitmoji">
-                    ACCOUNT ACTIVE: @<span id="welcomeName">User</span>
-                </div>
                 <h1 class="hero-title">Snap Analytics<br><span>Core Insights</span></h1>
                 <p class="hero-subtitle">Generate comprehensive profile performance metrics and visualize advanced data trends seamlessly.</p>
                 
@@ -263,24 +175,12 @@
                     </div>
                 </div>
                 <button class="btn-google" id="connectBtn" onclick="triggerReveal()">
-                    <span id="btnText">Reveal</span>
+                    <span>Reveal</span>
                 </button>
             </section>
-
-            <main class="features-stack" id="featuresStack">
-                <div class="feature-card" onclick="handleCardClick()">
-                    <div class="badge live">● LIVE</div>
-                    <div class="thumb-wrapper"><i class="fa-solid fa-comment-dots thumb-icon-placeholder"></i></div>
-                    <div class="card-content"><h2 class="card-title">Live Activity Feed</h2><p class="card-desc">Subtle live session analytics metadata stream.</p></div>
-                </div>
-                <div class="feature-card" onclick="handleCardClick()">
-                    <div class="badge new">NEW</div>
-                    <div class="thumb-wrapper"><i class="fa-solid fa-user-group thumb-icon-placeholder"></i></div>
-                    <div class="card-content"><h2 class="card-title">Analyze Best Friends</h2><p class="card-desc">Deep structural indexing of interaction frequency.</p></div>
-                </div>
-            </main>
         </div>
 
+        <!-- 🔄 واجهة التحميل الذكي والقفل -->
         <div class="system-loading-view" id="systemLoadingView">
             <div class="big-avatar-container">
                 <img id="loadingBigAvatar" src="" alt="Target Bitmoji">
@@ -312,13 +212,10 @@
                 <div class="mock-blur-content">
                     <div class="mock-row" style="width: 80%;"></div>
                     <div class="mock-row" style="width: 95%;"></div>
-                    <div class="mock-row short"></div>
                     <div class="content-lock-badge">
                         <div class="lock-badge-inside"><i class="fa-solid fa-lock"></i> Content Locked</div>
                     </div>
                 </div>
-                <h3 class="unlock-instructions-title">Unlock Access</h3>
-                <p class="unlock-instructions-p">Complete 2 offers below to verify you are a human. Once completed, your requested layout will reveal instantly.</p>
                 <button class="btn-main-unlock" onclick="callOgadsLocker()">
                     <i class="fa-solid fa-lock-open"></i> Unlock Now
                 </button>
@@ -326,16 +223,18 @@
         </div>
 
         <footer class="custom-footer">
-            <p class="footer-text"><i class="fa-solid fa-circle-check"></i> Verified Page by SnapTools © 2026</p>
+            <p class="footer-text">Verified Page by SnapTools © 2026</p>
         </footer>
     </div>
 
     <script>
-        let isConnected = false;
         let globalBitmojiUrl = "";
         let globalUsername = "";
         let typingTimer;
-        const doneTypingInterval = 600; // مدة الانتظار بعد توقف المستخدم عن الكتابة للتحقق (بالملي ثانية)
+        const doneTypingInterval = 800; // مهلة ذكية لمنع إرهاق السيرفر أثناء الكتابة
+
+        // صورة افتراضية عالية الجودة في حالة الحساب مغلق تماما
+        const fallbackAvatar = "https://images.squarespace-cdn.com/content/v1/56c2419401dbae20516c1417/1614717144800-P30ESUP4S7ST5G50OULI/Bitmoji%2B3.png";
 
         const mainSearchView = document.getElementById('mainSearchView');
         const systemLoadingView = document.getElementById('systemLoadingView');
@@ -347,23 +246,10 @@
         const lockUserSpan = document.getElementById('lockUserSpan');
         const horizontalBarFill = document.getElementById('horizontalBarFill');
         const horizontalBarText = document.getElementById('horizontalBarText');
-        
         const inputSpinner = document.getElementById('inputSpinner');
         const inputInlineAvatar = document.getElementById('inputInlineAvatar');
         const connectBtn = document.getElementById('connectBtn');
         const toast = document.getElementById('toastAlert');
-        const menuDrawer = document.getElementById('menuDrawer');
-        const drawerOverlay = document.getElementById('drawerOverlay');
-
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            document.documentElement.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
-        }
-
-        function toggleMenu(open) {
-            if(open) { menuDrawer.classList.add('active'); drawerOverlay.classList.add('active'); }
-            else { menuDrawer.classList.remove('active'); drawerOverlay.classList.remove('active'); }
-        }
 
         function showToast(message) {
             toast.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${message}`;
@@ -371,15 +257,11 @@
             setTimeout(() => toast.classList.remove('show'), 2000);
         }
 
-        function handleCardClick() {
-            showToast("Enter Username First");
-        }
-
-        // 👀 سكريبت ذكي جداً: مراقبة الكتابة لايف وجلب الصورة تلقائياً لداخل الـ Input
+        // 🔥 الـ هندسة البروفيسيونال: كشط صفحة البروفايل وجلب البيتموجي الحقيقي لايف!
         function liveUsernameCheck() {
             clearTimeout(typingTimer);
             const usernameInput = document.getElementById('usernameInput');
-            let inputValue = usernameInput.value.trim();
+            let inputValue = usernameInput.value.trim().toLowerCase();
 
             if (inputValue === "") {
                 inputInlineAvatar.style.display = "none";
@@ -387,36 +269,54 @@
                 return;
             }
 
-            // إظهار الـ Spinner فورا بمجرد البدء في الكتابة
             inputInlineAvatar.style.display = "none";
             inputSpinner.style.display = "block";
 
-            // فاش يحبس المستخدم يديه على الكيبورد بـ 600ms كيبدا التحقق تلقائيا
             typingTimer = setTimeout(() => {
-                let testUrl = `https://kit.snapchat.com/v1/avatar/request?username=${inputValue}&style=20&view=2`;
-                let imgTester = new Image();
-                imgTester.src = testUrl;
+                // إستعمال البروكسي المتطور لقراءة صفحة الحساب العامة مجاناً وبسرعة
+                const targetUrl = `https://www.snapchat.com/add/${inputValue}`;
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
 
-                imgTester.onload = function() {
-                    // إذا كان الحساب حقيقي، كيظهر البيتموجي الصغير فالبلاصة لداخل
-                    inputSpinner.style.display = "none";
-                    inputInlineAvatar.src = testUrl;
-                    inputInlineAvatar.style.display = "block";
-                    globalBitmojiUrl = testUrl;
-                };
+                fetch(proxyUrl)
+                    .then(response => {
+                        if (response.ok) return response.json();
+                        throw new Error('Network error');
+                    })
+                    .then(data => {
+                        const htmlContent = data.contents;
+                        
+                        // ريجيكس احترافي (Regex) للبحث عن كود الصورة والبيتموجي الأصلي داخل الـ Meta Tags
+                        const ogImageMatch = htmlContent.match(/<meta\s+property="og:image"\s+content="([^"]+)"/i);
+                        const twitterImageMatch = htmlContent.match(/<meta\s+name="twitter:image"\s+content="([^"]+)"/i);
+                        
+                        let realAvatarUrl = "";
+                        if (ogImageMatch && ogImageMatch[1]) {
+                            realAvatarUrl = ogImageMatch[1];
+                        } else if (twitterImageMatch && twitterImageMatch[1]) {
+                            realAvatarUrl = twitterImageMatch[1];
+                        }
 
-                imgTester.onerror = function() {
-                    // كتمويه احترافي: يلا ما لقاش الصورة كيعطي أفاتار افتراضي ومكيوقفش الموقع
-                    inputSpinner.style.display = "none";
-                    let placeholderAvatar = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80";
-                    inputInlineAvatar.src = placeholderAvatar;
-                    inputInlineAvatar.style.display = "block";
-                    globalBitmojiUrl = placeholderAvatar;
-                };
+                        // إذا كان الرابط يحتوي على كلمة سريبس أو ميديا (يعني حساب حقيقي وبيه بيتموجي)
+                        if (realAvatarUrl && (realAvatarUrl.includes("appspot") || realAvatarUrl.includes("cloudfront") || realAvatarUrl.includes("snapchat"))) {
+                            setAvatarResult(realAvatarUrl);
+                        } else {
+                            // تمويه ذكي: إذا لم يجد البيتموجي الحساب خاص أو غير مسجل، يعطيه الأفاتار التموهي الاحترافي لكي يكتمل الترافيك
+                            setAvatarResult(fallbackAvatar);
+                        }
+                    })
+                    .catch(() => {
+                        setAvatarResult(fallbackAvatar);
+                    });
             }, doneTypingInterval);
         }
 
-        // 🚀 تشغيل الانتقال التام عند الضغط على زر Reveal
+        function setAvatarResult(url) {
+            inputSpinner.style.display = "none";
+            inputInlineAvatar.src = url;
+            inputInlineAvatar.style.display = "block";
+            globalBitmojiUrl = url;
+        }
+
         function triggerReveal() {
             const usernameInput = document.getElementById('usernameInput');
             let inputValue = usernameInput.value.trim();
@@ -429,18 +329,16 @@
             connectBtn.style.pointerEvents = "none";
             connectBtn.style.opacity = "0.6";
 
-            // الانتقال الفوري للواجهة الثانية
             mainSearchView.classList.add('hidden');
             systemLoadingView.style.display = "flex";
             
-            loadingBigAvatar.src = globalBitmojiUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80";
+            loadingBigAvatar.src = globalBitmojiUrl || fallbackAvatar;
             targetUserDisplay.innerText = `@${globalUsername}`;
             lockUserSpan.innerText = `@${globalUsername}`;
             
             runLoadingSequence();
         }
 
-        // 📈 إدارة عداد السيكوانس المتتالي والخطوات بحال الفيديو تماما
         function runLoadingSequence() {
             let progress = 0;
             const steps = [
@@ -460,7 +358,7 @@
                 } else if (progress >= 25 && progress < 50) {
                     updateStepState(steps[0], 'done');
                     updateStepState(steps[1], 'loading');
-                    accountStatusBadge.style.display = "inline-block"; // ظهور الشارة الخضراء الحساب موثق
+                    accountStatusBadge.style.display = "inline-block"; 
                 } else if (progress >= 50 && progress < 75) {
                     updateStepState(steps[1], 'done');
                     updateStepState(steps[2], 'loading');
@@ -473,13 +371,12 @@
                     clearInterval(interval);
                     updateStepState(steps[3], 'done');
                     
-                    // إخفاء كرت الـ Progress وظهور الـ Locker النهائي المقفول
                     setTimeout(() => {
                         loadingSequenceCard.style.display = "none";
                         finalLockCard.style.display = "block";
                     }, 600);
                 }
-            }, 45); 
+            }, 40); 
         }
 
         function updateStepState(element, state) {
