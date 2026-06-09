@@ -1,546 +1,962 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapReveal AI — Live OSINT Verification System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>System Dashboard - Premium Account Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 🛡️ OgAds Content Locker Layer -->
+    <!-- 🛡️ OgAds Fast Loading JavaScript Layer -->
     <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
-
+    
     <style>
         :root {
-            --bg-main: #0a0a0a;
-            --input-bg: #121212;
-            --border-color: #222222;
+            --bg-color: #0b0b0b;
+            --phone-bg: #000000;
+            --card-bg: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             --snap-yellow: #FFFC00;
-            --text-primary: #ffffff;
-            --text-secondary: #888888;
-            --error-red: #ff3b30;
+            --text-main: #ffffff;
+            --text-sub: #999999;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --radius-premium: 24px;
+            --nav-bg: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            --drawer-bg: rgba(13, 13, 13, 0.98);
+            --input-bg: rgba(255, 255, 255, 0.04);
+            --how-bg: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%);
+            --panel-bg: rgba(10, 10, 10, 0.96);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f0f2f5;
+            --phone-bg: #ffffff;
+            --card-bg: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.04) 100%);
+            --text-main: #1d1d1f;
+            --text-sub: #6e6e73;
+            --border-glass: rgba(0, 0, 0, 0.08);
+            --nav-bg: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
+            --drawer-bg: rgba(255, 255, 255, 0.98);
+            --input-bg: rgba(0, 0, 0, 0.04);
+            --how-bg: linear-gradient(180deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%);
+            --panel-bg: rgba(255, 255, 255, 0.96);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
         }
 
-        .app-wrapper {
+        .ambient-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 252, 0, 0.05) 0%, rgba(0,0,0,0) 70%);
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .phone-container {
             width: 100%;
             max-width: 440px;
-            padding: 40px 24px;
+            min-height: 100vh;
+            background: var(--phone-bg);
+            position: relative;
+            padding: 95px 20px 40px 20px;
+            box-shadow: 0 0 100px rgba(0,0,0,0.2);
+            z-index: 1;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
-        .app-header {
+        .nav-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 85px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 80px;
+            padding: 0 24px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 10;
         }
 
-        .menu-btn {
-            background: #161616;
-            border: 1px solid var(--border-color);
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-primary);
-            cursor: pointer;
-        }
-
-        .search-view {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .brand-logo {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: -1.5px;
-            margin-bottom: 60px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .brand-logo i { color: #ffffff; font-size: 26px; }
-
-        .input-container {
-            position: relative;
-            width: 100%;
-            margin-bottom: 12px;
-        }
-
-        .username-input {
-            width: 100%;
-            background-color: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 20px 60px 20px 20px;
-            color: var(--text-primary);
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .username-input:focus {
-            border-color: #444;
-        }
-
-        .status-container {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .live-spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.05);
-            border-top-color: var(--snap-yellow);
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-            display: none;
-        }
-
-        .status-icon {
-            font-size: 18px;
-            display: none;
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        .status-icon.success { color: var(--snap-yellow); }
-        .status-icon.error { color: var(--error-red); }
-
-        .error-message {
-            color: var(--error-red);
-            font-size: 13px;
-            align-self: flex-start;
-            margin-left: 5px;
-            margin-bottom: 20px;
-            display: none;
-            font-weight: 500;
-        }
-
-        .reveal-btn {
-            width: 100%;
-            background-color: var(--snap-yellow);
-            color: #000000;
-            border: none;
-            padding: 18px;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            display: none;
-            animation: popIn 0.3s ease forwards;
-        }
-
-        /* 🔄 واجهة جلب البيانات والتحليل المتقدم */
-        .analysis-view {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            text-align: center;
-        }
-
-        .analysis-subtitle {
-            color: var(--snap-yellow);
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 40px;
-        }
-
-        .real-bitmoji-box {
-            width: 140px;
-            height: 140px;
-            background: radial-gradient(circle, rgba(255, 252, 0, 0.2) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-        }
-
-        .real-bitmoji-box img {
-            width: 125px;
-            height: 125px;
-            object-fit: contain;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        .target-display-name {
-            font-size: 16px;
-            color: var(--text-secondary);
-            margin-bottom: 35px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .console-card {
-            width: 100%;
-            background: #111111;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 24px;
-            text-align: left;
-        }
-
-        .console-header {
+        .logo-area {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 24px;
         }
 
-        .steps-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .step-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .step-row.active { color: var(--text-primary); font-weight: 500; }
-        .step-row.completed { color: #34c759; }
-        .step-row i { width: 16px; text-align: center; }
-
-        .progress-container {
-            width: 100%;
-            height: 4px;
-            background: #222222;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-
-        .progress-bar-fill {
-            width: 0%;
-            height: 100%;
+        .logo-icon {
+            width: 32px;
+            height: 32px;
             background: var(--snap-yellow);
-            transition: width 0.1s linear;
-        }
-
-        .progress-percentage { font-size: 24px; font-weight: 700; }
-
-        .lock-card {
-            display: none;
-            width: 100%;
-            background: #111111;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px 24px;
-            text-align: center;
-            animation: popIn 0.4s ease forwards;
-        }
-
-        .lock-icon-wrapper {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 252, 0, 0.1);
-            border: 1px solid var(--snap-yellow);
-            border-radius: 50%;
-            display: inline-flex;
+            border-radius: 9px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--snap-yellow);
-            font-size: 22px;
-            margin-bottom: 16px;
+            color: #000;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(255, 252, 0, 0.3);
         }
 
-        .unlock-action-btn {
-            width: 100%;
-            background: var(--snap-yellow);
-            color: #000;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: 700;
+        .logo-text {
             font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            display: block;
+            color: var(--text-sub);
+            font-size: 11px;
+            font-weight: 400;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        [data-theme="light"] .theme-toggle-btn { background: rgba(0,0,0,0.05); }
+        .theme-toggle-btn:active { transform: scale(0.9); }
+
+        .menu-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        [data-theme="light"] .menu-btn { background: rgba(0,0,0,0.05); }
+        .menu-btn:active { transform: scale(0.95); }
+
+        .menu-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            transform: translateX(100vw); 
+            width: 100%;
+            max-width: 320px;
+            height: 100%;
+            background: var(--drawer-bg);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            z-index: 150;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.3);
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        @media(min-width: 440px) {
+            .menu-drawer { 
+                right: calc(50% - 220px); 
+                transform: translateX(320px);
+            }
+        }
+
+        .menu-drawer.active { transform: translateX(0) !important; }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 15px;
+        }
+
+        .drawer-back-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            padding: 6px 14px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        [data-theme="light"] .drawer-back-btn { background: rgba(0,0,0,0.05); }
+
+        .menu-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 30px;
+        }
+
+        .menu-link-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid transparent;
+            border-radius: 14px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        [data-theme="light"] .menu-link-item { background: rgba(0,0,0,0.02); }
+        .menu-link-item i { width: 20px; color: var(--text-sub); font-size: 16px; }
+        .menu-link-item:active { background: rgba(255,255,255,0.05); border-color: var(--border-glass); color: var(--snap-yellow); }
+
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 140;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .drawer-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .hero-section {
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 35px;
+        }
+
+        .user-welcome-tag {
+            font-size: 12px;
+            color: #000;
+            background: var(--snap-yellow);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: all 0.4s ease;
+        }
+
+        .hero-title {
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .hero-title span { color: var(--snap-yellow); text-shadow: 0 0 20px rgba(255, 252, 0, 0.2); }
+        [data-theme="light"] .hero-title span { color: #b3a900; text-shadow: none; }
+        .hero-subtitle { font-size: 14px; color: var(--text-sub); line-height: 1.5; max-width: 320px; margin: 0 auto 28px auto; font-weight: 300; }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 14px;
+            max-width: 340px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .input-field {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--border-glass);
+            padding: 16px 20px;
+            border-radius: 16px;
+            color: var(--text-main);
+            font-size: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .input-field:focus { outline: none; border-color: rgba(255, 252, 0, 0.6); }
+
+        .btn-google {
+            width: 100%;
+            max-width: 340px;
+            background: linear-gradient(135deg, #FFFC00 0%, #D4D100 100%);
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            color: #000;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            margin: 0 auto;
+            box-shadow: 0 8px 24px rgba(255, 252, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+        }
+
+        .btn-google:active { transform: scale(0.97); }
+        .btn-spinner { width: 18px; height: 18px; border: 2px solid #000; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
+
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .features-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 45px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-premium);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            opacity: 0.35;
+            cursor: pointer;
+        }
+
+        .feature-card.unlocked { opacity: 1; }
+        .feature-card.unlocked:active { transform: scale(0.97); border-color: rgba(255, 252, 0, 0.4); }
+        
+        .thumb-wrapper { width: 75px; height: 75px; border-radius: 16px; overflow: hidden; background: rgba(0,0,0,0.05); border: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: center; }
+        [data-theme="dark"] .thumb-wrapper { background: #111; }
+        .thumb-icon-placeholder { font-size: 24px; color: #b3a900; }
+        [data-theme="dark"] .thumb-icon-placeholder { color: var(--snap-yellow); }
+        
+        .card-content { flex-grow: 1; }
+        .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .card-desc { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
+
+        .badge { position: absolute; top: 16px; right: 16px; padding: 3px 8px; border-radius: 20px; font-size: 9px; font-weight: 700; }
+        .badge.live { background: rgba(255, 69, 58, 0.15); color: #ff453a; border: 1px solid rgba(255, 69, 58, 0.3); }
+        .badge.new { background: rgba(255, 252, 0, 0.15); color: #b3a900; border: 1px solid rgba(255, 252, 0, 0.4); }
+        [data-theme="dark"] .badge.new { color: var(--snap-yellow); }
+        .badge.pro { background: rgba(120, 120, 120, 0.15); color: var(--text-main); border: 1px solid var(--border-glass); }
+
+        .toast-alert {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translate(-50%, 40px);
+            background: #FFFC00;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 30px rgba(255, 252, 0, 0.3);
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .toast-alert.show { opacity: 1; transform: translate(-50%, 0); }
+
+        .how-it-works {
+            background: var(--how-bg);
+            border-top: 1px solid var(--border-glass);
+            padding: 30px 10px 10px 10px;
+            border-radius: var(--radius-premium);
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .steps-title { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 24px; letter-spacing: -0.3px; }
+        .steps-title span { color: #b3a900; }
+        [data-theme="dark"] .steps-title span { color: var(--snap-yellow); }
+
+        .step-container { display: flex; flex-direction: column; gap: 20px; }
+        .step-item { display: flex; align-items: flex-start; gap: 16px; }
+        .step-number { width: 28px; height: 28px; background: rgba(255, 252, 0, 0.15); border: 1px solid rgba(255, 252, 0, 0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #b3a900; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+        [data-theme="dark"] .step-number { color: var(--snap-yellow); }
+
+        .step-info h4 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
+        .step-info p { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
+
+        .custom-footer { text-align: center; padding: 20px 0 10px 0; border-top: 1px solid var(--border-glass); margin-top: auto; }
+        .footer-text { font-size: 12px; color: var(--text-sub); letter-spacing: 0.8px; font-weight: 400; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .footer-text i { color: #34c759; font-size: 13px; }
+
+        .preview-panel {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, 100%);
+            width: 100%;
+            max-width: 440px;
+            height: 100%;
+            background: var(--panel-bg);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            z-index: 100;
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .preview-panel.active { transform: translate(-50%, 0); }
+        .panel-handle { width: 36px; height: 5px; background: rgba(120,120,120,0.3); border-radius: 10px; margin: 0 auto 16px auto; flex-shrink: 0; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-shrink: 0; }
+        
+        .panel-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.04);
+            border: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+        [data-theme="dark"] .panel-close { background: rgba(255,255,255,0.06); }
+
+        .panel-image-container {
+            width: 100%;
+            height: 220px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.04);
+            border: 1px solid var(--border-glass);
+            margin-bottom: 16px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        [data-theme="dark"] .panel-image-container { background: #141414; }
+
+        .panel-image-container img { width: 100%; height: 100%; object-fit: cover; display: none; filter: blur(4px); transform: scale(1.05); }
+        
+        .blur-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); display: none; flex-direction: column; align-items: center; justify-content: center; gap: 8px; z-index: 2; }
+        .blur-overlay i { font-size: 28px; color: var(--snap-yellow); }
+        .blur-overlay span { font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
+
+        .panel-default-icon { font-size: 55px; color: rgba(180,170,0,0.15); }
+        [data-theme="dark"] .panel-default-icon { color: rgba(255,252,0,0.15); }
+
+        .panel-mockup-overlay { position: absolute; inset: 0; top: auto; background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.85) 100%); display: flex; align-items: flex-end; padding: 14px; font-size: 12px; color: var(--snap-yellow); font-weight: 500; z-index: 3; }
+
+        .panel-body { margin-bottom: 20px; }
+        .panel-body h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .panel-body p { font-size: 14px; color: var(--text-sub); line-height: 1.45; font-weight: 300; }
+
+        .btn-verify {
+            width: 100%;
+            background: linear-gradient(135deg, #FFFC00 0%, #D4D100 100%);
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            color: #000;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(255, 252, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 5px; 
+            flex-shrink: 0;
+        }
+
+        .loading-overlay { position: absolute; inset: 0; background: var(--phone-bg); z-index: 110; border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .loading-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .progress-box { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+        .progress-container { position: relative; width: 120px; height: 120px; }
+        .progress-svg { transform: rotate(-90deg); width: 120px; height: 120px; }
+        .progress-svg circle { width: 100%; height: 100%; fill: none; stroke-width: 6; stroke-linecap: round; }
+        .progress-track { stroke: var(--border-glass); }
+        .progress-bar { stroke: var(--snap-yellow); stroke-dasharray: 345; stroke-dashoffset: 345; transition: stroke-dashoffset 0.1s linear; }
+        .progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--text-main); }
+        .loading-status { margin-top: 24px; font-size: 14px; color: var(--text-sub); letter-spacing: 0.5px; text-align: center; padding: 0 20px; font-weight: 500;}
+
+        .final-offer-box { display: none; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; width: 100%; margin-top: 30px; animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .final-offer-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; color: #34c759; }
+        .final-offer-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; font-weight: 300; }
+        .final-offer-desc span { color: var(--text-main); font-weight: 600; }
+        
+        .btn-final-verify {
+            width: 100%;
+            background: linear-gradient(135deg, #34c759 0%, #28a745 100%);
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(52, 199, 89, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-final-verify:active { transform: scale(0.97); }
+
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <div class="app-wrapper">
-        <header class="app-header">
-            <div class="menu-btn"><i class="fa-solid fa-bars-staggered"></i></div>
-            <div style="color: var(--text-secondary); font-size: 13px; text-decoration: underline; cursor: pointer;">Terms of Service</div>
-        </header>
+    <div class="ambient-glow"></div>
 
-        <!-- 🔍 واجهة الفحص الفوري الذكي -->
-        <div class="search-view" id="searchView">
-            <div class="brand-logo">
-                <span>sn</span><i class="fa-solid fa-ghost"></i><span>reveal</span>
-            </div>
-            
-            <div class="input-container">
-                <input type="text" class="username-input" id="targetInput" placeholder="Enter Username" oninput="handleTyping()">
-                <div class="status-container">
-                    <div class="live-spinner" id="liveSpinner"></div>
-                    <i class="fa-solid fa-circle-check status-icon success" id="successIcon"></i>
-                    <i class="fa-solid fa-circle-xmark status-icon error" id="errorIcon"></i>
-                </div>
-            </div>
-            <div class="error-message" id="errorMessage">This Snapchat account was not found.</div>
+    <div class="toast-alert" id="toastAlert">
+        <i class="fa-solid fa-circle-exclamation"></i> Username First
+    </div>
 
-            <button class="reveal-btn" id="revealBtn" onclick="startAnalysis()">Reveal</button>
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleMenu(false)"></div>
+
+    <nav class="menu-drawer" id="menuDrawer">
+        <div class="drawer-header">
+            <span style="font-size: 14px; font-weight: 600; color: #b3a900;">System Console</span>
+            <div class="drawer-back-btn" onclick="toggleMenu(false)"><i class="fa-solid fa-chevron-left"></i> Back</div>
         </div>
 
-        <!-- 🔄 واجهة العرض د البيتموجي الحقيقي والحي للضحية -->
-        <div class="analysis-view" id="analysisView">
-            <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 4px;">SnapReveal — Unlock</h2>
-            <p class="analysis-subtitle">Snapchat Insights</p>
+        <div class="menu-section-title">Account Services</div>
+        <div class="menu-links">
+            <a href="#profile" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-user-gear"></i> Profile Management
+            </a>
+            <a href="#security" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-shield-halved"></i> Encryption & Security
+            </a>
+        </div>
 
-            <div class="real-bitmoji-box">
-                <img id="realBitmojiImg" src="" alt="Live Real Bitmoji">
+        <div class="menu-section-title">Legal & Integrity</div>
+        <div class="menu-links">
+            <a href="#privacy" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-lock"></i> Privacy Policy
+            </a>
+            <a href="#terms" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-file-contract"></i> Terms of Service
+            </a>
+        </div>
+
+        <div class="menu-section-title">Support</div>
+        <div class="menu-links">
+            <a href="#help" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-circle-question"></i> Help Core Diagnostics
+            </a>
+        </div>
+    </nav>
+
+    <div class="phone-container">
+        <header class="nav-bar">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fa-ghost fa-solid"></i></div>
+                <div class="logo-text">SnapTools<span>Premium System</span></div>
             </div>
-            <div class="target-display-name" id="targetDisplayName">@username</div>
+            
+            <div class="header-controls">
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <button class="menu-btn" onclick="toggleMenu(true)"><i class="fa-solid fa-bars-staggered"></i></button>
+            </div>
+        </header>
 
-            <div class="console-card" id="consoleCard">
-                <div class="console-header">
-                    <i class="fa-solid fa-circle-notch fa-spin" style="color: var(--snap-yellow);"></i>
-                    <span>System Analytics Running</span>
+        <section class="hero-section">
+            <div class="user-welcome-tag" id="userWelcomeTag">ACCOUNT ACTIVE: @<span id="welcomeName">User</span></div>
+            <h1 class="hero-title">Snap Analytics<br><span>Core Insights</span></h1>
+            <p class="hero-subtitle">Generate comprehensive profile performance metrics and visualize advanced data trends seamlessly.</p>
+            
+            <div class="input-group">
+                <input type="text" class="input-field" id="usernameInput" placeholder="Username">
+            </div>
+            <button class="btn-google" id="connectBtn" onclick="handleAccountConnection()">
+                <span class="btn-spinner" id="btnSpinner"></span>
+                <span id="btnText">Connect Account</span>
+            </button>
+        </section>
+
+        <main class="features-stack" id="featuresStack">
+            <div class="feature-card" onclick="handleCardClick('Live Activity Feed', 'Real-time telemetry mapping of active conversation streams.', 'fa-comment-dots', 'typing.jpg')">
+                <div class="badge live">● LIVE</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-comment-dots thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Live Activity Feed</h2>
+                    <p class="card-desc">Subtle live session analytics and metadata stream generation.</p>
                 </div>
-                <div class="steps-list">
-                    <div class="step-row" id="s1"><i class="fa-solid fa-circle-notch"></i> Accessing user database...</div>
-                    <div class="step-row" id="s2"><i class="fa-solid fa-circle-notch"></i> Syncing live Bitmoji structure...</div>
-                    <div class="step-row" id="s3"><i class="fa-solid fa-circle-notch"></i> Compiling private user metrics...</div>
-                    <div class="step-row" id="s4"><i class="fa-solid fa-circle-notch"></i> Finalizing document package...</div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('Analyze Best Friends', 'Advanced structural hierarchy mapping algorithms for core connections.', 'fa-user-group', 'friends.jpg')">
+                <div class="badge new">NEW</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-user-group thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Analyze Best Friends</h2>
+                    <p class="card-desc">Deep structural indexing of interaction frequency nodes.</p>
                 </div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('Access Private Folders', 'Secure recovery layer verification interface simulations.', 'fa-eye-slash', 'eyes.jpg')">
+                <div class="badge pro">PRO</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-eye-slash thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Access Private Folders</h2>
+                    <p class="card-desc">Systematic metadata diagnostic access visualization panel.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('Retrieve Chat History', 'Automated cloud database backup logs sorting & structural analysis.', 'fa-clock-rotate-left', 'chat.jpg')">
+                <div class="badge pro">PRO</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-clock-rotate-left thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Retrieve Chat History</h2>
+                    <p class="card-desc">Secure restoration protocols for temporary platform logs.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('View Live Location', 'Geospatial mapping and accurate node tracking diagnostics.', 'fa-location-dot', 'location.jpg')">
+                <div class="badge pro">PRO</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-location-dot thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">View Live Location</h2>
+                    <p class="card-desc">High-fidelity triangulation simulations on vectorized maps.</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- 🔄 Re-added all 4 original steps smoothly here -->
+        <section class="how-it-works">
+            <h3 class="steps-title">How To <span>Get Started</span></h3>
+            <div class="step-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-info">
+                        <h4>Enter Account Details</h4>
+                        <p>Write down the target username inside the field box above.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-info">
+                        <h4>Connect with System</h4>
+                        <p>Tap "Connect Account" button to initialize the simulation connection.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-info">
+                        <h4>Select Insight Feature</h4>
+                        <p>Choose any unlocked metric diagnostic card above to begin retrieval.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-info">
+                        <h4>Human Verification</h4>
+                        <p>Complete the quick ecosystem sync layout to view secure files instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="custom-footer">
+            <p class="footer-text"><i class="fa-solid fa-circle-check"></i> Verified Page by SnapTools © 2026</p>
+        </footer>
+    </div>
+
+    <div class="preview-panel" id="previewPanel">
+        <div class="panel-handle"></div>
+        <div class="panel-header">
+            <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #b3a900; font-weight: 600;">Secure Insight Module</span>
+            <div class="panel-close" onclick="closePreview()"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+        
+        <div class="panel-image-container">
+            <div class="blur-overlay" id="blurOverlay">
+                <i class="fa-solid fa-lock"></i>
+                <span>Content Locked</span>
+            </div>
+            <i class="fa-solid fa-chart-line panel-default-icon" id="panelDefaultIcon"></i>
+            <img src="" id="panelCustomImage" alt="Preview Graphics">
+            <div class="panel-mockup-overlay">
+                <i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Verified Ecosystem Diagnostic Link Active
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <h3 id="panelTitle">Feature Title</h3>
+            <p id="panelDesc">Detailed architectural telemetry configurations overlay right here seamlessly.</p>
+        </div>
+
+        <button class="btn-verify" id="mainVerifyBtn" onclick="startVerification()">Verify to Continue</button>
+
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="progress-box" id="progressBox">
                 <div class="progress-container">
-                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                    <svg class="progress-svg">
+                        <circle class="progress-track" cx="60" cy="60" r="55"></circle>
+                        <circle class="progress-bar" id="progressBar" cx="60" cy="60" r="55"></circle>
+                    </svg>
+                    <div class="progress-text" id="progressText">0%</div>
                 </div>
-                <div class="progress-percentage" id="progressPercentage">0%</div>
+                <div class="loading-status" id="loadingStatus">LOADING INSIGHT COUNTERS...</div>
             </div>
 
-            <!-- كارد القفل الموجه للـ CPA اللوكر -->
-            <div class="lock-card" id="lockCard">
-                <div class="lock-icon-wrapper"><i class="fa-solid fa-lock"></i></div>
-                <h3>Data Ready</h3>
-                <p>Private analytics package compiled successfully. Complete the quick security check to unlock.</p>
-                <button class="unlock-action-btn" onclick="triggerOgads()"><i class="fa-solid fa-shield-halved"></i> Unlock Package</button>
+            <div class="final-offer-box" id="finalOfferBox">
+                <h3 class="final-offer-title">System Synced Successfully!</h3>
+                <p class="final-offer-desc">To access the full configuration layer and download logs, you must complete <span>(1) offer</span> below to verify you are a human. Once completed, your requested layout will reveal instantly here.</p>
+                
+                <!-- 🛡️ Anti-Adblocker / Safe Lead JavaScript Target -->
+                <button class="btn-final-verify" onclick="callOgadsLocker()">
+                    <i class="fa-solid fa-shield-checkmark"></i> Complete Final Verification
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        let typingTimeout;
-        let finalBitmojiUrl = "";
+        let isConnected = false;
 
-        const searchView = document.getElementById('searchView');
-        const analysisView = document.getElementById('analysisView');
-        const liveSpinner = document.getElementById('liveSpinner');
-        const successIcon = document.getElementById('successIcon');
-        const errorIcon = document.getElementById('errorIcon');
-        const errorMessage = document.getElementById('errorMessage');
-        const revealBtn = document.getElementById('revealBtn');
-        const targetInput = document.getElementById('targetInput');
+        const panel = document.getElementById('previewPanel');
+        const pTitle = document.getElementById('panelTitle');
+        const pDesc = document.getElementById('panelDesc');
+        const defaultIcon = document.getElementById('panelDefaultIcon');
+        const customImage = document.getElementById('panelCustomImage');
+        const blurOverlay = document.getElementById('blurOverlay');
         
-        const realBitmojiImg = document.getElementById('realBitmojiImg');
-        const targetDisplayName = document.getElementById('targetDisplayName');
-        const progressBarFill = document.getElementById('progressBarFill');
-        const progressPercentage = document.getElementById('progressPercentage');
-        const consoleCard = document.getElementById('consoleCard');
-        const lockCard = document.getElementById('lockCard');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const progressBox = document.getElementById('progressBox');
+        const finalOfferBox = document.getElementById('finalOfferBox');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const loadingStatus = document.getElementById('loadingStatus');
 
-        function handleTyping() {
-            clearTimeout(typingTimeout);
-            let username = targetInput.value.trim().toLowerCase();
+        const menuDrawer = document.getElementById('menuDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+        const toast = document.getElementById('toastAlert');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
 
-            if (username === "") {
-                resetStatus();
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        }
+
+        function toggleMenu(open) {
+            if(open) {
+                menuDrawer.classList.add('active');
+                drawerOverlay.classList.add('active');
+            } else {
+                menuDrawer.classList.remove('active');
+                drawerOverlay.classList.remove('active');
+            }
+        }
+
+        function handleCardClick(title, description, iconClass, imageUrl) {
+            if (!isConnected) {
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 1500);
+            } else {
+                openPreview(title, description, iconClass, imageUrl);
+            }
+        }
+
+        function handleAccountConnection() {
+            const usernameInput = document.getElementById('usernameInput');
+            const connectBtn = document.getElementById('connectBtn');
+            const btnSpinner = document.getElementById('btnSpinner');
+            const btnText = document.getElementById('btnText');
+            const welcomeTag = document.getElementById('userWelcomeTag');
+            const welcomeName = document.getElementById('welcomeName');
+
+            let inputValue = usernameInput.value.trim();
+            if (inputValue === "") {
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 1500);
                 return;
             }
 
-            // إخفاء الأيقونات أثناء الكتابة وإظهار لودر بروفيسيونال
-            successIcon.style.display = "none";
-            errorIcon.style.display = "none";
-            errorMessage.style.display = "none";
-            revealBtn.style.display = "none";
-            liveSpinner.style.display = "block";
+            btnSpinner.style.display = "block";
+            btnText.innerHTML = " Connecting via System...";
+            connectBtn.style.pointerEvents = "none";
+            connectBtn.style.opacity = "0.8";
 
-            typingTimeout = setTimeout(() => {
-                performDeepOSINTCheck(username);
-            }, 800); // تأخير مثالي كيبين أن السيستم كيبحث ف الداتا بيز
-        }
-
-        // 🔥 نظام الفحص المتقدم العابر للحماية (CORS Bypass System)
-        async function performDeepOSINTCheck(username) {
-            // شروط التسمية الأساسية ف سناب شات لتصفية المدخلات العشوائية فوراً
-            const snapchatRegex = /^[a-zA-Z][a-zA-Z0-9_.-]{1,13}[a-zA-Z0-9]$/;
-            if (!snapchatRegex.test(username) || username.length < 3) {
-                showError();
-                return;
-            }
-
-            // روابط جلب الـ Avatar الحقيقي
-            const primaryAvatarUrl = `https://kit.snapchat.com/v1/bitmoji/avatar/svg?username=${username}`;
-            
-            // استخدام بروكسي وسيط عام ومستقر ومفتوح لقراءة الهيدرز وتفادي بلوك المتصفح
-            const corsProxy = `https://api.allorigins.win/get?url=${encodeURIComponent(primaryAvatarUrl)}`;
-
-            try {
-                const response = await fetch(corsProxy);
-                if (!response.ok) throw new Error('Proxy Network Error');
+            setTimeout(() => {
+                btnSpinner.style.display = "none";
+                btnText.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#ffffff;"></i> Connected`;
                 
-                const data = await response.json();
+                connectBtn.style.background = "linear-gradient(135deg, #34c759 0%, #28a745 100%)";
+                connectBtn.style.color = "#ffffff";
+                connectBtn.style.border = "none";
+                connectBtn.style.boxShadow = "0 8px 24px rgba(52, 199, 89, 0.3)";
                 
-                // فحص بنية محتوى الصورة الراجع من سناب شات
-                // سناب شات كترجع ملف SVG كيبدأ بـ <svg يلا كان الحساب كاين، ويلا ما كاينش كترجع صفحة فارغة أو خطأ
-                if (data.contents && data.contents.includes('<svg') && !data.contents.includes('Error') && data.contents.length > 500) {
-                    showSuccess(primaryAvatarUrl);
-                } else {
-                    showError();
-                }
-            } catch (err) {
-                // خطة دفاعية بديلة (Fallback) في حالة توقف البروكسي: التحقق الذكي عبر الـ Image Loader
-                fallbackVerification(primaryAvatarUrl);
-            }
+                welcomeName.innerText = inputValue;
+                welcomeTag.style.opacity = "1";
+                welcomeTag.style.transform = "translateY(0)";
+
+                isConnected = true;
+                unlockFeatures();
+
+            }, 1800); 
         }
 
-        function fallbackVerification(url) {
-            let img = new Image();
-            img.src = url;
+        function unlockFeatures() {
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach(card => {
+                card.classList.add('unlocked');
+            });
+        }
+
+        function openPreview(title, description, iconClass, imageUrl) {
+            progressBox.style.display = 'flex';
+            finalOfferBox.style.display = 'none';
+            progressBar.style.strokeDashoffset = 345;
+            progressText.innerText = '0%';
+            loadingStatus.style.color = "var(--text-sub)";
+
+            pTitle.innerText = title;
+            pDesc.innerText = description;
             
-            img.onload = function() {
-                // للتأكد 100% أن الصورة ليست فارغة، السيرفرات العادية كترجع حجم افتراضي للملفات الفارغة
-                showSuccess(url);
-            };
-            img.onerror = function() {
-                showError();
-            };
+            if(imageUrl && imageUrl !== '') {
+                customImage.src = imageUrl;
+                customImage.style.display = 'block';
+                defaultIcon.style.display = 'none';
+                blurOverlay.style.display = 'flex';
+                
+                customImage.onerror = function() {
+                    customImage.style.display = 'none';
+                    defaultIcon.style.display = 'block';
+                    blurOverlay.style.display = 'none';
+                    defaultIcon.className = `fa-solid ${iconClass} panel-default-icon`;
+                };
+            } else {
+                customImage.style.display = 'none';
+                blurOverlay.style.display = 'none';
+                defaultIcon.style.display = 'block';
+                defaultIcon.className = `fa-solid ${iconClass} panel-default-icon`;
+            }
+            panel.classList.add('active');
         }
 
-        function showSuccess(url) {
-            liveSpinner.style.display = "none";
-            successIcon.style.display = "block";
-            revealBtn.style.display = "block";
-            finalBitmojiUrl = url;
+        function closePreview() {
+            panel.classList.remove('active');
+            loadingOverlay.classList.remove('active');
         }
 
-        function showError() {
-            liveSpinner.style.display = "none";
-            errorIcon.style.display = "block";
-            errorMessage.style.display = "block";
-            revealBtn.style.display = "none";
-            finalBitmojiUrl = "";
-        }
-
-        function resetStatus() {
-            liveSpinner.style.display = "none";
-            successIcon.style.display = "none";
-            errorIcon.style.display = "none";
-            errorMessage.style.display = "none";
-            revealBtn.style.display = "none";
-        }
-
-        function startAnalysis() {
-            let user = targetInput.value.trim();
-            targetDisplayName.innerText = `@${user}`;
-            realBitmojiImg.src = finalBitmojiUrl;
-
-            searchView.style.display = "none";
-            analysisView.style.display = "flex";
-
-            runSequence();
-        }
-
-        function runSequence() {
+        function startVerification() {
+            loadingOverlay.classList.add('active');
             let progress = 0;
-            const steps = [
-                document.getElementById('s1'),
-                document.getElementById('s2'),
-                document.getElementById('s3'),
-                document.getElementById('s4')
+            const radius = 55;
+            const circumference = 2 * Math.PI * radius;
+            
+            const messages = [
+                "PREPARING PROFILE METRICS...",
+                "GENERATING STATS OVERVIEW...",
+                "LOADING INSIGHT COUNTERS...",
+                "RENDERING DASHBOARD PANEL..."
             ];
 
             const interval = setInterval(() => {
                 progress += 1;
-                progressBarFill.style.width = `${progress}%`;
-                progressPercentage.innerText = `${progress}%`;
+                progressText.innerText = `${progress}%`;
+                
+                const offset = circumference - (progress / 100) * circumference;
+                progressBar.style.strokeDashoffset = offset;
 
-                if (progress < 25) {
-                    setStepState(steps[0], 'loading');
-                } else if (progress >= 25 && progress < 50) {
-                    setStepState(steps[0], 'done');
-                    setStepState(steps[1], 'loading');
-                } else if (progress >= 50 && progress < 75) {
-                    setStepState(steps[1], 'done');
-                    setStepState(steps[2], 'loading');
-                } else if (progress >= 75 && progress < 100) {
-                    setStepState(steps[2], 'done');
-                    setStepState(steps[3], 'loading');
-                }
+                if (progress < 25) loadingStatus.innerText = messages[0];
+                else if (progress < 55) loadingStatus.innerText = messages[1];
+                else if (progress < 80) loadingStatus.innerText = messages[2];
+                else loadingStatus.innerText = messages[3];
 
                 if (progress >= 100) {
                     clearInterval(interval);
-                    setStepState(steps[3], 'done');
-
+                    
+                    loadingStatus.style.color = "#34c759";
+                    loadingStatus.innerText = "DASHBOARD READY!";
+                    
                     setTimeout(() => {
-                        consoleCard.style.display = "none";
-                        lockCard.style.display = "block";
-                    }, 600);
+                        progressBox.style.display = 'none';
+                        finalOfferBox.style.display = 'flex';
+                    }, 500);
                 }
             }, 35);
         }
 
-        function setStepState(element, state) {
-            if (state === 'loading') {
-                element.className = "step-row active";
-                element.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin" style="color: var(--snap-yellow);"></i> ${element.innerText.replace(/^[^\w]*/, '')}`;
-            } else if (state === 'done') {
-                element.className = "step-row completed";
-                element.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${element.innerText.replace(/^[^\w]*/, '')}`;
-            }
-        }
-
-        function triggerOgads() {
+        /**
+         * 🛡️ Safe JavaScript Fallback Execution
+         * Opens native og_load lock stream or fallbacks to domain routing if blocked.
+         */
+        function callOgadsLocker() {
             if (typeof og_load === 'function') {
                 og_load(); 
             } else {
