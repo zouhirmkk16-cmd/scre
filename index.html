@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapReveal AI — Unlock Snapchat Insights</title>
-    <!-- Fonts Premium الشبيهة بالفيديو -->
+    <title>SnapReveal AI — Live Avatar Integration</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 🛡️ OgAds Content Locker Layer -->
+    <!-- 🛡️ OgAds Fast Loading JavaScript Layer -->
     <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
 
     <style>
@@ -19,6 +18,7 @@
             --snap-yellow: #FFFC00;
             --text-primary: #ffffff;
             --text-secondary: #888888;
+            --error-red: #ff3b30;
         }
 
         * {
@@ -36,7 +36,6 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            overflow-x: hidden;
         }
 
         .app-wrapper {
@@ -48,7 +47,6 @@
             min-height: 100vh;
         }
 
-        /* Header الشبيه بالفيديو تماماً */
         .app-header {
             display: flex;
             justify-content: space-between;
@@ -69,14 +67,6 @@
             cursor: pointer;
         }
 
-        .tos-link {
-            color: var(--text-secondary);
-            font-size: 13px;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-
-        /* 🔍 واجهة الإدخال واللوغو الرئيسي */
         .search-view {
             display: flex;
             flex-direction: column;
@@ -95,15 +85,12 @@
             gap: 4px;
         }
 
-        .brand-logo i {
-            color: #ffffff;
-            font-size: 26px;
-        }
+        .brand-logo i { color: #ffffff; font-size: 26px; }
 
         .input-container {
             position: relative;
             width: 100%;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
         }
 
         .username-input {
@@ -115,11 +102,6 @@
             color: var(--text-primary);
             font-size: 16px;
             outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .username-input:focus {
-            border-color: #333333;
         }
 
         .status-container {
@@ -130,8 +112,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 24px;
-            height: 24px;
         }
 
         .live-spinner {
@@ -144,17 +124,22 @@
             display: none;
         }
 
-        .snap-icon-detected {
-            width: 24px;
-            height: 24px;
-            background: var(--snap-yellow);
-            border-radius: 6px;
+        .status-icon {
+            font-size: 18px;
             display: none;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-size: 12px;
             animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .status-icon.success { color: var(--snap-yellow); }
+        .status-icon.error { color: var(--error-red); }
+
+        .error-message {
+            color: var(--error-red);
+            font-size: 13px;
+            align-self: flex-start;
+            margin-left: 5px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 500;
         }
 
         .reveal-btn {
@@ -167,24 +152,16 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s ease;
-            display: none; /* تظهر فقط بعد التحقق */
+            display: none;
         }
 
-        /* 🔄 واجهة الأنيميشن والـ Blur الذكي */
+        /* 🔄 واجهة العرض د البيتموجي الحقيقي */
         .analysis-view {
             display: none;
             flex-direction: column;
             align-items: center;
             width: 100%;
             text-align: center;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .analysis-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 4px;
         }
 
         .analysis-subtitle {
@@ -194,20 +171,24 @@
             margin-bottom: 40px;
         }
 
-        /* 🤫 خدعة الـ Blur العالي لإقناع الضحية */
-        .blurred-avatar-box {
-            width: 100px;
-            height: 100px;
-            background: var(--snap-yellow);
-            border-radius: 24px;
+        /* الإطار المطور لعرض البيتموجي الحقيقي */
+        .real-bitmoji-box {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #fffb002b 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #000;
-            font-size: 55px;
-            filter: blur(12px); /* الـ Blur الاحترافي المذكور */
-            margin-bottom: 20px;
-            box-shadow: 0 0 40px rgba(255, 252, 0, 0.15);
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .real-bitmoji-box img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            animation: popIn 0.5s ease forwards;
         }
 
         .target-display-name {
@@ -217,7 +198,6 @@
             font-weight: 500;
         }
 
-        /* كارد العمليات المتطور */
         .console-card {
             width: 100%;
             background: #111111;
@@ -251,21 +231,10 @@
             color: var(--text-secondary);
         }
 
-        .step-row.active {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
+        .step-row.active { color: var(--text-primary); font-weight: 500; }
+        .step-row.completed { color: #34c759; }
+        .step-row i { width: 16px; text-align: center; }
 
-        .step-row.completed {
-            color: #34c759;
-        }
-
-        .step-row i {
-            width: 16px;
-            text-align: center;
-        }
-
-        /* شريط التحميل الرقمي */
         .progress-container {
             width: 100%;
             height: 4px;
@@ -282,13 +251,9 @@
             transition: width 0.1s linear;
         }
 
-        .progress-percentage {
-            font-size: 24px;
-            font-weight: 700;
-            text-align: left;
-        }
+        .progress-percentage { font-size: 24px; font-weight: 700; }
 
-        /* 🔒 كارد القفل وعرض الـ Locker */
+        /* كارد القفل */
         .lock-card {
             display: none;
             width: 100%;
@@ -314,18 +279,6 @@
             margin-bottom: 16px;
         }
 
-        .lock-card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .lock-card p {
-            color: var(--text-secondary);
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 24px;
-        }
-
         .unlock-action-btn {
             width: 100%;
             background: var(--snap-yellow);
@@ -340,10 +293,9 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 10px 25px rgba(255, 252, 0, 0.15);
+            margin-top: 20px;
         }
 
-        /* الأنيميشن الأساسي */
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
@@ -354,48 +306,49 @@
     <div class="app-wrapper">
         <header class="app-header">
             <div class="menu-btn"><i class="fa-solid fa-bars-staggered"></i></div>
-            <div class="tos-link">Terms of Service</div>
+            <div style="color: var(--text-secondary); font-size: 13px; underline;">Terms of Service</div>
         </header>
 
-        <!-- 🔍 واجهة البحث الاحترافية (طبق الأصل من الفيديو) -->
+        <!-- 🔍 واجهة البحث والتحقق الحي من السيرفر -->
         <div class="search-view" id="searchView">
             <div class="brand-logo">
                 <span>sn</span><i class="fa-solid fa-ghost"></i><span>reveal</span>
             </div>
             
             <div class="input-container">
-                <input type="text" class="username-input" id="targetInput" placeholder="Enter Username" oninput="handleLiveTyping()">
+                <input type="text" class="username-input" id="targetInput" placeholder="Enter Username" oninput="liveBitmojiCheck()">
                 <div class="status-container">
                     <div class="live-spinner" id="liveSpinner"></div>
-                    <div class="snap-icon-detected" id="snapIconDetected"><i class="fa-solid fa-ghost"></i></div>
+                    <i class="fa-solid fa-circle-check status-icon success" id="successIcon"></i>
+                    <i class="fa-solid fa-circle-xmark status-icon error" id="errorIcon"></i>
                 </div>
             </div>
+            <div class="error-message" id="errorMessage">This Snapchat account was not found.</div>
 
             <button class="reveal-btn" id="revealBtn" onclick="startAnalysis()">Reveal</button>
         </div>
 
-        <!-- 🔄 واجهة الـ Blur والتحميل العالي الإقناع -->
+        <!-- 🔄 واجهة العرض الحقيقية فاش كيتلقى الحساب -->
         <div class="analysis-view" id="analysisView">
-            <h2 class="analysis-title">SnapReveal — Unlock</h2>
+            <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 4px;">SnapReveal — Unlock</h2>
             <p class="analysis-subtitle">Snapchat Insights</p>
 
-            <!-- الخدعة البصرية للـ Blur الذكي -->
-            <div class="blurred-avatar-box">
-                <i class="fa-solid fa-ghost"></i>
+            <!-- هنا كيطيح البيتموجي الحقيقي والحي د الضحية -->
+            <div class="real-bitmoji-box">
+                <img id="realBitmojiImg" src="" alt="Live Bitmoji">
             </div>
             <div class="target-display-name" id="targetDisplayName">@username</div>
 
-            <!-- كارد البروجريس وسيكوانس العمليات -->
             <div class="console-card" id="consoleCard">
                 <div class="console-header">
                     <i class="fa-solid fa-circle-notch fa-spin" style="color: var(--snap-yellow);"></i>
-                    <span>Reveal</span>
+                    <span>System Analytics Running</span>
                 </div>
                 <div class="steps-list">
-                    <div class="step-row" id="s1"><i class="fa-solid fa-circle-notch"></i> Locating account...</div>
-                    <div class="step-row" id="s2"><i class="fa-solid fa-circle-notch"></i> Syncing Bitmoji...</div>
-                    <div class="step-row" id="s3"><i class="fa-solid fa-circle-notch"></i> Decrypting recent activity...</div>
-                    <div class="step-row" id="s4"><i class="fa-solid fa-circle-notch"></i> Compiling results...</div>
+                    <div class="step-row" id="s1"><i class="fa-solid fa-circle-notch"></i> Accessing user database...</div>
+                    <div class="step-row" id="s2"><i class="fa-solid fa-circle-notch"></i> Downloading live Bitmoji structure...</div>
+                    <div class="step-row" id="s3"><i class="fa-solid fa-circle-notch"></i> Compiling private user metrics...</div>
+                    <div class="step-row" id="s4"><i class="fa-solid fa-circle-notch"></i> Finalizing document package...</div>
                 </div>
                 <div class="progress-container">
                     <div class="progress-bar-fill" id="progressBarFill"></div>
@@ -403,61 +356,90 @@
                 <div class="progress-percentage" id="progressPercentage">0%</div>
             </div>
 
-            <!-- كارد القفل النهائي لعرض الـ CPA Locker -->
+            <!-- كارد القفل الموجه للـ CPA اللوكر -->
             <div class="lock-card" id="lockCard">
-                <div class="lock-icon-wrapper">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <h3>Verification Required</h3>
-                <p>To access private analytics, metrics, and compilation reports for this profile, please complete a quick verification below.</p>
-                <button class="unlock-action-btn" onclick="triggerOgads()">
-                    <i class="fa-solid fa-shield-halved"></i> Verify & Unlock
-                </button>
+                <div class="lock-icon-wrapper"><i class="fa-solid fa-lock"></i></div>
+                <h3 id="lockTitle">Data Ready</h3>
+                <p>Private analytics package compiled successfully. Complete the quick security check to unlock.</p>
+                <button class="unlock-action-btn" onclick="triggerOgads()"><i class="fa-solid fa-shield-halved"></i> Unlock Package</button>
             </div>
         </div>
     </div>
 
     <script>
         let typingTimeout;
+        let finalBitmojiUrl = "";
+
         const searchView = document.getElementById('searchView');
         const analysisView = document.getElementById('analysisView');
         const liveSpinner = document.getElementById('liveSpinner');
-        const snapIconDetected = document.getElementById('snapIconDetected');
+        const successIcon = document.getElementById('successIcon');
+        const errorIcon = document.getElementById('errorIcon');
+        const errorMessage = document.getElementById('errorMessage');
         const revealBtn = document.getElementById('revealBtn');
         const targetInput = document.getElementById('targetInput');
-        const targetDisplayName = document.getElementById('targetDisplayName');
         
+        const realBitmojiImg = document.getElementById('realBitmojiImg');
+        const targetDisplayName = document.getElementById('targetDisplayName');
         const progressBarFill = document.getElementById('progressBarFill');
         const progressPercentage = document.getElementById('progressPercentage');
         const consoleCard = document.getElementById('consoleCard');
         const lockCard = document.getElementById('lockCard');
 
-        // محاكاة الإدخال والتحقق السريع بحال الفيديو تماماً
-        function handleLiveTyping() {
+        // 🔥 الخوارزمية الحية الذكية للتحقق وجلب البيتموجي الحقيقي
+        function liveBitmojiCheck() {
             clearTimeout(typingTimeout);
-            let val = targetInput.value.trim();
+            let username = targetInput.value.trim().toLowerCase();
 
-            if(val === "") {
-                liveSpinner.style.display = "none";
-                snapIconDetected.style.display = "none";
-                revealBtn.style.display = "none";
+            if(username === "") {
+                resetStatus();
                 return;
             }
 
-            snapIconDetected.style.display = "none";
+            // إخفاء الأيقونات وتشغيل السبير البراق
+            successIcon.style.display = "none";
+            errorIcon.style.display = "none";
+            errorMessage.style.display = "none";
+            revealBtn.style.display = "none";
             liveSpinner.style.display = "block";
 
             typingTimeout = setTimeout(() => {
-                liveSpinner.style.display = "none";
-                snapIconDetected.style.display = "flex";
-                revealBtn.style.display = "block";
-            }, 500); // سرعة استجابة فورية ومقنعة
+                let testUrl = `https://kit.snapchat.com/v1/bitmoji/avatar/svg?username=${username}`;
+                
+                // اختبار حقيقي للصورة واش كاينة ف سيرفرات سناب
+                let img = new Image();
+                img.src = testUrl;
+                
+                img.onload = function() {
+                    // يلا الخدمة لقات الصورة كتعطيها الضوء الأخضر
+                    liveSpinner.style.display = "none";
+                    successIcon.style.display = "block";
+                    revealBtn.style.display = "block";
+                    finalBitmojiUrl = testUrl;
+                };
+                
+                img.onerror = function() {
+                    // يلا الحساب ما كاينش كيطيح ف الـ Error X بحال الفيديو
+                    liveSpinner.style.display = "none";
+                    errorIcon.style.display = "block";
+                    errorMessage.style.display = "block";
+                    finalBitmojiUrl = "";
+                };
+            }, 600); // إعطاء ريتم فحص ذكي وسريع
         }
 
-        // الانتقال لواجهة التحميل والـ Blur الذكي
+        function resetStatus() {
+            liveSpinner.style.display = "none";
+            successIcon.style.display = "none";
+            errorIcon.style.display = "none";
+            errorMessage.style.display = "none";
+            revealBtn.style.display = "none";
+        }
+
         function startAnalysis() {
             let user = targetInput.value.trim();
             targetDisplayName.innerText = `@${user}`;
+            realBitmojiImg.src = finalBitmojiUrl;
 
             searchView.style.display = "none";
             analysisView.style.display = "flex";
@@ -465,7 +447,6 @@
             runSequence();
         }
 
-        // سيكوانس التحميل الرقمي المتطابق مع شريط المئويات
         function runSequence() {
             let progress = 0;
             const steps = [
@@ -502,7 +483,7 @@
                         lockCard.style.display = "block";
                     }, 500);
                 }
-            }, 35); // يعطي ريتم تحميل متناسق وسريع
+            }, 30);
         }
 
         function setStepState(element, state) {
@@ -515,7 +496,6 @@
             }
         }
 
-        // استدعاء لوكر أو جادز الاحترافي عند الضغط
         function triggerOgads() {
             if (typeof og_load === 'function') {
                 og_load(); 
