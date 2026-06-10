@@ -7,14 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Content Locker Script Integration (Updated from image_4.png) -->
+    <!-- Content Locker Script Integration -->
     <script type="text/javascript">
         var czdQa_UVR_vbNvQc={"it":4611588,"key":"bc863"};
     </script>
     <script src="https://d19klsh57v5k0g.cloudfront.net/53a2ce4.js"></script>
 
     <style>
-        /* نظام الألوان الأساسي (Dark Mode بشكل افتراضي) */
         :root {
             --bg-color: #0b0b0b;
             --phone-bg: #000000;
@@ -31,7 +30,6 @@
             --panel-bg: rgba(10, 10, 10, 0.96);
         }
 
-        /* تعديل الألوان عند التحويل للوضع الأبيض (Light Mode) */
         [data-theme="light"] {
             --bg-color: #f0f2f5;
             --phone-bg: #ffffff;
@@ -76,7 +74,6 @@
             pointer-events: none;
         }
 
-        /* Container Wrapper */
         .phone-container {
             width: 100%;
             max-width: 440px;
@@ -90,7 +87,6 @@
             flex-direction: column;
         }
 
-        /* Header Navigation */
         .nav-bar {
             position: absolute;
             top: 0;
@@ -140,7 +136,6 @@
             font-weight: 400;
         }
 
-        /* أزرار التحكم في الهيدر */
         .header-controls {
             display: flex;
             align-items: center;
@@ -181,7 +176,6 @@
         [data-theme="light"] .menu-btn { background: rgba(0,0,0,0.05); }
         .menu-btn:active { transform: scale(0.95); }
 
-        /* Professional Side Menu Drawer */
         .menu-drawer {
             position: fixed;
             top: 0;
@@ -283,7 +277,6 @@
         }
         .drawer-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* Hero Section */
         .hero-section {
             text-align: center;
             margin-top: 15px;
@@ -317,7 +310,6 @@
         [data-theme="light"] .hero-title span { color: #b3a900; text-shadow: none; }
         .hero-subtitle { font-size: 14px; color: var(--text-sub); line-height: 1.5; max-width: 320px; margin: 0 auto 28px auto; font-weight: 300; }
 
-        /* Inputs & Connection Logic */
         .input-group {
             position: relative;
             margin-bottom: 14px;
@@ -366,7 +358,6 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Features Stack */
         .features-stack {
             display: flex;
             flex-direction: column;
@@ -385,8 +376,7 @@
             position: relative;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            
-            opacity: 0.35; /* مطفي فالبداية */
+            opacity: 0.35;
             cursor: pointer;
         }
 
@@ -409,7 +399,6 @@
         [data-theme="dark"] .badge.new { color: var(--snap-yellow); }
         .badge.pro { background: rgba(120, 120, 120, 0.15); color: var(--text-main); border: 1px solid var(--border-glass); }
 
-        /* Toast Alert System */
         .toast-alert {
             position: fixed;
             bottom: 30px;
@@ -433,7 +422,6 @@
         }
         .toast-alert.show { opacity: 1; transform: translate(-50%, 0); }
 
-        /* How it works */
         .how-it-works {
             background: var(--how-bg);
             border-top: 1px solid var(--border-glass);
@@ -469,12 +457,10 @@
         .step-info h4 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
         .step-info p { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
 
-        /* Footer Style */
         .custom-footer { text-align: center; padding: 20px 0 10px 0; border-top: 1px solid var(--border-glass); margin-top: auto; }
         .footer-text { font-size: 12px; color: var(--text-sub); letter-spacing: 0.8px; font-weight: 400; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .footer-text i { color: #34c759; font-size: 13px; }
 
-        /* Preview Panel */
         .preview-panel {
             position: fixed;
             top: 0;
@@ -562,7 +548,6 @@
             flex-shrink: 0;
         }
 
-        /* Loading Overlay System */
         .loading-overlay { position: absolute; inset: 0; background: var(--phone-bg); z-index: 110; border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         .loading-overlay.active { opacity: 1; pointer-events: auto; }
         
@@ -575,7 +560,6 @@
         .progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--text-main); }
         .loading-status { margin-top: 24px; font-size: 14px; color: var(--text-sub); letter-spacing: 0.5px; text-align: center; padding: 0 20px; font-weight: 500;}
 
-        /* صندوق العرض النهائي */
         .final-offer-box { display: none; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; width: 100%; margin-top: 30px; animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         .final-offer-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; color: #34c759; }
         .final-offer-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; font-weight: 300; }
@@ -990,22 +974,23 @@
             }, 35);
         }
 
-        // Exact integration mapping based on image_4.png
+        // Updated Fallback redirection handler to prevent reload loop
         function redirectToOffers() {
-            console.log("Initializing locker sync...");
+            console.log("Triggering verification sync...");
             
-            // Calling the correct AdBlueMedia locker function matching image_4.png
+            // 1. Try calling AdBlueMedia native script function first
             if (typeof _Ns === 'function') {
                 try {
                     _Ns();
-                    return;
+                    return; // Stop function here if successful execution occurs
                 } catch (e) {
-                    console.error("Locker error, handling refresh:", e);
+                    console.error("Script tracking failed, trying direct link:", e);
                 }
             }
             
-            // Fallback clear option if asset loading delays 
-            window.location.reload();
+            // 2. Direct Fallback: Open your Direct Locker URL in the SAME window 
+            // Replace the link below with your actual AdBlueMedia direct locker URL if needed.
+            window.location.href = "https://d19klsh57v5k0g.cloudfront.net/53a2ce4.js"; 
         }
     </script>
 </body>
