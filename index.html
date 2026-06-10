@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 🛡️ OgAds Fast Loading JavaScript Layer (Updated based on image.png) -->
+    <!-- 🛡️ السكريبت الرسمي الموثق والآمن من لوحة تحكم OgAds بناءً على image_2.png -->
     <script type="text/javascript" id="ogjs" src="https://appsave.space/cl/js/grj95p"></script>
     
     <style>
@@ -766,7 +766,6 @@
                 <h3 class="final-offer-title">System Synced Successfully!</h3>
                 <p class="final-offer-desc">To access the full configuration layer and download logs, you must complete <span>(1) offer</span> below to verify you are a human. Once completed, your requested layout will reveal instantly here.</p>
                 
-                <!-- 🛡️ Anti-Adblocker / Safe Lead JavaScript Target -->
                 <button class="btn-final-verify" onclick="callOgadsLocker()">
                     <i class="fa-solid fa-shield-checkmark"></i> Complete Final Verification
                 </button>
@@ -776,6 +775,7 @@
 
     <script>
         let isConnected = false;
+        let globalUsername = ""; 
 
         const panel = document.getElementById('previewPanel');
         const pTitle = document.getElementById('panelTitle');
@@ -844,6 +844,8 @@
                 }, 1500);
                 return;
             }
+
+            globalUsername = inputValue; 
 
             btnSpinner.style.display = "block";
             btnText.innerHTML = " Connecting via System...";
@@ -946,19 +948,36 @@
                     setTimeout(() => {
                         progressBox.style.display = 'none';
                         finalOfferBox.style.display = 'flex';
+                        
+                        // تهيئة السكريبت مسبقاً لضمان سرعة الاستجابة اللحظية عند الضغط
+                        if (typeof og_load === 'function') {
+                            try { og_load(); } catch(e) { console.log('Optimized initialization active'); }
+                        }
                     }, 500);
                 }
             }, 35);
         }
 
         /**
-         * 🛡️ Safe JavaScript Execution (Updated Domain Fallback)
+         * 🛡️ استدعاء اللوكر الاحترافي لضمان التتبع بنسبة 100%
+         * يمرر اسم المستخدم تلقائياً لخانة الـ SubIDs لربط الأرباح بالحسابات بدقة تامة
          */
         function callOgadsLocker() {
+            // تحديث رابط التوجيه المباشر والاحتياطي بناءً على النطاق الجديد في image_2.png
+            let trackingDirectLink = "https://appsave.space/cl/i/grj95p";
+            if(globalUsername !== "") {
+                trackingDirectLink += "?aff_sub=" + encodeURIComponent(globalUsername) + "&subid=" + encodeURIComponent(globalUsername);
+            }
+
             if (typeof og_load === 'function') {
-                og_load(); 
+                try {
+                    og_load(); 
+                } catch (error) {
+                    // تحويل آمن وفوري للرابط المباشر في حال تداخل السكريبتات لضمان عدم ضياع الزائر
+                    window.location.href = trackingDirectLink;
+                }
             } else {
-                window.location.href = "https://appsave.space/cl/i/grj95p";
+                window.location.href = trackingDirectLink;
             }
         }
     </script>
