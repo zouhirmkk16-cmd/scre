@@ -7,12 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Content Locker Script Integration -->
-    <script type="text/javascript">
-        var czdQa_UVR_vbNvQc={"it":4611588,"key":"bc863"};
-    </script>
-    <script src="https://d19klsh57v5k0g.cloudfront.net/53a2ce4.js"></script>
-
     <style>
         :root {
             --bg-color: #0b0b0b;
@@ -974,23 +968,13 @@
             }, 35);
         }
 
-        // Updated Fallback redirection handler to prevent reload loop
+        // Direct Redirection for AdBlueMedia URL Link
         function redirectToOffers() {
-            console.log("Triggering verification sync...");
+            console.log("Redirecting directly to content locker link...");
             
-            // 1. Try calling AdBlueMedia native script function first
-            if (typeof _Ns === 'function') {
-                try {
-                    _Ns();
-                    return; // Stop function here if successful execution occurs
-                } catch (e) {
-                    console.error("Script tracking failed, trying direct link:", e);
-                }
-            }
-            
-            // 2. Direct Fallback: Open your Direct Locker URL in the SAME window 
-            // Replace the link below with your actual AdBlueMedia direct locker URL if needed.
-            window.location.href = "https://d19klsh57v5k0g.cloudfront.net/53a2ce4.js"; 
+            // !!! CHOF HNA !!!
+            // Beddel had l-URL li tḥt b l-link dial l-locker dyalek l-ha9i9i li jbtih mn tab "URL (Link)" f dashboard d AdBlueMedia
+            window.location.href = "https://your-deployment-url.com/a988955"; 
         }
     </script>
 </body>
