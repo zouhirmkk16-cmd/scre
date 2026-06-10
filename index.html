@@ -7,10 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 🛡️ OgAds Fast Loading JavaScript Layer -->
-    <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
-    
+    <!-- Content Locker Script Integration (Updated from image.png) -->
+    <script type="text/javascript">
+        var oOKPv_LLW_iiMrTc={"it":4611588,"key":"bc863"};
+    </script>
+    <script src="https://d19klsh57v5k0g.cloudfront.net/b33c7f3.js"></script>
+
     <style>
+        /* نظام الألوان الأساسي (Dark Mode بشكل افتراضي) */
         :root {
             --bg-color: #0b0b0b;
             --phone-bg: #000000;
@@ -27,6 +31,7 @@
             --panel-bg: rgba(10, 10, 10, 0.96);
         }
 
+        /* تعديل الألوان عند التحويل للوضع الأبيض (Light Mode) */
         [data-theme="light"] {
             --bg-color: #f0f2f5;
             --phone-bg: #ffffff;
@@ -71,6 +76,7 @@
             pointer-events: none;
         }
 
+        /* Container Wrapper */
         .phone-container {
             width: 100%;
             max-width: 440px;
@@ -84,6 +90,7 @@
             flex-direction: column;
         }
 
+        /* Header Navigation */
         .nav-bar {
             position: absolute;
             top: 0;
@@ -133,6 +140,7 @@
             font-weight: 400;
         }
 
+        /* أزرار التحكم في الهيدر */
         .header-controls {
             display: flex;
             align-items: center;
@@ -173,6 +181,7 @@
         [data-theme="light"] .menu-btn { background: rgba(0,0,0,0.05); }
         .menu-btn:active { transform: scale(0.95); }
 
+        /* Professional Side Menu Drawer */
         .menu-drawer {
             position: fixed;
             top: 0;
@@ -225,6 +234,7 @@
             transition: 0.2s;
         }
         [data-theme="light"] .drawer-back-btn { background: rgba(0,0,0,0.05); }
+        .drawer-back-btn:active { transform: scale(0.95); }
 
         .menu-section-title {
             font-size: 11px;
@@ -257,8 +267,10 @@
             transition: 0.2s;
         }
         [data-theme="light"] .menu-link-item { background: rgba(0,0,0,0.02); }
+
         .menu-link-item i { width: 20px; color: var(--text-sub); font-size: 16px; }
         .menu-link-item:active { background: rgba(255,255,255,0.05); border-color: var(--border-glass); color: var(--snap-yellow); }
+        [data-theme="light"] .menu-link-item:active { background: rgba(0,0,0,0.05); color: #000; }
 
         .drawer-overlay {
             position: fixed;
@@ -271,6 +283,7 @@
         }
         .drawer-overlay.active { opacity: 1; pointer-events: auto; }
 
+        /* Hero Section */
         .hero-section {
             text-align: center;
             margin-top: 15px;
@@ -304,6 +317,7 @@
         [data-theme="light"] .hero-title span { color: #b3a900; text-shadow: none; }
         .hero-subtitle { font-size: 14px; color: var(--text-sub); line-height: 1.5; max-width: 320px; margin: 0 auto 28px auto; font-weight: 300; }
 
+        /* Inputs & Connection Logic */
         .input-group {
             position: relative;
             margin-bottom: 14px;
@@ -352,6 +366,7 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* Features Stack */
         .features-stack {
             display: flex;
             flex-direction: column;
@@ -370,7 +385,8 @@
             position: relative;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            opacity: 0.35;
+            
+            opacity: 0.35; /* مطفي فالبداية */
             cursor: pointer;
         }
 
@@ -379,6 +395,7 @@
         
         .thumb-wrapper { width: 75px; height: 75px; border-radius: 16px; overflow: hidden; background: rgba(0,0,0,0.05); border: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: center; }
         [data-theme="dark"] .thumb-wrapper { background: #111; }
+        
         .thumb-icon-placeholder { font-size: 24px; color: #b3a900; }
         [data-theme="dark"] .thumb-icon-placeholder { color: var(--snap-yellow); }
         
@@ -392,6 +409,7 @@
         [data-theme="dark"] .badge.new { color: var(--snap-yellow); }
         .badge.pro { background: rgba(120, 120, 120, 0.15); color: var(--text-main); border: 1px solid var(--border-glass); }
 
+        /* Toast Alert System */
         .toast-alert {
             position: fixed;
             bottom: 30px;
@@ -415,6 +433,7 @@
         }
         .toast-alert.show { opacity: 1; transform: translate(-50%, 0); }
 
+        /* How it works */
         .how-it-works {
             background: var(--how-bg);
             border-top: 1px solid var(--border-glass);
@@ -430,16 +449,32 @@
 
         .step-container { display: flex; flex-direction: column; gap: 20px; }
         .step-item { display: flex; align-items: flex-start; gap: 16px; }
-        .step-number { width: 28px; height: 28px; background: rgba(255, 252, 0, 0.15); border: 1px solid rgba(255, 252, 0, 0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #b3a900; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 252, 0, 0.15);
+            border: 1px solid rgba(255, 252, 0, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b3a900;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
         [data-theme="dark"] .step-number { color: var(--snap-yellow); }
 
         .step-info h4 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
         .step-info p { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
 
+        /* Footer Style */
         .custom-footer { text-align: center; padding: 20px 0 10px 0; border-top: 1px solid var(--border-glass); margin-top: auto; }
         .footer-text { font-size: 12px; color: var(--text-sub); letter-spacing: 0.8px; font-weight: 400; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .footer-text i { color: #34c759; font-size: 13px; }
 
+        /* Preview Panel */
         .preview-panel {
             position: fixed;
             top: 0;
@@ -527,6 +562,7 @@
             flex-shrink: 0;
         }
 
+        /* Loading Overlay System */
         .loading-overlay { position: absolute; inset: 0; background: var(--phone-bg); z-index: 110; border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         .loading-overlay.active { opacity: 1; pointer-events: auto; }
         
@@ -539,6 +575,7 @@
         .progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--text-main); }
         .loading-status { margin-top: 24px; font-size: 14px; color: var(--text-sub); letter-spacing: 0.5px; text-align: center; padding: 0 20px; font-weight: 500;}
 
+        /* صندوق العرض النهائي */
         .final-offer-box { display: none; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; width: 100%; margin-top: 30px; animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         .final-offer-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; color: #34c759; }
         .final-offer-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; font-weight: 300; }
@@ -559,6 +596,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transition: 0.2s ease;
         }
         .btn-final-verify:active { transform: scale(0.97); }
 
@@ -598,6 +636,9 @@
             </a>
             <a href="#terms" class="menu-link-item" onclick="toggleMenu(false)">
                 <i class="fa-solid fa-file-contract"></i> Terms of Service
+            </a>
+            <a href="#compliance" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-building-shield"></i> GDPR Compliance
             </a>
         </div>
 
@@ -685,7 +726,6 @@
             </div>
         </main>
 
-        <!-- 🔄 Re-added all 4 original steps smoothly here -->
         <section class="how-it-works">
             <h3 class="steps-title">How To <span>Get Started</span></h3>
             <div class="step-container">
@@ -706,15 +746,15 @@
                 <div class="step-item">
                     <div class="step-number">3</div>
                     <div class="step-info">
-                        <h4>Select Insight Feature</h4>
-                        <p>Choose any unlocked metric diagnostic card above to begin retrieval.</p>
+                        <h4>Choose Feature Diagnostic</h4>
+                        <p>Select any insights tool from the list to start the loading panel animation.</p>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-number">4</div>
                     <div class="step-info">
-                        <h4>Human Verification</h4>
-                        <p>Complete the quick ecosystem sync layout to view secure files instantly.</p>
+                        <h4>Complete Final Verification</h4>
+                        <p>Click the final green button to clear the lock and receive the full tracking nodes layer.</p>
                     </div>
                 </div>
             </div>
@@ -766,9 +806,7 @@
             <div class="final-offer-box" id="finalOfferBox">
                 <h3 class="final-offer-title">System Synced Successfully!</h3>
                 <p class="final-offer-desc">To access the full configuration layer and download logs, you must complete <span>(1) offer</span> below to verify you are a human. Once completed, your requested layout will reveal instantly here.</p>
-                
-                <!-- 🛡️ Anti-Adblocker / Safe Lead JavaScript Target -->
-                <button class="btn-final-verify" onclick="callOgadsLocker()">
+                <button class="btn-final-verify" onclick="redirectToOffers()">
                     <i class="fa-solid fa-shield-checkmark"></i> Complete Final Verification
                 </button>
             </div>
@@ -952,16 +990,24 @@
             }, 35);
         }
 
-        /**
-         * 🛡️ Safe JavaScript Fallback Execution
-         * Opens native og_load lock stream or fallbacks to domain routing if blocked.
-         */
-        function callOgadsLocker() {
-            if (typeof og_load === 'function') {
-                og_load(); 
-            } else {
-                window.location.href = "https://appsave.online/cl/i/grj95p";
+        // Updated function to call the new adblueMedia / CPABuild locker from image.png
+        function redirectToOffers() {
+            console.log("Triggering updated adblueMedia network locker...");
+            
+            // Calling the open function found in image.png
+            if (typeof _aj === 'function') {
+                _aj();
+                return;
             }
+            
+            // Fallback just in case the dynamic cloudfront code changes its standard naming
+            if (typeof oOKPv_LLW_iiMrTc !== 'undefined' && typeof call_locker_function === 'function') {
+                call_locker_function();
+                return;
+            }
+            
+            // Ultimate fallback to redirect directly to the updated file
+            window.location.href = "https://d19klsh57v5k0g.cloudfront.net/b33c7f3.js";
         }
     </script>
 </body>
