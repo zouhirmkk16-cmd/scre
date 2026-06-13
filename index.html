@@ -322,7 +322,8 @@
         }
 
         .snap-bitmoji-img {
-            width: 70px;
+            width: 100%;
+            max-width: 320px;
             height: auto;
             object-fit: contain;
         }
@@ -650,11 +651,11 @@
         <section class="hero-section">
             <div class="user-welcome-tag" id="userWelcomeTag">ACCOUNT ACTIVE: @<span id="welcomeName">User</span></div>
             
-            <!-- 🆕 البلاصة اللي تبدلات بـ المظهر الجديد و الـ Emojis من image.png -->
+            <!-- 🛠️ الإصلاح تم هنا: السورس رجع emojis.jpg بحال اللي فـ GitHub بالظبط -->
             <div class="snap-header-box">
                 <h2 class="snap-header-title">Enter the Snapchat username to check</h2>
                 <div class="snap-emojis-container">
-                    <img src="image_2.png" alt="Bitmojis Characters" class="snap-bitmoji-img">
+                    <img src="emojis.jpg" alt="Bitmojis Characters" class="snap-bitmoji-img">
                 </div>
             </div>
             
@@ -714,7 +715,7 @@
             </div>
         </main>
 
-        <!-- 🔄 Re-added all 4 original steps smoothly here -->
+        <!-- 🔄 original steps section -->
         <section class="how-it-works">
             <h3 class="steps-title">How To <span>Get Started</span></h3>
             <div class="step-container">
