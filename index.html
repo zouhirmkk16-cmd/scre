@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Dashboard - Premium Snapchat Analytics</title>
+    <title>System Dashboard - Premium Account Analytics</title>
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 🛡️ OgAds Fast Loading JavaScript Layer -->
     <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
     
     <style>
@@ -107,18 +106,16 @@
         }
 
         .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: transparent;
+            width: 32px;
+            height: 32px;
+            background: var(--snap-yellow);
+            border-radius: 9px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .logo-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            color: #000;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(255, 252, 0, 0.3);
         }
 
         .logo-text {
@@ -205,7 +202,7 @@
 
         .drawer-header {
             display: flex;
-            justify-between: space-between;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 35px;
             border-bottom: 1px solid var(--border-glass);
@@ -294,16 +291,14 @@
             transition: all 0.4s ease;
         }
 
-        .hero-title {
-            font-size: 34px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            line-height: 1.15;
-            margin-bottom: 12px;
+        /* 🆕 CSS dedicated for the newly replaced image header */
+        .hero-logo-img {
+            max-width: 140px;
+            height: auto;
+            margin: 0 auto 16px auto;
+            display: block;
         }
 
-        .hero-title span { color: var(--snap-yellow); text-shadow: 0 0 20px rgba(255, 252, 0, 0.2); }
-        [data-theme="light"] .hero-title span { color: #b3a900; text-shadow: none; }
         .hero-subtitle { font-size: 14px; color: var(--text-sub); line-height: 1.5; max-width: 320px; margin: 0 auto 28px auto; font-weight: 300; }
 
         .input-group {
@@ -614,7 +609,7 @@
     <div class="phone-container">
         <header class="nav-bar">
             <div class="logo-area">
-                <div class="logo-icon"><img src="image.png" alt="Snapchat Logo"></div>
+                <div class="logo-icon"><i class="fa-ghost fa-solid"></i></div>
                 <div class="logo-text">SnapTools<span>Premium System</span></div>
             </div>
             
@@ -628,43 +623,63 @@
 
         <section class="hero-section">
             <div class="user-welcome-tag" id="userWelcomeTag">ACCOUNT ACTIVE: @<span id="welcomeName">User</span></div>
-            <h1 class="hero-title">Snap Analytics<br><span>Core Insights</span></h1>
+            
+            <img src="emojis.JPG" alt="Snap Analytics Insights" class="hero-logo-img">
+            
             <p class="hero-subtitle">Generate comprehensive profile performance metrics and visualize advanced data trends seamlessly.</p>
             
             <div class="input-group">
-                <input type="text" class="input-field" id="usernameInput" placeholder="Username (for Snapchat Profile)">
+                <input type="text" class="input-field" id="usernameInput" placeholder="Username">
             </div>
             <button class="btn-google" id="connectBtn" onclick="handleAccountConnection()">
                 <span class="btn-spinner" id="btnSpinner"></span>
-                <span id="btnText">Connect & Analyze Profile</span>
+                <span id="btnText">Connect Account</span>
             </button>
         </section>
 
         <main class="features-stack" id="featuresStack">
             <div class="feature-card" onclick="handleCardClick('Live Activity Feed', 'Real-time telemetry mapping of active conversation streams.', 'fa-comment-dots', 'typing.jpg')">
                 <div class="badge live">● LIVE</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-bolt thumb-icon-placeholder"></i></div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-comment-dots thumb-icon-placeholder"></i></div>
                 <div class="card-content">
                     <h2 class="card-title">Live Activity Feed</h2>
                     <p class="card-desc">Subtle live session analytics and metadata stream generation.</p>
                 </div>
             </div>
 
-            <div class="feature-card" onclick="handleCardClick('Analyze Interaction Metrics', 'Advanced structural hierarchy mapping algorithms for core connections.', 'fa-user-group', 'friends.jpg')">
+            <div class="feature-card" onclick="handleCardClick('Analyze Best Friends', 'Advanced structural hierarchy mapping algorithms for core connections.', 'fa-user-group', 'friends.jpg')">
                 <div class="badge new">NEW</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-heart-circle-bolt thumb-icon-placeholder"></i></div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-user-group thumb-icon-placeholder"></i></div>
                 <div class="card-content">
-                    <h2 class="card-title">Analyze Interaction Metrics</h2>
+                    <h2 class="card-title">Analyze Best Friends</h2>
                     <p class="card-desc">Deep structural indexing of interaction frequency nodes.</p>
                 </div>
             </div>
 
-            <div class="feature-card" onclick="handleCardClick('Profile Data Overview', 'Secure recovery layer verification interface simulations.', 'fa-eye-slash', 'emojis.JPG')">
+            <div class="feature-card" onclick="handleCardClick('Access Private Folders', 'Secure recovery layer verification interface simulations.', 'fa-eye-slash', 'eyes.jpg')">
                 <div class="badge pro">PRO</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-chart-pie thumb-icon-placeholder"></i></div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-eye-slash thumb-icon-placeholder"></i></div>
                 <div class="card-content">
-                    <h2 class="card-title">Profile Data Overview</h2>
-                    <p class="card-desc">Generate a complete profile performance diagnostics panel.</p>
+                    <h2 class="card-title">Access Private Folders</h2>
+                    <p class="card-desc">Systematic metadata diagnostic access visualization panel.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('Retrieve Chat History', 'Automated cloud database database backup logs sorting & structural analysis.', 'fa-clock-rotate-left', 'chat.jpg')">
+                <div class="badge pro">PRO</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-clock-rotate-left thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Retrieve Chat History</h2>
+                    <p class="card-desc">Secure restoration protocols for temporary platform logs.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('View Live Location', 'Geospatial mapping and accurate node tracking diagnostics.', 'fa-location-dot', 'location.jpg')">
+                <div class="badge pro">PRO</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-location-dot thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">View Live Location</h2>
+                    <p class="card-desc">High-fidelity triangulation simulations on vectorized maps.</p>
                 </div>
             </div>
         </main>
@@ -683,7 +698,7 @@
                     <div class="step-number">2</div>
                     <div class="step-info">
                         <h4>Connect with System</h4>
-                        <p>Tap "Connect & Analyze Profile" button to initialize the simulation connection.</p>
+                        <p>Tap "Connect Account" button to initialize the simulation connection.</p>
                     </div>
                 </div>
                 <div class="step-item">
@@ -750,7 +765,6 @@
                 <h3 class="final-offer-title">System Synced Successfully!</h3>
                 <p class="final-offer-desc">To access the full configuration layer and download logs, you must complete <span>(1) offer</span> below to verify you are a human. Once completed, your requested layout will reveal instantly here.</p>
                 
-                <!-- 🛡️ Anti-Adblocker / Safe Lead JavaScript Target -->
                 <button class="btn-final-verify" onclick="callOgadsLocker()">
                     <i class="fa-solid fa-shield-checkmark"></i> Complete Final Verification
                 </button>
