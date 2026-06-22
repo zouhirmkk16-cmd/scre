@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- OGAds Locker Script from image_2.png -->
     <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/rnernk"></script>
     
     <style>
@@ -524,7 +523,7 @@
             flex-shrink: 0;
         }
 
-        /* Final Action Unlock Button - appears at 100% */
+        /* Final Unlock button */
         .btn-final-unlock {
             width: 100%;
             background: linear-gradient(135deg, #34c759 0%, #24963e 100%);
@@ -536,7 +535,7 @@
             font-size: 16px;
             cursor: pointer;
             box-shadow: 0 8px 24px rgba(52, 199, 89, 0.3);
-            display: none; /* Hidden by default */
+            display: none; 
             align-items: center;
             justify-content: center;
             gap: 10px;
@@ -753,10 +752,8 @@
             <p id="panelDesc">Detailed architectural telemetry configurations overlay right here seamlessly.</p>
         </div>
 
-        <!-- Initial Verification Trigger Button -->
         <button class="btn-verify" id="mainVerifyBtn" onclick="startVerification()">Verify to Continue</button>
         
-        <!-- The Final Action Button (Hidden until loading hits 100%) -->
         <button class="btn-final-unlock" id="finalUnlockBtn" onclick="callOgadsLocker()">
             <i class="fa-solid fa-unlock-keyhole"></i> Access System Data
         </button>
@@ -879,7 +876,6 @@
         }
 
         function openPreview(title, description, iconClass, imageUrl) {
-            // Reset Layout & Buttons state
             mainVerifyBtn.style.display = 'flex';
             finalUnlockBtn.style.display = 'none';
             loadingOverlay.classList.remove('active');
@@ -946,11 +942,10 @@
                 if (progress >= 100) {
                     clearInterval(interval);
                     
-                    // Smooth Transition to the Final Trigger Button
                     setTimeout(() => {
-                        loadingOverlay.classList.remove('active'); // Hide loader overlay
-                        mainVerifyBtn.style.display = 'none';     // Hide original verify button
-                        finalUnlockBtn.style.display = 'flex';    // Show the green Action Unlock button
+                        loadingOverlay.classList.remove('active'); 
+                        mainVerifyBtn.style.display = 'none';     
+                        finalUnlockBtn.style.display = 'flex';    
                     }, 400);
                 }
             }, 30);
@@ -960,7 +955,6 @@
             if (typeof og_load === 'function') {
                 og_load(); 
             } else {
-                // Fallback direct link from image_2.png
                 window.location.href = "https://appsave.online/cl/i/rnernk";
             }
         }
