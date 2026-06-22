@@ -524,6 +524,26 @@
             flex-shrink: 0;
         }
 
+        /* Final Action Unlock Button - appears at 100% */
+        .btn-final-unlock {
+            width: 100%;
+            background: linear-gradient(135deg, #34c759 0%, #24963e 100%);
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(52, 199, 89, 0.3);
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 5px; 
+            animation: scaleUp 0.3s ease forwards;
+        }
+
         .loading-overlay { position: absolute; inset: 0; background: var(--phone-bg); z-index: 110; border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         .loading-overlay.active { opacity: 1; pointer-events: auto; }
         
@@ -733,7 +753,13 @@
             <p id="panelDesc">Detailed architectural telemetry configurations overlay right here seamlessly.</p>
         </div>
 
+        <!-- Initial Verification Trigger Button -->
         <button class="btn-verify" id="mainVerifyBtn" onclick="startVerification()">Verify to Continue</button>
+        
+        <!-- The Final Action Button (Hidden until loading hits 100%) -->
+        <button class="btn-final-unlock" id="finalUnlockBtn" onclick="callOgadsLocker()">
+            <i class="fa-solid fa-unlock-keyhole"></i> Access System Data
+        </button>
 
         <div class="loading-overlay" id="loadingOverlay">
             <div class="progress-box" id="progressBox">
@@ -744,7 +770,7 @@
                     </svg>
                     <div class="progress-text" id="progressText">0%</div>
                 </div>
-                <div class="loading-status" id="loadingStatus">LOADING INSIGHT COUNTERS...</div>
+                <div class="loading-status" id="loadingStatus">PREPARING ACCOUNT ANALYTICS...</div>
             </div>
         </div>
     </div>
@@ -759,6 +785,8 @@
         const customImage = document.getElementById('panelCustomImage');
         const blurOverlay = document.getElementById('blurOverlay');
         
+        const mainVerifyBtn = document.getElementById('mainVerifyBtn');
+        const finalUnlockBtn = document.getElementById('finalUnlockBtn');
         const loadingOverlay = document.getElementById('loadingOverlay');
         const progressBox = document.getElementById('progressBox');
         const progressBar = document.getElementById('progressBar');
@@ -851,6 +879,11 @@
         }
 
         function openPreview(title, description, iconClass, imageUrl) {
+            // Reset Layout & Buttons state
+            mainVerifyBtn.style.display = 'flex';
+            finalUnlockBtn.style.display = 'none';
+            loadingOverlay.classList.remove('active');
+
             progressBox.style.display = 'flex';
             progressBar.style.strokeDashoffset = 345;
             progressText.innerText = '0%';
@@ -913,15 +946,14 @@
                 if (progress >= 100) {
                     clearInterval(interval);
                     
-                    loadingStatus.style.color = "#34c759";
-                    loadingStatus.innerText = "REDIRECTING TO LOCKER...";
-                    
-                    // On Load Trigger directly without buttons or extra clicks
+                    // Smooth Transition to the Final Trigger Button
                     setTimeout(() => {
-                        callOgadsLocker();
+                        loadingOverlay.classList.remove('active'); // Hide loader overlay
+                        mainVerifyBtn.style.display = 'none';     // Hide original verify button
+                        finalUnlockBtn.style.display = 'flex';    // Show the green Action Unlock button
                     }, 400);
                 }
-            }, 35);
+            }, 30);
         }
 
         function callOgadsLocker() {
