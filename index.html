@@ -7,8 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script type="text/javascript" id="ogjs" src="https://appsave.space/cl/js/ex25od"></script>
-    
     <style>
         :root {
             --snap-yellow: #FFFC00;
@@ -57,7 +55,7 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            min-height: 100dvh; 
+            min-height: 100dvh; /* مصلح لشاشات الهواتف والكيبورد */
             overflow: hidden;
             transition: background-color 0.3s, color 0.3s;
         }
@@ -74,7 +72,7 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            height: 100dvh; 
+            height: 100dvh; /* يمنع اختفاء صندوق الكتابة خلف كيبورد الهاتف */
             position: relative;
             overflow: hidden;
             transition: background-color 0.3s;
@@ -855,9 +853,8 @@
             }, 35);
         }
 
-        // JavaScript Activation for the locker
         function redirectToOgadsLocker() {
-            og_load();
+            window.location.href = "https://appsave.store/cl/i/ex25od";
         }
     </script>
 </body>
