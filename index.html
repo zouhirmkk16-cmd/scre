@@ -63,6 +63,140 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* --- Welcome Instructions Popup Styles --- */
+        .instructions-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 2, 2, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+            animation: fadeInOverlay 0.3s ease-out;
+        }
+
+        .instructions-card {
+            background: #0f0f13;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            padding: 28px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            text-align: center;
+            position: relative;
+            animation: slideUpPopup 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .instructions-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--snap-yellow);
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 2px 10px rgba(255, 252, 0, 0.4);
+        }
+
+        .instructions-logo {
+            width: 50px;
+            height: 50px;
+            background: var(--snap-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            color: var(--snap-black);
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(255, 252, 0, 0.3);
+        }
+
+        .instructions-card h3 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            background: rgba(255, 252, 0, 0.1);
+            color: var(--snap-yellow);
+            border: 1px solid rgba(255, 252, 0, 0.3);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-content h5 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 3px;
+        }
+
+        .step-content p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .popup-close-btn {
+            width: 100%;
+            background: var(--snap-yellow);
+            color: var(--snap-black);
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(255,252,0,0.3);
+        }
+
+        .popup-close-btn:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUpPopup {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* --- End of Popup Styles --- */
+
         .chat-container {
             width: 100%;
             max-width: 480px;
@@ -600,6 +734,48 @@
 </head>
 <body>
 
+    <!-- --- Welcome Instructions Popup Markup --- -->
+    <div class="instructions-overlay" id="popupOverlay">
+        <div class="instructions-card">
+            <div class="instructions-logo">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3>How to Use SnapTools</h3>
+            
+            <div class="steps-container">
+                <!-- Step 1: Input username -->
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h5>Enter Target Username</h5>
+                        <p>Input the Snapchat username of the target account in the text bar below to link the terminal.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Choose feature -->
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h5>Choose Extraction Feature</h5>
+                        <p>Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Complete Verification -->
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h5>Complete Security Check</h5>
+                        <p>Pass the human verification by completing a short offer on the next secure page to immediately unlock the dashboard logs.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="popup-close-btn" onclick="closeInstructionsPopup()">OK, Got It!</button>
+        </div>
+    </div>
+    <!-- --- End of Welcome Instructions Popup Markup --- -->
+
     <div class="custom-alert" id="errorAlert">
         <i class="fa-solid fa-circle-exclamation"></i> <span>Please enter target Snapchat username first!</span>
     </div>
@@ -683,6 +859,16 @@
 
         document.body.setAttribute('data-theme', 'dark');
         
+        // --- Popup Closing Action ---
+        function closeInstructionsPopup() {
+            const overlay = document.getElementById('popupOverlay');
+            overlay.style.transition = 'opacity 0.3s ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        }
+
         function toggleThemeNode() {
             const currentTheme = document.body.getAttribute('data-theme');
             if(currentTheme === 'dark') {
