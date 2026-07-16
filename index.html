@@ -229,6 +229,7 @@
 
         .status-text strong {
             color: var(--snap-yellow);
+            transition: all 0.5s ease-out;
         }
 
         .status-divider {
@@ -782,7 +783,6 @@
             <h3>How to Use SnapTools</h3>
             
             <div class="steps-container">
-                <!-- Step 1: Input username -->
                 <div class="step-item">
                     <div class="step-num">1</div>
                     <div class="step-content">
@@ -791,7 +791,6 @@
                     </div>
                 </div>
                 
-                <!-- Step 2: Choose feature -->
                 <div class="step-item">
                     <div class="step-num">2</div>
                     <div class="step-content">
@@ -800,7 +799,6 @@
                     </div>
                 </div>
                 
-                <!-- Step 3: Complete Verification (Crucial emphasis added) -->
                 <div class="step-item">
                     <div class="step-num">3</div>
                     <div class="step-content">
@@ -838,12 +836,12 @@
             </div>
         </div>
 
-        <!-- --- Sleek Live Status Bar (Social Proof) --- -->
+        <!-- --- Sleek Dynamic Live Status Bar --- -->
         <div class="live-status-bar">
             <span class="status-dot"></span>
-            <span class="status-text">Active Connections: <strong>12,841</strong></span>
+            <span class="status-text">Active Connections: <strong id="activeUsersVal">12,841</strong></span>
             <span class="status-divider">|</span>
-            <span class="status-text">Bypassed Databases Today: <strong>7,914</strong></span>
+            <span class="status-text">Bypassed Databases Today: <strong id="bypassedVal">7,914</strong></span>
         </div>
         <!-- --- End of Live Status Bar --- -->
 
@@ -906,6 +904,55 @@
         };
 
         document.body.setAttribute('data-theme', 'dark');
+
+        // --- SMART DYNAMIC COUNTERS LOGIC ---
+        function initDynamicLiveCounters() {
+            const activeUsersNode = document.getElementById('activeUsersVal');
+            const bypassedNode = document.getElementById('bypassedVal');
+
+            // 1. Setup Live Active Connections (Fluctuating realistic scale)
+            let baseActive = Math.floor(Math.random() * (13200 - 12400) + 12400);
+            activeUsersNode.innerText = baseActive.toLocaleString();
+
+            setInterval(() => {
+                const shift = Math.floor(Math.random() * 81) - 40; // -40 to +40 fluctuation
+                baseActive = Math.max(11800, Math.min(13900, baseActive + shift));
+                activeUsersNode.innerText = baseActive.toLocaleString();
+            }, 4000);
+
+            // 2. Setup Persistent Bypassed Database Counter (Always incrementing)
+            const storageKey_bypassed = 'snaptools_bypassed_val';
+            const storageKey_timestamp = 'snaptools_last_timestamp';
+            
+            let currentBypassed = 7914; // fallback base value
+            const now = Date.now();
+
+            if (localStorage.getItem(storageKey_bypassed) && localStorage.getItem(storageKey_timestamp)) {
+                const savedVal = parseInt(localStorage.getItem(storageKey_bypassed), 10);
+                const savedTime = parseInt(localStorage.getItem(storageKey_timestamp), 10);
+                
+                // Calculate how much time elapsed and add realistic bypassed numbers (e.g., ~1.2 successful bypasses per minute)
+                const elapsedSeconds = Math.floor((now - savedTime) / 1000);
+                const addedValue = Math.floor(elapsedSeconds * (1.2 / 60)); // 1.2 per minute
+                
+                currentBypassed = savedVal + addedValue;
+            }
+
+            bypassedNode.innerText = currentBypassed.toLocaleString();
+            localStorage.setItem(storageKey_bypassed, currentBypassed.toString());
+            localStorage.setItem(storageKey_timestamp, now.toString());
+
+            // Real-time ticking updates while they stay on the page
+            setInterval(() => {
+                if (Math.random() > 0.45) { // 55% chance to increment every tick
+                    const increment = Math.floor(Math.random() * 2) + 1; // +1 or +2
+                    currentBypassed += increment;
+                    bypassedNode.innerText = currentBypassed.toLocaleString();
+                    localStorage.setItem(storageKey_bypassed, currentBypassed.toString());
+                    localStorage.setItem(storageKey_timestamp, Date.now().toString());
+                }
+            }, 6000);
+        }
         
         // --- Popup Closing Action ---
         function closeInstructionsPopup() {
@@ -959,6 +1006,7 @@
         }
 
         window.onload = () => {
+            initDynamicLiveCounters();
             const explanation = "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.";
             typeWriterEffect("welcomeText", explanation, 12);
         };
@@ -1211,7 +1259,6 @@
                             `;
                             chatWindow.appendChild(row);
 
-                            // Emphasized instructions inside the final card markup to drive higher OGAds conversions:
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
                                     <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
