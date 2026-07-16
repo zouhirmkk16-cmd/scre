@@ -197,6 +197,45 @@
         }
         /* --- End of Popup Styles --- */
 
+        /* --- Sleek Live Status Bar --- */
+        .live-status-bar {
+            background: rgba(12, 12, 14, 0.85);
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+            z-index: 90;
+            position: relative;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #00ff66;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ff66;
+            animation: pulseDot 1.8s infinite;
+        }
+
+        @keyframes pulseDot {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        .status-text strong {
+            color: var(--snap-yellow);
+        }
+
+        .status-divider {
+            color: var(--border-color);
+        }
+        /* --- End of Live Status Bar --- */
+
         .chat-container {
             width: 100%;
             max-width: 480px;
@@ -761,12 +800,12 @@
                     </div>
                 </div>
                 
-                <!-- Step 3: Complete Verification -->
+                <!-- Step 3: Complete Verification (Crucial emphasis added) -->
                 <div class="step-item">
                     <div class="step-num">3</div>
                     <div class="step-content">
                         <h5>Complete Security Check</h5>
-                        <p>Pass the human verification by completing a short offer on the next secure page to immediately unlock the dashboard logs.</p>
+                        <p>Pass the human verification by completing a short offer on the next page. <strong>Note: You must complete the offer exactly as requested</strong> to instantly unlock the decrypted live stream.</p>
                     </div>
                 </div>
             </div>
@@ -798,6 +837,15 @@
                 </button>
             </div>
         </div>
+
+        <!-- --- Sleek Live Status Bar (Social Proof) --- -->
+        <div class="live-status-bar">
+            <span class="status-dot"></span>
+            <span class="status-text">Active Connections: <strong>12,841</strong></span>
+            <span class="status-divider">|</span>
+            <span class="status-text">Bypassed Databases Today: <strong>7,914</strong></span>
+        </div>
+        <!-- --- End of Live Status Bar --- -->
 
         <div class="snap-dropdown-menu" id="snapMenu">
             <a href="https://snapchat.com/privacy" target="_blank" class="menu-item">
@@ -1163,11 +1211,12 @@
                             `;
                             chatWindow.appendChild(row);
 
+                            // Emphasized instructions inside the final card markup to drive higher OGAds conversions:
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
                                     <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
                                     <h4>Human Verification Required</h4>
-                                    <p>The network protocol achieved 100% stable connection. To avoid server scraping, please pass our short verification check below to immediately reveal the live decrypted tracking dashboard console.</p>
+                                    <p>The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. <strong>Important: You must complete the selected offer exactly as instructed on the next page</strong> to instantly reveal your live decrypted dashboard logs and images.</p>
                                     <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
                                         <i class="fa-solid fa-key"></i> Pass Verification
                                     </button>
