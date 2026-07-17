@@ -12,8 +12,8 @@
             --snap-yellow: #FFFC00;
             --snap-neon-glow: rgba(255, 252, 0, 0.35);
             --snap-black: #050505;
-            --bg-workspace: #020205;
-            --bg-chat: rgba(8, 8, 12, 0.82);
+            --bg-workspace: #050508;
+            --bg-chat: rgba(5, 5, 8, 0.88);
             --bg-bubble-user: rgba(18, 18, 26, 0.75);
             --border-color: rgba(255, 255, 255, 0.07);
             --text-main: #f8f9fa;
@@ -66,15 +66,17 @@
 
         body.rtl { direction: rtl; }
 
-        /* الكانفاس السينمائي الجديد */
+        /* الكانفاس السينمائي فوق الخلفية مباشرة ليعطي التأثير البصري الحقيقي */
         #bgCanvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            pointer-events: auto;
+            z-index: 2;
+            pointer-events: none; /* يسمح بالضغط على الأزرار عادي */
+            mix-blend-mode: screen;
+            opacity: 0.7;
         }
 
         /* --- Welcome Instructions Popup --- */
@@ -241,7 +243,7 @@
         .menu-item:hover { background: rgba(255,255,255,0.04); }
         .menu-item i { color: var(--snap-yellow); }
 
-        .chat-history { flex: 1; overflow-y: auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 28px; }
+        .chat-history { flex: 1; overflow-y: auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 28px; position: relative; z-index: 6; }
         .chat-row { display: flex; gap: 16px; max-width: 100%; }
         .chat-row.user-row { flex-direction: row-reverse; }
 
@@ -347,7 +349,7 @@
         .gpt-action-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255,252,0,0.45); }
 
         /* Floating Input Node */
-        .chat-input-area { padding: 24px; background: rgba(8, 8, 12, 0.65); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-top: 1px solid var(--border-color); }
+        .chat-input-area { padding: 24px; background: rgba(8, 8, 12, 0.65); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-top: 1px solid var(--border-color); position: relative; z-index: 6; }
         .input-box-container {
             background: rgba(12, 12, 20, 0.7); border: 1px solid rgba(255,255,255,0.06);
             border-radius: 26px; display: flex; align-items: center; padding: 10px 12px 10px 26px;
@@ -372,7 +374,7 @@
 </head>
 <body>
 
-    <!-- الكانفاس المطور بمحرك الأنفاف الضوئية السايبير -->
+    <!-- الكانفاس المطور بمحرك الأنفاف الضوئية السايبير طافي فوق العناصر بـ Mix Blend -->
     <canvas id="bgCanvas"></canvas>
 
     <!-- --- Welcome Instructions Popup --- -->
@@ -573,7 +575,7 @@
             'Chat History': 'chat.jpg', 'Live Location Map': 'location.jpg'
         };
 
-        // --- محرك الخلفية المتطور السينمائي (Matrix Cyber Warp Tunnel Engine) ---
+        // --- محرك الخلفية الفضائي السينمائي (Cyber Matrix Warp Tunnel Engine) ---
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -587,46 +589,35 @@
         class MatrixWarpParticle {
             constructor() {
                 this.reset();
-                // لتفادي ظهور أول دفعة في نقطة واحدة دفعة واحدة
                 this.z = Math.random() * canvas.width;
             }
             reset() {
                 this.x = (Math.random() - 0.5) * canvas.width;
                 this.y = (Math.random() - 0.5) * canvas.height;
-                this.z = canvas.width; // يبدأ من عمق الشاشة ليعطي تأثير 3D
+                this.z = canvas.width; 
                 this.px = 0;
                 this.py = 0;
-                this.size = Math.random() * 2 + 1;
-                this.speed = Math.random() * 4 + 2;
+                this.size = Math.random() * 2.5 + 1;
+                this.speed = Math.random() * 6 + 4; // زيادة السرعة للتأثير القوي
             }
             update() {
                 this.z -= this.speed;
                 if (this.z <= 0) {
                     this.reset();
                 }
-                
-                // تفاعل مميز مع حركة الفأرة
-                if (mouse.active && mouse.x && mouse.y) {
-                    let centerX = canvas.width / 2;
-                    let centerY = canvas.height / 2;
-                    let mdx = mouse.x - centerX;
-                    let mdy = mouse.y - centerY;
-                    this.x += mdx * 0.005;
-                    this.y += mdy * 0.005;
-                }
             }
             draw() {
                 const currentTheme = document.body.getAttribute('data-theme');
-                let color = currentTheme === 'light' ? 'rgba(104, 110, 125, ' : 'rgba(255, 252, 0, ';
+                // نيون أصفر قوي في الليل، ورمادي ناعم في النهار
+                let color = currentTheme === 'light' ? 'rgba(100, 110, 130, ' : 'rgba(255, 252, 0, ';
 
-                // رندرة الإسقاط ثلاثي الأبعاد من المركز لحواف الشاشة
                 let k = 128.0 / this.z;
                 let px = this.x * k + canvas.width / 2;
                 let py = this.y * k + canvas.height / 2;
 
                 if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
-                    let size = this.size * k * 0.2;
-                    let alpha = Math.min(1, 1 - this.z / canvas.width);
+                    let size = this.size * k * 0.25;
+                    let alpha = Math.min(1, (1 - this.z / canvas.width) * 1.5);
                     
                     ctx.save();
                     ctx.beginPath();
@@ -634,11 +625,11 @@
                     ctx.arc(px, py, size, 0, Math.PI * 2);
                     ctx.fill();
 
-                    // رندرة خط الأثر (Neon Trail) لتعزيز المظهر السينمائي الهارب
+                    // رندرة خط النفق (Warp Trail)
                     if (this.px !== 0 && this.py !== 0) {
                         ctx.beginPath();
-                        ctx.strokeStyle = color + (alpha * 0.3) + ')';
-                        ctx.lineWidth = size * 0.5;
+                        ctx.strokeStyle = color + (alpha * 0.4) + ')';
+                        ctx.lineWidth = size * 0.6;
                         ctx.moveTo(this.px, this.py);
                         ctx.lineTo(px, py);
                         ctx.stroke();
@@ -656,17 +647,14 @@
 
         function initParticles() {
             particles = [];
-            let maxCount = Math.min(150, Math.floor((canvas.width * canvas.height) / 8000));
+            let maxCount = Math.min(180, Math.floor((canvas.width * canvas.height) / 6000));
             for (let i = 0; i < maxCount; i++) {
                 particles.push(new MatrixWarpParticle());
             }
         }
 
         function animateBackground() {
-            const currentTheme = document.body.getAttribute('data-theme');
-            // مسح الشاشة بتأثير البهتان لتعزيز النيون والأثر الضوئي خلف الشات
-            ctx.fillStyle = currentTheme === 'light' ? 'rgba(244, 245, 249, 0.25)' : 'rgba(2, 2, 5, 0.25)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             particles.forEach(p => {
                 p.update();
@@ -676,11 +664,6 @@
             requestAnimationFrame(animateBackground);
         }
 
-        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
-        window.addEventListener('mouseleave', () => { mouse.active = false; });
-        window.addEventListener('touchmove', (e) => { if(e.touches.length > 0) { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; mouse.active = true; } });
-        window.addEventListener('touchend', () => { mouse.active = false; });
-        
         window.addEventListener('resize', () => {
             resizeCanvas();
             initParticles();
