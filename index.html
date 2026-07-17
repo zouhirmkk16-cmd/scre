@@ -3,21 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>X-Alpha Cyber AI Agent</title>
+    <title>X-Alpha OSINT AI Agent</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* المتغيرات الأساسية (الوضع الداكن الافتراضي: الأصفر والأسود) */
         :root {
-            --neon-cyan: #00f3ff;
-            --neon-green: #39ff14;
-            --cyber-bg: #030308;
-            --panel-bg: rgba(6, 6, 14, 0.85);
-            --border-neon: rgba(0, 243, 255, 0.2);
+            --snap-yellow: #FFFC00;
+            --snap-black: #020204;
+            --cyber-bg: #020204;
+            --panel-bg: rgba(15, 15, 20, 0.85);
+            --border-neon: rgba(255, 252, 0, 0.2);
             --text-main: #f0f3f8;
-            --text-muted: #6c768d;
+            --text-muted: #888e9b;
             --font-main: 'Plus Jakarta Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* الوضع المضيء (Light Mode) */
+        body.light-theme {
+            --cyber-bg: #f8f9fa;
+            --panel-bg: rgba(255, 255, 255, 0.9);
+            --border-neon: rgba(2, 2, 4, 0.15);
+            --text-main: #020204;
+            --text-muted: #626875;
         }
 
         body[lang="ar"] { --font-main: 'Cairo', sans-serif; }
@@ -27,6 +37,7 @@
             margin: 0;
             padding: 0;
             font-family: var(--font-main);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         body {
@@ -48,170 +59,165 @@
             z-index: 1; pointer-events: none;
         }
 
-        /* هيدر الوكالة السيبرانية */
+        /* الهيدر */
         .ai-header {
             position: relative; z-index: 10;
-            background: rgba(4, 4, 10, 0.85);
+            background: rgba(2, 2, 4, 0.85);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 252, 0, 0.1);
             padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
         }
+        body.light-theme .ai-header { background: rgba(255, 255, 255, 0.85); border-bottom-color: rgba(2,2,4,0.1); }
         @media (max-width: 768px) { .ai-header { padding: 15px 20px; } }
 
-        .ai-brand { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 20px; letter-spacing: 0.5px; }
-        .ai-brand i { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); animation: pulseGlow 2s infinite; }
-        .ai-brand span { color: var(--neon-cyan); }
+        .ai-brand { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 20px; }
+        .ai-brand i { color: var(--snap-yellow); text-shadow: 0 0 10px rgba(255,252,0,0.5); }
+        body.light-theme .ai-brand i { color: #000; text-shadow: none; }
+        .ai-brand span { color: var(--snap-yellow); }
+        body.light-theme .ai-brand span { color: #000; }
 
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
+        .header-controls { display: flex; align-items: center; gap: 12px; }
+
+        /* بوطون تحويل الثيم Dark/Light */
+        .theme-toggle-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-neon); color: var(--text-main);
+            width: 40px; height: 40px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;
         }
 
         .lang-btn {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(0,243,255,0.2); color: var(--text-main);
-            padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-neon); color: var(--text-main);
+            padding: 8px 14px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;
         }
         .lang-dropdown {
-            position: absolute; top: 55px; right: 30px; background: #080812; border: 1px solid rgba(0,243,255,0.2);
+            position: absolute; top: 60px; right: 30px; background: var(--panel-bg); border: 1px solid var(--border-neon);
             border-radius: 12px; width: 120px; display: none; flex-direction: column; overflow: hidden; z-index: 1002;
         }
         body.rtl .lang-dropdown { left: 30px; right: auto; }
-        .lang-opt { padding: 10px 14px; color: var(--text-main); background: transparent; border: none; width: 100%; text-align: left; cursor: pointer; font-size: 13px; }
+        .lang-opt { padding: 10px 14px; color: var(--text-main); background: transparent; border: none; width: 100%; text-align: left; cursor: pointer; font-size: 13px; font-weight: 600; }
         body.rtl .lang-opt { text-align: right; }
-        .lang-opt:hover { background: rgba(0, 243, 255, 0.1); color: var(--neon-cyan); }
+        .lang-opt:hover { background: var(--snap-yellow); color: #000; }
 
-        /* منطقة الشات كاملة الشاشة */
+        /* شريط السيبورت والدعم الفني المطور */
+        .support-bar {
+            position: relative; z-index: 10; background: rgba(255, 252, 0, 0.05); border-bottom: 1px solid var(--border-neon);
+            padding: 10px 30px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700;
+        }
+        .support-links { display: flex; gap: 16px; }
+        .support-links a { color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .support-links a:hover { color: var(--snap-yellow); }
+        body.light-theme .support-links a:hover { color: #000; font-weight: 800; }
+
+        /* منطقة الشات */
         .chat-space {
-            position: relative; z-index: 5;
-            flex: 1; display: flex; flex-direction: column;
-            max-width: 900px; width: 100%; margin: 0 auto;
-            padding: 20px; overflow: hidden;
+            position: relative; z-index: 5; flex: 1; display: flex; flex-direction: column;
+            max-width: 900px; width: 100%; margin: 0 auto; padding: 20px; overflow: hidden;
         }
 
-        .chat-timeline {
-            flex: 1; overflow-y: auto;
-            padding-right: 10px; display: flex; flex-direction: column; gap: 20px;
-            scroll-behavior: smooth;
-        }
-        /* كستمايز السكرول بار ليناسب الجو */
+        .chat-timeline { flex: 1; overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 20px; scroll-behavior: smooth; }
         .chat-timeline::-webkit-scrollbar { width: 4px; }
-        .chat-timeline::-webkit-scrollbar-thumb { background: rgba(0, 243, 255, 0.2); border-radius: 10px; }
+        .chat-timeline::-webkit-scrollbar-thumb { background: var(--border-neon); border-radius: 10px; }
 
-        /* ستايل فقاعات الشات */
+        /* الفقاعات */
         .msg-row { display: flex; width: 100%; gap: 14px; align-items: flex-start; animation: fadeInMsg 0.4s ease-out both; }
         @keyframes fadeInMsg { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
         .msg-row.user-side { flex-direction: row-reverse; }
 
         .agent-avatar {
-            width: 38px; height: 38px; border-radius: 12px; background: rgba(0, 243, 255, 0.1);
-            border: 1px solid var(--neon-cyan); display: flex; align-items: center; justify-content: center;
-            color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0,243,255,0.2); flex-shrink: 0;
+            width: 38px; height: 38px; border-radius: 12px; background: var(--snap-yellow);
+            display: flex; align-items: center; justify-content: center; color: #000; font-size: 16px; flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(255,252,0,0.2);
         }
-        .user-side .agent-avatar {
-            background: rgba(255, 255, 255, 0.05); border-color: rgba(255,255,255,0.3); color: #fff;
-            box-shadow: none;
-        }
+        .user-side .agent-avatar { background: rgba(255,255,255,0.1); color: var(--text-main); box-shadow: none; border: 1px solid var(--border-neon); }
 
         .msg-bubble {
             max-width: 75%; background: var(--panel-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--border-neon); border-radius: 4px 20px 20px 20px; padding: 16px 20px;
-            font-size: 14px; line-height: 1.6; color: #e1e6f0; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            font-size: 14px; line-height: 1.6; color: var(--text-main); box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         body.rtl .msg-bubble { border-radius: 20px 4px 20px 20px; }
-        .user-side .msg-bubble {
-            background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.08);
-            border-radius: 20px 4px 20px 20px; color: #fff;
-        }
+        .user-side .msg-bubble { border-radius: 20px 4px 20px 20px; background: rgba(255,255,255,0.03); }
         body.rtl .user-side .msg-bubble { border-radius: 20px 20px 4px 20px; }
 
-        /* خيارات تفاعلية وسط الشات */
-        .interactive-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; width: 100%;
-        }
-        @media (max-width: 500px) { .interactive-grid { grid-template-columns: 1fr; } }
+        /* شبكة الخيارات بالتصاور والأسماء الأصلية */
+        .interactive-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 15px; width: 100%; }
+        @media (max-width: 550px) { .interactive-grid { grid-template-columns: 1fr; } }
         
         .grid-choice-btn {
-            background: rgba(0, 243, 255, 0.03); border: 1px solid rgba(0, 243, 255, 0.15);
-            border-radius: 14px; padding: 14px; color: #fff; font-size: 13px; font-weight: 700;
-            cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; transition: all 0.2s;
+            position: relative; height: 110px; border-radius: 16px; border: 1px solid var(--border-neon);
+            background-size: cover; background-position: center; cursor: pointer; overflow: hidden;
+            display: flex; align-items: center; padding: 0 20px; text-align: left; transition: all 0.3s;
         }
         body.rtl .grid-choice-btn { text-align: right; }
-        .grid-choice-btn i { color: var(--neon-cyan); font-size: 14px; }
-        .grid-choice-btn:hover {
-            border-color: var(--neon-cyan); background: rgba(0, 243, 255, 0.08);
-            box-shadow: 0 0 15px rgba(0,243,255,0.1); transform: translateY(-2px);
-        }
+        .grid-choice-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(2,2,4,0.95) 40%, rgba(2,2,4,0.4) 100%); z-index: 1; }
+        body.rtl .grid-choice-btn::before { background: linear-gradient(-90deg, rgba(2,2,4,0.95) 40%, rgba(2,2,4,0.4) 100%); }
+        body.light-theme .grid-choice-btn::before { background: linear-gradient(90deg, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.4) 100%); }
+        body.light-theme.rtl .grid-choice-btn::before { background: linear-gradient(-90deg, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.4) 100%); }
 
-        /* صندوق الإدخال السفلي الذكي */
+        .btn-core-content { position: relative; z-index: 2; display: flex; align-items: center; gap: 14px; }
+        .btn-core-content i {
+            width: 36px; height: 36px; background: rgba(255,252,0,0.1); border: 1px solid var(--snap-yellow);
+            color: var(--snap-yellow); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px;
+        }
+        body.light-theme .btn-core-content i { background: rgba(0,0,0,0.05); border-color: #000; color: #000; }
+        
+        .grid-choice-btn:hover { border-color: var(--snap-yellow); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        body.light-theme .grid-choice-btn:hover { border-color: #000; }
+
+        .btn-title { font-size: 14px; font-weight: 800; color: var(--text-main); }
+        .btn-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        /* بار الإدخال السفلي */
         .chat-input-area {
-            position: relative; margin-top: 15px; background: rgba(4, 4, 10, 0.8);
-            border: 1px solid rgba(0, 243, 255, 0.15); border-radius: 22px;
+            position: relative; margin-top: 15px; background: var(--panel-bg);
+            border: 1px solid var(--border-neon); border-radius: 22px;
             padding: 8px 10px 8px 20px; display: flex; align-items: center; gap: 12px;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
         }
         body.rtl .chat-input-area { padding: 8px 20px 8px 10px; }
-        .chat-input-area:focus-within { border-color: var(--neon-cyan); box-shadow: 0 0 20px rgba(0,243,255,0.15); }
+        .chat-input-area:focus-within { border-color: var(--snap-yellow); box-shadow: 0 0 15px rgba(255,252,0,0.1); }
+        body.light-theme .chat-input-area:focus-within { border-color: #000; }
         
-        .chat-core-input {
-            background: transparent; border: none; outline: none; color: #fff;
-            font-size: 14px; flex: 1; padding: 12px 0;
-        }
+        .chat-core-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 14px; flex: 1; padding: 12px 0; }
         .chat-send-btn {
-            width: 44px; height: 44px; background: var(--neon-cyan); color: #000; border: none;
+            width: 44px; height: 44px; background: var(--snap-yellow); color: #000; border: none;
             border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 15px; font-weight: 800; transition: transform 0.2s; box-shadow: 0 0 15px rgba(0,243,255,0.3);
+            font-size: 15px; box-shadow: 0 4px 12px rgba(255,252,0,0.2);
         }
-        .chat-send-btn:hover { transform: scale(1.04); }
+        body.light-theme .chat-send-btn { background: #000; color: #fff; box-shadow: none; }
         .chat-input-area.disabled { opacity: 0.4; pointer-events: none; }
 
-        /* شاشة التحميل والكونسول المتقدمة داخل الفقاعة */
-        .ai-console-box {
-            background: #04040a; border: 1px solid rgba(0, 243, 255, 0.1); border-radius: 12px;
-            padding: 12px; font-family: var(--font-mono); font-size: 11px; color: #a9b6d4;
-            margin-top: 10px; display: flex; flex-direction: column; gap: 6px;
-        }
+        /* الكونسول والتحميل */
+        .ai-console-box { background: #020204; border: 1px solid rgba(255,252,0,0.1); border-radius: 12px; padding: 12px; font-family: var(--font-mono); font-size: 11px; color: #a9b6d4; margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+        body.light-theme .ai-console-box { background: #f1f3f5; border-color: rgba(0,0,0,0.08); color: #212529; }
         .c-line { display: flex; gap: 6px; }
-        .c-g { color: var(--neon-green); }
-        .c-c { color: var(--neon-cyan); }
+        .c-g { color: #00ffaa; }
+        body.light-theme .c-g { color: #00875a; font-weight: 700; }
+        .c-c { color: var(--snap-yellow); }
+        body.light-theme .c-c { color: #000; }
 
         .ai-progress-wrap { margin-top: 12px; }
         .ai-progress-bar { width: 100%; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-top: 6px; }
-        .ai-progress-fill { height: 100%; background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green)); width: 0%; transition: width 0.1s linear; }
+        body.light-theme .ai-progress-bar { background: rgba(0,0,0,0.05); }
+        .ai-progress-fill { height: 100%; background: var(--snap-yellow); width: 0%; }
+        body.light-theme .ai-progress-fill { background: #000; }
 
-        /* كارت فك القفل المقنع جداً */
-        .ai-lock-card {
-            background: linear-gradient(135deg, rgba(10,18,34,0.9) 0%, rgba(5,9,18,0.9) 100%);
-            border: 1px solid var(--neon-cyan); border-radius: 18px; padding: 24px; text-align: center;
-            display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 10px;
-        }
-        .ai-lock-icon {
-            width: 48px; height: 48px; background: rgba(0,243,255,0.1); border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 18px; box-shadow: 0 0 15px rgba(0,243,255,0.2);
-        }
-        .ai-lock-card h4 { font-size: 16px; font-weight: 800; color: #fff; }
+        /* قفل التفعيل النهائي */
+        .ai-lock-card { background: var(--panel-bg); border: 1px solid var(--snap-yellow); border-radius: 18px; padding: 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 10px; }
+        body.light-theme .ai-lock-card { border-color: #000; }
+        .ai-lock-icon { width: 48px; height: 48px; background: rgba(255,252,0,0.1); border: 1px solid var(--snap-yellow); color: var(--snap-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        body.light-theme .ai-lock-icon { background: rgba(0,0,0,0.05); border-color: #000; color: #000; }
+        .ai-lock-card h4 { font-size: 16px; font-weight: 800; }
         .ai-lock-card p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
-        .ai-unlock-action-btn {
-            width: 100%; background: var(--neon-cyan); color: #000; border: none; padding: 14px;
-            border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; gap: 8px; box-shadow: 0 5px 15px rgba(0,243,255,0.3);
-        }
+        .ai-unlock-action-btn { width: 100%; background: var(--snap-yellow); color: #000; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 5px 15px rgba(255,252,0,0.3); }
+        body.light-theme .ai-unlock-action-btn { background: #000; color: #fff; box-shadow: none; }
 
-        /* أنيميشن النقاط الثلاث للـ AI وهو كيفكر */
         .typing-indicator { display: flex; gap: 4px; padding: 4px 0; }
-        .typing-indicator span { width: 6px; height: 6px; background: var(--neon-cyan); border-radius: 50%; animation: blink 1.4s infinite both; }
+        .typing-indicator span { width: 6px; height: 6px; background: var(--snap-yellow); border-radius: 50%; animation: blink 1.4s infinite both; }
+        body.light-theme .typing-indicator span { background: #000; }
         .typing-indicator span:nth-child(2) { animation-delay: .2s; }
         .typing-indicator span:nth-child(3) { animation-delay: .4s; }
         @keyframes blink { 0%, 100% { opacity: .2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
 
-        /* توست الأخطاء */
-        .toast-err {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
-            background: #1a0909; color: #ff4444; border: 1px solid rgba(255,68,68,0.3);
-            padding: 12px 24px; border-radius: 12px; font-weight: 700; font-size: 13px; z-index: 10000;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s; opacity: 0;
-        }
+        .toast-err { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #1a0909; color: #ff4444; border: 1px solid rgba(255,68,68,0.3); padding: 12px 24px; border-radius: 12px; font-weight: 700; font-size: 13px; z-index: 10000; transition: transform 0.4s, opacity 0.4s; opacity: 0; }
         .toast-err.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
@@ -223,12 +229,17 @@
         <i class="fa-solid fa-triangle-exclamation"></i> &nbsp; <span id="errText">Please provide a valid entry!</span>
     </div>
 
+    <!-- هيدر السيستم -->
     <header class="ai-header">
         <div class="ai-brand">
-            <i class="fa-solid fa-brain"></i>
-            <div>X-Alpha <span style="font-size: 12px; font-weight: 600; opacity: 0.7; color: #fff;">OSINT Agent v5.0</span></div>
+            <i class="fa-solid fa-robot"></i>
+            <div>Snap<span style="font-weight: 400;">Tools AI</span></div>
         </div>
-        <div>
+        <div class="header-controls">
+            <!-- بوطون تبديل الستايل من الأبيض للكحل -->
+            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">
+                <i class="fa-solid fa-sun"></i>
+            </button>
             <button class="lang-btn" onclick="toggleLang(event)">
                 <i class="fa-solid fa-globe"></i> <span id="langDisplay">EN</span>
             </button>
@@ -240,10 +251,18 @@
         </div>
     </header>
 
-    <main class="chat-space">
-        <div class="chat-timeline" id="chatTimeline">
-            <!-- فقاعات الشات التفاعلية كتحط هنا ديناميكياً -->
+    <!-- شريط الدعم الفني و خيارات السناب شات الحقيقية -->
+    <div class="support-bar">
+        <div id="supportLabel">System Live Status: <span style="color:#00ffaa;">ONLINE</span></div>
+        <div class="support-links">
+            <a href="https://support.snapchat.com" target="_blank"><i class="fa-solid fa-circle-info"></i> <span id="lnkSupport">Support Center</span></a>
+            <a href="https://www.snapchat.com" target="_blank"><i class="fa-brands fa-snapchat"></i> <span id="lnkRealSnap">Open Snapchat</span></a>
         </div>
+    </div>
+
+    <!-- مساحة الشات كاملة الشاشة -->
+    <main class="chat-space">
+        <div class="chat-timeline" id="chatTimeline"></div>
 
         <div class="chat-input-area" id="inputZone">
             <input type="text" class="chat-core-input" id="chatInputField" placeholder="Type your response here..." autocomplete="off">
@@ -260,59 +279,49 @@
                 placeholderUsername: "Enter target Snapchat username...",
                 placeholderGeneric: "Type your response here...",
                 errEmpty: "Please enter a valid Snapchat username first!",
-                aiIntro: "System initialized. I am X-Alpha, an advanced OSINT AI agent specializing in digital footprint mapping and cloud backup extraction. Please provide the <strong>Snapchat username</strong> of the target account to begin node synchronization.",
-                aiLinked: "Target node established for <strong>@{user}</strong>. I have detected multiple hidden data streams in the Snapchat cloud core. Select which data matrix you want me to bypass and extract:",
-                f1: "Bypass Private Snaps", f2: "Intercept Active Camera Feed",
-                f3: "Extract Full Friends Network", f4: "Decrypt Hidden Private Stories",
-                f5: "Reconstruct Chat Logs", f6: "Map Live GPS Location Coordinates",
+                aiIntro: "System initialized. I am your automated OSINT AI agent. Please provide the <strong>Snapchat username</strong> of the target account to begin synchronization and fetch backup layers.",
+                aiLinked: "Target node established for <strong>@{user}</strong>. Multiple hidden data streams detected in the cloud database. Select the matrix layer you want to decrypt:",
+                f1: "Bypass Private Snaps", f1s: "Extract recent snaps logs",
+                f2: "Intercept Snap Camera", f2s: "Access active camera feeds",
+                f3: "View Friends List", f3s: "Fetch full linked friend data",
+                f4: "Decrypt Private Stories", f4s: "Decrypt private custom stories",
+                f5: "Reconstruct Chat History", f5s: "Download end-to-end conversations",
+                f6: "Map Live Location", f6s: "Track dynamic live map coordinates",
                 aiExtracting: "Initiating Deep Extraction Protocol for <strong>{mod}</strong>. Cracking secure proxy layers...",
                 c1: "Spawning secure proxy nodes...", c2: "Bypassing Snapchat SSL pinning...", c3: "Target databank cluster identified.", c4: "Downloading cached media payload...",
                 downloading: "Downloading data packets:",
-                aiSuccess: "Data matrix extracted successfully! However, to secure the data link from automatic firewall bans, you must complete the final human validation layer.",
+                aiSuccess: "Data matrix extracted successfully! To prevent automated firewall bans, you must pass the human authentication layer.",
                 lockTitle: "Security Authentication Required",
-                lockDesc: "I have compiled all the requested logs, images, and coordinates into a secure encrypted folder. To instantly reveal the dynamic stream, please pass the automated verification by completing an offer below exactly as requested.",
-                lockBtn: "Decrypt Data Panel Now"
+                lockDesc: "I have compiled all the requested logs, images, and coordinates into a secure encrypted folder. To instantly reveal the dynamic stream, please pass the automated verification below.",
+                lockBtn: "Decrypt Data Panel Now",
+                lnkSupport: "Support Center", lnkRealSnap: "Open Snapchat", status: "System Live Status: ONLINE"
             },
             ar: {
                 current: "AR", rtl: true,
                 placeholderUsername: "أدخل اسم مستخدم سناب شات المستهدف...",
                 placeholderGeneric: "اكتب استجابتك هنا...",
                 errEmpty: "يرجى إدخال اسم مستخدم حساب سناب شات صحيح أولاً!",
-                aiIntro: "تم تشغيل النظام بنجاح. أنا المساعد السيبراني الذكي X-Alpha، المتخصص في تحليل الآثار الرقمية واستخراج النسخ الاحتياطية السحابية. يرجى تزويدي بـ <strong>اسم مستخدم حساب السناب شات</strong> المستهدف لبدء مزامنة العقدة الرقمية وفحص الخوادم.",
-                aiLinked: "تم ربط نظام الحساب المستهدف بنجاح: <strong>@{user}</strong>. لقد رصدت مصفوفات بيانات متعددة ومخفية في خادم السناب شات السحابي. حدد طبقة البيانات المشفرة التي تريد مني اختراقها وجلبها فوراً:",
-                f1: "تخطي اللقطات الخاصة (Snaps)", f2: "اعتراض بث الكاميرا النشط",
-                f3: "استخراج شبكة الأصدقاء الكاملة", f4: "فك تشفير القصص الخاصة المخفية",
-                f5: "إعادة بناء سجل المحادثات والدردشة", f6: "رسم خريطة إحداثيات الموقع المباشر (GPS)",
-                aiExtracting: "بدء بروتوكول الاستخراج العميق لـ <strong>{mod}</strong>. جاري كسر طبقات الحماية والتشفير المتقدمة...",
-                c1: "جاري إنشاء عقد اتصال مجهولة وآمنة...", c2: "تخطي نظام جدار الحماية وتثبيت الـ SSL...", c3: "تم تحديد موقع مجموعة خوادم الحساب بنجاح.", c4: "جاري سحب وتنزيل حزم البيانات المشفرة المخبأة...",
+                aiIntro: "تم تشغيل النظام بنجاح. أنا المساعد السيبراني الذكي X-Alpha. يرجى تزويدي بـ <strong>اسم مستخدم حساب السناب شات</strong> المستهدف لبدء فحص خوادم النسخ الاحتياطي.",
+                aiLinked: "تم ربط نظام الحساب بنجاح: <strong>@{user}</strong>. تم رصد مصفوفات بيانات مخفية في الخادم السحابي. حدد طبقة البيانات المشفرة المراد جلبها:",
+                f1: "تخطي اللقطات الخاصة", f1s: "استخراج سجل اللقطات الأخيرة",
+                f2: "اعتراض بث الكاميرا", f2s: "الوصول إلى بث الكاميرا النشط",
+                f3: "عرض قائمة الأصدقاء", f3s: "جلب بيانات الأصدقاء الكاملة",
+                f4: "فك تشفير القصص الخاصة", f4s: "فك تشفير القصص المخصصة الخاصة",
+                f5: "إعادة بناء سجل الدردشة", f5s: "تحميل المحادثات المشفرة بالكامل",
+                f6: "رسم خريطة الموقع المباشر", f6s: "تتبع إحداثيات الخريطة الحية",
+                aiExtracting: "بدء بروتوكول الاستخراج العميق لـ <strong>{mod}</strong>. جاري كسر طبقات الحماية...",
+                c1: "جاري إنشاء عقد اتصال مجهولة وآمنة...", c2: "تخطي نظام جدار حماية السناب...", c3: "تم تحديد موقع خوادم الحساب بنجاح.", c4: "جاري سحب وتنزيل حزم البيانات المشفرة...",
                 downloading: "جاري تحميل وتجميع حزم البيانات:",
-                aiSuccess: "تم استخراج مصفوفة البيانات بنجاح! ولكن، لتأمين تدفق البيانات وحماية النظام من الحظر التلقائي لجدار الحماية، يجب عليك اجتياز طبقة المصادقة البشرية الأخيرة.",
+                aiSuccess: "تم استخراج مصفوفة البيانات بنجاح! ولكن، لتأمين تدفق البيانات وحماية الخادم، يجب عليك اجتياز طبقة المصادقة البشرية الأخيرة.",
                 lockTitle: "مطلوب مصادقة الأمان البشرية",
-                lockDesc: "لقد قمت بتجميع كافة السجلات، الصور، والدردشات المطلوبة في مجلد مشفر وآمن. لفتح البث المباشر فوراً وعرض البيانات، يرجى إثبات هويتك البشرية عن طريق إكمال أحد العروض أدناه تماماً كما هو مطلوب.",
-                lockBtn: "فك تشفير لوحة البيانات الآن"
-            },
-            fr: {
-                current: "FR", rtl: false,
-                placeholderUsername: "Entrez l'identifiant Snapchat cible...",
-                placeholderGeneric: "Tapez votre réponse ici...",
-                errEmpty: "Veuillez entrer un nom d'utilisateur Snapchat valide!",
-                aiIntro: "Système initialisé. Je suis X-Alpha, un agent IA OSINT avancé spécialisé dans la cartographie des empreintes numériques. Veuillez fournir l'<strong>identifiant Snapchat</strong> cible pour commencer la synchronisation.",
-                aiLinked: "Nœud cible établi pour <strong>@{user}</strong>. J'ai détecté plusieurs flux de données masqués. Sélectionnez la matrice de données que vous souhaitez extraire :",
-                f1: "Contourner les Snaps Privés", f2: "Intercepter le flux caméra actif",
-                f3: "Extraire le réseau d'amis", f4: "Décrypter les Stories Privées",
-                f5: "Reconstruire les journaux de Chat", f6: "Cartographier les coordonnées GPS",
-                aiExtracting: "Protocole d'extraction profonde activé pour <strong>{mod}</strong>. Craquage des couches proxy...",
-                c1: "Génération de nœuds proxy sécurisés...", c2: "Contournement du SSL pinning de Snapchat...", c3: "Cluster de base de données cible identifié.", c4: "Téléchargement des données multimédias...",
-                downloading: "Téléchargement des paquets de données:",
-                aiSuccess: "Matrice de données extraite avec succès! Cependant, pour sécuriser le lien de données, vous devez compléter la validation humaine finale.",
-                lockTitle: "Authentification de Sécurité Requise",
-                lockDesc: "J'ai compilé tous les journaux et images demandés dans un dossier crypté. Pour révéler instantanément le flux, veuillez passer la vérification en complétant une offre ci-dessous.",
-                lockBtn: "Décrypter le panneau de données"
+                lockDesc: "لقد قمت بتجميع كافة السجلات، الصور، والدردشات المطلوبة في مجلد مشفر. لفتح البث المباشر فوراً، يرجى إثبات هويتك البشرية عبر إكمال العرض أدناه.",
+                lockBtn: "فك تشفير لوحة البيانات الآن",
+                lnkSupport: "مركز الدعم", lnkRealSnap: "فتح تطبيق سناب شات", status: "حالة النظام الحالية: نشط الآن"
             }
         };
 
         let currentLang = 'en';
-        let currentStep = 'INPUT_USER'; // INPUT_USER -> CHOOSE_MODULE -> EXTRACTING -> FINAL_LOCK
+        let currentStep = 'INPUT_USER';
         let targetUser = '';
         let toastTimeout = null;
 
@@ -320,7 +329,19 @@
         const inputField = document.getElementById('chatInputField');
         const inputZone = document.getElementById('inputZone');
 
-        // --- محرك الأنفاق الضوئية الخلفية ---
+        // قلب الثيم (Light / Dark) من الأبيض للكحل والأصفر
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('themeBtn').querySelector('i');
+            body.classList.toggle('light-theme');
+            if(body.classList.contains('light-theme')) {
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                icon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        // --- محرك الخلفية الجمالي ---
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -328,143 +349,90 @@
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         class WarpParticle {
             constructor() { this.reset(); this.z = Math.random() * canvas.width; }
-            reset() {
-                this.x = (Math.random() - 0.5) * canvas.width; this.y = (Math.random() - 0.5) * canvas.height;
-                this.z = canvas.width; this.px = 0; this.py = 0; this.size = Math.random() * 2 + 1;
-                this.speed = Math.random() * 6 + 4;
-            }
+            reset() { this.x = (Math.random() - 0.5) * canvas.width; this.y = (Math.random() - 0.5) * canvas.height; this.z = canvas.width; this.size = Math.random() * 2 + 1; this.speed = Math.random() * 5 + 3; }
             update() { this.z -= this.speed; if (this.z <= 0) this.reset(); }
             draw() {
                 let k = 140.0 / this.z; let px = this.x * k + canvas.width / 2; let py = this.y * k + canvas.height / 2;
                 if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
-                    let size = this.size * k * 0.2; let alpha = Math.min(1, (1 - this.z / canvas.width) * 1.5);
-                    ctx.beginPath(); ctx.fillStyle = 'rgba(0, 243, 255, ' + alpha + ')';
+                    let size = this.size * k * 0.2; let alpha = Math.min(1, (1 - this.z / canvas.width) * 1.2);
+                    ctx.beginPath(); 
+                    ctx.fillStyle = document.body.classList.contains('light-theme') ? 'rgba(0,0,0,'+alpha*0.15+')' : 'rgba(255, 252, 0, ' + alpha + ')';
                     ctx.arc(px, py, size, 0, Math.PI * 2); ctx.fill();
-                    this.px = px; this.py = py;
-                } else { this.px = 0; this.py = 0; }
+                }
             }
         }
-        function initParticles() {
-            particles = []; let count = Math.min(150, Math.floor((canvas.width * canvas.height) / 6000));
-            for (let i = 0; i < count; i++) particles.push(new WarpParticle());
-        }
-        function animateBg() {
-            ctx.fillStyle = 'rgba(3, 3, 8, 0.2)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateBg);
-        }
+        function initParticles() { particles = []; for (let i = 0; i < 100; i++) particles.push(new WarpParticle()); }
+        function animateBg() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateBg); }
         window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 
-        // --- إدارة الشات ولغات النظام ---
         function toggleLang(e) { e.stopPropagation(); const d = document.getElementById('langDrop'); d.style.display = d.style.display === 'flex' ? 'none' : 'flex'; }
         document.addEventListener('click', () => { document.getElementById('langDrop').style.display = 'none'; });
 
         function setLanguage(lang) {
             currentLang = lang;
-            const d = localization[lang];
+            const d = localization[lang] || localization['en'];
             document.getElementById('langDisplay').innerText = d.current;
             document.body.setAttribute('lang', lang);
             if(d.rtl) document.body.classList.add('rtl'); else document.body.classList.remove('rtl');
             
-            // تحديث البلايسهولدر حسب الحالة
-            if(currentStep === 'INPUT_USER') {
-                inputField.placeholder = d.placeholderUsername;
-            } else {
-                inputField.placeholder = d.placeholderGeneric;
-            }
+            document.getElementById('supportLabel').innerHTML = d.status;
+            document.getElementById('lnkSupport').innerText = d.lnkSupport;
+            document.getElementById('lnkRealSnap').innerText = d.lnkRealSnap;
+
+            if(currentStep === 'INPUT_USER') inputField.placeholder = d.placeholderUsername;
+            else inputField.placeholder = d.placeholderGeneric;
             
-            // إعادة بناء الشات فقط عند التغيير اللغوي لعدم فقدان السياق البصري
-            refreshChatLayout();
+            if(timeline.children.length === 0) pushAIMessage(d.aiIntro);
         }
 
         function showTypingIndicator() {
-            const row = document.createElement('div');
-            row.className = 'msg-row';
-            row.id = 'aiTypingRow';
-            row.innerHTML = `
-                <div class="agent-avatar"><i class="fa-solid fa-robot"></i></div>
-                <div class="msg-bubble">
-                    <div class="typing-indicator"><span></span><span></span><span></span></div>
-                </div>
-            `;
-            timeline.appendChild(row);
-            timeline.scrollTop = timeline.scrollHeight;
+            const row = document.createElement('div'); row.className = 'msg-row'; row.id = 'aiTypingRow';
+            row.innerHTML = `<div class="agent-avatar"><i class="fa-solid fa-robot"></i></div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+            timeline.appendChild(row); timeline.scrollTop = timeline.scrollHeight;
         }
-
-        function removeTypingIndicator() {
-            const node = document.getElementById('aiTypingRow');
-            if(node) node.remove();
-        }
+        function removeTypingIndicator() { const node = document.getElementById('aiTypingRow'); if(node) node.remove(); }
 
         function pushAIMessage(htmlContent, callback = null) {
             showTypingIndicator();
             setTimeout(() => {
                 removeTypingIndicator();
-                const row = document.createElement('div');
-                row.className = 'msg-row';
-                row.innerHTML = `
-                    <div class="agent-avatar"><i class="fa-solid fa-robot"></i></div>
-                    <div class="msg-bubble">${htmlContent}</div>
-                `;
-                timeline.appendChild(row);
-                timeline.scrollTop = timeline.scrollHeight;
+                const row = document.createElement('div'); row.className = 'msg-row';
+                row.innerHTML = `<div class="agent-avatar"><i class="fa-solid fa-robot"></i></div><div class="msg-bubble">${htmlContent}</div>`;
+                timeline.appendChild(row); timeline.scrollTop = timeline.scrollHeight;
                 if(callback) callback();
-            }, 1200);
+            }, 1000);
         }
 
         function pushUserMessage(text) {
-            const row = document.createElement('div');
-            row.className = 'msg-row user-side';
-            row.innerHTML = `
-                <div class="agent-avatar"><i class="fa-solid fa-user"></i></div>
-                <div class="msg-bubble">${text}</div>
-            `;
-            timeline.appendChild(row);
-            timeline.scrollTop = timeline.scrollHeight;
-        }
-
-        function triggerToast(text) {
-            if(toastTimeout) clearTimeout(toastTimeout);
-            const t = document.getElementById('errorToast');
-            document.getElementById('errText').innerText = text;
-            t.classList.add('show');
-            toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
+            const row = document.createElement('div'); row.className = 'msg-row user-side';
+            row.innerHTML = `<div class="agent-avatar"><i class="fa-solid fa-user"></i></div><div class="msg-bubble">${text}</div>`;
+            timeline.appendChild(row); timeline.scrollTop = timeline.scrollHeight;
         }
 
         function handleUserSubmit() {
             const val = inputField.value.trim();
-            if(val === "") {
-                triggerToast(localization[currentLang].errEmpty);
-                return;
-            }
+            if(val === "") { if(!toastTimeout) { document.getElementById('errorToast').classList.add('show'); toastTimeout = setTimeout(() => { document.getElementById('errorToast').classList.remove('show'); toastTimeout = null; }, 3000); } return; }
 
             if(currentStep === 'INPUT_USER') {
-                targetUser = val;
-                inputField.value = '';
-                pushUserMessage(`@${targetUser}`);
-                
-                // الانتقال للخطوة التالية للربط
-                currentStep = 'CHOOSE_MODULE';
-                inputZone.classList.add('disabled');
-                inputField.placeholder = localization[currentLang].placeholderGeneric;
+                targetUser = val; inputField.value = ''; pushUserMessage(`@${targetUser}`);
+                currentStep = 'CHOOSE_MODULE'; inputZone.classList.add('disabled');
                 
                 setTimeout(() => {
                     const d = localization[currentLang];
                     const msg = d.aiLinked.replace('{user}', targetUser);
                     pushAIMessage(msg, () => {
-                        // ضخ الخيارات التفاعلية داخل الشات مباشرة
                         const lastBubble = timeline.lastElementChild.querySelector('.msg-bubble');
-                        const grid = document.createElement('div');
-                        grid.className = 'interactive-grid';
+                        const grid = document.createElement('div'); grid.className = 'interactive-grid';
+                        // الحفاظ الكامل على التصاور والروابط الأصلية بالأسماء المطلوبة
                         grid.innerHTML = `
-                            <button class="grid-choice-btn" onclick="startExtraction('f1')"><i class="fa-solid fa-bolt"></i> <span>${d.f1}</span></button>
-                            <button class="grid-choice-btn" onclick="startExtraction('f2')"><i class="fa-solid fa-camera"></i> <span>${d.f2}</span></button>
-                            <button class="grid-choice-btn" onclick="startExtraction('f3')"><i class="fa-solid fa-user-group"></i> <span>${d.f3}</span></button>
-                            <button class="grid-choice-btn" onclick="startExtraction('f4')"><i class="fa-solid fa-eye-slash"></i> <span>${d.f4}</span></button>
-                            <button class="grid-choice-btn" onclick="startExtraction('f5')"><i class="fa-solid fa-comment"></i> <span>${d.f5}</span></button>
-                            <button class="grid-choice-btn" onclick="startExtraction('f6')"><i class="fa-solid fa-map-location-dot"></i> <span>${d.f6}</span></button>
+                            <button class="grid-choice-btn" style="background-image: url('Snaping.jpg');" onclick="startExtraction('f1')"><div class="btn-core-content"><i class="fa-solid fa-bolt"></i><div><div class="btn-title">${d.f1}</div><div class="btn-sub">${d.f1s}</div></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('Camera.JPG');" onclick="startExtraction('f2')"><div class="btn-core-content"><i class="fa-solid fa-camera"></i><div><div class="btn-title">${d.f2}</div><div class="btn-sub">${d.f2s}</div></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('friends.jpg');" onclick="startExtraction('f3')"><div class="btn-core-content"><i class="fa-solid fa-user-group"></i><div><div class="btn-title">${d.f3}</div><div class="btn-sub">${d.f3s}</div></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('eyes.jpg');" onclick="startExtraction('f4')"><div class="btn-core-content"><i class="fa-solid fa-eye-slash"></i><div><div class="btn-title">${d.f4}</div><div class="btn-sub">${d.f4s}</div></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('chat.jpg');" onclick="startExtraction('f5')"><div class="btn-core-content"><i class="fa-solid fa-comment"></i><div><div class="btn-title">${d.f5}</div><div class="btn-sub">${d.f5s}</div></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('location.jpg');" onclick="startExtraction('f6')"><div class="btn-core-content"><i class="fa-solid fa-map-location-dot"></i><div><div class="btn-title">${d.f6}</div><div class="btn-sub">${d.f6s}</div></div></div></button>
                         `;
-                        lastBubble.appendChild(grid);
-                        timeline.scrollTop = timeline.scrollHeight;
+                        lastBubble.appendChild(grid); timeline.scrollTop = timeline.scrollHeight;
                     });
                 }, 400);
             }
@@ -473,91 +441,51 @@
         inputField.addEventListener('keydown', (e) => { if(e.key === 'Enter') handleUserSubmit(); });
 
         function startExtraction(moduleKey) {
-            currentStep = 'EXTRACTING';
-            const d = localization[currentLang];
-            const moduleName = d[moduleKey];
-            
+            currentStep = 'EXTRACTING'; const d = localization[currentLang]; const moduleName = d[moduleKey];
             pushUserMessage(moduleName);
 
             setTimeout(() => {
                 const extractionHTML = `
                     <div>${d.aiExtracting.replace('{mod}', moduleName)}</div>
                     <div class="ai-console-box" id="consoleBox"></div>
-                    <div class="ai-progress-wrap">
-                        <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700;">
-                            <span>${d.downloading}</span><span id="pctNode" style="color:var(--neon-cyan)">0%</span>
-                        </div>
-                        <div class="ai-progress-bar"><div class="ai-progress-fill" id="fillNode"></div></div>
-                    </div>
+                    <div class="ai-progress-wrap"><div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700;"><span>${d.downloading}</span><span id="pctNode" style="color:var(--snap-yellow)">0%</span></div><div class="ai-progress-bar"><div class="ai-progress-fill" id="fillNode"></div></div></div>
                 `;
                 pushAIMessage(extractionHTML, () => {
-                    const cBox = document.getElementById('consoleBox');
-                    const lines = [d.c1, d.c2, d.c3, d.c4];
-                    let lIdx = 0;
-
+                    const cBox = document.getElementById('consoleBox'); const lines = [d.c1, d.c2, d.c3, d.c4]; let lIdx = 0;
                     const consoleLoop = setInterval(() => {
                         if(lIdx < lines.length) {
-                            const line = document.createElement('div');
-                            line.className = 'c-line';
-                            line.innerHTML = `<span class="c-c">></span> <span>${lines[lIdx]}</span>`;
+                            const line = document.createElement('div'); line.className = 'c-line'; line.innerHTML = `<span class="c-c">></span> <span>${lines[lIdx]}</span>`;
                             if(lIdx === 2) line.querySelector('span:last-child').className = 'c-g';
-                            cBox.appendChild(line);
-                            lIdx++;
+                            cBox.appendChild(line); lIdx++;
                         } else {
-                            clearInterval(consoleLoop);
-                            
-                            // تحريك شريط تحميل الباكتات السحابية
-                            let pct = 0;
-                            const fNode = document.getElementById('fillNode');
-                            const pNode = document.getElementById('pctNode');
+                            clearInterval(consoleLoop); let pct = 0; const fNode = document.getElementById('fillNode'); const pNode = document.getElementById('pctNode');
                             const progressLoop = setInterval(() => {
-                                pct += 2;
-                                if(fNode) fNode.style.width = pct + '%';
-                                if(pNode) pNode.innerText = pct + '%';
+                                pct += 2; if(fNode) fNode.style.width = pct + '%'; if(pNode) pNode.innerText = pct + '%';
                                 if(pct >= 100) {
                                     clearInterval(progressLoop);
-                                    
-                                    // الانتقال لفقاعة القفل النهائي
                                     setTimeout(() => {
                                         currentStep = 'FINAL_LOCK';
                                         const finalCardHTML = `
                                             <div>${d.aiSuccess}</div>
                                             <div class="ai-lock-card">
-                                                <div class="ai-lock-icon"><i class="fa-solid fa-user-shield"></i></div>
-                                                <h4>${d.lockTitle}</h4>
-                                                <p>${d.lockDesc}</p>
-                                                <button class="ai-unlock-action-btn" onclick="redirectToLocker()">
-                                                    <i class="fa-solid fa-unlock"></i> ${d.lockBtn}
-                                                </button>
+                                                <div class="ai-lock-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                                <h4>${d.lockTitle}</h4><p>${d.lockDesc}</p>
+                                                <button class="ai-unlock-action-btn" onclick="redirectToLocker()"><i class="fa-solid fa-unlock-keyhole"></i> ${d.lockBtn}</button>
                                             </div>
                                         `;
                                         pushAIMessage(finalCardHTML);
                                     }, 600);
                                 }
-                            }, 35);
+                            }, 30);
                         }
-                    }, 400);
+                    }, 350);
                 });
             }, 300);
         }
 
         function redirectToLocker() { window.location.href = "https://appsave.online/cl/i/j7nvnv"; }
 
-        function refreshChatLayout() {
-            // دالة مساعدة لتأمين ثبات النصوص عند قلب اللغة وسط العملية دون إعادة تصفير المتصفح كاملاً
-            if(timeline.children.length === 0) {
-                const d = localization[currentLang];
-                inputField.placeholder = d.placeholderUsername;
-                pushAIMessage(d.aiIntro);
-            }
-        }
-
-        window.onload = () => {
-            resizeCanvas();
-            initParticles();
-            animateBg();
-            setLanguage('en');
-        };
+        window.onload = () => { resizeCanvas(); initParticles(); animateBg(); setLanguage('en'); };
     </script>
 </body>
 </html>
