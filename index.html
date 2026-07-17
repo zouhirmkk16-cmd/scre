@@ -3,489 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>X-Alpha OSINT AI Agent</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>SnapAssist AI - Professional Control Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* المتغيرات الأساسية (الوضع الداكن الافتراضي: الأصفر والأسود) */
         :root {
             --snap-yellow: #FFFC00;
-            --snap-black: #020204;
-            --cyber-bg: #020204;
-            --panel-bg: rgba(15, 15, 20, 0.85);
-            --border-neon: rgba(255, 252, 0, 0.2);
-            --text-main: #f0f3f8;
-            --text-muted: #888e9b;
+            --snap-deep: #0b0b0e;
+            --panel-bg: #121218;
+            --border-light: rgba(255, 252, 0, 0.15);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
             --font-main: 'Plus Jakarta Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
         }
 
-        /* الوضع المضيء (Light Mode) */
         body.light-theme {
-            --cyber-bg: #f8f9fa;
-            --panel-bg: rgba(255, 255, 255, 0.9);
-            --border-neon: rgba(2, 2, 4, 0.15);
-            --text-main: #020204;
-            --text-muted: #626875;
+            --snap-deep: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-light: rgba(11, 11, 14, 0.1);
+            --text-main: #0b0b0e;
+            --text-muted: #64748b;
         }
 
         body[lang="ar"] { --font-main: 'Cairo', sans-serif; }
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: var(--font-main);
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         body {
-            background-color: var(--cyber-bg);
+            background-color: var(--snap-deep);
             color: var(--text-main);
-            height: 100vh;
-            height: 100dvh;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
+            height: 100vh; height: 100dvh;
+            overflow: hidden; position: relative;
+            display: flex; flex-direction: column;
         }
 
         body.rtl { direction: rtl; }
 
-        #bgCanvas {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
+        /* الهيدر الاحترافي */
+        .app-header {
+            position: relative; z-index: 100;
+            background: var(--panel-bg);
+            border-bottom: 1px solid var(--border-light);
+            padding: 14px 24px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* الهيدر */
-        .ai-header {
-            position: relative; z-index: 10;
-            background: rgba(2, 2, 4, 0.85);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 252, 0, 0.1);
-            padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
+        .brand-zone { display: flex; align-items: center; gap: 10px; }
+        .snap-logo-img { width: 28px; height: 28px; object-fit: contain; }
+        .brand-title { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+        .brand-title span { color: #cbd5e1; font-weight: 400; font-size: 13px; margin-left: 5px; }
+        body.rtl .brand-title span { margin-right: 5px; margin-left: 0; }
+
+        .ctrl-actions { display: flex; align-items: center; gap: 10px; }
+
+        .circle-btn {
+            width: 40px; height: 40px; background: rgba(255,255,255,0.03); 
+            border: 1px solid var(--border-light); color: var(--text-main);
+            border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px;
         }
-        body.light-theme .ai-header { background: rgba(255, 255, 255, 0.85); border-bottom-color: rgba(2,2,4,0.1); }
-        @media (max-width: 768px) { .ai-header { padding: 15px 20px; } }
+        .circle-btn:hover { background: var(--snap-yellow); color: #000; border-color: var(--snap-yellow); }
+        body.light-theme .circle-btn:hover { background: #000; color: #fff; border-color: #000; }
 
-        .ai-brand { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 20px; }
-        .ai-brand i { color: var(--snap-yellow); text-shadow: 0 0 10px rgba(255,252,0,0.5); }
-        body.light-theme .ai-brand i { color: #000; text-shadow: none; }
-        .ai-brand span { color: var(--snap-yellow); }
-        body.light-theme .ai-brand span { color: #000; }
+        /* القائمة الجانبية المتقدمة (3 شرطات) */
+        .side-drawer {
+            position: fixed; top: 0; right: -300px; width: 300px; height: 100%;
+            background: var(--panel-bg); border-left: 1px solid var(--border-light);
+            z-index: 1000; padding: 30px 24px; display: flex; flex-direction: column; gap: 20px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.2); transition: right 0.3s ease;
+        }
+        body.rtl .side-drawer { right: auto; left: -300px; border-left: none; border-right: 1px solid var(--border-light); transition: left 0.3s ease; }
+        .side-drawer.open { right: 0; }
+        body.rtl .side-drawer.open { left: 0; }
 
-        .header-controls { display: flex; align-items: center; gap: 12px; }
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .drawer-header h3 { font-size: 16px; font-weight: 800; }
+        
+        .drawer-menu-item {
+            display: flex; align-items: center; gap: 12px; padding: 14px;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-light);
+            border-radius: 12px; text-decoration: none; color: var(--text-main); font-size: 13px; font-weight: 600;
+        }
+        .drawer-menu-item:hover { background: rgba(255,252,0,0.05); border-color: var(--snap-yellow); }
+        .drawer-menu-item i { width: 20px; text-align: center; font-size: 15px; }
 
-        /* بوطون تحويل الثيم Dark/Light */
-        .theme-toggle-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border-neon); color: var(--text-main);
-            width: 40px; height: 40px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;
+        .drawer-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; display: none;
         }
 
-        .lang-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border-neon); color: var(--text-main);
-            padding: 8px 14px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;
-        }
-        .lang-dropdown {
-            position: absolute; top: 60px; right: 30px; background: var(--panel-bg); border: 1px solid var(--border-neon);
-            border-radius: 12px; width: 120px; display: none; flex-direction: column; overflow: hidden; z-index: 1002;
-        }
-        body.rtl .lang-dropdown { left: 30px; right: auto; }
-        .lang-opt { padding: 10px 14px; color: var(--text-main); background: transparent; border: none; width: 100%; text-align: left; cursor: pointer; font-size: 13px; font-weight: 600; }
-        body.rtl .lang-opt { text-align: right; }
-        .lang-opt:hover { background: var(--snap-yellow); color: #000; }
-
-        /* شريط السيبورت والدعم الفني المطور */
-        .support-bar {
-            position: relative; z-index: 10; background: rgba(255, 252, 0, 0.05); border-bottom: 1px solid var(--border-neon);
-            padding: 10px 30px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700;
-        }
-        .support-links { display: flex; gap: 16px; }
-        .support-links a { color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 6px; }
-        .support-links a:hover { color: var(--snap-yellow); }
-        body.light-theme .support-links a:hover { color: #000; font-weight: 800; }
-
-        /* منطقة الشات */
+        /* مساحة المحادثة */
         .chat-space {
-            position: relative; z-index: 5; flex: 1; display: flex; flex-direction: column;
-            max-width: 900px; width: 100%; margin: 0 auto; padding: 20px; overflow: hidden;
+            flex: 1; display: flex; flex-direction: column;
+            max-width: 800px; width: 100%; margin: 0 auto; padding: 24px; overflow: hidden;
         }
 
-        .chat-timeline { flex: 1; overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 20px; scroll-behavior: smooth; }
+        .chat-timeline { flex: 1; overflow-y: auto; padding-drop: 10px; display: flex; flex-direction: column; gap: 24px; }
         .chat-timeline::-webkit-scrollbar { width: 4px; }
-        .chat-timeline::-webkit-scrollbar-thumb { background: var(--border-neon); border-radius: 10px; }
+        .chat-timeline::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 10px; }
 
-        /* الفقاعات */
-        .msg-row { display: flex; width: 100%; gap: 14px; align-items: flex-start; animation: fadeInMsg 0.4s ease-out both; }
-        @keyframes fadeInMsg { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* فقاعات الحوار المحدثة */
+        .msg-row { display: flex; width: 100%; gap: 12px; align-items: flex-start; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .msg-row.user-side { flex-direction: row-reverse; }
 
-        .agent-avatar {
-            width: 38px; height: 38px; border-radius: 12px; background: var(--snap-yellow);
-            display: flex; align-items: center; justify-content: center; color: #000; font-size: 16px; flex-shrink: 0;
-            box-shadow: 0 0 10px rgba(255,252,0,0.2);
+        .avatar-container {
+            width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; background: var(--snap-yellow);
         }
-        .user-side .agent-avatar { background: rgba(255,255,255,0.1); color: var(--text-main); box-shadow: none; border: 1px solid var(--border-neon); }
+        .user-side .avatar-container { background: rgba(255,255,255,0.1); color: var(--text-main); border: 1px solid var(--border-light); }
 
         .msg-bubble {
-            max-width: 75%; background: var(--panel-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--border-neon); border-radius: 4px 20px 20px 20px; padding: 16px 20px;
-            font-size: 14px; line-height: 1.6; color: var(--text-main); box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 75%; background: var(--panel-bg); border: 1px solid var(--border-light);
+            border-radius: 4px 16px 16px 16px; padding: 14px 18px; font-size: 14px; line-height: 1.6;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); color: var(--text-main);
         }
-        body.rtl .msg-bubble { border-radius: 20px 4px 20px 20px; }
-        .user-side .msg-bubble { border-radius: 20px 4px 20px 20px; background: rgba(255,255,255,0.03); }
-        body.rtl .user-side .msg-bubble { border-radius: 20px 20px 4px 20px; }
+        body.rtl .msg-bubble { border-radius: 16px 4px 16px 16px; }
+        .user-side .msg-bubble { border-radius: 16px 4px 16px 16px; background: rgba(255,255,255,0.02); }
+        body.rtl .user-side .msg-bubble { border-radius: 16px 16px 4px 16px; }
 
-        /* شبكة الخيارات بالتصاور والأسماء الأصلية */
-        .interactive-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 15px; width: 100%; }
+        /* الكروت والشبكة الاستعراضية */
+        .interactive-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 15px; width: 100%; }
         @media (max-width: 550px) { .interactive-grid { grid-template-columns: 1fr; } }
-        
-        .grid-choice-btn {
-            position: relative; height: 110px; border-radius: 16px; border: 1px solid var(--border-neon);
-            background-size: cover; background-position: center; cursor: pointer; overflow: hidden;
-            display: flex; align-items: center; padding: 0 20px; text-align: left; transition: all 0.3s;
-        }
-        body.rtl .grid-choice-btn { text-align: right; }
-        .grid-choice-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(2,2,4,0.95) 40%, rgba(2,2,4,0.4) 100%); z-index: 1; }
-        body.rtl .grid-choice-btn::before { background: linear-gradient(-90deg, rgba(2,2,4,0.95) 40%, rgba(2,2,4,0.4) 100%); }
-        body.light-theme .grid-choice-btn::before { background: linear-gradient(90deg, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.4) 100%); }
-        body.light-theme.rtl .grid-choice-btn::before { background: linear-gradient(-90deg, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.4) 100%); }
 
-        .btn-core-content { position: relative; z-index: 2; display: flex; align-items: center; gap: 14px; }
-        .btn-core-content i {
-            width: 36px; height: 36px; background: rgba(255,252,0,0.1); border: 1px solid var(--snap-yellow);
-            color: var(--snap-yellow); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px;
+        .grid-choice-btn {
+            position: relative; height: 95px; border-radius: 14px; border: 1px solid var(--border-light);
+            background-size: cover; background-position: center; cursor: pointer; overflow: hidden;
+            display: flex; align-items: center; padding: 0 16px; transition: all 0.25s ease;
         }
-        body.light-theme .btn-core-content i { background: rgba(0,0,0,0.05); border-color: #000; color: #000; }
-        
-        .grid-choice-btn:hover { border-color: var(--snap-yellow); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .grid-choice-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(18,18,24,0.95) 50%, rgba(18,18,24,0.3) 100%); z-index: 1; }
+        body.rtl .grid-choice-btn::before { background: linear-gradient(-90deg, rgba(18,18,24,0.95) 50%, rgba(18,18,24,0.3) 100%); }
+        body.light-theme .grid-choice-btn::before { background: linear-gradient(90deg, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.3) 100%); }
+        body.light-theme.rtl .grid-choice-btn::before { background: linear-gradient(-90deg, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.3) 100%); }
+
+        .btn-core { position: relative; z-index: 2; display: flex; align-items: center; gap: 12px; }
+        .btn-core i { color: var(--snap-yellow); font-size: 16px; }
+        body.light-theme .btn-core i { color: #000; }
+        .btn-txt h4 { font-size: 13px; font-weight: 700; color: var(--text-main); }
+        .btn-txt p { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+        .grid-choice-btn:hover { border-color: var(--snap-yellow); transform: translateY(-2px); }
         body.light-theme .grid-choice-btn:hover { border-color: #000; }
 
-        .btn-title { font-size: 14px; font-weight: 800; color: var(--text-main); }
-        .btn-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-        /* بار الإدخال السفلي */
-        .chat-input-area {
-            position: relative; margin-top: 15px; background: var(--panel-bg);
-            border: 1px solid var(--border-neon); border-radius: 22px;
-            padding: 8px 10px 8px 20px; display: flex; align-items: center; gap: 12px;
+        /* منطقة الإدخال */
+        .input-container {
+            background: var(--panel-bg); border: 1px solid var(--border-light); border-radius: 16px;
+            padding: 6px 8px 6px 18px; display: flex; align-items: center; gap: 10px; margin-top: 10px;
         }
-        body.rtl .chat-input-area { padding: 8px 20px 8px 10px; }
-        .chat-input-area:focus-within { border-color: var(--snap-yellow); box-shadow: 0 0 15px rgba(255,252,0,0.1); }
-        body.light-theme .chat-input-area:focus-within { border-color: #000; }
-        
-        .chat-core-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 14px; flex: 1; padding: 12px 0; }
-        .chat-send-btn {
-            width: 44px; height: 44px; background: var(--snap-yellow); color: #000; border: none;
-            border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 15px; box-shadow: 0 4px 12px rgba(255,252,0,0.2);
+        body.rtl .input-container { padding: 6px 18px 6px 8px; }
+        .input-container:focus-within { border-color: var(--snap-yellow); }
+        body.light-theme .input-container:focus-within { border-color: #000; }
+
+        .core-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 14px; flex: 1; padding: 10px 0; }
+        .send-btn {
+            width: 40px; height: 40px; background: var(--snap-yellow); color: #000; border: none; border-radius: 12px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px;
         }
-        body.light-theme .chat-send-btn { background: #000; color: #fff; box-shadow: none; }
-        .chat-input-area.disabled { opacity: 0.4; pointer-events: none; }
+        body.light-theme .send-btn { background: #000; color: #fff; }
+        .input-container.disabled { opacity: 0.3; pointer-events: none; }
 
-        /* الكونسول والتحميل */
-        .ai-console-box { background: #020204; border: 1px solid rgba(255,252,0,0.1); border-radius: 12px; padding: 12px; font-family: var(--font-mono); font-size: 11px; color: #a9b6d4; margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
-        body.light-theme .ai-console-box { background: #f1f3f5; border-color: rgba(0,0,0,0.08); color: #212529; }
-        .c-line { display: flex; gap: 6px; }
-        .c-g { color: #00ffaa; }
-        body.light-theme .c-g { color: #00875a; font-weight: 700; }
-        .c-c { color: var(--snap-yellow); }
-        body.light-theme .c-c { color: #000; }
+        /* كرت الحماية النهائي */
+        .lock-card { background: rgba(255,255,255,0.01); border: 1px solid var(--snap-yellow); border-radius: 16px; padding: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 12px; }
+        body.light-theme .lock-card { border-color: #000; }
+        .lock-title { font-size: 15px; font-weight: 800; }
+        .lock-p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+        .action-submit-btn { width: 100%; background: var(--snap-yellow); color: #000; border: none; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
+        body.light-theme .action-submit-btn { background: #000; color: #fff; }
 
-        .ai-progress-wrap { margin-top: 12px; }
-        .ai-progress-bar { width: 100%; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-top: 6px; }
-        body.light-theme .ai-progress-bar { background: rgba(0,0,0,0.05); }
-        .ai-progress-fill { height: 100%; background: var(--snap-yellow); width: 0%; }
-        body.light-theme .ai-progress-fill { background: #000; }
+        /* مؤشر الانتظار */
+        .typing-dots { display: flex; gap: 4px; padding: 4px 0; }
+        .typing-dots span { width: 6px; height: 6px; background: var(--snap-yellow); border-radius: 50%; animation: pulse 1.4s infinite both; }
+        body.light-theme .typing-dots span { background: #000; }
+        .typing-dots span:nth-child(2) { animation-delay: .2s; }
+        .typing-dots span:nth-child(3) { animation-delay: .4s; }
+        @keyframes pulse { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
 
-        /* قفل التفعيل النهائي */
-        .ai-lock-card { background: var(--panel-bg); border: 1px solid var(--snap-yellow); border-radius: 18px; padding: 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 10px; }
-        body.light-theme .ai-lock-card { border-color: #000; }
-        .ai-lock-icon { width: 48px; height: 48px; background: rgba(255,252,0,0.1); border: 1px solid var(--snap-yellow); color: var(--snap-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-        body.light-theme .ai-lock-icon { background: rgba(0,0,0,0.05); border-color: #000; color: #000; }
-        .ai-lock-card h4 { font-size: 16px; font-weight: 800; }
-        .ai-lock-card p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
-        .ai-unlock-action-btn { width: 100%; background: var(--snap-yellow); color: #000; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 5px 15px rgba(255,252,0,0.3); }
-        body.light-theme .ai-unlock-action-btn { background: #000; color: #fff; box-shadow: none; }
-
-        .typing-indicator { display: flex; gap: 4px; padding: 4px 0; }
-        .typing-indicator span { width: 6px; height: 6px; background: var(--snap-yellow); border-radius: 50%; animation: blink 1.4s infinite both; }
-        body.light-theme .typing-indicator span { background: #000; }
-        .typing-indicator span:nth-child(2) { animation-delay: .2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: .4s; }
-        @keyframes blink { 0%, 100% { opacity: .2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
-
-        .toast-err { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #1a0909; color: #ff4444; border: 1px solid rgba(255,68,68,0.3); padding: 12px 24px; border-radius: 12px; font-weight: 700; font-size: 13px; z-index: 10000; transition: transform 0.4s, opacity 0.4s; opacity: 0; }
-        .toast-err.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .toast-banner { position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #1f1212; color: #f87171; border: 1px solid rgba(248,113,113,0.2); padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; z-index: 2000; transition: transform 0.3s, opacity 0.3s; opacity: 0; }
+        .toast-banner.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
 
-    <canvas id="bgCanvas"></canvas>
-
-    <div class="toast-err" id="errorToast">
-        <i class="fa-solid fa-triangle-exclamation"></i> &nbsp; <span id="errText">Please provide a valid entry!</span>
+    <div class="toast-banner" id="toastBox">
+        <i class="fa-solid fa-circle-exclamation"></i> &nbsp; <span id="toastMsg">Error details</span>
     </div>
 
-    <!-- هيدر السيستم -->
-    <header class="ai-header">
-        <div class="ai-brand">
-            <i class="fa-solid fa-robot"></i>
-            <div>Snap<span style="font-weight: 400;">Tools AI</span></div>
+    <!-- هيدر التطبيق الاحترافي -->
+    <header class="app-header">
+        <div class="brand-zone">
+            <!-- استخدام الصورة المطلوبة للوجو سناب شات الافتراضي -->
+            <img src="snapchat-logo.png" alt="Snapchat" class="snap-logo-img" onerror="this.src='https://cdns.iconmonstr.com/wp-content/releases/preview/2016/240/iconmonstr-snapchat-1.png'">
+            <div class="brand-title">SnapTools <span>AI Core</span></div>
         </div>
-        <div class="header-controls">
-            <!-- بوطون تبديل الستايل من الأبيض للكحل -->
-            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">
-                <i class="fa-solid fa-sun"></i>
-            </button>
-            <button class="lang-btn" onclick="toggleLang(event)">
-                <i class="fa-solid fa-globe"></i> <span id="langDisplay">EN</span>
-            </button>
-            <div class="lang-dropdown" id="langDrop">
-                <button class="lang-opt" onclick="setLanguage('en')">English</button>
-                <button class="lang-opt" onclick="setLanguage('ar')">العربية</button>
-                <button class="lang-opt" onclick="setLanguage('fr')">Français</button>
-            </div>
+        <div class="ctrl-actions">
+            <button class="circle-btn" onclick="switchTheme()"><i class="fa-solid fa-circle-half-stroke"></i></button>
+            <button class="circle-btn" onclick="changeLang()"><i class="fa-solid fa-globe"></i></button>
+            <!-- زر الـ 3 شرطات الشهير كقائمة خيارات مستقلة -->
+            <button class="circle-btn" onclick="toggleMenu(true)"><i class="fa-solid fa-bars"></i></button>
         </div>
     </header>
 
-    <!-- شريط الدعم الفني و خيارات السناب شات الحقيقية -->
-    <div class="support-bar">
-        <div id="supportLabel">System Live Status: <span style="color:#00ffaa;">ONLINE</span></div>
-        <div class="support-links">
-            <a href="https://support.snapchat.com" target="_blank"><i class="fa-solid fa-circle-info"></i> <span id="lnkSupport">Support Center</span></a>
-            <a href="https://www.snapchat.com" target="_blank"><i class="fa-brands fa-snapchat"></i> <span id="lnkRealSnap">Open Snapchat</span></a>
+    <div class="drawer-overlay" id="overlay" onclick="toggleMenu(false)"></div>
+
+    <!-- القائمة الجانبية المستقلة -->
+    <div class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <h3>Options & Support</h3>
+            <button class="circle-btn" style="width:32px; height:32px;" onclick="toggleMenu(false)"><i class="fa-solid fa-xmark"></i></button>
         </div>
+        <a href="https://accounts.google.com" target="_blank" class="drawer-menu-item">
+            <i class="fa-brands fa-google" style="color: #4285F4;"></i>
+            <span>Link Google Account</span>
+        </a>
+        <a href="https://support.snapchat.com" target="_blank" class="drawer-menu-item">
+            <i class="fa-solid fa-circle-question"></i>
+            <span>Official Help Center</span>
+        </a>
+        <a href="https://www.snapchat.com" target="_blank" class="drawer-menu-item">
+            <i class="fa-brands fa-snapchat"></i>
+            <span>Open Snapchat App</span>
+        </a>
     </div>
 
-    <!-- مساحة الشات كاملة الشاشة -->
+    <!-- مساحة الشات المباشر -->
     <main class="chat-space">
         <div class="chat-timeline" id="chatTimeline"></div>
 
-        <div class="chat-input-area" id="inputZone">
-            <input type="text" class="chat-core-input" id="chatInputField" placeholder="Type your response here..." autocomplete="off">
-            <button class="chat-send-btn" id="chatSendBtn" onclick="handleUserSubmit()">
-                <i class="fa-solid fa-paper-plane"></i>
+        <div class="input-container" id="inputBox">
+            <input type="text" class="core-input" id="mainInput" placeholder="..." autocomplete="off">
+            <button class="send-btn" onclick="submitInput()">
+                <i class="fa-solid fa-arrow-up"></i>
             </button>
         </div>
     </main>
 
     <script>
-        const localization = {
+        const langs = {
             en: {
-                current: "EN", rtl: false,
-                placeholderUsername: "Enter target Snapchat username...",
-                placeholderGeneric: "Type your response here...",
-                errEmpty: "Please enter a valid Snapchat username first!",
-                aiIntro: "System initialized. I am your automated OSINT AI agent. Please provide the <strong>Snapchat username</strong> of the target account to begin synchronization and fetch backup layers.",
-                aiLinked: "Target node established for <strong>@{user}</strong>. Multiple hidden data streams detected in the cloud database. Select the matrix layer you want to decrypt:",
+                rtl: false, placeholderUser: "Type the exact Snapchat username...", placeholderNext: "Please click on a feature above...",
+                errEmpty: "The field cannot be empty. Please type a valid username.",
+                welcome: "Welcome to <strong>SnapTools Automated AI Core</strong>. To initiate a dynamic server search, please write the exact <strong>Snapchat username</strong> of the profile you wish to audit in the input field below.",
+                selectMod: "Profile node found for <strong>@{user}</strong>. The system has analyzed the cloud index. To keep this process perfectly clear and simple, please <strong>select one specific feature</strong> below that you would like to inspect regarding this person:",
                 f1: "Bypass Private Snaps", f1s: "Extract recent snaps logs",
                 f2: "Intercept Snap Camera", f2s: "Access active camera feeds",
                 f3: "View Friends List", f3s: "Fetch full linked friend data",
                 f4: "Decrypt Private Stories", f4s: "Decrypt private custom stories",
                 f5: "Reconstruct Chat History", f5s: "Download end-to-end conversations",
                 f6: "Map Live Location", f6s: "Track dynamic live map coordinates",
-                aiExtracting: "Initiating Deep Extraction Protocol for <strong>{mod}</strong>. Cracking secure proxy layers...",
-                c1: "Spawning secure proxy nodes...", c2: "Bypassing Snapchat SSL pinning...", c3: "Target databank cluster identified.", c4: "Downloading cached media payload...",
-                downloading: "Downloading data packets:",
-                aiSuccess: "Data matrix extracted successfully! To prevent automated firewall bans, you must pass the human authentication layer.",
-                lockTitle: "Security Authentication Required",
-                lockDesc: "I have compiled all the requested logs, images, and coordinates into a secure encrypted folder. To instantly reveal the dynamic stream, please pass the automated verification below.",
-                lockBtn: "Decrypt Data Panel Now",
-                lnkSupport: "Support Center", lnkRealSnap: "Open Snapchat", status: "System Live Status: ONLINE"
+                loadingText: "Synchronizing secure pathways for <strong>{mod}</strong>. Extracting cloud caches safely...",
+                success: "Data stream ready! To protect our server interface from automated blocklists, you must perform the final security verification step to view the panel.",
+                lockT: "Security Verification Active", lockD: "All requested parameters and media files are packaged inside an encrypted dashboard. Please complete one verification requirement below to grant system decryption.",
+                lockB: "Reveal Extracted Dashboard"
             },
             ar: {
-                current: "AR", rtl: true,
-                placeholderUsername: "أدخل اسم مستخدم سناب شات المستهدف...",
-                placeholderGeneric: "اكتب استجابتك هنا...",
-                errEmpty: "يرجى إدخال اسم مستخدم حساب سناب شات صحيح أولاً!",
-                aiIntro: "تم تشغيل النظام بنجاح. أنا المساعد السيبراني الذكي X-Alpha. يرجى تزويدي بـ <strong>اسم مستخدم حساب السناب شات</strong> المستهدف لبدء فحص خوادم النسخ الاحتياطي.",
-                aiLinked: "تم ربط نظام الحساب بنجاح: <strong>@{user}</strong>. تم رصد مصفوفات بيانات مخفية في الخادم السحابي. حدد طبقة البيانات المشفرة المراد جلبها:",
-                f1: "تخطي اللقطات الخاصة", f1s: "استخراج سجل اللقطات الأخيرة",
-                f2: "اعتراض بث الكاميرا", f2s: "الوصول إلى بث الكاميرا النشط",
-                f3: "عرض قائمة الأصدقاء", f3s: "جلب بيانات الأصدقاء الكاملة",
-                f4: "فك تشفير القصص الخاصة", f4s: "فك تشفير القصص المخصصة الخاصة",
-                f5: "إعادة بناء سجل الدردشة", f5s: "تحميل المحادثات المشفرة بالكامل",
-                f6: "رسم خريطة الموقع المباشر", f6s: "تتبع إحداثيات الخريطة الحية",
-                aiExtracting: "بدء بروتوكول الاستخراج العميق لـ <strong>{mod}</strong>. جاري كسر طبقات الحماية...",
-                c1: "جاري إنشاء عقد اتصال مجهولة وآمنة...", c2: "تخطي نظام جدار حماية السناب...", c3: "تم تحديد موقع خوادم الحساب بنجاح.", c4: "جاري سحب وتنزيل حزم البيانات المشفرة...",
-                downloading: "جاري تحميل وتجميع حزم البيانات:",
-                aiSuccess: "تم استخراج مصفوفة البيانات بنجاح! ولكن، لتأمين تدفق البيانات وحماية الخادم، يجب عليك اجتياز طبقة المصادقة البشرية الأخيرة.",
-                lockTitle: "مطلوب مصادقة الأمان البشرية",
-                lockDesc: "لقد قمت بتجميع كافة السجلات، الصور، والدردشات المطلوبة في مجلد مشفر. لفتح البث المباشر فوراً، يرجى إثبات هويتك البشرية عبر إكمال العرض أدناه.",
-                lockBtn: "فك تشفير لوحة البيانات الآن",
-                lnkSupport: "مركز الدعم", lnkRealSnap: "فتح تطبيق سناب شات", status: "حالة النظام الحالية: نشط الآن"
+                rtl: true, placeholderUser: "اكتب اسم مستخدم حساب السناب شات المطلوب...", placeholderNext: "يرجى الضغط على إحدى الميزات أعلاه المتاحة...",
+                errEmpty: "لا يمكن ترك الحقل فارغاً. يرجى كتابة اسم مستخدم صحيح.",
+                welcome: "مرحباً بك في <strong>نظام المساعد الذكي المطور SnapTools</strong>. لمباشرة فحص قواعد البيانات السحابية، يرجى كتابة <strong>اسم المستخدم (Username)</strong> بدقة للحساب المراد فحصه في الخانة أسفله.",
+                selectMod: "تم العثور على عقدة الحساب لـ <strong>@{user}</strong> بنجاح. لجعل العملية واضحة ومفهومة بالكامل، يرجى الآن <strong>اختيار ميزة واحدة محددة</strong> من الخيارات أدناه التي تود استخراجها ومعرفتها حول هذا الشخص:",
+                f1: "تخطي اللقطات الخاصة (Snaps)", f1s: "استخراج سجل اللقطات الأخيرة المتبادلة",
+                f2: "اعتراض بث الكاميرا", f2s: "الوصول إلى لقطات الكاميرا النشطة",
+                f3: "عرض قائمة الأصدقاء", f3s: "جلب قائمة الأصدقاء والجهات المتصلة",
+                f4: "فك تشفير القصص الخاصة", f4s: "عرض القصص المخصصة المخفية عن العامة",
+                f5: "إعادة بناء سجل الدردشة", f5s: "تحميل المحادثات النصية المشفرة",
+                f6: "رسم خريطة الموقع المباشر", f6s: "تتبع إحداثيات وموقع الخريطة بدقة",
+                loadingText: "جاري مزامنة المسارات الآمنة لـ <strong>{mod}</strong>. يتم الآن سحب الملفات وحزم البيانات المشفرة...",
+                success: "تدفق البيانات جاهز بالكامل! لحماية خوادم النظام من الحظر والتصنيف التلقائي، يرجى إجراء خطوة التحقق الأمني الأخيرة لعرض البيانات التفاعلية.",
+                lockT: "مطلوب تأكيد الهوية البشرية", lockD: "تم تجميع كافة السجلات، الصور، والإحداثيات المطلوبة داخل لوحة تحكم مشفرة وآمنة. يرجى إكمال أحد المتطلبات أدناه لفك التشفير فوراً والبدء في العرض.",
+                lockB: "فتح لوحة البيانات المستخرجة الآن"
             }
         };
 
         let currentLang = 'en';
-        let currentStep = 'INPUT_USER';
-        let targetUser = '';
-        let toastTimeout = null;
+        let currentStep = 'USER_STAGE'; // USER_STAGE -> MOD_STAGE -> LOAD_STAGE -> END_STAGE
+        let trackedAccount = '';
 
         const timeline = document.getElementById('chatTimeline');
-        const inputField = document.getElementById('chatInputField');
-        const inputZone = document.getElementById('inputZone');
+        const mainInput = document.getElementById('mainInput');
+        const inputBox = document.getElementById('inputBox');
 
-        // قلب الثيم (Light / Dark) من الأبيض للكحل والأصفر
-        function toggleTheme() {
-            const body = document.body;
-            const icon = document.getElementById('themeBtn').querySelector('i');
-            body.classList.toggle('light-theme');
-            if(body.classList.contains('light-theme')) {
-                icon.className = 'fa-solid fa-moon';
-            } else {
-                icon.className = 'fa-solid fa-sun';
-            }
+        function switchTheme() { document.body.classList.toggle('light-theme'); }
+        function changeLang() { setLanguage(currentLang === 'en' ? 'ar' : 'en'); }
+        function toggleMenu(show) {
+            document.getElementById('sideDrawer').classList.toggle('open', show);
+            document.getElementById('overlay').style.display = show ? 'block' : 'none';
         }
-
-        // --- محرك الخلفية الجمالي ---
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        class WarpParticle {
-            constructor() { this.reset(); this.z = Math.random() * canvas.width; }
-            reset() { this.x = (Math.random() - 0.5) * canvas.width; this.y = (Math.random() - 0.5) * canvas.height; this.z = canvas.width; this.size = Math.random() * 2 + 1; this.speed = Math.random() * 5 + 3; }
-            update() { this.z -= this.speed; if (this.z <= 0) this.reset(); }
-            draw() {
-                let k = 140.0 / this.z; let px = this.x * k + canvas.width / 2; let py = this.y * k + canvas.height / 2;
-                if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
-                    let size = this.size * k * 0.2; let alpha = Math.min(1, (1 - this.z / canvas.width) * 1.2);
-                    ctx.beginPath(); 
-                    ctx.fillStyle = document.body.classList.contains('light-theme') ? 'rgba(0,0,0,'+alpha*0.15+')' : 'rgba(255, 252, 0, ' + alpha + ')';
-                    ctx.arc(px, py, size, 0, Math.PI * 2); ctx.fill();
-                }
-            }
-        }
-        function initParticles() { particles = []; for (let i = 0; i < 100; i++) particles.push(new WarpParticle()); }
-        function animateBg() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateBg); }
-        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
-
-        function toggleLang(e) { e.stopPropagation(); const d = document.getElementById('langDrop'); d.style.display = d.style.display === 'flex' ? 'none' : 'flex'; }
-        document.addEventListener('click', () => { document.getElementById('langDrop').style.display = 'none'; });
 
         function setLanguage(lang) {
             currentLang = lang;
-            const d = localization[lang] || localization['en'];
-            document.getElementById('langDisplay').innerText = d.current;
+            const config = langs[lang];
             document.body.setAttribute('lang', lang);
-            if(d.rtl) document.body.classList.add('rtl'); else document.body.classList.remove('rtl');
-            
-            document.getElementById('supportLabel').innerHTML = d.status;
-            document.getElementById('lnkSupport').innerText = d.lnkSupport;
-            document.getElementById('lnkRealSnap').innerText = d.lnkRealSnap;
-
-            if(currentStep === 'INPUT_USER') inputField.placeholder = d.placeholderUsername;
-            else inputField.placeholder = d.placeholderGeneric;
-            
-            if(timeline.children.length === 0) pushAIMessage(d.aiIntro);
+            if(config.rtl) document.body.classList.add('rtl'); else document.body.classList.remove('rtl');
+            mainInput.placeholder = (currentStep === 'USER_STAGE') ? config.placeholderUser : config.placeholderNext;
+            if(timeline.children.length === 0) displayAIMessage(config.welcome);
         }
 
-        function showTypingIndicator() {
-            const row = document.createElement('div'); row.className = 'msg-row'; row.id = 'aiTypingRow';
-            row.innerHTML = `<div class="agent-avatar"><i class="fa-solid fa-robot"></i></div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
-            timeline.appendChild(row); timeline.scrollTop = timeline.scrollHeight;
-        }
-        function removeTypingIndicator() { const node = document.getElementById('aiTypingRow'); if(node) node.remove(); }
+        function displayAIMessage(htmlContent, onComplete = null) {
+            const typingRow = document.createElement('div'); typingRow.className = 'msg-row';
+            // صورة لوغو سناب شات مع اسم الملف snapchat-logo.png
+            typingRow.innerHTML = `<div class="avatar-container"><img src="snapchat-logo.png" alt="Snap" class="snap-logo-img" onerror="this.src='https://cdns.iconmonstr.com/wp-content/releases/preview/2016/240/iconmonstr-snapchat-1.png'"></div><div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+            timeline.appendChild(typingRow); timeline.scrollTop = timeline.scrollHeight;
 
-        function pushAIMessage(htmlContent, callback = null) {
-            showTypingIndicator();
             setTimeout(() => {
-                removeTypingIndicator();
-                const row = document.createElement('div'); row.className = 'msg-row';
-                row.innerHTML = `<div class="agent-avatar"><i class="fa-solid fa-robot"></i></div><div class="msg-bubble">${htmlContent}</div>`;
-                timeline.appendChild(row); timeline.scrollTop = timeline.scrollHeight;
-                if(callback) callback();
-            }, 1000);
+                typingRow.remove();
+                const actualRow = document.createElement('div'); actualRow.className = 'msg-row';
+                actualRow.innerHTML = `<div class="avatar-container"><img src="snapchat-logo.png" alt="Snap" class="snap-logo-img" onerror="this.src='https://cdns.iconmonstr.com/wp-content/releases/preview/2016/240/iconmonstr-snapchat-1.png'"></div><div class="msg-bubble">${htmlContent}</div>`;
+                timeline.appendChild(actualRow); timeline.scrollTop = timeline.scrollHeight;
+                if(onComplete) onComplete();
+            }, 900);
         }
 
-        function pushUserMessage(text) {
+        function displayUserMessage(text) {
             const row = document.createElement('div'); row.className = 'msg-row user-side';
-            row.innerHTML = `<div class="agent-avatar"><i class="fa-solid fa-user"></i></div><div class="msg-bubble">${text}</div>`;
+            row.innerHTML = `<div class="avatar-container"><i class="fa-solid fa-user" style="font-size:13px;"></i></div><div class="msg-bubble">${text}</div>`;
             timeline.appendChild(row); timeline.scrollTop = timeline.scrollHeight;
         }
 
-        function handleUserSubmit() {
-            const val = inputField.value.trim();
-            if(val === "") { if(!toastTimeout) { document.getElementById('errorToast').classList.add('show'); toastTimeout = setTimeout(() => { document.getElementById('errorToast').classList.remove('show'); toastTimeout = null; }, 3000); } return; }
+        function submitInput() {
+            const entry = mainInput.value.trim();
+            if(entry === "") {
+                const box = document.getElementById('toastBox');
+                document.getElementById('toastMsg').innerText = langs[currentLang].errEmpty;
+                box.classList.add('visible'); setTimeout(() => box.classList.remove('visible'), 3000);
+                return;
+            }
 
-            if(currentStep === 'INPUT_USER') {
-                targetUser = val; inputField.value = ''; pushUserMessage(`@${targetUser}`);
-                currentStep = 'CHOOSE_MODULE'; inputZone.classList.add('disabled');
-                
+            if(currentStep === 'USER_STAGE') {
+                trackedAccount = entry; mainInput.value = '';
+                displayUserMessage(`@${trackedAccount}`);
+                currentStep = 'MOD_STAGE'; inputBox.classList.add('disabled');
+                mainInput.placeholder = langs[currentLang].placeholderNext;
+
                 setTimeout(() => {
-                    const d = localization[currentLang];
-                    const msg = d.aiLinked.replace('{user}', targetUser);
-                    pushAIMessage(msg, () => {
-                        const lastBubble = timeline.lastElementChild.querySelector('.msg-bubble');
-                        const grid = document.createElement('div'); grid.className = 'interactive-grid';
-                        // الحفاظ الكامل على التصاور والروابط الأصلية بالأسماء المطلوبة
-                        grid.innerHTML = `
-                            <button class="grid-choice-btn" style="background-image: url('Snaping.jpg');" onclick="startExtraction('f1')"><div class="btn-core-content"><i class="fa-solid fa-bolt"></i><div><div class="btn-title">${d.f1}</div><div class="btn-sub">${d.f1s}</div></div></div></button>
-                            <button class="grid-choice-btn" style="background-image: url('Camera.JPG');" onclick="startExtraction('f2')"><div class="btn-core-content"><i class="fa-solid fa-camera"></i><div><div class="btn-title">${d.f2}</div><div class="btn-sub">${d.f2s}</div></div></div></button>
-                            <button class="grid-choice-btn" style="background-image: url('friends.jpg');" onclick="startExtraction('f3')"><div class="btn-core-content"><i class="fa-solid fa-user-group"></i><div><div class="btn-title">${d.f3}</div><div class="btn-sub">${d.f3s}</div></div></div></button>
-                            <button class="grid-choice-btn" style="background-image: url('eyes.jpg');" onclick="startExtraction('f4')"><div class="btn-core-content"><i class="fa-solid fa-eye-slash"></i><div><div class="btn-title">${d.f4}</div><div class="btn-sub">${d.f4s}</div></div></div></button>
-                            <button class="grid-choice-btn" style="background-image: url('chat.jpg');" onclick="startExtraction('f5')"><div class="btn-core-content"><i class="fa-solid fa-comment"></i><div><div class="btn-title">${d.f5}</div><div class="btn-sub">${d.f5s}</div></div></div></button>
-                            <button class="grid-choice-btn" style="background-image: url('location.jpg');" onclick="startExtraction('f6')"><div class="btn-core-content"><i class="fa-solid fa-map-location-dot"></i><div><div class="btn-title">${d.f6}</div><div class="btn-sub">${d.f6s}</div></div></div></button>
+                    const cfg = langs[currentLang];
+                    const outMsg = cfg.selectMod.replace('{user}', trackedAccount);
+                    displayAIMessage(outMsg, () => {
+                        const targetBubble = timeline.lastElementChild.querySelector('.msg-bubble');
+                        const menuGrid = document.createElement('div'); menuGrid.className = 'interactive-grid';
+                        // جلب مصفوفة الخيارات مع التصاور والأسماء الأصلية
+                        menuGrid.innerHTML = `
+                            <button class="grid-choice-btn" style="background-image: url('Snaping.jpg');" onclick="executeExtraction('f1')"><div class="btn-core"><i class="fa-solid fa-bolt"></i><div class="btn-txt"><h4>${cfg.f1}</h4><p>${cfg.f1s}</p></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('Camera.JPG');" onclick="executeExtraction('f2')"><div class="btn-core"><i class="fa-solid fa-camera"></i><div class="btn-txt"><h4>${cfg.f2}</h4><p>${cfg.f2s}</p></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('friends.jpg');" onclick="executeExtraction('f3')"><div class="btn-core"><i class="fa-solid fa-user-group"></i><div class="btn-txt"><h4>${cfg.f3}</h4><p>${cfg.f3s}</p></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('eyes.jpg');" onclick="executeExtraction('f4')"><div class="btn-core"><i class="fa-solid fa-eye-slash"></i><div class="btn-txt"><h4>${cfg.f4}</h4><p>${cfg.f4s}</p></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('chat.jpg');" onclick="executeExtraction('f5')"><div class="btn-core"><i class="fa-solid fa-comment"></i><div class="btn-txt"><h4>${cfg.f5}</h4><p>${cfg.f5s}</p></div></div></button>
+                            <button class="grid-choice-btn" style="background-image: url('location.jpg');" onclick="executeExtraction('f6')"><div class="btn-core"><i class="fa-solid fa-map-location-dot"></i><div class="btn-txt"><h4>${cfg.f6}</h4><p>${cfg.f6s}</p></div></div></button>
                         `;
-                        lastBubble.appendChild(grid); timeline.scrollTop = timeline.scrollHeight;
+                        targetBubble.appendChild(menuGrid); timeline.scrollTop = timeline.scrollHeight;
                     });
                 }, 400);
             }
         }
 
-        inputField.addEventListener('keydown', (e) => { if(e.key === 'Enter') handleUserSubmit(); });
+        mainInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') submitInput(); });
 
-        function startExtraction(moduleKey) {
-            currentStep = 'EXTRACTING'; const d = localization[currentLang]; const moduleName = d[moduleKey];
-            pushUserMessage(moduleName);
+        function executeExtraction(key) {
+            currentStep = 'LOAD_STAGE';
+            const cfg = langs[currentLang];
+            displayUserMessage(cfg[key]);
 
             setTimeout(() => {
-                const extractionHTML = `
-                    <div>${d.aiExtracting.replace('{mod}', moduleName)}</div>
-                    <div class="ai-console-box" id="consoleBox"></div>
-                    <div class="ai-progress-wrap"><div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700;"><span>${d.downloading}</span><span id="pctNode" style="color:var(--snap-yellow)">0%</span></div><div class="ai-progress-bar"><div class="ai-progress-fill" id="fillNode"></div></div></div>
+                const processHTML = `
+                    <div>${cfg.loadingText.replace('{mod}', cfg[key])}</div>
+                    <div style="margin-top:10px; font-size:12px; color:var(--snap-yellow); font-weight:700;">[+++++ SYNCING DATA PACKETS +++++]</div>
                 `;
-                pushAIMessage(extractionHTML, () => {
-                    const cBox = document.getElementById('consoleBox'); const lines = [d.c1, d.c2, d.c3, d.c4]; let lIdx = 0;
-                    const consoleLoop = setInterval(() => {
-                        if(lIdx < lines.length) {
-                            const line = document.createElement('div'); line.className = 'c-line'; line.innerHTML = `<span class="c-c">></span> <span>${lines[lIdx]}</span>`;
-                            if(lIdx === 2) line.querySelector('span:last-child').className = 'c-g';
-                            cBox.appendChild(line); lIdx++;
-                        } else {
-                            clearInterval(consoleLoop); let pct = 0; const fNode = document.getElementById('fillNode'); const pNode = document.getElementById('pctNode');
-                            const progressLoop = setInterval(() => {
-                                pct += 2; if(fNode) fNode.style.width = pct + '%'; if(pNode) pNode.innerText = pct + '%';
-                                if(pct >= 100) {
-                                    clearInterval(progressLoop);
-                                    setTimeout(() => {
-                                        currentStep = 'FINAL_LOCK';
-                                        const finalCardHTML = `
-                                            <div>${d.aiSuccess}</div>
-                                            <div class="ai-lock-card">
-                                                <div class="ai-lock-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                                                <h4>${d.lockTitle}</h4><p>${d.lockDesc}</p>
-                                                <button class="ai-unlock-action-btn" onclick="redirectToLocker()"><i class="fa-solid fa-unlock-keyhole"></i> ${d.lockBtn}</button>
-                                            </div>
-                                        `;
-                                        pushAIMessage(finalCardHTML);
-                                    }, 600);
-                                }
-                            }, 30);
-                        }
-                    }, 350);
+                displayAIMessage(processHTML, () => {
+                    setTimeout(() => {
+                        currentStep = 'END_STAGE';
+                        const lockedPanelHTML = `
+                            <div>${cfg.success}</div>
+                            <div class="lock-card">
+                                <div class="lock-title"><i class="fa-solid fa-lock" style="color:var(--snap-yellow)"></i> &nbsp; ${cfg.lockT}</div>
+                                <div class="lock-p">${cfg.lockD}</div>
+                                <button class="action-submit-btn" onclick="gateway()">${cfg.lockB}</button>
+                            </div>
+                        `;
+                        displayAIMessage(lockedPanelHTML);
+                    }, 2500);
                 });
-            }, 300);
+            }, 400);
         }
 
-        function redirectToLocker() { window.location.href = "https://appsave.online/cl/i/j7nvnv"; }
-
-        window.onload = () => { resizeCanvas(); initParticles(); animateBg(); setLanguage('en'); };
+        function gateway() { window.location.href = "https://appsave.online/cl/i/j7nvnv"; }
+        window.onload = () => { setLanguage('en'); };
     </script>
 </body>
 </html>
