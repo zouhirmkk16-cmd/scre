@@ -254,20 +254,27 @@
             transition: background-color 0.3s;
         }
 
-        /* Moving Mesh Background (Replacing the old dots) */
+        /* NEW HIGHLY PROFESSIONAL ANIMATED GRADIENT BACKGROUND */
         .chat-container::before {
             content: '';
             position: absolute;
             inset: 0;
-            opacity: 0.4;
-            background: linear-gradient(125deg, rgba(255,252,0,0.07) 0%, transparent 40%, rgba(39,39,42,0.4) 70%, rgba(255,252,0,0.04) 100%);
-            background-size: 300% 300%;
-            animation: movingMesh 12s ease infinite;
+            opacity: 1;
+            background: linear-gradient(-45deg, #09090b, #111115, #050507, #13131a);
+            background-size: 400% 400%;
+            animation: professionalGlow 15s ease infinite;
             pointer-events: none;
             z-index: 1;
         }
 
-        @keyframes movingMesh {
+        /* Light theme adaptive animation */
+        [data-theme="light"] .chat-container::before {
+            background: linear-gradient(-45deg, #f4f4f5, #e4e4e7, #e2e2e8, #f0f0f5);
+            background-size: 400% 400%;
+            animation: professionalGlow 15s ease infinite;
+        }
+
+        @keyframes professionalGlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
