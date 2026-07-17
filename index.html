@@ -4,44 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SnapTools Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --snap-yellow: #FFFC00;
             --snap-black: #000000;
-            --bg-chat: #0b0b0f;
-            --bg-workspace: #030303;
-            --bg-bubble-user: #1e1e24;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-main: #ffffff;
-            --text-muted: #a1a1aa;
-            --font-main: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+            --bg-chat: #09090b;
+            --bg-workspace: #020202;
+            --bg-bubble-user: #1c1c1e;
+            --border-color: #27272a;
+            --text-main: #fafafa;
+            --text-muted: #71717a;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --chat-btn-bg: #12121a;
-            --chat-btn-border: rgba(255, 252, 0, 0.15);
-            --menu-bg: rgba(15, 15, 20, 0.95);
-            --alert-bg: rgba(24, 24, 35, 0.95);
-            --alert-border: rgba(255, 68, 68, 0.5);
-            --glow-color: rgba(255, 252, 0, 0.2);
-            --card-gradient: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            --chat-btn-bg: #0c0c0e;
+            --chat-btn-border: #1e1e22;
+            --menu-bg: rgba(9, 9, 11, 0.95);
+            --alert-bg: rgba(20, 20, 25, 0.9);
+            --alert-border: rgba(255, 68, 68, 0.4);
+            --glow-color: rgba(255, 252, 0, 0.15);
         }
 
         [data-theme="light"] {
-            --bg-chat: #f8f9fa;
-            --bg-workspace: #e9ecef;
-            --bg-bubble-user: #e2e8f0;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --text-main: #0f172a;
-            --text-muted: #64748b;
+            --bg-chat: #f4f4f5;
+            --bg-workspace: #e4e4e7;
+            --bg-bubble-user: #ffffff;
+            --border-color: #d4d4d8;
+            --text-main: #09090b;
+            --text-muted: #71717a;
             --chat-btn-bg: #ffffff;
-            --chat-btn-border: rgba(0, 0, 0, 0.1);
-            --menu-bg: rgba(255, 255, 255, 0.95);
+            --chat-btn-border: #e4e4e7;
+            --menu-bg: rgba(244, 244, 245, 0.95);
             --alert-bg: rgba(255, 255, 255, 0.95);
-            --alert-border: rgba(255, 68, 68, 0.4);
+            --alert-border: rgba(255, 68, 68, 0.3);
             --glow-color: rgba(0, 0, 0, 0.05);
-            --card-gradient: linear-gradient(135deg, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.03) 100%);
+        }
+
+        body[lang="ar"] {
+            --font-main: 'Cairo', sans-serif;
         }
 
         * {
@@ -50,6 +52,7 @@
             padding: 0;
             font-family: var(--font-main);
             -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         body {
@@ -63,11 +66,15 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* --- Welcome Instructions Popup Styles --- */
+        body.rtl {
+            direction: rtl;
+        }
+
+        /* --- Welcome Instructions Popup --- */
         .instructions-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(2, 2, 2, 0.9);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             display: flex;
@@ -75,92 +82,143 @@
             justify-content: center;
             z-index: 10000;
             padding: 20px;
+            animation: fadeInOverlay 0.3s ease-out;
         }
 
         .instructions-card {
-            background: #0d0d12;
-            border: 1px solid rgba(255, 252, 0, 0.2);
+            background: #0f0f13;
+            border: 1px solid var(--border-color);
             border-radius: 28px;
             width: 100%;
-            max-width: 440px;
+            max-width: 420px;
             padding: 32px 24px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
             text-align: center;
             position: relative;
+            animation: slideUpPopup 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .instructions-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 5px;
-            background: linear-gradient(90deg, transparent, var(--snap-yellow), transparent);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--snap-yellow);
             border-radius: 28px 28px 0 0;
+            box-shadow: 0 2px 15px rgba(255, 252, 0, 0.5);
         }
 
         .instructions-logo {
-            width: 60px; height: 60px;
+            width: 56px;
+            height: 56px;
             background: var(--snap-yellow);
-            border-radius: 20px;
-            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 0 auto 20px auto;
             color: var(--snap-black);
             font-size: 26px;
             box-shadow: 0 0 20px rgba(255, 252, 0, 0.4);
-            transform: rotate(-5deg);
         }
 
         .instructions-card h3 {
-            font-size: 22px; font-weight: 800;
-            margin-bottom: 20px; letter-spacing: -0.5px;
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
         }
 
         .steps-container {
-            display: flex; flex-direction: column; gap: 16px;
-            text-align: left; margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            text-align: left;
+            margin-bottom: 28px;
         }
-        body[data-lang="ar"] .steps-container { text-align: right; }
+        body.rtl .steps-container {
+            text-align: right;
+        }
 
         .step-item {
-            display: flex; gap: 14px;
-            background: rgba(255,255,255,0.02);
-            padding: 12px; border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
         }
-        body[data-lang="ar"] .step-item { flex-direction: row-reverse; }
 
         .step-num {
-            background: var(--snap-yellow); color: var(--snap-black);
-            border-radius: 10px; width: 30px; height: 30px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px; font-weight: 800; flex-shrink: 0;
+            background: rgba(255, 252, 0, 0.1);
+            color: var(--snap-yellow);
+            border: 1px solid rgba(255, 252, 0, 0.3);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+            flex-shrink: 0;
         }
 
-        .step-content h5 { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: #fff; }
-        .step-content p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+        .step-content h5 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
 
         .popup-close-btn {
-            width: 100%; background: var(--snap-yellow); color: var(--snap-black);
-            border: none; padding: 16px; border-radius: 16px;
-            font-size: 16px; font-weight: 800; cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255,252,0,0.3); transition: all 0.2s;
+            width: 100%;
+            background: var(--snap-yellow);
+            color: var(--snap-black);
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(255,252,0,0.4);
         }
-        .popup-close-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .popup-close-btn:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUpPopup { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- Live Status Bar --- */
         .live-status-bar {
-            background: rgba(12, 12, 16, 0.6);
-            backdrop-filter: blur(5px);
+            background: rgba(12, 12, 14, 0.9);
             border-bottom: 1px solid var(--border-color);
             padding: 10px 16px;
-            display: flex; align-items: center; justify-content: center;
-            gap: 12px; font-size: 11px; color: var(--text-muted);
-            z-index: 90; position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+            z-index: 90;
+            position: relative;
         }
-        body[data-lang="ar"] .live-status-bar { flex-direction: row-reverse; }
 
         .status-dot {
-            width: 7px; height: 7px; background: #00ff66; border-radius: 50%;
-            box-shadow: 0 0 10px #00ff66; animation: pulseDot 1.8s infinite;
+            width: 7px;
+            height: 7px;
+            background: #00ff66;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff66;
+            animation: pulseDot 1.8s infinite;
         }
 
         @keyframes pulseDot {
@@ -170,187 +228,242 @@
 
         .status-text strong { color: var(--snap-yellow); }
 
-        /* --- Main Chat Layout --- */
+        /* --- Chat Container --- */
         .chat-container {
-            width: 100%; max-width: 480px;
+            width: 100%;
+            max-width: 480px;
             background: var(--bg-chat);
-            position: relative; display: flex; flex-direction: column;
-            height: 100vh; height: 100dvh; overflow: hidden;
+            background-image: radial-gradient(var(--border-color) 1px, transparent 0);
+            background-size: 24px 24px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            height: 100dvh; 
+            position: relative;
+            overflow: hidden;
         }
 
         .chat-header {
-            padding: 16px; display: flex; justify-content: space-between;
-            align-items: center; background: var(--bg-chat);
-            z-index: 99; position: relative; border-bottom: 1px solid var(--border-color);
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-chat);
+            z-index: 99;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
         }
-        body[data-lang="ar"] .chat-header { flex-direction: row-reverse; }
 
         .header-left { display: flex; align-items: center; gap: 12px; }
-        body[data-lang="ar"] .header-left { flex-direction: row-reverse; }
 
-        .menu-bars-btn, .theme-btn, .lang-btn {
-            background: var(--chat-btn-bg); border: 1px solid var(--border-color);
-            color: var(--text-main); width: 38px; height: 38px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 12px; cursor: pointer; transition: all 0.2s;
+        .menu-bars-btn {
+            background: transparent; border: none; color: var(--text-main);
+            font-size: 18px; cursor: pointer; width: 36px; height: 36px;
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--border-color);
         }
-        .menu-bars-btn:hover, .theme-btn:hover, .lang-btn:hover { border-color: var(--snap-yellow); }
 
-        .ai-brand { font-weight: 900; font-size: 24px; letter-spacing: -0.5px; }
-        .ai-brand .part-snap { color: var(--snap-yellow); }
+        .ai-brand { font-weight: 800; font-size: 22px; letter-spacing: -0.5px; }
+        .ai-brand .part-snap { color: var(--snap-yellow); text-shadow: 0 0 12px rgba(255, 252, 0, 0.3); }
 
         .header-actions { display: flex; align-items: center; gap: 8px; }
-        body[data-lang="ar"] .header-actions { flex-direction: row-reverse; }
 
-        /* Languages Dropdown */
+        /* Lang Selector Dropdown */
+        .lang-select-wrapper {
+            position: relative;
+        }
+        .lang-btn {
+            background: var(--chat-btn-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0 12px;
+            height: 36px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
         .lang-dropdown {
-            position: absolute; top: 68px; right: 16px;
-            background: var(--menu-bg); border: 1px solid var(--border-color);
-            border-radius: 16px; display: none; flex-direction: column;
-            width: 140px; overflow: hidden; z-index: 1000; box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            position: absolute;
+            top: 42px;
+            right: 0;
+            background: var(--menu-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 130px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1001;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
-        body[data-lang="ar"] .lang-dropdown { right: auto; left: 16px; }
+        body.rtl .lang-dropdown { left: 0; right: auto; }
+        .lang-opt {
+            padding: 10px 14px;
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: left;
+            background: transparent;
+            border: none;
+            width: 100%;
+        }
+        body.rtl .lang-opt { text-align: right; }
+        .lang-opt:hover { background: var(--bg-bubble-user); }
 
-        .lang-item {
-            padding: 12px 16px; color: var(--text-main); font-size: 14px;
-            font-weight: 600; cursor: pointer; transition: background 0.2s;
-            display: flex; align-items: center; gap: 8px;
+        .theme-btn {
+            background: var(--chat-btn-bg); border: 1px solid var(--border-color);
+            color: var(--text-main); font-size: 14px; width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center; border-radius: 12px; cursor: pointer;
         }
-        .lang-item:hover { background: rgba(255,252,0,0.1); }
 
         .snap-dropdown-menu {
             position: absolute; top: 68px; left: 16px; width: 220px;
-            background: var(--menu-bg); border: 1px solid var(--border-color);
-            border-radius: 16px; display: none; flex-direction: column;
-            overflow: hidden; z-index: 1000;
+            background: var(--menu-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color); border-radius: 16px;
+            display: none; flex-direction: column; overflow: hidden; z-index: 1000;
         }
-        body[data-lang="ar"] .snap-dropdown-menu { left: auto; right: 16px; }
+        body.rtl .snap-dropdown-menu { left: auto; right: 16px; }
 
         .menu-item {
             padding: 14px 16px; color: var(--text-main); text-decoration: none;
-            font-size: 14px; display: flex; align-items: center; gap: 10px;
+            font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px;
             border-bottom: 1px solid var(--border-color);
         }
-        body[data-lang="ar"] .menu-item { flex-direction: row-reverse; }
         .menu-item i { color: var(--snap-yellow); }
 
         .chat-history {
             flex: 1; overflow-y: auto; padding: 20px 16px;
-            display: flex; flex-direction: column; gap: 20px; z-index: 5;
+            display: flex; flex-direction: column; gap: 24px; z-index: 5;
         }
 
         .chat-row { display: flex; gap: 12px; max-width: 100%; }
         .chat-row.user-row { flex-direction: row-reverse; }
 
         .bot-avatar {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: var(--snap-yellow); display: flex; align-items: center; justify-content: center;
-            font-weight: 900; color: #000; flex-shrink: 0; font-size: 18px;
+            width: 38px; height: 38px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; background: var(--snap-yellow);
         }
+        .bot-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .msg-bubble { font-size: 15px; line-height: 1.5; color: var(--text-main); width: 100%; }
+        .msg-bubble { font-size: 15px; line-height: 1.6; max-width: 85%; color: var(--text-main); }
+
         .user-row .msg-bubble {
-            background: var(--bg-bubble-user); padding: 12px 16px;
-            border-radius: 20px 4px 20px 20px; max-width: 75%;
-            border: 1px solid var(--border-color); font-weight: 500;
-        }
-
-        /* --- Luxury Features Grid (1000% Better Dashboard) --- */
-        .options-grid {
-            display: grid; grid-template-columns: 1fr; gap: 14px;
-            margin-top: 16px; width: 100%;
-        }
-
-        .feature-card {
-            background: var(--chat-btn-bg);
+            background: var(--bg-bubble-user); padding: 12px 18px;
+            border-radius: 20px 4px 20px 20px; max-width: 75%; font-weight: 600;
             border: 1px solid var(--border-color);
-            border-radius: 20px; overflow: hidden; position: relative;
-            cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        body.rtl .user-row .msg-bubble { border-radius: 4px 20px 20px 20px; }
+
+        .typing-dots { display: inline-flex; gap: 4px; align-items: center; padding: 8px 0; }
+        .typing-dots span {
+            width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%;
+            animation: bounceDot 1.4s infinite ease-in-out both;
+        }
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+        /* --- Premium Feature Grid Options With Background Images --- */
+        .options-box {
+            display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; width: 100%;
         }
 
-        .feature-card:hover {
-            transform: translateY(-3px); border-color: var(--snap-yellow);
+        .chat-opt-btn {
+            position: relative; width: 100%; height: 85px; border-radius: 20px;
+            border: 1px solid var(--border-color); background-size: cover; background-position: center;
+            cursor: pointer; overflow: hidden; display: flex; align-items: center;
+            justify-content: space-between; padding: 0 20px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: left;
+        }
+        body.rtl .chat-opt-btn { text-align: right; }
+
+        /* Dark Premium Overlay inside the button image */
+        .chat-opt-btn::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(10,10,14,0.95) 45%, rgba(10,10,14,0.4) 100%);
+            z-index: 1; transition: background 0.3s;
+        }
+        body.rtl .chat-opt-btn::before {
+            background: linear-gradient(-90deg, rgba(10,10,14,0.95) 45%, rgba(10,10,14,0.4) 100%);
+        }
+
+        .chat-opt-btn:hover {
+            border-color: var(--snap-yellow);
+            transform: translateY(-3px);
             box-shadow: 0 8px 25px var(--glow-color);
         }
-
-        .feature-img-wrapper {
-            width: 100%; height: 140px; position: relative; overflow: hidden;
-            background: #101015;
+        .chat-opt-btn:hover::before {
+            background: linear-gradient(90deg, rgba(15,15,20,0.98) 50%, rgba(15,15,20,0.5) 100%);
+        }
+        body.rtl .chat-opt-btn:hover::before {
+            background: linear-gradient(-90deg, rgba(15,15,20,0.98) 50%, rgba(15,15,20,0.5) 100%);
         }
 
-        .feature-img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.5s; opacity: 0.85;
-        }
-        .feature-card:hover .feature-img { transform: scale(1.05); opacity: 1; }
-
-        .feature-badge {
-            position: absolute; top: 12px; right: 12px;
-            background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px);
-            padding: 4px 10px; border-radius: 10px; font-size: 11px;
-            font-weight: 700; color: var(--snap-yellow); border: 1px solid rgba(255,252,0,0.3);
-        }
-        body[data-lang="ar"] .feature-badge { right: auto; left: 12px; }
-
-        .feature-info {
-            padding: 16px; display: flex; align-items: center;
-            justify-content: space-between; background: rgba(255,255,255,0.01);
-        }
-        body[data-lang="ar"] .feature-info { flex-direction: row-reverse; }
-
-        .feature-text { display: flex; align-items: center; gap: 12px; }
-        body[data-lang="ar"] .feature-text { flex-direction: row-reverse; }
-
-        .feature-icon-box {
-            width: 36px; height: 36px; background: rgba(255, 252, 0, 0.1);
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            color: var(--snap-yellow); font-size: 16px;
+        .btn-left-content {
+            position: relative; z-index: 2; display: flex; align-items: center; gap: 16px;
         }
 
-        .feature-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+        .chat-opt-btn i.btn-icon {
+            font-size: 18px; width: 36px; height: 36px; background: rgba(255,252,0,0.1);
+            border: 1px solid rgba(255,252,0,0.2); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; color: var(--snap-yellow);
+        }
+
+        .btn-text-block { display: flex; flex-direction: column; }
+        .btn-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+        .btn-subtitle { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        .chat-opt-btn i.fa-chevron-right, .chat-opt-btn i.fa-chevron-left { 
+            position: relative; z-index: 2; font-size: 14px; color: var(--text-muted); transition: transform 0.2s;
+        }
+        .chat-opt-btn:hover i.fa-chevron-right { transform: translateX(4px); color: var(--snap-yellow); }
+        .chat-opt-btn:hover i.fa-chevron-left { transform: translateX(-4px); color: var(--snap-yellow); }
 
         /* Terminal Logs & Progress */
         .terminal-log-box {
-            background: #020205; border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 16px; margin-top: 16px;
-            font-family: var(--font-mono); font-size: 12px; color: #e4e4e7;
-            max-height: 160px; overflow-y: auto; line-height: 1.6; display: none;
+            background: #020205; border: 1px solid var(--border-color); border-radius: 16px;
+            padding: 16px; margin-top: 16px; font-family: var(--font-mono); font-size: 12px;
+            color: #e4e4e7; max-height: 160px; overflow-y: auto; line-height: 1.6; display: none;
         }
         .terminal-line { margin-bottom: 6px; display: flex; gap: 10px; }
+        body.rtl .terminal-line { direction: ltr; justify-content: flex-end; }
         .terminal-success { color: #00ff66; }
         .terminal-warn { color: var(--snap-yellow); }
 
+        .media-preview-container {
+            border: 1px solid var(--border-color); background: var(--chat-btn-bg);
+            border-radius: 20px; margin-top: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .media-header-label { padding: 12px 16px; font-size: 13px; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border-color); }
+        .media-frame { position: relative; height: 180px; background-size: cover; background-position: center; }
+        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); font-size: 13px; font-weight: 700; color: #fff; }
+
         .progress-block { margin-top: 16px; width: 100%; }
-        .progress-labels { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; font-weight: 600; }
-        body[data-lang="ar"] .progress-labels { flex-direction: row-reverse; }
-        .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); }
-        .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; box-shadow: 0 0 10px var(--snap-yellow); transition: width 0.1s linear; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-main); margin-bottom: 8px; font-weight: 600; }
+        .progress-bar-bg { width: 100%; background: var(--border-color); height: 7px; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; box-shadow: 0 0 12px var(--glow-color); transition: width 0.1s linear; }
 
-        /* Offer Card */
+        /* Premium Offer Card */
         .offer-verification-card {
-            border: 1px solid rgba(255, 252, 0, 0.2);
-            background: linear-gradient(145deg, #0e0e14, #050508);
-            border-radius: 24px; padding: 28px 20px; margin-top: 16px;
-            display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; width: 100%;
+            border: 1px solid var(--border-color); background: linear-gradient(145deg, #111115, #070709);
+            border-radius: 24px; padding: 32px 24px; margin-top: 16px; display: flex; flex-direction: column;
+            align-items: center; text-align: center; gap: 18px; width: 100%; position: relative; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
-        
-        .verification-icon { 
-            color: var(--snap-black); background: var(--snap-yellow); 
-            width: 52px; height: 52px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; font-size: 22px;
-        }
-
-        .offer-verification-card h4 { font-size: 18px; font-weight: 800; }
-        .offer-verification-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+        .offer-verification-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--snap-yellow); box-shadow: 0 2px 12px var(--snap-yellow); }
+        .offer-verification-card h4 { font-size: 20px; font-weight: 800; }
+        .offer-verification-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+        .verification-icon { color: var(--snap-black); background: var(--snap-yellow); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 0 15px rgba(255,252,0,0.3); }
 
         .gpt-action-btn {
-            width: 100%; background: var(--snap-yellow); color: var(--snap-black);
-            border: none; padding: 15px; border-radius: 25px;
-            font-size: 15px; font-weight: 800; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; background: var(--snap-yellow); color: var(--snap-black); border: none; padding: 16px; border-radius: 30px; font-size: 15px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 8px; box-shadow: 0 4px 15px rgba(255,252,0,0.3); transition: all 0.25s;
         }
+        .gpt-action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,252,0,0.5); }
 
         /* Input Area */
         .chat-input-area { padding: 16px; background: var(--bg-chat); border-top: 1px solid var(--border-color); }
@@ -358,266 +471,257 @@
             background: var(--chat-btn-bg); border: 1px solid var(--border-color);
             border-radius: 30px; display: flex; align-items: center; padding: 6px 8px 6px 20px;
         }
-        body[data-lang="ar"] .input-box-container { padding: 6px 20px 6px 8px; flex-direction: row-reverse; }
+        body.rtl .input-box-container { padding: 6px 20px 6px 8px; }
         .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 15px; flex-grow: 1; padding: 10px 0; }
-        
-        .send-btn {
-            width: 40px; height: 40px; background: var(--snap-yellow); color: var(--snap-black);
-            border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
-        }
+        .send-btn { width: 40px; height: 40px; background: var(--snap-yellow); color: var(--snap-black); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
 
-        .footer-banner { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 12px; }
-
+        .footer-banner { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 14px; font-weight: 500; }
         .hidden-row { display: none !important; }
 
         /* Custom Alert */
         .custom-alert {
             position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-120px);
-            background: var(--alert-bg); color: #ff4444; border: 1px solid var(--alert-border);
-            padding: 14px 22px; border-radius: 20px; font-weight: 700; font-size: 14px;
-            z-index: 9999; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
-            opacity: 0; display: flex; align-items: center; gap: 12px;
+            background: var(--alert-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            color: #ff4444; border: 1px solid var(--alert-border); padding: 14px 22px; border-radius: 20px;
+            font-weight: 700; font-size: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.5); z-index: 9999;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s; opacity: 0;
+            display: flex; align-items: center; gap: 12px; white-space: nowrap;
         }
         .custom-alert.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
-<body data-lang="en">
+<body>
 
+    <!-- --- Welcome Instructions Popup Markups --- -->
     <div class="instructions-overlay" id="popupOverlay">
         <div class="instructions-card">
-            <div class="instructions-logo"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-            <h3 data-i18n="popTitle">How to Use SnapTools</h3>
+            <div class="instructions-logo">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 id="popTitle">How to Use SnapTools</h3>
+            
             <div class="steps-container">
                 <div class="step-item">
                     <div class="step-num">1</div>
                     <div class="step-content">
-                        <h5 data-i18n="step1T">Enter Target Username</h5>
-                        <p data-i18n="step1D">Input the Snapchat username of the target account in the text bar below.</p>
+                        <h5 id="popS1T">Enter Target Username</h5>
+                        <p id="popS1D">Input the Snapchat username of the target account in the text bar below to link the terminal.</p>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-num">2</div>
                     <div class="step-content">
-                        <h5 data-i18n="step2T">Choose Extraction Feature</h5>
-                        <p data-i18n="step2D">Select the feature you want to view from the live dashboard below.</p>
+                        <h5 id="popS2T">Choose Extraction Feature</h5>
+                        <p id="popS2D">Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).</p>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-num">3</div>
                     <div class="step-content">
-                        <h5 data-i18n="step3T">Complete Security Check</h5>
-                        <p data-i18n="step3D">Pass human verification to instantly unlock decrypted live streams.</p>
+                        <h5 id="popS3T">Complete Security Check</h5>
+                        <p id="popS3D">Pass the human verification by completing a short offer on the next page. Note: You must complete the offer exactly as requested.</p>
                     </div>
                 </div>
             </div>
-            <button class="popup-close-btn" onclick="closeInstructionsPopup()" data-i18n="popBtn">OK, Got It!</button>
+            <button class="popup-close-btn" id="popBtn" onclick="closeInstructionsPopup()">OK, Got It!</button>
         </div>
     </div>
 
     <div class="custom-alert" id="errorAlert">
-        <i class="fa-solid fa-circle-exclamation"></i> <span id="errorAlertText" data-i18n="alertErr">Please enter target Snapchat username first!</span>
+        <i class="fa-solid fa-circle-exclamation"></i> <span id="alertText">Please enter target Snapchat username first!</span>
     </div>
 
     <div class="chat-container">
         <div class="chat-header">
             <div class="header-left">
-                <button class="menu-bars-btn" onclick="toggleSnapMenu(event)"><i class="fa-solid fa-bars"></i></button>
+                <button class="menu-bars-btn" onclick="toggleSnapMenu(event)">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
                 <div class="brand-wrapper">
-                    <span class="ai-brand"><span class="part-snap">Snap</span><span style="color: var(--text-main);">Tools</span></span>
+                    <span class="ai-brand"><span class="part-snap">Snap</span><span style="color:var(--text-main)">Tools</span></span>
                 </div>
             </div>
             <div class="header-actions">
-                <button class="lang-btn" onclick="toggleLangMenu(event)"><i class="fa-solid fa-globe"></i></button>
-                <button class="theme-btn" id="themeToggleBtn" onclick="toggleThemeNode()"><i class="fa-solid fa-moon"></i></button>
+                <!-- Lang Dropdown Selector -->
+                <div class="lang-select-wrapper">
+                    <button class="lang-btn" onclick="toggleLangMenu(event)">
+                        <i class="fa-solid fa-globe"></i> <span id="currentLangLabel">EN</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button class="lang-opt" onclick="changeLanguage('en')">English</button>
+                        <button class="lang-opt" onclick="changeLanguage('ar')">العربية</button>
+                        <button class="lang-opt" onclick="changeLanguage('fr')">Français</button>
+                        <button class="lang-opt" onclick="changeLanguage('es')">Español</button>
+                        <button class="lang-opt" onclick="changeLanguage('de')">Deutsch</button>
+                    </div>
+                </div>
+                <button class="theme-btn" id="themeToggleBtn" onclick="toggleThemeNode()">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
             </div>
-        </div>
-
-        <div class="lang-dropdown" id="langMenu">
-            <div class="lang-item" onclick="changeLanguage('en')">🇺🇸 English</div>
-            <div class="lang-item" onclick="changeLanguage('ar')">🇲🇦 العربية</div>
-            <div class="lang-item" onclick="changeLanguage('fr')">创造 French</div>
-            <div class="lang-item" onclick="changeLanguage('es')">🇪🇸 Español</div>
-            <div class="lang-item" onclick="changeLanguage('de')">🇩🇪 Deutsch</div>
         </div>
 
         <div class="live-status-bar">
             <span class="status-dot"></span>
-            <span class="status-text"><span data-i18n="statusActive">Active Connections:</span> <strong id="activeUsersVal">14,250</strong></span>
-            <span style="color:var(--border-color)">|</span>
-            <span class="status-text"><span data-i18n="statusBypassed">Bypassed Today:</span> <strong id="bypassedVal">8,432</strong></span>
+            <span class="status-text"><span id="lblActive">Active Connections:</span> <strong id="activeUsersVal">12,841</strong></span>
+            <span class="status-divider">|</span>
+            <span class="status-text"><span id="lblBypass">Bypassed Today:</span> <strong id="bypassedVal">7,914</strong></span>
         </div>
 
         <div class="snap-dropdown-menu" id="snapMenu">
             <a href="https://snapchat.com/privacy" target="_blank" class="menu-item"><i class="fa-solid fa-user-shield"></i> Privacy Policy</a>
+            <a href="https://snapchat.com/community" target="_blank" class="menu-item"><i class="fa-solid fa-scale-balanced"></i> Community Rules</a>
             <a href="https://support.snapchat.com" target="_blank" class="menu-item"><i class="fa-solid fa-circle-question"></i> Snapchat Support</a>
         </div>
 
         <div class="chat-history" id="chatWindow">
-            <div class="chat-row ai-row">
-                <div class="bot-avatar">S</div>
+            <div class="chat-row ai-row" id="welcomeMsg">
+                <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
                 <div class="msg-bubble" id="welcomeText"></div>
             </div>
             <div class="chat-row ai-row hidden-row" id="typingBubble">
-                <div class="bot-avatar">S</div>
-                <div class="msg-bubble"><div style="color:var(--text-muted)">...</div></div>
+                <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
+                <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
             </div>
         </div>
 
         <div class="chat-input-area">
             <div class="input-box-container">
                 <input type="text" class="gpt-input" id="userInputField" placeholder="Enter target Snapchat username..." autocomplete="off">
-                <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()"><i class="fa-solid fa-arrow-up"></i></button>
+                <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
             </div>
-            <div class="footer-banner" data-i18n="footer">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
+            <div class="footer-banner" id="footerText">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
         </div>
     </div>
 
     <script>
-        // Multi-Language Translations Dictionary
-        const translations = {
+        // System Languages Dictionary
+        const langData = {
             en: {
-                welcome: "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor below.",
-                placeholder: "Enter target Snapchat username...",
+                current: "EN", rtl: false,
                 popTitle: "How to Use SnapTools",
-                step1T: "Enter Target Username",
-                step1D: "Input the Snapchat username of the target account in the text bar below.",
-                step2T: "Choose Extraction Feature",
-                step2D: "Select the feature you want to view from the live dashboard below.",
-                step3T: "Complete Security Check",
-                step3D: "Pass human verification to instantly unlock decrypted live streams.",
+                popS1T: "Enter Target Username", popS1D: "Input the Snapchat username of the target account in the text bar below to link the terminal.",
+                popS2T: "Choose Extraction Feature", popS2D: "Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).",
+                popS3T: "Complete Security Check", popS3D: "Pass the human verification by completing a short offer on the next page. Note: You must complete the offer exactly as requested.",
                 popBtn: "OK, Got It!",
                 alertErr: "Please enter target Snapchat username first!",
-                statusActive: "Active Connections:",
-                statusBypassed: "Bypassed Today:",
-                linkedText: "Target profile linked successfully: ",
-                selectModule: "Select the secure data layer you want to extract from this user dashboard:",
+                lblActive: "Active Connections:", lblBypass: "Bypassed Today:",
+                welcome: "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.",
+                placeholder: "Enter target Snapchat username...",
                 footer: "End-to-End Encrypted Console. Anonymous Access Panel 2026.",
-                btnVerify: "Pass Verification",
-                verifyTitle: "Human Verification Required",
-                verifyDesc: "To protect server resources from automated bots, you must complete the human verification. Complete the selected offer exactly as instructed to unlock live logs.",
-                badgeLive: "LIVE STREAM",
-                badgeSecure: "SECURE",
-                f1: "Snapchat Snaping", f2: "Snap Camera", f3: "View Friends List", f4: "Private Stories", f5: "Chat History", f6: "Live Location Map"
+                linked: "Target profile linked successfully: @{user}. Select the secure data layer you want to extract from this user dashboard:",
+                f1: "Snapchat Snaping", f1s: "Extract recent snaps logs",
+                f2: "Snap Camera", f2s: "Access active camera feeds",
+                f3: "View Friends List", f3s: "Fetch full linked friend data",
+                f4: "Private Stories", f4s: "Decrypt private custom stories",
+                f5: "Chat History", f5s: "Download end-to-end conversations",
+                f6: "Live Location Map", f6s: "Track dynamic live map coordinates",
+                fetching: "Fetching cloud databank for {mod}. Establishing anonymous stream:",
+                l1: "Connecting proxy tunnels [SECURE]...", l2: "Locating user database cluster...", l3: "Authorization bypass success.", l4: "Extracting cached storage blocks...", l5: "Data stream linked. Pre-rendering preview...",
+                downAsset: "Downloading remote assets...", liveWindow: "Live Stream Window",
+                vTitle: "Human Verification Required", vDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. Important: You must complete the selected offer exactly as instructed on the next page to instantly reveal your live decrypted dashboard logs and images.", vBtn: "Pass Verification"
             },
             ar: {
-                welcome: "مرحباً بك في SnapTools Pro. أدخل اسم مستخدم حساب سناب شات المراد مراقبته أدناه.",
-                placeholder: "أدخل اسم مستخدم سناب شات المستهدف...",
+                current: "AR", rtl: true,
                 popTitle: "كيفية استخدام SnapTools",
-                step1T: "أدخل اسم المستخدم",
-                step1D: "قم بكتابة اسم حساب السناب شات المستهدف في الحقل أدناه.",
-                step2T: "اختر ميزة الاستخراج",
-                step2D: "حدد الميزة التي تريد عرضها من لوحة التحكم المباشرة أدناه.",
-                step3T: "اجتياز فحص الأمان",
-                step3D: "اكمل التحقق البشري لفتح البث المباشر المشفر فوراً.",
+                popS1T: "أدخل اسم المستخدم المستهدف", popS1D: "أدخل اسم مستخدم سناب شات للحساب المراد مراقبته في شريط النص أدناه لربط لوحة التحكم.",
+                popS2T: "اختر ميزة الاستخراج", popS2D: "حدد الميزة التي تريد عرضها من لوحة التحكم (الصور، القصص الخاصة، الموقع المباشر، أو الدردشات).",
+                popS3T: "أكمل التحقق الأمني", popS3D: "اجتز التحقق البشري عن طريق إكمال عرض قصير في الصفحة التالية لتفعيل البث المشفر فوراً.",
                 popBtn: "حسناً، فهمت!",
-                alertErr: "الرجاء إدخال اسم مستخدم سناب شات أولاً!",
-                statusActive: "الاتصالات النشطة:",
-                statusBypassed: "قواعد البيانات المتخطاة اليوم:",
-                linkedText: "تم ربط الملف الشخصي المستهدف بنجاح: ",
-                selectModule: "حدد طبقة البيانات الآمنة التي تريد استخراجها من لوحة تحكم المستخدم هذه:",
-                footer: "لوحة تحكم مشفرة بالكامل. وصول مجهول الهوية 2026.",
-                btnVerify: "اجتياز التحقق البشري",
-                verifyTitle: "مطلوب التحقق البشري",
-                verifyDesc: "لحماية موارد الخادم من الروبوتات، يجب عليك إكمال التحقق البشري. أكمل العرض المطلوب تماماً كما هو موضح لفتح البيانات فوراً.",
-                badgeLive: "بث مباشر",
-                badgeSecure: "آمن",
-                f1: "لقطات السناب شات", f2: "كاميرا السناب", f3: "عرض قائمة الأصدقاء", f4: "القصص الخاصة", f5: "سجل المحادثات", f6: "خريطة الموقع المباشر"
+                alertErr: "يرجى إدخال اسم مستخدم سناب شات أولاً!",
+                lblActive: "الاتصالات النشطة:", lblBypass: "قواعد البيانات المخترقة اليوم:",
+                welcome: "مرحباً بك في SnapTools Pro. أدخل اسم مستخدم حساب سناب شات المستهدف الذي تريد مراقبته وعرضه أدناه.",
+                placeholder: "أدخل اسم مستخدم سناب شات المستهدف...",
+                footer: "لوحة تحكم مشفرة بالكامل. لوحة وصول مجهولة 2026.",
+                linked: "تم ربط الحساب بنجاح: @{user}. اختر طبقة البيانات الآمنة التي تريد استخراجها من لوحة التحكم هذه:",
+                f1: "لقطات سناب شات", f1s: "استخراج سجل اللقطات الأخيرة",
+                f2: "كاميرا السناب", f2s: "الوصول إلى بث الكاميرا النشط",
+                f3: "عرض قائمة الأصدقاء", f3s: "جلب بيانات الأصدقاء الكاملة",
+                f4: "القصص الخاصة", f4s: "فك تشفير القصص المخصصة الخاصة",
+                f5: "سجل الدردشة", f5s: "تحميل المحادثات المشفرة بالكامل",
+                f6: "خريطة الموقع المباشر", f6s: "تتبع إحداثيات الخريطة الحية",
+                fetching: "جاري جلب قاعدة البيانات السحابية لـ {mod}. إنشاء بث مجهول:",
+                l1: "جاري الاتصال بنفق الوكيل الآمن...", l2: "تحديد موقع خادم قاعدة البيانات...", l3: "تم تخطي نظام المصادقة بنجاح.", l4: "جاري استخراج كتل التخزين المؤقتة...", l5: "تم ربط تدفق البيانات. جاري رندرة المعاينة المباشرة...",
+                downAsset: "جاري تحميل الملفات عن بعد...", liveWindow: "نافذة البث المباشر",
+                vTitle: "مطلوب التحقق البشري", vDesc: "تم ربط نفق الوكيل الآمن بنجاح. لحماية موارد الخادم من الروبوتات الآلية، يجب عليك إكمال التحقق البشري أدناه. مهم: يجب إكمال العرض المختار تماماً كما هو مطلوب في الصفحة التالية لفتح اللوحة فورا.", vBtn: "اجتياز التحقق الآن"
             },
             fr: {
-                welcome: "Bienvenue sur SnapTools Pro. Entrez le nom d'utilisateur du compte Snapchat cible ci-dessous.",
-                placeholder: "Entrez le nom d'utilisateur Snapchat cible...",
+                current: "FR", rtl: false,
                 popTitle: "Comment utiliser SnapTools",
-                step1T: "Entrez le nom d'utilisateur",
-                step1D: "Entrez le nom d'utilisateur Snapchat du compte cible dans la barre ci-dessous.",
-                step2T: "Choisir la fonction",
-                step2D: "Sélectionnez la fonction que vous souhaitez afficher dans le tableau de bord.",
-                step3T: "Contrôle de sécurité",
-                step3D: "Passez la vérification humaine pour déverrouiller instantanément les flux.",
-                popBtn: "OK, J'ai compris!",
-                alertErr: "Veuillez d'abord entrer le nom d'utilisateur Snapchat !",
-                statusActive: "Connexions Actives:",
-                statusBypassed: "Bypassés Aujourd'hui:",
-                linkedText: "Profil cible lié avec succès: ",
-                selectModule: "Sélectionnez la couche de données sécurisée à extraire :",
-                footer: "Console cryptée de bout en bout. Accès anonyme 2026.",
-                btnVerify: "Passer la vérification",
-                verifyTitle: "Vérification Humaine Requise",
-                verifyDesc: "Pour protéger les ressources du serveur, vous devez remplir la vérification humaine. Complétez l'offre exactement comme demandé.",
-                badgeLive: "EN DIRECT",
-                badgeSecure: "SÉCURISÉ",
-                f1: "Snaps Snapchat", f2: "Caméra Snap", f3: "Liste d'amis", f4: "Stories Privées", f5: "Historique des Chats", f6: "Localisation en Direct"
+                popS1T: "Entrez l'identifiant cible", popS1D: "Entrez le nom d'utilisateur Snapchat du compte cible dans la barre ci-dessous pour lier le terminal.",
+                popS2T: "Choisir une fonctionnalité", popS2D: "Sélectionnez les données que vous souhaitez extraire (Snaps, Stories privées, Localisation ou Chats).",
+                popS3T: "Contrôle de sécurité", popS3D: "Passez la vérification humaine en complétant une offre simple sur la page suivante pour débloquer le flux.",
+                popBtn: "OK, j'ai compris!",
+                alertErr: "Veuillez entrer un nom d'utilisateur Snapchat d'abord!",
+                lblActive: "Connexions Actives:", lblBypass: "Bases de Données Contournées:",
+                welcome: "Bienvenue sur SnapTools Pro. Entrez le nom d'utilisateur du compte Snapchat cible que vous souhaitez surveiller ci-dessous.",
+                placeholder: "Entrez l'identifiant Snapchat cible...",
+                footer: "Console sécurisée de bout en bout. Panneau d'accès anonyme 2026.",
+                linked: "Profil cible lié avec succès: @{user}. Sélectionnez la couche de données sécurisée à extraire:",
+                f1: "Snaps Envoyés", f1s: "Extraire les journaux de snaps récents",
+                f2: "Appareil Photo", f2s: "Accéder aux flux de caméra actifs",
+                f3: "Liste d'Amis", f3s: "Récupérer la liste complète des amis",
+                f4: "Stories Privées", f4s: "Décrypter les stories privées",
+                f5: "Historique des Chats", f5s: "Télécharger les conversations privées",
+                f6: "Carte de Localisation", f6s: "Suivre les coordonnées en temps réel",
+                fetching: "Récupération de la banque de données pour {mod}. Établissement du flux anonyme:",
+                l1: "Connexion aux tunnels de proxy [SÉCURISÉ]...", l2: "Localisation du cluster de base de données...", l3: "Contournement de l'autorisation réussi.", l4: "Extraction des blocs de stockage...", l5: "Flux de données lié. Pré-rendu de l'aperçu...",
+                downAsset: "Téléchargement des ressources...", liveWindow: "Fenêtre de flux en direct",
+                vTitle: "Vérification Humaine Requise", vDesc: "Le tunnel proxy sécurisé s'est connecté avec succès. Pour protéger les ressources du serveur contre les bots automatisés, vous devez terminer la vérification humaine ci-dessous. Important: Vous devez compléter l'offre exactement comme demandé.", vBtn: "Passer la vérification"
             },
             es: {
-                welcome: "Bienvenido a SnapTools Pro. Ingrese el nombre de usuario de la cuenta de Snapchat que desea monitorear.",
-                placeholder: "Ingrese el usuario de Snapchat objetivo...",
+                current: "ES", rtl: false,
                 popTitle: "Cómo usar SnapTools",
-                step1T: "Ingrese el usuario",
-                step1D: "Escriba el nombre de usuario de Snapchat de la cuenta objetivo en la barra inferior.",
-                step2T: "Elija la función",
-                step2D: "Seleccione la función que desea ver en el panel de control en vivo.",
-                step3T: "Control de seguridad",
-                step3D: "Pase la verificación humana para desbloquear instantáneamente las transmisiones.",
-                popBtn: "¡OK, lo tengo!",
-                alertErr: "¡Por favor ingrese el nombre de usuario de Snapchat primero!",
-                statusActive: "Conexiones Activas:",
-                statusBypassed: "Bypasseados Hoy:",
-                linkedText: "Perfil objetivo vinculado con éxito: ",
-                selectModule: "Seleccione la capa de datos segura que desea extraer:",
-                footer: "Consola encriptada de extremo a extremo. Acceso Anónimo 2026.",
-                btnVerify: "Pasar Verificación",
-                verifyTitle: "Verificación Humana Requerida",
-                verifyDesc: "Para proteger los servidores, debe completar la verificación humana. Complete la oferta seleccionada exactamente como se indica.",
-                badgeLive: "EN VIVO",
-                badgeSecure: "SEGURO",
-                f1: "Snaps de Snapchat", f2: "Cámara Snap", f3: "Lista de Amigos", f4: "Historias Privadas", f5: "Historial de Chat", f6: "Mapa de Ubicación"
+                popS1T: "Ingresar usuario objetivo", popS1D: "Ingrese el nombre de usuario de Snapchat de la cuenta objetivo en la barra de abajo para vincular el terminal.",
+                popS2T: "Elegir función de extracción", popS2D: "Seleccione la función que desea ver desde el panel (Snaps, Historias privadas, Ubicación en vivo o Chats).",
+                popS3T: "Verificación de seguridad", popS3D: "Pase la verificación humana completando una breve oferta en la siguiente página para desbloquear el flujo en vivo.",
+                popBtn: "¡Entendido!",
+                alertErr: "¡Por favor ingrese el usuario de Snapchat primero!",
+                lblActive: "Conexiones Activas:", lblBypass: "Bases de Datos Superadas:",
+                welcome: "Bienvenido a SnapTools Pro. Ingrese el nombre de usuario de la cuenta de Snapchat que desea monitorear a continuación.",
+                placeholder: "Ingrese el usuario de Snapchat...",
+                footer: "Consola encriptada de extremo a extremo. Panel de acceso anónimo 2026.",
+                linked: "Perfil vinculado correctamente: @{user}. Seleccione la capa de datos segura que desea extraer:",
+                f1: "Snaps Recientes", f1s: "Extraer registros de snaps recientes",
+                f2: "Cámara de Snap", f2s: "Acceder a transmisiones de cámara activas",
+                f3: "Lista de Amigos", f3s: "Obtener datos completos de amigos",
+                f4: "Historias Privadas", f4s: "Descifrar historias privadas personalizadas",
+                f5: "Historial de Chat", f5s: "Descargar conversaciones completas",
+                f6: "Mapa de Ubicación", f6s: "Rastrear coordenadas en vivo en el mapa",
+                fetching: "Obteniendo banco de datos para {mod}. Estableciendo transmisión anónima:",
+                l1: "Conectando túneles proxy [SEGURO]...", l2: "Localizando clúster de base de datos...", l3: "Bypass de autorización exitoso.", l4: "Extrayendo bloques de almacenamiento...", l5: "Transmisión de datos vinculada. Renderizando vista previa...",
+                downAsset: "Descargando activos remotos...", liveWindow: "Ventana de transmisión en vivo",
+                vTitle: "Verificación Humana Requerida", vDesc: "El túnel proxy seguro se vinculó correctamente. Para proteger los recursos del servidor de bots automatizados, debe completar la verificación humana a continuación. Importante: complete la oferta exactamente como se solicita.", vBtn: "Pasar Verificación"
             },
             de: {
-                welcome: "Willkommen bei SnapTools Pro. Geben Sie unten den Benutzernamen des Snapchat-Zielkontos ein.",
-                placeholder: "Snapchat-Benutzernamen eingeben...",
+                current: "DE", rtl: false,
                 popTitle: "Verwendung von SnapTools",
-                step1T: "Benutzernamen eingeben",
-                step1D: "Geben Sie den Snapchat-Benutzernamen des Zielkontos in die Leiste unten ein.",
-                step2T: "Funktion wählen",
-                step2D: "Wählen Sie die Funktion, die Sie im Live-Dashboard anzeigen möchten.",
-                step3T: "Sicherheitsüberprüfung",
-                step3D: "Bestehen Sie die menschliche Verifizierung, um Live-Streams freizuschalten.",
-                popBtn: "OK, verstanden!",
+                popS1T: "Ziel-Benutzername eingeben", popS1D: "Geben Sie den Snapchat-Benutzernamen des Zielkontos in die Leiste unten ein, um das Terminal zu verbinden.",
+                popS2T: "Extraktionsfunktion wählen", popS2D: "Wählen Sie die Funktion aus, die Sie im Dashboard anzeigen möchten (Snaps, private Storys, Live-Standort oder Chats).",
+                popS3T: "Sicherheitsüberprüfung", popS3D: "Bestehen Sie die menschliche Verifizierung, indem Sie ein kurzes Angebot auf der nächsten Seite abschließen.",
+                popBtn: "Alles klar!",
                 alertErr: "Bitte geben Sie zuerst den Snapchat-Benutzernamen ein!",
-                statusActive: "Aktive Verbindungen:",
-                statusBypassed: "Heute umgangen:",
-                linkedText: "Zielprofil erfolgreich verknüpft: ",
-                selectModule: "Wählen Sie die sichere Datenebene aus, die Sie extrahieren möchten:",
-                footer: "Ende-zu-Ende verschlüsselte Konsole. Anonymer Zugriff 2026.",
-                btnVerify: "Verifizierung bestehen",
-                verifyTitle: "Menschliche Verifizierung erforderlich",
-                verifyDesc: "Um Serverressourcen zu schützen, müssen Sie die Verifizierung bestehen. Schließen Sie das Angebot genau wie angewiesen ab.",
-                badgeLive: "LIVE STREAM",
-                badgeSecure: "SICHER",
-                f1: "Snapchat Snaps", f2: "Snap Kamera", f3: "Freundesliste anzeigen", f4: "Private Storys", f5: "Chat-Verlauf", f6: "Live-Standortkarte"
+                lblActive: "Aktive Verbindungen:", lblBypass: "Heute umgangene Datenbanken:",
+                welcome: "Willkommen bei SnapTools Pro. Geben Sie unten den Benutzernamen des Snapchat-Zielkontos ein, das Sie überwachen möchten.",
+                placeholder: "Snapchat-Benutzername eingeben...",
+                footer: "Ende-zu-Ende verschlüsselte Konsole. Anonymes Zugriffspanel 2026.",
+                linked: "Zielprofil erfolgreich verknüpft: @{user}. Wählen Sie die sichere Datenschicht aus, die Sie extrahieren möchten:",
+                f1: "Snapchat Snaps", f1s: "Letzte Snap-Protokolle extrahieren",
+                f2: "Snap-Kamera", f2s: "Auf aktive Kamera-Feeds zugreifen",
+                f3: "Freundesliste anzeigen", f3s: "Vollständige Freundesdaten abrufen",
+                f4: "Private Storys", f4s: "Private benutzerdefinierte Storys entschlüsseln",
+                f5: "Chat-Verlauf", f5s: "Ende-zu-Ende-Konversationen herunterladen",
+                f6: "Live-Standortkarte", f6s: "Dynamische Live-Kartenkoordinaten verfolgen",
+                fetching: "Abrufen der Cloud-Datenbank für {mod}. Anonymen Stream einrichten:",
+                l1: "Proxy-Tunnel verbinden [SICHER]...", l2: "Datenbank-Cluster lokalisieren...", l3: "Autorisierung erfolgreich umgangen.", l4: "Auslesen von zwischengespeicherten Blöcken...", l5: "Datenstrom verknüpft. Vorrendern der Vorschau...",
+                downAsset: "Remote-Assets werden heruntergeladen...", liveWindow: "Live-Stream-Fenster",
+                vTitle: "Menschliche Verifizierung erforderlich", vDesc: "Der sichere Proxy-Tunnel wurde erfolgreich verknüpft. Um die Serverressourcen vor automatisierten Bots zu schützen, müssen Sie die menschliche Verifizierung unten abschließen. Wichtig: Schließen Sie das Angebot genau wie gewünscht ab.", vBtn: "Verifizierung bestehen"
             }
         };
 
         let currentLang = 'en';
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            document.body.setAttribute('data-lang', lang);
-            document.getElementById('langMenu').style.display = 'none';
-            
-            // Translate static elements
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) el.innerText = translations[lang][key];
-            });
-
-            // Update Input Placeholder
-            document.getElementById('userInputField').placeholder = translations[lang].placeholder;
-            
-            // Refresh Welcome Text if not proceeded
-            if(!isProcessingStarted) {
-                document.getElementById('welcomeText').innerText = translations[lang].welcome;
-            }
-        }
 
         const chatWindow = document.getElementById('chatWindow');
         const userInputField = document.getElementById('userInputField');
@@ -625,53 +729,147 @@
         const typingBubble = document.getElementById('typingBubble');
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const snapMenu = document.getElementById('snapMenu');
-        const langMenu = document.getElementById('langMenu');
+        const langDropdown = document.getElementById('langDropdown');
         const errorAlert = document.getElementById('errorAlert');
 
         let isProcessingStarted = false;
         let currentTargetUser = "";
+        let alertTimeout = null;
 
-        window.onload = () => {
-            // Dynamic Counters logic
-            document.getElementById('activeUsersVal').innerText = Math.floor(Math.random() * (15000 - 13000) + 13000).toLocaleString();
-            document.getElementById('bypassedVal').innerText = Math.floor(Math.random() * (9000 - 8000) + 8000).toLocaleString();
-            changeLanguage('en');
+        const optionImages = {
+            'Snapchat Snaping': 'Snaping.jpg',
+            'Snap Camera': 'Camera.JPG',
+            'View Friends List': 'friends.jpg',
+            'Private Stories': 'eyes.jpg',
+            'Chat History': 'chat.jpg',
+            'Live Location Map': 'location.jpg'
         };
 
+        document.body.setAttribute('data-theme', 'dark');
+
+        function toggleLangMenu(event) {
+            event.stopPropagation();
+            langDropdown.style.display = langDropdown.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const data = langData[lang];
+            
+            document.getElementById('currentLangLabel').innerText = data.current;
+            document.body.setAttribute('lang', lang);
+            
+            if(data.rtl) {
+                document.body.classList.add('rtl');
+            } else {
+                document.body.classList.remove('rtl');
+            }
+
+            // Update DOM Static Text
+            document.getElementById('popTitle').innerText = data.popTitle;
+            document.getElementById('popS1T').innerText = data.popS1T;
+            document.getElementById('popS1D').innerText = data.popS1D;
+            document.getElementById('popS2T').innerText = data.popS2T;
+            document.getElementById('popS2D').innerText = data.popS2D;
+            document.getElementById('popS3T').innerText = data.popS3T;
+            document.getElementById('popS3D').innerText = data.popS3D;
+            document.getElementById('popBtn').innerText = data.popBtn;
+            document.getElementById('alertText').innerText = data.alertErr;
+            document.getElementById('lblActive').innerText = data.lblActive;
+            document.getElementById('lblBypass').innerText = data.lblBypass;
+            document.getElementById('userInputField').placeholder = data.placeholder;
+            document.getElementById('footerText').innerText = data.footer;
+
+            // Welcome message update dynamic
+            if(!isProcessingStarted) {
+                document.getElementById('welcomeText').innerText = data.welcome;
+            }
+            langDropdown.style.display = 'none';
+        }
+
+        function initDynamicLiveCounters() {
+            const activeUsersNode = document.getElementById('activeUsersVal');
+            const bypassedNode = document.getElementById('bypassedVal');
+            let baseActive = Math.floor(Math.random() * (13200 - 12400) + 12400);
+            activeUsersNode.innerText = baseActive.toLocaleString();
+
+            setInterval(() => {
+                const shift = Math.floor(Math.random() * 81) - 40;
+                baseActive = Math.max(11800, Math.min(13900, baseActive + shift));
+                activeUsersNode.innerText = baseActive.toLocaleString();
+            }, 4000);
+
+            let currentBypassed = 7914;
+            bypassedNode.innerText = currentBypassed.toLocaleString();
+            setInterval(() => {
+                if (Math.random() > 0.45) {
+                    currentBypassed += Math.floor(Math.random() * 2) + 1;
+                    bypassedNode.innerText = currentBypassed.toLocaleString();
+                }
+            }, 6000);
+        }
+        
         function closeInstructionsPopup() {
-            document.getElementById('popupOverlay').style.display = 'none';
+            const overlay = document.getElementById('popupOverlay');
+            overlay.style.transition = 'opacity 0.3s ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.style.display = 'none', 300);
         }
 
         function toggleThemeNode() {
             const currentTheme = document.body.getAttribute('data-theme');
-            if(currentTheme === 'light') {
+            if(currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'light');
+                themeToggleBtn.innerHTML = `<i class="fa-solid fa-sun"></i>`;
+            } else {
                 document.body.setAttribute('data-theme', 'dark');
                 themeToggleBtn.innerHTML = `<i class="fa-solid fa-moon"></i>`;
-            } else {
-                document.body.setAttribute('data-theme', 'dark'); // Force dark for high tech style
-                document.body.removeAttribute('data-theme');
-                themeToggleBtn.innerHTML = `<i class="fa-solid fa-sun"></i>`;
             }
         }
 
-        function toggleSnapMenu(e) {
-            e.stopPropagation();
+        function toggleSnapMenu(event) {
+            event.stopPropagation();
             snapMenu.style.display = snapMenu.style.display === 'flex' ? 'none' : 'flex';
-            langMenu.style.display = 'none';
-        }
-
-        function toggleLangMenu(e) {
-            e.stopPropagation();
-            langMenu.style.display = langMenu.style.display === 'flex' ? 'none' : 'flex';
-            snapMenu.style.display = 'none';
         }
 
         document.addEventListener('click', () => {
             snapMenu.style.display = 'none';
-            langMenu.style.display = 'none';
+            langDropdown.style.display = 'none';
         });
 
-        userInputField.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitUserIdentifier(); });
+        function typeWriterEffect(elementId, text, speed = 12, callback = null) {
+            let i = 0;
+            const element = document.getElementById(elementId);
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                } else if (callback) {
+                    callback();
+                }
+            }
+            type();
+        }
+
+        window.onload = () => {
+            changeLanguage('en');
+            initDynamicLiveCounters();
+        };
+
+        userInputField.addEventListener('keydown', (e) => { 
+            if (e.key === 'Enter') submitUserIdentifier(); 
+        });
+
+        function showTyping() {
+            chatWindow.appendChild(typingBubble);
+            typingBubble.classList.remove('hidden-row');
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function hideTyping() { typingBubble.classList.add('hidden-row'); }
 
         function appendUserMessage(text) {
             const row = document.createElement('div');
@@ -681,16 +879,16 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
+        function showAlertNotification() {
+            if(alertTimeout) clearTimeout(alertTimeout);
+            errorAlert.classList.add('show');
+            alertTimeout = setTimeout(() => errorAlert.classList.remove('show'), 3000);
+        }
+
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
-            if (val === '') {
-                document.getElementById('errorAlertText').innerText = translations[currentLang].alertErr;
-                errorAlert.classList.add('show');
-                setTimeout(() => errorAlert.classList.remove('show'), 3000);
-                return;
-            }
-
-            if(isProcessingStarted) return;
+            if (val === '') { showAlertNotification(); return; }
+            if(isProcessingStarted) return; 
             isProcessingStarted = true;
             currentTargetUser = val;
 
@@ -700,181 +898,237 @@
 
             appendUserMessage(val);
 
-            // Simulation of user loading
             setTimeout(() => {
-                const nextId = 'ai_' + Date.now();
-                const row = document.createElement('div');
-                row.className = 'chat-row ai-row';
-                row.innerHTML = `<div class="bot-avatar">S</div><div class="msg-bubble" id="${nextId}"></div>`;
-                chatWindow.appendChild(row);
-
-                const t = translations[currentLang];
-                document.getElementById(nextId).innerHTML = `
-                    <p style="margin-bottom:10px;">${t.linkedText} <strong>@${val}</strong>. ${t.selectModule}</p>
-                    <div class="options-grid">
-                        <div class="feature-card" onclick="selectModuleNode('${t.f1}', 'Snaping.jpg')">
-                            <div class="feature-img-wrapper">
-                                <img src="Snaping.jpg" class="feature-img" alt="">
-                                <span class="feature-badge">${t.badgeLive}</span>
+                showTyping();
+                setTimeout(() => {
+                    hideTyping();
+                    const nextId = 'ai_' + Date.now();
+                    const row = document.createElement('div');
+                    row.className = 'chat-row ai-row';
+                    row.innerHTML = `
+                        <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
+                        <div class="msg-bubble" id="${nextId}"></div>
+                    `;
+                    chatWindow.appendChild(row);
+                    
+                    const textTemplate = langData[currentLang].linked;
+                    const responseText = textTemplate.replace('{user}', val);
+                    
+                    typeWriterEffect(nextId, responseText, 10, () => {
+                        const d = langData[currentLang];
+                        const iconChevron = d.rtl ? 'fa-chevron-left' : 'fa-chevron-right';
+                        const optionsHtml = `
+                            <div class="options-box">
+                                <button class="chat-opt-btn" style="background-image: url('Snaping.jpg');" onclick="checkUsernameAndSelect('Snapchat Snaping', '${val}', 'f1')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-bolt btn-icon"></i>
+                                        <div class="btn-text-block">
+                                            <span class="btn-title">${d.f1}</span>
+                                            <span class="btn-subtitle">${d.f1s}</span>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid ${iconChevron}"></i>
+                                </button>
+                                <button class="chat-opt-btn" style="background-image: url('Camera.JPG');" onclick="checkUsernameAndSelect('Snap Camera', '${val}', 'f2')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-camera btn-icon"></i>
+                                        <div class="btn-text-block">
+                                            <span class="btn-title">${d.f2}</span>
+                                            <span class="btn-subtitle">${d.f2s}</span>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid ${iconChevron}"></i>
+                                </button>
+                                <button class="chat-opt-btn" style="background-image: url('friends.jpg');" onclick="checkUsernameAndSelect('View Friends List', '${val}', 'f3')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-user-group btn-icon"></i>
+                                        <div class="btn-text-block">
+                                            <span class="btn-title">${d.f3}</span>
+                                            <span class="btn-subtitle">${d.f3s}</span>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid ${iconChevron}"></i>
+                                </button>
+                                <button class="chat-opt-btn" style="background-image: url('eyes.jpg');" onclick="checkUsernameAndSelect('Private Stories', '${val}', 'f4')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
+                                        <div class="btn-text-block">
+                                            <span class="btn-title">${d.f4}</span>
+                                            <span class="btn-subtitle">${d.f4s}</span>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid ${iconChevron}"></i>
+                                </button>
+                                <button class="chat-opt-btn" style="background-image: url('chat.jpg');" onclick="checkUsernameAndSelect('Chat History', '${val}', 'f5')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-comment btn-icon"></i>
+                                        <div class="btn-text-block">
+                                            <span class="btn-title">${d.f5}</span>
+                                            <span class="btn-subtitle">${d.f5s}</span>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid ${iconChevron}"></i>
+                                </button>
+                                <button class="chat-opt-btn" style="background-image: url('location.jpg');" onclick="checkUsernameAndSelect('Live Location Map', '${val}', 'f6')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
+                                        <div class="btn-text-block">
+                                            <span class="btn-title">${d.f6}</span>
+                                            <span class="btn-subtitle">${d.f6s}</span>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid ${iconChevron}"></i>
+                                </button>
                             </div>
-                            <div class="feature-info">
-                                <div class="feature-text">
-                                    <div class="feature-icon-box"><i class="fa-solid fa-bolt"></i></div>
-                                    <span class="feature-title">${t.f1}</span>
-                                </div>
-                                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
-                            </div>
-                        </div>
-
-                        <div class="feature-card" onclick="selectModuleNode('${t.f2}', 'Camera.JPG')">
-                            <div class="feature-img-wrapper">
-                                <img src="Camera.JPG" class="feature-img" alt="">
-                                <span class="feature-badge">${t.badgeSecure}</span>
-                            </div>
-                            <div class="feature-info">
-                                <div class="feature-text">
-                                    <div class="feature-icon-box"><i class="fa-solid fa-camera"></i></div>
-                                    <span class="feature-title">${t.f2}</span>
-                                </div>
-                                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
-                            </div>
-                        </div>
-
-                        <div class="feature-card" onclick="selectModuleNode('${t.f3}', 'friends.jpg')">
-                            <div class="feature-img-wrapper">
-                                <img src="friends.jpg" class="feature-img" alt="">
-                                <span class="feature-badge">${t.badgeSecure}</span>
-                            </div>
-                            <div class="feature-info">
-                                <div class="feature-text">
-                                    <div class="feature-icon-box"><i class="fa-solid fa-user-group"></i></div>
-                                    <span class="feature-title">${t.f3}</span>
-                                </div>
-                                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
-                            </div>
-                        </div>
-
-                        <div class="feature-card" onclick="selectModuleNode('${t.f4}', 'eyes.jpg')">
-                            <div class="feature-img-wrapper">
-                                <img src="eyes.jpg" class="feature-img" alt="">
-                                <span class="feature-badge">${t.badgeLive}</span>
-                            </div>
-                            <div class="feature-info">
-                                <div class="feature-text">
-                                    <div class="feature-icon-box"><i class="fa-solid fa-eye-slash"></i></div>
-                                    <span class="feature-title">${t.f4}</span>
-                                </div>
-                                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
-                            </div>
-                        </div>
-
-                        <div class="feature-card" onclick="selectModuleNode('${t.f5}', 'chat.jpg')">
-                            <div class="feature-img-wrapper">
-                                <img src="chat.jpg" class="feature-img" alt="">
-                                <span class="feature-badge">${t.badgeLive}</span>
-                            </div>
-                            <div class="feature-info">
-                                <div class="feature-text">
-                                    <div class="feature-icon-box"><i class="fa-solid fa-comment"></i></div>
-                                    <span class="feature-title">${t.f5}</span>
-                                </div>
-                                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
-                            </div>
-                        </div>
-
-                        <div class="feature-card" onclick="selectModuleNode('${t.f6}', 'location.jpg')">
-                            <div class="feature-img-wrapper">
-                                <img src="location.jpg" class="feature-img" alt="">
-                                <span class="feature-badge">${t.badgeLive}</span>
-                            </div>
-                            <div class="feature-info">
-                                <div class="feature-text">
-                                    <div class="feature-icon-box"><i class="fa-solid fa-map-location-dot"></i></div>
-                                    <span class="feature-title">${t.f6}</span>
-                                </div>
-                                <i class="fa-solid fa-chevron-right" style="color:var(--text-muted)"></i>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            }, 1000);
-        }
-
-        function selectModuleNode(title, imgName) {
-            appendUserMessage(title);
-            
-            setTimeout(() => {
-                const nextId = 'load_' + Date.now();
-                const barId = 'bar_' + Date.now();
-                const txtId = 'txt_' + Date.now();
-                const consoleId = 'console_' + Date.now();
-                
-                const row = document.createElement('div');
-                row.className = 'chat-row ai-row';
-                row.innerHTML = `<div class="bot-avatar">S</div><div class="msg-bubble" id="${nextId}"></div>`;
-                chatWindow.appendChild(row);
-
-                document.getElementById(nextId).innerHTML = `
-                    <p>Establishing secure proxy connection for <strong>${title}</strong>...</p>
-                    <div class="terminal-log-box" id="${consoleId}" style="display:block;"></div>
-                    <div class="progress-block">
-                        <div class="progress-labels">
-                            <span>Downloading Remote Asset Streams...</span>
-                            <span id="${txtId}" style="color:var(--snap-yellow)">0%</span>
-                        </div>
-                        <div class="progress-bar-bg"><div class="progress-bar-fill" id="${barId}"></div></div>
-                    </div>
-                `;
-                
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-
-                // Simulate terminal lines
-                const consoleBox = document.getElementById(consoleId);
-                const logs = ["> Initializing Handshake...", "> Injecting payload layer...", "> Bypass authorized.", "> Fetching remote media content..."];
-                let i = 0;
-                let logInterval = setInterval(() => {
-                    if(i < logs.length) {
-                        consoleBox.innerHTML += `<div class="terminal-line">${logs[i]}</div>`;
-                        i++;
-                    } else {
-                        clearInterval(logInterval);
-                        // Start Progress Bar
-                        let pct = 0;
-                        let progressInterval = setInterval(() => {
-                            pct += 5;
-                            document.getElementById(barId).style.width = pct + '%';
-                            document.getElementById(txtId).innerText = pct + '%';
-                            if(pct >= 100) {
-                                clearInterval(progressInterval);
-                                showFinalOfferCard();
-                            }
-                        }, 50);
-                    }
-                }, 400);
-
+                        `;
+                        document.getElementById(nextId).innerHTML += optionsHtml;
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
+                    });
+                }, 1000);
             }, 800);
         }
 
-        function showFinalOfferCard() {
-            const nextId = 'final_' + Date.now();
-            const row = document.createElement('div');
-            row.className = 'chat-row ai-row';
-            row.innerHTML = `<div class="bot-avatar">S</div><div class="msg-bubble" id="${nextId}"></div>`;
-            chatWindow.appendChild(row);
+        function checkUsernameAndSelect(nodeName, username, langKey) {
+            if (!currentTargetUser) { showAlertNotification(); return; }
+            selectModuleNode(nodeName, username, langKey);
+        }
 
-            const t = translations[currentLang];
-            document.getElementById(nextId).innerHTML = `
-                <div class="offer-verification-card">
-                    <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
-                    <h4>${t.verifyTitle}</h4>
-                    <p>${t.verifyDesc}</p>
-                    <button class="gpt-action-btn" onclick="window.location.href='https://appsave.space/cl/i/j7nvnv'">
-                        <i class="fa-solid fa-key"></i> ${t.btnVerify}
-                    </button>
-                </div>
-            `;
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+        function selectModuleNode(nodeName, username, langKey) {
+            const btns = document.querySelectorAll('.chat-opt-btn');
+            btns.forEach(b => b.removeAttribute('onclick'));
+
+            const d = langData[currentLang];
+            appendUserMessage(d[langKey]);
+
+            setTimeout(() => {
+                showTyping();
+                setTimeout(() => {
+                    hideTyping();
+                    
+                    const barId = 'bar_' + Date.now();
+                    const txtId = 'txt_' + Date.now();
+                    const frameId = 'frame_' + Date.now();
+                    const consoleId = 'terminal_' + Date.now();
+                    const nextId = 'ai_load_' + Date.now();
+                    
+                    const row = document.createElement('div');
+                    row.className = 'chat-row ai-row';
+                    row.innerHTML = `
+                        <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
+                        <div class="msg-bubble" id="${nextId}"></div>
+                    `;
+                    chatWindow.appendChild(row);
+
+                    const loadingIntro = d.fetching.replace('{mod}', d[langKey]);
+                    
+                    typeWriterEffect(nextId, loadingIntro, 10, () => {
+                        const bgImage = optionImages[nodeName] || "";
+                        const loadingHtml = `
+                            <div class="terminal-log-box" id="${consoleId}" style="display:block;"></div>
+                            <div class="progress-block">
+                                <div class="progress-labels">
+                                    <span>${d.downAsset}</span>
+                                    <span id="${txtId}" style="font-weight:700; color:var(--snap-yellow);">0%</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill" id="${barId}"></div>
+                                </div>
+                            </div>
+                            <div class="media-preview-container">
+                                <div class="media-header-label"><i class="fa-regular fa-eye"></i> ${d.liveWindow}</div>
+                                <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
+                                    <div class="media-blur-overlay">
+                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
+                                        <span>ENCRYPTED_PREVIEW.RAW</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        document.getElementById(nextId).innerHTML += loadingHtml;
+                        simulateTerminalLogs(consoleId, () => {
+                            animateProgressBarNode(barId, txtId);
+                        });
+                    });
+                }, 800);
+            }, 600);
+        }
+
+        function simulateTerminalLogs(consoleId, callback) {
+            const consoleBox = document.getElementById(consoleId);
+            const d = langData[currentLang];
+            const logs = [
+                { text: d.l1, type: "normal" },
+                { text: d.l2, type: "normal" },
+                { text: d.l3, type: "success" },
+                { text: d.l4, type: "warn" },
+                { text: d.l5, type: "success" }
+            ];
+            
+            let i = 0;
+            const logLoop = setInterval(() => {
+                if (i < logs.length) {
+                    const line = document.createElement('div');
+                    line.className = 'terminal-line';
+                    if (logs[i].type === 'success') line.classList.add('terminal-success');
+                    if (logs[i].type === 'warn') line.classList.add('terminal-warn');
+                    line.innerHTML = `<span>></span> <span>${logs[i].text}</span>`;
+                    consoleBox.appendChild(line);
+                    consoleBox.scrollTop = consoleBox.scrollHeight;
+                    i++;
+                } else {
+                    clearInterval(logLoop);
+                    callback();
+                }
+            }, 300);
+        }
+
+        function animateProgressBarNode(barId, txtId) {
+            let percentage = 0;
+            const fill = document.getElementById(barId);
+            const text = document.getElementById(txtId);
+
+            const loop = setInterval(() => {
+                percentage += 2;
+                if(fill) fill.style.width = percentage + '%';
+                if(text) text.innerText = percentage + '%';
+
+                if(percentage >= 100) {
+                    clearInterval(loop);
+                    setTimeout(() => {
+                        showTyping();
+                        setTimeout(() => {
+                            hideTyping();
+                            
+                            const finalCardId = 'final_' + Date.now();
+                            const row = document.createElement('div');
+                            row.className = 'chat-row ai-row';
+                            row.innerHTML = `
+                                <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
+                                <div class="msg-bubble" id="${finalCardId}"></div>
+                            `;
+                            chatWindow.appendChild(row);
+
+                            const d = langData[currentLang];
+                            const finalOfferHtml = `
+                                <div class="offer-verification-card">
+                                    <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
+                                    <h4>${d.vTitle}</h4>
+                                    <p>${d.vDesc}</p>
+                                    <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
+                                        <i class="fa-solid fa-key"></i> ${d.vBtn}
+                                    </button>
+                                </div>
+                            `;
+                            document.getElementById(finalCardId).innerHTML = finalOfferHtml;
+                            chatWindow.scrollTop = chatWindow.scrollHeight;
+                        }, 1000);
+                    }, 400);
+                }
+            }, 35);
+        }
+
+        function redirectToOgadsLocker() {
+            window.location.href = "https://appsave.space/cl/i/j7nvnv";
         }
     </script>
 </body>
