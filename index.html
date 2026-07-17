@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SnapTools Ultimate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>SnapTools Ultimate Live Pro</title>
+    <link href="https://fonts.googleapis.com/css2 family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -12,42 +12,36 @@
             --snap-yellow: #FFFC00;
             --snap-neon-glow: rgba(255, 252, 0, 0.35);
             --snap-black: #050505;
-            --bg-workspace: #020204;
-            --bg-chat: #08080c;
-            --bg-bubble-user: #12121a;
-            --border-color: rgba(255, 255, 255, 0.06);
-            --border-glow: rgba(255, 252, 0, 0.15);
+            --bg-workspace: #020205;
+            --bg-chat: rgba(8, 8, 12, 0.82);
+            --bg-bubble-user: rgba(18, 18, 26, 0.75);
+            --border-color: rgba(255, 255, 255, 0.07);
             --text-main: #f8f9fa;
             --text-muted: #7e8494;
             --font-main: 'Plus Jakarta Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --chat-btn-bg: #0c0c14;
-            --chat-btn-border: rgba(255, 255, 255, 0.08);
-            --menu-bg: rgba(8, 8, 12, 0.98);
-            --alert-bg: rgba(18, 5, 5, 0.95);
+            --chat-btn-bg: rgba(12, 12, 20, 0.6);
+            --menu-bg: rgba(8, 8, 12, 0.96);
+            --alert-bg: rgba(20, 6, 6, 0.95);
             --alert-border: rgba(255, 68, 68, 0.4);
-            --card-glow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            --card-glow: 0 25px 60px rgba(0, 0, 0, 0.65);
         }
 
         [data-theme="light"] {
             --bg-workspace: #f4f5f9;
-            --bg-chat: #ffffff;
-            --bg-bubble-user: #f0f1f5;
-            --border-color: rgba(0, 0, 0, 0.06);
-            --border-glow: rgba(0, 0, 0, 0.04);
+            --bg-chat: rgba(255, 255, 255, 0.85);
+            --bg-bubble-user: rgba(240, 241, 255, 0.8);
+            --border-color: rgba(0, 0, 0, 0.07);
             --text-main: #090a0f;
             --text-muted: #686e7d;
-            --chat-btn-bg: #f8f9fa;
-            --chat-btn-border: rgba(0, 0, 0, 0.08);
-            --menu-bg: rgba(255, 255, 255, 0.98);
+            --chat-btn-bg: rgba(248, 249, 250, 0.7);
+            --menu-bg: rgba(255, 255, 255, 0.96);
             --alert-bg: rgba(255, 255, 255, 0.98);
             --alert-border: rgba(255, 68, 68, 0.3);
             --card-glow: 0 15px 35px rgba(0, 0, 0, 0.05);
         }
 
-        body[lang="ar"] {
-            --font-main: 'Cairo', sans-serif;
-        }
+        body[lang="ar"] { --font-main: 'Cairo', sans-serif; }
 
         * {
             box-sizing: border-box;
@@ -60,49 +54,56 @@
 
         body {
             background-color: var(--bg-workspace);
-            /* تأثير خلفية سينمائية مع إضاءة خافتة ورائها عمق ثلاثي الأبعاد */
-            background-image: 
-                radial-gradient(circle at 50% -20%, rgba(255, 252, 0, 0.07) 0%, transparent 50%),
-                radial-gradient(circle at 50% 100%, rgba(16, 16, 28, 0.5) 0%, var(--bg-workspace) 70%);
             color: var(--text-main);
             display: flex;
             justify-content: center;
             min-height: 100vh;
             min-height: 100dvh; 
             overflow: hidden;
-            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+            transition: background-color 0.3s;
         }
 
         body.rtl { direction: rtl; }
+
+        /* الكانفاس لي تايصاوب الحركة التفاعلية ف الخلفية كاملة */
+        #bgCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: auto;
+        }
 
         /* --- Welcome Instructions Popup --- */
         .instructions-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(2, 2, 4, 0.9);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(2, 2, 4, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 10000;
             padding: 20px;
-            animation: fadeInOverlay 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: fadeInOverlay 0.4s ease;
         }
 
         .instructions-card {
-            background: rgba(12, 12, 20, 0.65);
+            background: rgba(12, 12, 20, 0.75);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.09);
             border-radius: 40px;
             width: 100%;
             max-width: 440px;
             padding: 40px 32px;
-            box-shadow: var(--card-glow), inset 0 1px 1px rgba(255,255,255,0.1);
+            box-shadow: var(--card-glow), inset 0 1px 2px rgba(255,255,255,0.1);
             text-align: center;
-            position: relative;
-            animation: slideUpPopup 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: slideUpPopup 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .instructions-logo {
@@ -120,67 +121,30 @@
             transform: rotate(-4deg);
         }
 
-        .instructions-card h3 {
-            font-size: 26px;
-            font-weight: 800;
-            margin-bottom: 28px;
-            letter-spacing: -0.5px;
-        }
-
-        .steps-container {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            text-align: left;
-            margin-bottom: 36px;
-        }
+        .instructions-card h3 { font-size: 26px; font-weight: 800; margin-bottom: 28px; letter-spacing: -0.5px; }
+        .steps-container { display: flex; flex-direction: column; gap: 24px; text-align: left; margin-bottom: 36px; }
         body.rtl .steps-container { text-align: right; }
-
         .step-item { display: flex; gap: 18px; align-items: flex-start; }
-
         .step-num {
-            background: rgba(255, 252, 0, 0.05);
-            color: var(--snap-yellow);
-            border: 1px solid rgba(255, 252, 0, 0.3);
-            border-radius: 14px;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            font-weight: 800;
-            flex-shrink: 0;
-            box-shadow: 0 0 15px rgba(255,252,0,0.05);
+            background: rgba(255, 252, 0, 0.05); color: var(--snap-yellow); border: 1px solid rgba(255, 252, 0, 0.3);
+            border-radius: 14px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+            font-size: 15px; font-weight: 800; flex-shrink: 0;
         }
-
         .step-content h5 { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 5px; }
         .step-content p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-
         .popup-close-btn {
-            width: 100%;
-            background: var(--snap-yellow);
-            color: var(--snap-black);
-            border: none;
-            padding: 18px;
-            border-radius: 22px;
-            font-size: 16px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%; background: var(--snap-yellow); color: var(--snap-black); border: none; padding: 18px;
+            border-radius: 22px; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.3s;
             box-shadow: 0 8px 30px rgba(255,252,0,0.3);
         }
-        .popup-close-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(255,252,0,0.5);
-        }
+        .popup-close-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255,252,0,0.5); }
 
         @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUpPopup { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUpPopup { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- Live Status Bar --- */
         .live-status-bar {
-            background: rgba(8, 8, 12, 0.4);
+            background: rgba(8, 8, 12, 0.5);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-color);
@@ -191,33 +155,23 @@
             gap: 16px;
             font-size: 12px;
             color: var(--text-muted);
-            z-index: 90;
             position: relative;
+            z-index: 10;
             font-weight: 600;
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #00ffaa;
-            border-radius: 50%;
-            box-shadow: 0 0 14px #00ffaa;
-            animation: pulseDot 2s infinite;
-        }
-
-        @keyframes pulseDot {
-            0%, 100% { transform: scale(0.9); opacity: 0.6; }
-            50% { transform: scale(1.3); opacity: 1; }
-        }
-
-        .status-text strong { color: var(--snap-yellow); font-weight: 700; text-shadow: 0 0 10px rgba(255,252,0,0.2); }
+        .status-dot { width: 8px; height: 8px; background: #00ffaa; border-radius: 50%; box-shadow: 0 0 14px #00ffaa; animation: pulseDot 2s infinite; }
+        @keyframes pulseDot { 0%, 100% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.3); opacity: 1; } }
+        .status-text strong { color: var(--snap-yellow); font-weight: 700; }
         .status-divider { opacity: 0.3; }
 
-        /* --- Chat Container --- */
+        /* --- Chat Container (Glassmorphism Overhaul) --- */
         .chat-container {
             width: 100%;
             max-width: 480px;
             background: var(--bg-chat);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border-left: 1px solid var(--border-color);
             border-right: 1px solid var(--border-color);
             display: flex;
@@ -225,7 +179,7 @@
             height: 100vh;
             height: 100dvh; 
             position: relative;
-            overflow: hidden;
+            z-index: 5;
             box-shadow: var(--card-glow);
         }
 
@@ -234,81 +188,60 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(8, 8, 12, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 99;
-            position: relative;
+            background: rgba(8, 8, 12, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-color);
+            position: relative;
+            z-index: 15;
         }
 
         .header-left { display: flex; align-items: center; gap: 16px; }
-
         .menu-bars-btn {
             background: var(--chat-btn-bg); border: 1px solid var(--border-color); color: var(--text-main);
-            font-size: 15px; cursor: pointer; width: 40px; height: 40px;
-            border-radius: 14px; display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s;
+            font-size: 15px; cursor: pointer; width: 40px; height: 40px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; transition: all 0.2s;
         }
-        .menu-bars-btn:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15); }
-
+        .menu-bars-btn:hover { background: rgba(255,255,255,0.08); }
         .ai-brand { font-weight: 900; font-size: 26px; letter-spacing: -0.5px; }
         .ai-brand .part-snap { color: var(--snap-yellow); text-shadow: 0 0 20px rgba(255, 252, 0, 0.4); }
-
         .header-actions { display: flex; align-items: center; gap: 12px; }
 
         .lang-btn {
             background: var(--chat-btn-bg); border: 1px solid var(--border-color); color: var(--text-main);
-            padding: 0 16px; height: 40px; border-radius: 14px; cursor: pointer;
-            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;
-            transition: all 0.2s;
+            padding: 0 16px; height: 40px; border-radius: 14px; cursor: pointer; font-size: 13px;
+            font-weight: 700; display: flex; align-items: center; gap: 8px;
         }
-        .lang-btn:hover { border-color: rgba(255,255,255,0.15); }
 
         .lang-dropdown {
             position: absolute; top: 48px; right: 0; background: var(--menu-bg);
             border: 1px solid var(--border-color); border-radius: 16px; width: 140px;
             display: none; flex-direction: column; overflow: hidden; z-index: 1001;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
         body.rtl .lang-dropdown { left: 0; right: auto; }
-        .lang-opt {
-            padding: 14px 18px; color: var(--text-main); font-size: 14px; font-weight: 600;
-            cursor: pointer; text-align: left; background: transparent; border: none; width: 100%;
-        }
+        .lang-opt { padding: 14px 18px; color: var(--text-main); font-size: 14px; font-weight: 600; background: transparent; border: none; width: 100%; cursor: pointer; text-align: left;}
         body.rtl .lang-opt { text-align: right; }
-        .lang-opt:hover { background: var(--bg-bubble-user); }
+        .lang-opt:hover { background: rgba(255,255,255,0.05); }
 
         .theme-btn {
             background: var(--chat-btn-bg); border: 1px solid var(--border-color);
             color: var(--text-main); font-size: 14px; width: 40px; height: 40px;
             display: flex; align-items: center; justify-content: center; border-radius: 14px; cursor: pointer;
-            transition: all 0.2s;
         }
-        .theme-btn:hover { border-color: rgba(255,255,255,0.15); }
 
         .snap-dropdown-menu {
             position: absolute; top: 82px; left: 24px; width: 240px;
-            background: var(--menu-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color); border-radius: 20px;
+            background: var(--menu-bg); border: 1px solid var(--border-color); border-radius: 20px;
             display: none; flex-direction: column; overflow: hidden; z-index: 1000;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
         body.rtl .snap-dropdown-menu { left: auto; right: 24px; }
-
-        .menu-item {
-            padding: 16px 20px; color: var(--text-main); text-decoration: none;
-            font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 14px;
-            border-bottom: 1px solid var(--border-color); transition: background 0.2s;
-        }
-        .menu-item:hover { background: rgba(255,255,255,0.03); }
+        .menu-item { padding: 16px 20px; color: var(--text-main); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--border-color); }
+        .menu-item:hover { background: rgba(255,255,255,0.04); }
         .menu-item i { color: var(--snap-yellow); }
 
-        .chat-history {
-            flex: 1; overflow-y: auto; padding: 28px 24px;
-            display: flex; flex-direction: column; gap: 28px; z-index: 5;
-        }
-
+        .chat-history { flex: 1; overflow-y: auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 28px; }
         .chat-row { display: flex; gap: 16px; max-width: 100%; }
         .chat-row.user-row { flex-direction: row-reverse; }
 
@@ -318,163 +251,129 @@
             box-shadow: 0 6px 16px rgba(255, 252, 0, 0.25);
         }
         .bot-avatar img { width: 100%; height: 100%; object-fit: cover; }
-
         .msg-bubble { font-size: 15px; line-height: 1.6; max-width: 85%; color: var(--text-main); }
 
         .user-row .msg-bubble {
-            background: var(--bg-bubble-user); padding: 16px 22px;
-            border-radius: 24px 8px 24px 24px; max-width: 80%; font-weight: 600;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            background: var(--bg-bubble-user); padding: 16px 22px; border-radius: 24px 8px 24px 24px;
+            max-width: 80%; font-weight: 600; border: 1px solid var(--border-color);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
         body.rtl .user-row .msg-bubble { border-radius: 8px 24px 24px 24px; }
 
         .typing-dots { display: inline-flex; gap: 6px; align-items: center; padding: 12px 6px; }
-        .typing-dots span {
-            width: 8px; height: 8px; background: var(--text-muted); border-radius: 50%;
-            animation: bounceDot 1.4s infinite ease-in-out both;
-        }
+        .typing-dots span { width: 8px; height: 8px; background: var(--text-muted); border-radius: 50%; animation: bounceDot 1.4s infinite ease-in-out both; }
         .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-        /* --- Premium Grid Options (4K Ultra Overhaul) --- */
-        .options-box {
-            display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; width: 100%;
-        }
-
+        /* --- UI Options Overhaul (Dynamic Neon Glow) --- */
+        .options-box { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; width: 100%; }
         .chat-opt-btn {
             position: relative; width: 100%; height: 96px; border-radius: 24px;
             border: 1px solid var(--border-color); background-size: cover; background-position: center;
             cursor: pointer; overflow: hidden; display: flex; align-items: center;
             justify-content: space-between; padding: 0 26px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4); text-align: left;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3); text-align: left;
         }
         body.rtl .chat-opt-btn { text-align: right; }
-
-        /* تأثير التعتيم السينمائي الفخم للفوركي */
         .chat-opt-btn::before {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(90deg, rgba(8,8,14,0.97) 45%, rgba(8,8,14,0.6) 100%);
-            z-index: 1; transition: all 0.4s ease;
+            background: linear-gradient(90deg, rgba(8,8,14,0.96) 45%, rgba(8,8,14,0.55) 100%);
+            z-index: 1; transition: all 0.3s ease;
         }
-        body.rtl .chat-opt-btn::before {
-            background: linear-gradient(-90deg, rgba(8,8,14,0.97) 45%, rgba(8,8,14,0.6) 100%);
-        }
-
-        /* حافة نيون متوهجة تظهر عند المرور */
+        body.rtl .chat-opt-btn::before { background: linear-gradient(-90deg, rgba(8,8,14,0.96) 45%, rgba(8,8,14,0.55) 100%); }
+        
         .chat-opt-btn::after {
             content: ''; position: absolute; inset: 0; border-radius: 24px;
             border: 1px solid transparent; background: linear-gradient(135deg, var(--snap-yellow), transparent) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out; mask-composite: exclude;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: destination-out; mask-composite: exclude;
             opacity: 0; transition: opacity 0.4s ease; z-index: 3;
         }
 
         .chat-opt-btn:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 252, 0, 0.1);
-            border-color: rgba(255, 252, 0, 0.3);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 20px rgba(255, 252, 0, 0.15);
+            border-color: rgba(255, 252, 0, 0.4);
         }
         .chat-opt-btn:hover::after { opacity: 1; }
-        .chat-opt-btn:hover::before {
-            background: linear-gradient(90deg, rgba(12,12,22,0.98) 50%, rgba(12,12,22,0.65) 100%);
-        }
-        body.rtl .chat-opt-btn:hover::before {
-            background: linear-gradient(-90deg, rgba(12,12,22,0.98) 50%, rgba(12,12,22,0.65) 100%);
-        }
 
         .btn-left-content { position: relative; z-index: 2; display: flex; align-items: center; gap: 20px; }
-
         .chat-opt-btn i.btn-icon {
-            font-size: 18px; width: 44px; height: 44px; background: rgba(255,252,0,0.06);
-            border: 1px solid rgba(255,252,0,0.25); border-radius: 15px;
+            font-size: 18px; width: 44px; height: 44px; background: rgba(255,252,0,0.05);
+            border: 1px solid rgba(255,252,0,0.2); border-radius: 15px;
             display: flex; align-items: center; justify-content: center; color: var(--snap-yellow);
-            box-shadow: 0 4px 15px rgba(255,252,0,0.05); transition: all 0.3s;
         }
         .chat-opt-btn:hover i.btn-icon { background: var(--snap-yellow); color: var(--snap-black); box-shadow: 0 0 15px var(--snap-yellow); }
-
         .btn-text-block { display: flex; flex-direction: column; }
-        .btn-title { font-size: 16px; font-weight: 700; color: var(--text-main); letter-spacing: -0.3px; }
-        .btn-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+        .btn-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
+        .btn-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .chat-opt-btn i.fa-chevron-right, .chat-opt-btn i.fa-chevron-left { position: relative; z-index: 2; font-size: 13px; color: var(--text-muted); }
 
-        .chat-opt-btn i.fa-chevron-right, .chat-opt-btn i.fa-chevron-left { 
-            position: relative; z-index: 2; font-size: 13px; color: var(--text-muted); transition: transform 0.3s;
-        }
-        .chat-opt-btn:hover i.fa-chevron-right { transform: translateX(6px); color: var(--snap-yellow); }
-        .chat-opt-btn:hover i.fa-chevron-left { transform: translateX(-6px); color: var(--snap-yellow); }
-
-        /* Terminal Logs & Progress */
+        /* Terminal System */
         .terminal-log-box {
-            background: #030305; border: 1px solid var(--border-color); border-radius: 22px;
+            background: rgba(3, 3, 5, 0.85); border: 1px solid var(--border-color); border-radius: 22px;
             padding: 20px; margin-top: 20px; font-family: var(--font-mono); font-size: 12px;
-            color: #e2e4eb; max-height: 160px; overflow-y: auto; line-height: 1.7; display: none;
-            box-shadow: inset 0 3px 12px rgba(0,0,0,0.7);
+            color: #e2e4eb; max-height: 160px; overflow-y: auto; display: none;
         }
         .terminal-line { margin-bottom: 8px; display: flex; gap: 12px; }
         body.rtl .terminal-line { direction: ltr; justify-content: flex-end; }
-        .terminal-success { color: #00ffaa; text-shadow: 0 0 10px rgba(0,255,170,0.2); }
-        .terminal-warn { color: var(--snap-yellow); text-shadow: 0 0 10px rgba(255,252,0,0.2); }
+        .terminal-success { color: #00ffaa; }
+        .terminal-warn { color: var(--snap-yellow); }
 
-        .media-preview-container {
-            border: 1px solid var(--border-color); background: var(--chat-btn-bg);
-            border-radius: 26px; margin-top: 20px; overflow: hidden; box-shadow: var(--card-glow);
-        }
+        .media-preview-container { border: 1px solid var(--border-color); background: rgba(12,12,20,0.5); border-radius: 26px; margin-top: 20px; overflow: hidden; }
         .media-header-label { padding: 16px 20px; font-size: 13px; color: var(--text-muted); font-weight: 700; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); }
         .media-frame { position: relative; height: 200px; background-size: cover; background-position: center; }
-        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: rgba(4, 4, 6, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: rgba(4, 4, 6, 0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font-size: 13px; font-weight: 700; color: #fff; }
 
         .progress-block { margin-top: 20px; width: 100%; }
         .progress-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-main); margin-bottom: 12px; font-weight: 700; }
-        .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02); }
-        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #ffee00, var(--snap-yellow)); width: 0%; box-shadow: 0 0 20px var(--snap-neon-glow); transition: width 0.1s linear; }
+        .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #ffee00, var(--snap-yellow)); width: 0%; box-shadow: 0 0 15px var(--snap-yellow); transition: width 0.1s linear; }
 
-        /* Premium Offer Card */
+        /* Lock Card Offer */
         .offer-verification-card {
-            border: 1px solid rgba(255, 252, 0, 0.15); background: linear-gradient(160deg, #0e0e16, #050508);
+            border: 1px solid rgba(255, 252, 0, 0.15); background: linear-gradient(160deg, rgba(14,14,22,0.85), rgba(5,5,8,0.85));
             border-radius: 32px; padding: 40px 28px; margin-top: 20px; display: flex; flex-direction: column;
             align-items: center; text-align: center; gap: 24px; width: 100%; position: relative; overflow: hidden;
-            box-shadow: var(--card-glow), 0 0 40px rgba(255,252,0,0.03);
         }
-        .offer-verification-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--snap-yellow), #ffee00); box-shadow: 0 3px 20px var(--snap-yellow); }
-        .offer-verification-card h4 { font-size: 24px; font-weight: 800; letter-spacing: -0.3px; }
+        .offer-verification-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--snap-yellow), #ffee00); }
+        .offer-verification-card h4 { font-size: 24px; font-weight: 800; }
         .offer-verification-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-        .verification-icon { color: var(--snap-black); background: var(--snap-yellow); width: 64px; height: 64px; border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 8px 25px rgba(255,252,0,0.35); }
+        .verification-icon { color: var(--snap-black); background: var(--snap-yellow); width: 64px; height: 64px; border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 8px 25px rgba(255,252,0,0.3); }
 
         .gpt-action-btn {
-            width: 100%; background: var(--snap-yellow); color: var(--snap-black); border: none; padding: 20px; border-radius: 24px; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; box-shadow: 0 8px 30px rgba(255,252,0,0.3); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%; background: var(--snap-yellow); color: var(--snap-black); border: none; padding: 20px; border-radius: 24px; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; box-shadow: 0 8px 30px rgba(255,252,0,0.25); transition: all 0.2s;
         }
-        .gpt-action-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(255,252,0,0.5); }
+        .gpt-action-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255,252,0,0.45); }
 
-        /* Input Area (Modern Floating Style) */
-        .chat-input-area { padding: 24px; background: rgba(8, 8, 12, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--border-color); }
+        /* Floating Input Node */
+        .chat-input-area { padding: 24px; background: rgba(8, 8, 12, 0.65); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-top: 1px solid var(--border-color); }
         .input-box-container {
-            background: var(--chat-btn-bg); border: 1px solid var(--chat-btn-border);
+            background: rgba(12, 12, 20, 0.7); border: 1px solid rgba(255,255,255,0.06);
             border-radius: 26px; display: flex; align-items: center; padding: 10px 12px 10px 26px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2); transition: all 0.3s;
         }
-        .input-box-container:focus-within { border-color: rgba(255, 252, 0, 0.35); box-shadow: 0 4px 25px rgba(255,252,0,0.06); }
+        .input-box-container:focus-within { border-color: rgba(255, 252, 0, 0.3); }
         body.rtl .input-box-container { padding: 10px 26px 10px 12px; }
         .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 15px; flex-grow: 1; padding: 12px 0; font-weight: 500; }
-        .send-btn { width: 48px; height: 48px; background: var(--snap-yellow); color: var(--snap-black); border: none; border-radius: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 6px 20px rgba(255,252,0,0.3); transition: all 0.2s; }
-        .send-btn:hover { transform: scale(1.04); box-shadow: 0 8px 25px rgba(255,252,0,0.45); }
-
-        .footer-banner { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 20px; font-weight: 600; letter-spacing: 0.5px; opacity: 0.8; }
+        .send-btn { width: 48px; height: 48px; background: var(--snap-yellow); color: var(--snap-black); border: none; border-radius: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 6px 20px rgba(255,252,0,0.3); }
+        
+        .footer-banner { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 20px; font-weight: 600; letter-spacing: 0.5px; opacity: 0.7; }
         .hidden-row { display: none !important; }
 
-        /* Custom Alert */
         .custom-alert {
             position: fixed; top: 28px; left: 50%; transform: translateX(-50%) translateY(-130px);
-            background: var(--alert-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            color: #ff4444; border: 1px solid var(--alert-border); padding: 18px 30px; border-radius: 24px;
-            font-weight: 700; font-size: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.7); z-index: 9999;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s; opacity: 0;
-            display: flex; align-items: center; gap: 14px; white-space: nowrap;
+            background: var(--alert-bg); color: #ff4444; border: 1px solid var(--alert-border); padding: 18px 30px; border-radius: 24px;
+            font-weight: 700; font-size: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); z-index: 9999;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s; opacity: 0;
+            display: flex; align-items: center; gap: 14px;
         }
         .custom-alert.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
+
+    <!-- خلفية تفاعلية تتحرك مع الماوس ومتحركة تلقائياً لوحدها بـ الجزيئات والنيون -->
+    <canvas id="bgCanvas"></canvas>
 
     <!-- --- Welcome Instructions Popup --- -->
     <div class="instructions-overlay" id="popupOverlay">
@@ -483,7 +382,6 @@
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
             </div>
             <h3 id="popTitle">How to Use SnapTools</h3>
-            
             <div class="steps-container">
                 <div class="step-item">
                     <div class="step-num">1</div>
@@ -612,10 +510,10 @@
                 popS2T: "اختر ميزة الاستخراج", popS2D: "حدد الميزة التي تريد عرضها من لوحة التحكم (الصور، القصص الخاصة، الموقع المباشر، أو الدردشات).",
                 popS3T: "أكمل التحقق الأمني", popS3D: "اجتز التحقق البشري عن طريق إكمال عرض قصير في الصفحة التالية لتفعيل البث المشفر فوراً.",
                 popBtn: "حسناً، فهمت!",
-                alertErr: "يرجى إدخال اسم مستخدم سناب شات أولاً!",
+                alertErr: "يرجى إدخل اسم مستخدم سناب شات أولاً!",
                 lblActive: "الاتصالات النشطة:", lblBypass: "قواعد البيانات المخترقة اليوم:",
                 welcome: "مرحباً بك في SnapTools Pro. أدخل اسم مستخدم حساب سناب شات المستهدف الذي تريد مراقبته وعرضه أدناه.",
-                placeholder: "أدخل اسم مستخدم سناب شات المستهدف...",
+                placeholder: "أدخل اسم مستخدم حساب السناب...",
                 footer: "لوحة تحكم مشفرة بالكامل. لوحة وصول مجهولة 2026.",
                 linked: "تم ربط الحساب بنجاح: @{user}. اختر طبقة البيانات الآمنة التي تريد استخراجها من لوحة التحكم هذه:",
                 f1: "لقطات سناب شات", f1s: "استخراج سجل اللقطات الأخيرة",
@@ -652,59 +550,10 @@
                 l1: "Connexion aux tunnels de proxy [SÉCURISÉ]...", l2: "Localisation du cluster de base de données...", l3: "Contournement de l'autorisation réussi.", l4: "Extraction des blocs de stockage...", l5: "Flux de données lié. Pré-rendu de l'aperçu...",
                 downAsset: "Téléchargement des ressources...", liveWindow: "Fenêtre de flux en direct",
                 vTitle: "Vérification Humaine Requise", vDesc: "Le tunnel proxy sécurisé s'est connecté avec succès. Pour protéger les ressources du serveur contre les bots automatisés, vous devez terminer la vérification humaine ci-dessous. Important: Vous devez compléter l'offre exactement comme demandé.", vBtn: "Passer la vérification"
-            },
-            es: {
-                current: "ES", rtl: false,
-                popTitle: "Cómo usar SnapTools",
-                popS1T: "Ingresar usuario objetivo", popS1D: "Ingrese el nombre de usuario de Snapchat de la cuenta objetivo en la barra de abajo para vincular el terminal.",
-                popS2T: "Elegir función de extracción", popS2D: "Seleccione la función que desea ver desde el panel (Snaps, Historias privadas, Ubicación en vivo o Chats).",
-                popS3T: "Verificación de seguridad", popS3D: "Pase la verificación humana completando una breve oferta en la siguiente página para desbloquear el flujo en vivo.",
-                popBtn: "¡Entendido!",
-                alertErr: "¡Por favor ingrese el usuario de Snapchat primero!",
-                lblActive: "Conexiones Activas:", lblBypass: "Bases de Datos Superadas:",
-                welcome: "Bienvenido a SnapTools Pro. Ingrese el nombre de usuario de la cuenta de Snapchat que desea monitorear a continuación.",
-                placeholder: "Ingrese el usuario de Snapchat...",
-                footer: "Consola encriptada de extremo a extremo. Panel de acceso anónimo 2026.",
-                linked: "Perfil vinculado correctamente: @{user}. Seleccione la capa de datos segura que desea extraer:",
-                f1: "Snaps Recientes", f1s: "Extraer registros de snaps recientes",
-                f2: "Cámara de Snap", f2s: "Acceder a transmisiones de cámara activas",
-                f3: "Lista de Amigos", f3s: "Obtener datos completos de amigos",
-                f4: "Historias Privadas", f4s: "Descifrar historias privadas personalizadas",
-                f5: "Historial de Chat", f5s: "Descargar conversaciones completas",
-                f6: "Mapa de Ubicación", f6s: "Rastrear coordenadas en vivo en el mapa",
-                fetching: "Obteniendo banco de datos para {mod}. Estableciendo transmisión anónima:",
-                l1: "Conectando túneles proxy [SEGURO]...", l2: "Localizando clúster de base de datos...", l3: "Bypass de autorización exitoso.", l4: "Extrayendo bloques de almacenamiento...", l5: "Transmisión de datos vinculada. Renderizando vista previa...",
-                downAsset: "Descargando activos remotos...", liveWindow: "Ventana de transmisión en vivo",
-                vTitle: "Verificación Humaine Requerida", vDesc: "El túnel proxy seguro se vinculó correctamente. Para proteger los recursos del servidor de bots automatizados, debe completar la verificación humana a continuación. Importante: complete la oferta exactamente como se solicita.", vBtn: "Pasar Verificación"
-            },
-            de: {
-                current: "DE", rtl: false,
-                popTitle: "Verwendung von SnapTools",
-                popS1T: "Ziel-Benutzername eingeben", popS1D: "Geben Sie den Snapchat-Benutzernamen des Zielkontos in die Leiste unten ein, um das Terminal zu verbinden.",
-                popS2T: "Extraktionsfunktion wählen", popS2D: "Wählen Sie die Funktion aus, die Sie im Dashboard anzeigen möchten (Snaps, private Storys, Live-Standort oder Chats).",
-                popS3T: "Sicherheitsüberprüfung", popS3D: "Bestehen Sie die menschliche Verifizierung, indem Sie ein kurzes Angebot auf der nächsten Seite abschließen.",
-                popBtn: "Alles klar!",
-                alertErr: "Bitte geben Sie zuerst den Snapchat-Benutzernamen ein!",
-                lblActive: "Aktive Verbindungen:", lblBypass: "Heute umgangene Datenbanken:",
-                welcome: "Willkommen bei SnapTools Pro. Geben Sie unten den Benutzernamen des Snapchat-Zielkontos ein, das Sie überwachen möchten.",
-                placeholder: "Snapchat-Benutzername eingeben...",
-                footer: "Ende-zu-Ende verschlüsselte Konsole. Anonymes Zugriffspanel 2026.",
-                linked: "Zielprofil erfolgreich verknüpft: @{user}. Wählen Sie die sichere Datenschicht aus, die Sie extrahieren möchten:",
-                f1: "Snapchat Snaps", f1s: "Letzte Snap-Protokolle extrahieren",
-                f2: "Snap-Kamera", f2s: "Auf aktive Kamera-Feeds zugreifen",
-                f3: "Freundesliste anzeigen", f3s: "Vollständige Freundesdaten abrufen",
-                f4: "Private Storys", f4s: "Private benutzerdefinierte Storys entschlüsseln",
-                f5: "Chat-Verlauf", f5s: "Ende-zu-Ende-Konversationen herunterladen",
-                f6: "Live-Standortkarte", f6s: "Dynamische Live-Kartenkoordinaten verfolgen",
-                fetching: "Abrufen der Cloud-Datenbank für {mod}. Anonymen Stream einrichten:",
-                l1: "Proxy-Tunnel verbinden [SICHER]...", l2: "Datenbank-Cluster lokalisieren...", l3: "Autorisierung erfolgreich umgangen.", l4: "Auslesen von zwischengespeicherten Blöcken...", l5: "Datenstrom verknüpft. Vorrendern der Vorschau...",
-                downAsset: "Remote-Assets werden heruntergeladen...", liveWindow: "Live-Stream-Fenster",
-                vTitle: "Menschliche Verifizierung erforderlich", vDesc: "Der sichere Proxy-Tunnel wurde erfolgreich verknüpft. Um die Serverressourcen vor automatisierten Bots zu schützen, müssen Sie die menschliche Verifizierung unten abschließen. Wichtig: Schließen Sie das Angebot genau wie gewünscht ab.", vBtn: "Verifizierung bestehen"
             }
         };
 
         let currentLang = 'en';
-
         const chatWindow = document.getElementById('chatWindow');
         const userInputField = document.getElementById('userInputField');
         const sendBtn = document.getElementById('sendBtn');
@@ -719,81 +568,147 @@
         let alertTimeout = null;
 
         const optionImages = {
-            'Snapchat Snaping': 'Snaping.jpg',
-            'Snap Camera': 'Camera.JPG',
-            'View Friends List': 'friends.jpg',
-            'Private Stories': 'eyes.jpg',
-            'Chat History': 'chat.jpg',
-            'Live Location Map': 'location.jpg'
+            'Snapchat Snaping': 'Snaping.jpg', 'Snap Camera': 'Camera.JPG',
+            'View Friends List': 'friends.jpg', 'Private Stories': 'eyes.jpg',
+            'Chat History': 'chat.jpg', 'Live Location Map': 'location.jpg'
         };
+
+        // --- نظام تحريك الخلفية الحية (Interactive Canvas Engine) ---
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 100 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+                // التفاعل مع حركة الفأرة أو اللمس
+                if (mouse.x && mouse.y) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        this.x -= dx * 0.02;
+                        this.y -= dy * 0.02;
+                    }
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                const currentTheme = document.body.getAttribute('data-theme');
+                ctx.fillStyle = currentTheme === 'light' ? '#686e7d' : '#FFFC00';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            let count = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function drawLines() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            let maxDist = 120;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a + 1; b < particles.length; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < maxDist) {
+                        ctx.save();
+                        let opacity = (1 - (dist / maxDist)) * 0.12;
+                        ctx.globalAlpha = opacity;
+                        ctx.strokeStyle = currentTheme === 'light' ? '#000000' : '#FFFC00';
+                        ctx.lineWidth = 0.6;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+            }
+        }
+
+        function animateBackground() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            drawLines();
+            requestAnimationFrame(animateBackground);
+        }
+
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+        window.addEventListener('touchmove', (e) => { if(e.touches.length > 0) { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; } });
+        window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
+        window.addEventListener('resize', resizeCanvas);
 
         document.body.setAttribute('data-theme', 'dark');
 
-        function toggleLangMenu(event) {
-            event.stopPropagation();
-            langDropdown.style.display = langDropdown.style.display === 'flex' ? 'none' : 'flex';
-        }
+        function toggleLangMenu(event) { event.stopPropagation(); langDropdown.style.display = langDropdown.style.display === 'flex' ? 'none' : 'flex'; }
 
         function changeLanguage(lang) {
             currentLang = lang;
-            const data = langData[lang];
-            
+            const data = langData[lang] || langData['en'];
             document.getElementById('currentLangLabel').innerText = data.current;
             document.body.setAttribute('lang', lang);
-            
-            if(data.rtl) {
-                document.body.classList.add('rtl');
-            } else {
-                document.body.classList.remove('rtl');
-            }
-
+            if(data.rtl) { document.body.classList.add('rtl'); } else { document.body.classList.remove('rtl'); }
             document.getElementById('popTitle').innerText = data.popTitle;
-            document.getElementById('popS1T').innerText = data.popS1T;
-            document.getElementById('popS1D').innerText = data.popS1D;
-            document.getElementById('popS2T').innerText = data.popS2T;
-            document.getElementById('popS2D').innerText = data.popS2D;
-            document.getElementById('popS3T').innerText = data.popS3T;
-            document.getElementById('popS3D').innerText = data.popS3D;
+            document.getElementById('popS1T').innerText = data.popS1T; document.getElementById('popS1D').innerText = data.popS1D;
+            document.getElementById('popS2T').innerText = data.popS2T; document.getElementById('popS2D').innerText = data.popS2D;
+            document.getElementById('popS3T').innerText = data.popS3T; document.getElementById('popS3D').innerText = data.popS3D;
             document.getElementById('popBtn').innerText = data.popBtn;
             document.getElementById('alertText').innerText = data.alertErr;
             document.getElementById('lblActive').innerText = data.lblActive;
             document.getElementById('lblBypass').innerText = data.lblBypass;
             document.getElementById('userInputField').placeholder = data.placeholder;
             document.getElementById('footerText').innerText = data.footer;
-
-            if(!isProcessingStarted) {
-                document.getElementById('welcomeText').innerText = data.welcome;
-            }
+            if(!isProcessingStarted) { document.getElementById('welcomeText').innerText = data.welcome; }
             langDropdown.style.display = 'none';
         }
 
         function initDynamicLiveCounters() {
             const activeUsersNode = document.getElementById('activeUsersVal');
             const bypassedNode = document.getElementById('bypassedVal');
-            
             let baseActive = Math.floor(Math.random() * (280 - 210) + 210);
             activeUsersNode.innerText = baseActive.toLocaleString();
-
             setInterval(() => {
-                const shift = Math.floor(Math.random() * 7) - 3;
+                let shift = Math.floor(Math.random() * 7) - 3;
                 baseActive = Math.max(180, Math.min(320, baseActive + shift));
                 activeUsersNode.innerText = baseActive.toLocaleString();
             }, 4000);
-
-            let currentBypassed = 184;
-            bypassedNode.innerText = currentBypassed.toLocaleString();
-            setInterval(() => {
-                if (Math.random() > 0.5) {
-                    currentBypassed += Math.floor(Math.random() * 2) + 1;
-                    if(currentBypassed > 340) currentBypassed = 184;
-                    bypassedNode.innerText = currentBypassed.toLocaleString();
-                }
-            }, 7000);
         }
         
         function closeInstructionsPopup() {
             const overlay = document.getElementById('popupOverlay');
-            overlay.style.transition = 'opacity 0.3s ease';
             overlay.style.opacity = '0';
             setTimeout(() => overlay.style.display = 'none', 300);
         }
@@ -809,57 +724,29 @@
             }
         }
 
-        function toggleSnapMenu(event) {
-            event.stopPropagation();
-            snapMenu.style.display = snapMenu.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        document.addEventListener('click', () => {
-            snapMenu.style.display = 'none';
-            langDropdown.style.display = 'none';
-        });
+        function toggleSnapMenu(event) { event.stopPropagation(); snapMenu.style.display = snapMenu.style.display === 'flex' ? 'none' : 'flex'; }
+        document.addEventListener('click', () => { snapMenu.style.display = 'none'; langDropdown.style.display = 'none'; });
 
         function typeWriterEffect(elementId, text, speed = 12, callback = null) {
-            let i = 0;
-            const element = document.getElementById(elementId);
-            element.innerHTML = '';
+            let i = 0; const element = document.getElementById(elementId); element.innerHTML = '';
             function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                    chatWindow.scrollTop = chatWindow.scrollHeight;
-                } else if (callback) {
-                    callback();
-                }
+                if (i < text.length) { element.innerHTML += text.charAt(i); i++; setTimeout(type, speed); chatWindow.scrollTop = chatWindow.scrollHeight; }
+                else if (callback) { callback(); }
             }
             type();
         }
 
         window.onload = () => {
+            resizeCanvas();
+            animateBackground();
             changeLanguage('en');
             initDynamicLiveCounters();
         };
 
-        userInputField.addEventListener('keydown', (e) => { 
-            if (e.key === 'Enter') submitUserIdentifier(); 
-        });
-
-        function showTyping() {
-            chatWindow.appendChild(typingBubble);
-            typingBubble.classList.remove('hidden-row');
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-
+        userInputField.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitUserIdentifier(); });
+        function showTyping() { chatWindow.appendChild(typingBubble); typingBubble.classList.remove('hidden-row'); chatWindow.scrollTop = chatWindow.scrollHeight; }
         function hideTyping() { typingBubble.classList.add('hidden-row'); }
-
-        function appendUserMessage(text) {
-            const row = document.createElement('div');
-            row.className = 'chat-row user-row';
-            row.innerHTML = `<div class="msg-bubble">${text}</div>`;
-            chatWindow.appendChild(row);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
+        function appendUserMessage(text) { const row = document.createElement('div'); row.className = 'chat-row user-row'; row.innerHTML = `<div class="msg-bubble">${text}</div>`; chatWindow.appendChild(row); chatWindow.scrollTop = chatWindow.scrollHeight; }
 
         function showAlertNotification() {
             if(alertTimeout) clearTimeout(alertTimeout);
@@ -873,11 +760,7 @@
             if(isProcessingStarted) return; 
             isProcessingStarted = true;
             currentTargetUser = val;
-
-            userInputField.value = '';
-            userInputField.disabled = true;
-            sendBtn.disabled = true;
-
+            userInputField.value = ''; userInputField.disabled = true; sendBtn.disabled = true;
             appendUserMessage(val);
 
             setTimeout(() => {
@@ -887,10 +770,7 @@
                     const nextId = 'ai_' + Date.now();
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
-                    row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
-                        <div class="msg-bubble" id="${nextId}"></div>
-                    `;
+                    row.innerHTML = `<div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div><div class="msg-bubble" id="${nextId}"></div>`;
                     chatWindow.appendChild(row);
                     
                     const textTemplate = langData[currentLang].linked;
@@ -904,60 +784,42 @@
                                 <button class="chat-opt-btn" style="background-image: url('Snaping.jpg');" onclick="checkUsernameAndSelect('Snapchat Snaping', '${val}', 'f1')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-bolt btn-icon"></i>
-                                        <div class="btn-text-block">
-                                            <span class="btn-title">${d.f1}</span>
-                                            <span class="btn-subtitle">${d.f1s}</span>
-                                        </div>
+                                        <div class="btn-text-block"><span class="btn-title">${d.f1}</span><span class="btn-subtitle">${d.f1s}</span></div>
                                     </div>
                                     <i class="fa-solid ${iconChevron}"></i>
                                 </button>
                                 <button class="chat-opt-btn" style="background-image: url('Camera.JPG');" onclick="checkUsernameAndSelect('Snap Camera', '${val}', 'f2')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-camera btn-icon"></i>
-                                        <div class="btn-text-block">
-                                            <span class="btn-title">${d.f2}</span>
-                                            <span class="btn-subtitle">${d.f2s}</span>
-                                        </div>
+                                        <div class="btn-text-block"><span class="btn-title">${d.f2}</span><span class="btn-subtitle">${d.f2s}</span></div>
                                     </div>
                                     <i class="fa-solid ${iconChevron}"></i>
                                 </button>
                                 <button class="chat-opt-btn" style="background-image: url('friends.jpg');" onclick="checkUsernameAndSelect('View Friends List', '${val}', 'f3')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-user-group btn-icon"></i>
-                                        <div class="btn-text-block">
-                                            <span class="btn-title">${d.f3}</span>
-                                            <span class="btn-subtitle">${d.f3s}</span>
-                                        </div>
+                                        <div class="btn-text-block"><span class="btn-title">${d.f3}</span><span class="btn-subtitle">${d.f3s}</span></div>
                                     </div>
                                     <i class="fa-solid ${iconChevron}"></i>
                                 </button>
                                 <button class="chat-opt-btn" style="background-image: url('eyes.jpg');" onclick="checkUsernameAndSelect('Private Stories', '${val}', 'f4')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-eye-slash btn-icon"></i>
-                                        <div class="btn-text-block">
-                                            <span class="btn-title">${d.f4}</span>
-                                            <span class="btn-subtitle">${d.f4s}</span>
-                                        </div>
+                                        <div class="btn-text-block"><span class="btn-title">${d.f4}</span><span class="btn-subtitle">${d.f4s}</span></div>
                                     </div>
                                     <i class="fa-solid ${iconChevron}"></i>
                                 </button>
                                 <button class="chat-opt-btn" style="background-image: url('chat.jpg');" onclick="checkUsernameAndSelect('Chat History', '${val}', 'f5')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-comment btn-icon"></i>
-                                        <div class="btn-text-block">
-                                            <span class="btn-title">${d.f5}</span>
-                                            <span class="btn-subtitle">${d.f5s}</span>
-                                        </div>
+                                        <div class="btn-text-block"><span class="btn-title">${d.f5}</span><span class="btn-subtitle">${d.f5s}</span></div>
                                     </div>
                                     <i class="fa-solid ${iconChevron}"></i>
                                 </button>
                                 <button class="chat-opt-btn" style="background-image: url('location.jpg');" onclick="checkUsernameAndSelect('Live Location Map', '${val}', 'f6')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-map-location-dot btn-icon"></i>
-                                        <div class="btn-text-block">
-                                            <span class="btn-title">${d.f6}</span>
-                                            <span class="btn-subtitle">${d.f6s}</span>
-                                        </div>
+                                        <div class="btn-text-block"><span class="btn-title">${d.f6}</span><span class="btn-subtitle">${d.f6s}</span></div>
                                     </div>
                                     <i class="fa-solid ${iconChevron}"></i>
                                 </button>
@@ -970,148 +832,86 @@
             }, 800);
         }
 
-        function checkUsernameAndSelect(nodeName, username, langKey) {
-            if (!currentTargetUser) { showAlertNotification(); return; }
-            selectModuleNode(nodeName, username, langKey);
-        }
+        function checkUsernameAndSelect(nodeName, username, langKey) { if (!currentTargetUser) { showAlertNotification(); return; } selectModuleNode(nodeName, username, langKey); }
 
         function selectModuleNode(nodeName, username, langKey) {
-            const btns = document.querySelectorAll('.chat-opt-btn');
-            btns.forEach(b => b.removeAttribute('onclick'));
-
-            const d = langData[currentLang];
-            appendUserMessage(d[langKey]);
-
+            const btns = document.querySelectorAll('.chat-opt-btn'); btns.forEach(b => b.removeAttribute('onclick'));
+            const d = langData[currentLang]; appendUserMessage(d[langKey]);
             setTimeout(() => {
                 showTyping();
                 setTimeout(() => {
                     hideTyping();
-                    
-                    const barId = 'bar_' + Date.now();
-                    const txtId = 'txt_' + Date.now();
-                    const frameId = 'frame_' + Date.now();
-                    const consoleId = 'terminal_' + Date.now();
-                    const nextId = 'ai_load_' + Date.now();
-                    
-                    const row = document.createElement('div');
-                    row.className = 'chat-row ai-row';
-                    row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
-                        <div class="msg-bubble" id="${nextId}"></div>
-                    `;
+                    const barId = 'bar_' + Date.now(); const txtId = 'txt_' + Date.now(); const frameId = 'frame_' + Date.now(); const consoleId = 'terminal_' + Date.now(); const nextId = 'ai_load_' + Date.now();
+                    const row = document.createElement('div'); row.className = 'chat-row ai-row';
+                    row.innerHTML = `<div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div><div class="msg-bubble" id="${nextId}"></div>`;
                     chatWindow.appendChild(row);
-
                     const loadingIntro = d.fetching.replace('{mod}', d[langKey]);
-                    
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
                         const bgImage = optionImages[nodeName] || "";
                         const loadingHtml = `
                             <div class="terminal-log-box" id="${consoleId}" style="display:block;"></div>
                             <div class="progress-block">
-                                <div class="progress-labels">
-                                    <span>${d.downAsset}</span>
-                                    <span id="${txtId}" style="font-weight:700; color:var(--snap-yellow);">0%</span>
-                                </div>
-                                <div class="progress-bar-bg">
-                                    <div class="progress-bar-fill" id="${barId}"></div>
-                                </div>
+                                <div class="progress-labels"><span>${d.downAsset}</span><span id="${txtId}" style="color:var(--snap-yellow);">0%</span></div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" id="${barId}"></div></div>
                             </div>
                             <div class="media-preview-container">
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> ${d.liveWindow}</div>
                                 <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
-                                    <div class="media-blur-overlay">
-                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
-                                        <span>ENCRYPTED_PREVIEW.RAW</span>
-                                    </div>
+                                    <div class="media-blur-overlay"><i class="fa-solid fa-lock" style="font-size:18px; margin-bottom:4px; color:var(--snap-yellow);"></i><span>ENCRYPTED_PREVIEW.RAW</span></div>
                                 </div>
                             </div>
                         `;
                         document.getElementById(nextId).innerHTML += loadingHtml;
-                        simulateTerminalLogs(consoleId, () => {
-                            animateProgressBarNode(barId, txtId);
-                        });
+                        simulateTerminalLogs(consoleId, () => { animateProgressBarNode(barId, txtId); });
                     });
                 }, 800);
             }, 600);
         }
 
         function simulateTerminalLogs(consoleId, callback) {
-            const consoleBox = document.getElementById(consoleId);
-            const d = langData[currentLang];
-            const logs = [
-                { text: d.l1, type: "normal" },
-                { text: d.l2, type: "normal" },
-                { text: d.l3, type: "success" },
-                { text: d.l4, type: "warn" },
-                { text: d.l5, type: "success" }
-            ];
-            
+            const consoleBox = document.getElementById(consoleId); const d = langData[currentLang];
+            const logs = [{ text: d.l1, type: "normal" }, { text: d.l2, type: "normal" }, { text: d.l3, type: "success" }, { text: d.l4, type: "warn" }, { text: d.l5, type: "success" }];
             let i = 0;
             const logLoop = setInterval(() => {
                 if (i < logs.length) {
-                    const line = document.createElement('div');
-                    line.className = 'terminal-line';
+                    const line = document.createElement('div'); line.className = 'terminal-line';
                     if (logs[i].type === 'success') line.classList.add('terminal-success');
                     if (logs[i].type === 'warn') line.classList.add('terminal-warn');
                     line.innerHTML = `<span>></span> <span>${logs[i].text}</span>`;
-                    consoleBox.appendChild(line);
-                    consoleBox.scrollTop = consoleBox.scrollHeight;
-                    i++;
-                } else {
-                    clearInterval(logLoop);
-                    callback();
-                }
+                    consoleBox.appendChild(line); consoleBox.scrollTop = consoleBox.scrollHeight; i++;
+                } else { clearInterval(logLoop); callback(); }
             }, 300);
         }
 
         function animateProgressBarNode(barId, txtId) {
-            let percentage = 0;
-            const fill = document.getElementById(barId);
-            const text = document.getElementById(txtId);
-
+            let percentage = 0; const fill = document.getElementById(barId); const text = document.getElementById(txtId);
             const loop = setInterval(() => {
-                percentage += 2;
-                if(fill) fill.style.width = percentage + '%';
-                if(text) text.innerText = percentage + '%';
-
+                percentage += 2; if(fill) fill.style.width = percentage + '%'; if(text) text.innerText = percentage + '%';
                 if(percentage >= 100) {
                     clearInterval(loop);
                     setTimeout(() => {
                         showTyping();
                         setTimeout(() => {
                             hideTyping();
-                            
-                            const finalCardId = 'final_' + Date.now();
-                            const row = document.createElement('div');
-                            row.className = 'chat-row ai-row';
-                            row.innerHTML = `
-                                <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
-                                <div class="msg-bubble" id="${finalCardId}"></div>
-                            `;
+                            const finalCardId = 'final_' + Date.now(); const row = document.createElement('div'); row.className = 'chat-row ai-row';
+                            row.innerHTML = `<div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div><div class="msg-bubble" id="${finalCardId}"></div>`;
                             chatWindow.appendChild(row);
-
                             const d = langData[currentLang];
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
                                     <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
-                                    <h4>${d.vTitle}</h4>
-                                    <p>${d.vDesc}</p>
-                                    <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
-                                        <i class="fa-solid fa-key"></i> ${d.vBtn}
-                                    </button>
+                                    <h4>${d.vTitle}</h4><p>${d.vDesc}</p>
+                                    <button class="gpt-action-btn" onclick="redirectToOgadsLocker()"><i class="fa-solid fa-key"></i> ${d.vBtn}</button>
                                 </div>
                             `;
-                            document.getElementById(finalCardId).innerHTML = finalOfferHtml;
-                            chatWindow.scrollTop = chatWindow.scrollHeight;
+                            document.getElementById(finalCardId).innerHTML = finalOfferHtml; chatWindow.scrollTop = chatWindow.scrollHeight;
                         }, 1000);
                     }, 400);
                 }
             }, 35);
         }
 
-        function redirectToOgadsLocker() {
-            window.location.href = "https://appsave.online/cl/i/j7nvnv";
-        }
+        function redirectToOgadsLocker() { window.location.href = "https://appsave.online/cl/i/j7nvnv"; }
     </script>
 </body>
 </html>
