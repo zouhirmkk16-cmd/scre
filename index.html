@@ -254,7 +254,6 @@
             transition: background-color 0.3s;
         }
 
-        /* NEW HIGHLY PROFESSIONAL ANIMATED GRADIENT BACKGROUND */
         .chat-container::before {
             content: '';
             position: absolute;
@@ -267,7 +266,6 @@
             z-index: 1;
         }
 
-        /* Light theme adaptive animation */
         [data-theme="light"] .chat-container::before {
             background: linear-gradient(-45deg, #f4f4f5, #e4e4e7, #e2e2e8, #f0f0f5);
             background-size: 400% 400%;
@@ -537,7 +535,6 @@
             color: var(--text-main);
         }
 
-        /* Highly Professional Terminal Simulator */
         .terminal-log-box {
             background: #020205;
             border: 2px solid var(--border-color);
@@ -613,7 +610,6 @@
         .progress-bar-bg { width: 100%; background: var(--border-color); height: 8px; border-radius: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; box-shadow: 0 0 10px var(--glow-color); transition: width 0.1s linear; }
 
-        /* Highly Professional Premium Offer/Verification Card */
         .offer-verification-card {
             border: 2px solid var(--border-color);
             background: linear-gradient(145deg, #121218, #07070a);
@@ -748,7 +744,6 @@
 
         .hidden-row { display: none !important; }
 
-        /* Modern Custom Alert Notification Dashboard Layout */
         .custom-alert {
             position: fixed;
             top: 24px;
@@ -929,30 +924,27 @@
             const activeUsersNode = document.getElementById('activeUsersVal');
             const bypassedNode = document.getElementById('bypassedVal');
 
-            // 1. Setup Live Active Connections (Fluctuating realistic scale)
             let baseActive = Math.floor(Math.random() * (13200 - 12400) + 12400);
             activeUsersNode.innerText = baseActive.toLocaleString();
 
             setInterval(() => {
-                const shift = Math.floor(Math.random() * 81) - 40; // -40 to +40 fluctuation
+                const shift = Math.floor(Math.random() * 81) - 40; 
                 baseActive = Math.max(11800, Math.min(13900, baseActive + shift));
                 activeUsersNode.innerText = baseActive.toLocaleString();
             }, 4000);
 
-            // 2. Setup Persistent Bypassed Database Counter (Always incrementing)
             const storageKey_bypassed = 'snaptools_bypassed_val';
             const storageKey_timestamp = 'snaptools_last_timestamp';
             
-            let currentBypassed = 7914; // fallback base value
+            let currentBypassed = 7914; 
             const now = Date.now();
 
             if (localStorage.getItem(storageKey_bypassed) && localStorage.getItem(storageKey_timestamp)) {
                 const savedVal = parseInt(localStorage.getItem(storageKey_bypassed), 10);
                 const savedTime = parseInt(localStorage.getItem(storageKey_timestamp), 10);
                 
-                // Calculate how much time elapsed and add realistic bypassed numbers (e.g., ~1.2 successful bypasses per minute)
                 const elapsedSeconds = Math.floor((now - savedTime) / 1000);
-                const addedValue = Math.floor(elapsedSeconds * (1.2 / 60)); // 1.2 per minute
+                const addedValue = Math.floor(elapsedSeconds * (1.2 / 60)); 
                 
                 currentBypassed = savedVal + addedValue;
             }
@@ -961,10 +953,9 @@
             localStorage.setItem(storageKey_bypassed, currentBypassed.toString());
             localStorage.setItem(storageKey_timestamp, now.toString());
 
-            // Real-time ticking updates while they stay on the page
             setInterval(() => {
-                if (Math.random() > 0.45) { // 55% chance to increment every tick
-                    const increment = Math.floor(Math.random() * 2) + 1; // +1 or +2
+                if (Math.random() > 0.45) { 
+                    const increment = Math.floor(Math.random() * 2) + 1; 
                     currentBypassed += increment;
                     bypassedNode.innerText = currentBypassed.toLocaleString();
                     localStorage.setItem(storageKey_bypassed, currentBypassed.toString());
@@ -973,7 +964,6 @@
             }, 6000);
         }
         
-        // --- Popup Closing Action ---
         function closeInstructionsPopup() {
             const overlay = document.getElementById('popupOverlay');
             overlay.style.transition = 'opacity 0.3s ease';
