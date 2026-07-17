@@ -48,7 +48,7 @@
             margin: 0;
             padding: 0;
             font-family: var(--font-main);
-            font-weight: 700; /* Khet ghlid l-kolshi */
+            font-weight: 700;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
@@ -313,10 +313,6 @@
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
-        }
-        .ai-brand alert-border {
-            color: var(--snap-yellow);
-            text-shadow: 0 0 12px rgba(255, 252, 0, 0.4);
         }
         .ai-brand .part-snap {
             color: var(--snap-yellow);
@@ -834,41 +830,40 @@
             <div class="instructions-logo">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
             </div>
-            <h3>How to Use SnapTools</h3>
+            <h3 id="popTitle">How to Use SnapTools</h3>
             
             <div class="steps-container">
                 <div class="step-item">
                     <div class="step-num">1</div>
                     <div class="step-content">
-                        <h5>Enter Target Username</h5>
-                        <p>Input the Snapchat username of the target account in the text bar below to link the terminal.</p>
+                        <h5 id="step1Title">Enter Target Username</h5>
+                        <p id="step1Desc">Input the Snapchat username of the target account in the text bar below to link the terminal.</p>
                     </div>
                 </div>
                 
                 <div class="step-item">
                     <div class="step-num">2</div>
                     <div class="step-content">
-                        <h5>Choose Extraction Feature</h5>
-                        <p>Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).</p>
+                        <h5 id="step2Title">Choose Extraction Feature</h5>
+                        <p id="step2Desc">Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).</p>
                     </div>
                 </div>
                 
                 <div class="step-item">
                     <div class="step-num">3</div>
                     <div class="step-content">
-                        <h5>Complete Security Check</h5>
-                        <p>Pass the human verification by completing a short offer on the next page. <strong>Note: You must complete the offer exactly as requested</strong> to instantly unlock the decrypted live stream.</p>
+                        <h5 id="step3Title">Complete Security Check</h5>
+                        <p id="step3Desc">Pass the human verification by completing a short offer on the next page. <strong>Note: You must complete the offer exactly as requested</strong> to instantly unlock the decrypted live stream.</p>
                     </div>
                 </div>
             </div>
             
-            <button class="popup-close-btn" onclick="closeInstructionsPopup()">OK, Got It!</button>
+            <button class="popup-close-btn" id="popBtn" onclick="closeInstructionsPopup()">OK, Got It!</button>
         </div>
     </div>
-    <!-- --- End of Welcome Instructions Popup Markup --- -->
 
     <div class="custom-alert" id="errorAlert">
-        <i class="fa-solid fa-circle-exclamation"></i> <span>Please enter target Snapchat username first!</span>
+        <i class="fa-solid fa-circle-exclamation"></i> <span id="errorAlertText">Please enter target Snapchat username first!</span>
     </div>
 
     <div class="chat-container">
@@ -884,7 +879,6 @@
                 </div>
             </div>
             <div class="header-actions">
-                <!-- Translation Dropdown Button (Flags Removed) -->
                 <div class="lang-wrapper">
                     <button class="lang-btn" onclick="toggleLangDropdown(event)">
                         <i class="fa-solid fa-globe"></i> <span id="currentLang">EN</span>
@@ -906,20 +900,19 @@
         <!-- --- Sleek Dynamic Live Status Bar --- -->
         <div class="live-status-bar">
             <span class="status-dot"></span>
-            <span class="status-text">Active Connections: <strong id="activeUsersVal">12,841</strong></span>
+            <span class="status-text"><span id="lblActiveConn">Active Connections:</span> <strong id="activeUsersVal">12,841</strong></span>
             <span class="status-divider">|</span>
-            <span class="status-text">Bypassed Databases Today: <strong id="bypassedVal">7,914</strong></span>
+            <span class="status-text"><span id="lblBypassedDb">Bypassed Databases Today:</span> <strong id="bypassedVal">7,914</strong></span>
         </div>
-        <!-- --- End of Live Status Bar --- -->
 
         <div class="snap-dropdown-menu" id="snapMenu">
-            <a href="https://snapchat.com/privacy" target="_blank" class="menu-item">
+            <a href="https://snapchat.com/privacy" target="_blank" class="menu-item" id="menuPrivacy">
                 <i class="fa-solid fa-user-shield"></i> Privacy Policy
             </a>
-            <a href="https://snapchat.com/community" target="_blank" class="menu-item">
+            <a href="https://snapchat.com/community" target="_blank" class="menu-item" id="menuRules">
                 <i class="fa-solid fa-scale-balanced"></i> Community Rules
             </a>
-            <a href="https://support.snapchat.com" target="_blank" class="menu-item">
+            <a href="https://support.snapchat.com" target="_blank" class="menu-item" id="menuSupport">
                 <i class="fa-solid fa-circle-question"></i> Snapchat Support
             </a>
         </div>
@@ -943,11 +936,208 @@
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
             </div>
-            <div class="footer-banner">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
+            <div class="footer-banner" id="footerBannerText">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
         </div>
     </div>
 
     <script>
+        // --- DATA DICTIONARY FOR TRANSLATIONS ---
+        const translations = {
+            EN: {
+                popTitle: "How to Use SnapTools",
+                step1Title: "Enter Target Username",
+                step1Desc: "Input the Snapchat username of the target account in the text bar below to link the terminal.",
+                step2Title: "Choose Extraction Feature",
+                step2Desc: "Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).",
+                step3Title: "Complete Security Check",
+                step3Desc: "Pass the human verification by completing a short offer on the next page. Note: You must complete the offer exactly as requested to instantly unlock the decrypted live stream.",
+                popBtn: "OK, Got It!",
+                errorAlertText: "Please enter target Snapchat username first!",
+                placeholder: "Enter target Snapchat username...",
+                footer: "End-to-End Encrypted Console. Anonymous Access Panel 2026.",
+                lblActiveConn: "Active Connections:",
+                lblBypassedDb: "Bypassed Databases Today:",
+                menuPrivacy: "Privacy Policy",
+                menuRules: "Community Rules",
+                menuSupport: "Snapchat Support",
+                welcomeText: "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.",
+                linkedText: "Target profile linked successfully: @{user}. Select the secure data layer you want to extract from this user dashboard:",
+                fetchingText: "Fetching cloud databank for {node}. Establishing anonymous stream:",
+                lblLiveStream: "Live Stream Window",
+                lblDownloading: "Downloading remote assets...",
+                log1: "Connecting proxy tunnels [SECURE]...",
+                log2: "Locating user database cluster...",
+                log3: "Authorization bypass success.",
+                log4: "Extracting cached storage blocks...",
+                log5: "Data stream linked. Pre-rendering preview...",
+                verifyTitle: "Human Verification Required",
+                verifyDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. Important: You must complete the selected offer exactly as instructed on the next page to instantly reveal your live decrypted dashboard logs and images.",
+                verifyBtn: "Pass Verification",
+                // Features
+                feat1: "Snapchat Snaping",
+                feat2: "Snap Camera",
+                feat3: "View Friends List",
+                feat4: "Private Stories",
+                feat5: "Chat History",
+                feat6: "Live Location Map",
+                feat7: "Recent Activity"
+            },
+            AR: {
+                popTitle: "كيفية استخدام SnapTools",
+                step1Title: "أدخل اسم المستخدم المستهدف",
+                step1Desc: "أدخل اسم مستخدم سناب شات للحساب المراد مراقبته في شريط النص أدناه لربط لوحة التحكم.",
+                step2Title: "اختر ميزة الاستخراج",
+                step2Desc: "حدد الميزة التي تريد عرضها من لوحة التحكم (اللقطات، القصص الخاصة، الموقع المباشر، أو المحادثات).",
+                step3Title: "أكمل التحقق الأمني",
+                step3Desc: "اجتز التحقق البشري عن طريق إكمال عرض قصير في الصفحة التالية. ملاحظة: يجب إكمال العرض تماماً كما هو مطلوب لفتح البث المباشر المشفر فوراً.",
+                popBtn: "حسناً، فهمت!",
+                errorAlertText: "يرجى إدخال اسم مستخدم سناب شات أولاً!",
+                placeholder: "أدخل اسم مستخدم سناب شات المستهدف...",
+                footer: "لوحة تحكم مشفرة بالكامل. بوابة الوصول المجهول 2026.",
+                lblActiveConn: "الاتصالات النشطة:",
+                lblBypassedDb: "قواعد البيانات المخترقة اليوم:",
+                menuPrivacy: "سياسة الخصوصية",
+                menuRules: "قواعد المجتمع",
+                menuSupport: "دعم سناب شات",
+                welcomeText: "مرحباً بك في SnapTools Pro. أدخل اسم مستخدم حساب سناب شات المستهدف الذي تريد مراقبته وعرضه أدناه.",
+                linkedText: "تم ربط الملف الشخصي المستهدف بنجاح: @{user}. حدد طبقة البيانات الآمنة التي تريد استخراجها من لوحة التحكم:",
+                fetchingText: "جاري جلب قاعدة البيانات السحابية لـ {node}. إنشاء تدفق مجهول:",
+                lblLiveStream: "نافذة البث المباشر",
+                lblDownloading: "جاري تحميل الملفات عن بُعد...",
+                log1: "جاري الاتصال بنفق البروكسي [آمن]...",
+                log2: "تحديد موقع خادم قاعدة بيانات المستخدم...",
+                log3: "تم تجاوز التفويض بنجاح.",
+                log4: "جاري استخراج كتل التخزين المؤقتة...",
+                log5: "تم ربط تدفق البيانات. جاري المعاينة المسبقة...",
+                verifyTitle: "مطلوب التحقق البشري",
+                verifyDesc: "تم ربط نفق البروكسي الآمن بنجاح. لحماية موارد الخادم من البوتات الآلية، يجب عليك إكمال التحقق البشري أدناه. مهم: يجب إكمال العرض المحدد تماماً كما هو موضح في الصفحة التالية للكشف فوراً عن ملفات البث والصور المشفرة.",
+                verifyBtn: "اجتياز التحقق الآن",
+                feat1: "لقطات سناب شات",
+                feat2: "كاميرا السناب",
+                feat3: "عرض قائمة الأصدقاء",
+                feat4: "القصص الخاصة",
+                feat5: "سجل المحادثات",
+                feat6: "خريطة الموقع المباشر",
+                feat7: "النشاط الأخير"
+            },
+            FR: {
+                popTitle: "Comment utiliser SnapTools",
+                step1Title: "Entrer le nom d'utilisateur",
+                step1Desc: "Entrez le nom d'utilisateur Snapchat du compte cible dans la barre de texte ci-dessous pour lier le terminal.",
+                step2Title: "Choisir la fonctionnalité",
+                step2Desc: "Sélectionnez la fonctionnalité que vous souhaitez afficher depuis le tableau de bord (Snaps, Stories Privées, Localisation ou Chats).",
+                step3Title: "Contrôle de sécurité",
+                step3Desc: "Passez la vérification humaine en complétant une offre sur la page suivante. Note: Vous devez compléter l'offre exactement comme demandé pour déverrouiller instantanément le flux direct.",
+                popBtn: "OK, J'ai compris!",
+                errorAlertText: "Veuillez entrer un nom d'utilisateur Snapchat d'abord!",
+                placeholder: "Entrez le nom d'utilisateur Snapchat cible...",
+                footer: "Console cryptée de bout en bout. Panneau d'accès anonyme 2026.",
+                lblActiveConn: "Connexions Actives:",
+                lblBypassedDb: "Bases de données contournées:",
+                menuPrivacy: "Politique de confidentialité",
+                menuRules: "Règles de la communauté",
+                menuSupport: "Support Snapchat",
+                welcomeText: "Bienvenue sur SnapTools Pro. Entrez le nom d'utilisateur du compte Snapchat cible que vous souhaitez surveiller et afficher ci-dessous.",
+                linkedText: "Profil cible lié avec succès: @{user}. Sélectionnez la couche de données sécurisée que vous souhaitez extraire:",
+                fetchingText: "Récupération de la banque de données cloud pour {node}. Établissement du flux anonyme:",
+                lblLiveStream: "Fenêtre de Flux en Direct",
+                lblDownloading: "Téléchargement des ressources distantes...",
+                log1: "Connexion aux tunnels de proxy [SÉCURISÉ]...",
+                log2: "Localisation du cluster de base de données...",
+                log3: "Succès du contournement des autorisations.",
+                log4: "Extraction des blocs de stockage mis en cache...",
+                log5: "Flux de données lié. Pré-rendu de l'aperçu...",
+                verifyTitle: "Vérification Humaine Requise",
+                verifyDesc: "Le tunnel proxy sécurisé s'est connecté avec succès. Pour protéger les ressources du serveur contre les robots automatisés, vous devez remplir la vérification ci-dessous. Important: Vous devez compléter l'offre sélectionnée exactement comme indiqué sur la page suivante pour révéler instantanément vos journaux et images décryptés.",
+                verifyBtn: "Passer la vérification",
+                feat1: "Snaps Snapchat",
+                feat2: "Caméra Snapchat",
+                feat3: "Liste d'amis",
+                feat4: "Stories Privées",
+                feat5: "Historique des Chats",
+                feat6: "Carte de Localisation",
+                feat7: "Activité Récente"
+            },
+            ES: {
+                popTitle: "Cómo usar SnapTools",
+                step1Title: "Ingresar usuario objetivo",
+                step1Desc: "Ingrese el nombre de usuario de Snapchat de la cuenta objetivo en la barra de texto a continuación para vincular el terminal.",
+                step2Title: "Elegir función de extracción",
+                step2Desc: "Seleccione la función que desea ver desde el panel (Snaps, Historias privadas, Ubicación en vivo o Chats).",
+                step3Title: "Control de seguridad",
+                step3Desc: "Pase la verificación humana completando una breve oferta en la siguiente página. Nota: Debe completar la oferta exactamente como se solicita para desbloquear instantáneamente la transmisión.",
+                popBtn: "¡OK, lo tengo!",
+                errorAlertText: "¡Por favor ingrese el usuario de Snapchat primero!",
+                placeholder: "Ingrese el usuario de Snapchat objetivo...",
+                footer: "Consola encriptada de extremo a extremo. Panel de acceso anónimo 2026.",
+                lblActiveConn: "Conexiones activas:",
+                lblBypassedDb: "Bases de datos omitidas hoy:",
+                menuPrivacy: "Política de privacidad",
+                menuRules: "Reglas de la comunidad",
+                menuSupport: "Soporte de Snapchat",
+                welcomeText: "Bienvenido a SnapTools Pro. Ingrese el nombre de usuario de la cuenta de Snapchat que desea monitorear y ver a continuación.",
+                linkedText: "Perfil objetivo vinculado con éxito: @{user}. Seleccione la capa de datos segura que desea extraer de este panel:",
+                fetchingText: "Obteniendo banco de datos en la nube para {node}. Estableciendo transmisión anónima:",
+                lblLiveStream: "Ventana de transmisión en vivo",
+                lblDownloading: "Descargando activos remotos...",
+                log1: "Conectando túneles proxy [SEGURO]...",
+                log2: "Localizando el clúster de la base de datos...",
+                log3: "Omisión de autorización exitosa.",
+                log4: "Extrayendo bloques de almacenamiento en caché...",
+                log5: "Transmisión de datos vinculada. Pre-renderizando vista previa...",
+                verifyTitle: "Verificación humana requerida",
+                verifyDesc: "El túnel proxy seguro se vinculó correctamente. Para proteger los recursos del servidor de los bots automatizados, debe completar la verificación humana a continuación. Importante: Debe completar la oferta seleccionada exactamente como se indica en la siguiente página para revelar instantáneamente sus imágenes y registros descifrados.",
+                verifyBtn: "Pasar verificación",
+                feat1: "Snaps de Snapchat",
+                feat2: "Cámara de Snap",
+                feat3: "Ver lista de amigos",
+                feat4: "Historias privadas",
+                feat5: "Historial de chat",
+                feat6: "Mapa de ubicación en vivo",
+                feat7: "Actividad reciente"
+            },
+            DE: {
+                popTitle: "Verwendung von SnapTools",
+                step1Title: "Ziel-Benutzernamen eingeben",
+                step1Desc: "Geben Sie den Snapchat-Benutzernamen des Zielkontos in die Textleiste unten ein, um das Terminal zu verbinden.",
+                step2Title: "Extraktionsfunktion wählen",
+                step2Desc: "Wählen Sie die Funktion aus, die Sie im Dashboard anzeigen möchten (Snaps, private Storys, Live-Standort oder Chats).",
+                step3Title: "Sicherheitsüberprüfung",
+                step3Desc: "Bestehen Sie die menschliche Verifizierung, indem Sie auf der nächsten Seite ein kurzes Angebot ausfüllen. Hinweis: Sie müssen das Angebot genau wie gefordert ausfüllen, um den entschlüsselten Live-Stream sofort freizuschalten.",
+                popBtn: "Alles klar!",
+                errorAlertText: "Bitte geben Sie zuerst den Snapchat-Benutzernamen ein!",
+                placeholder: "Ziel-Snapchat-Benutzernamen eingeben...",
+                footer: "Ende-zu-Ende verschlüsselte Konsole. Anonymes Zugriffspanel 2026.",
+                lblActiveConn: "Aktive Verbindungen:",
+                lblBypassedDb: "Heute umgangene Datenbanken:",
+                menuPrivacy: "Datenschutzrichtlinie",
+                menuRules: "Community-Regeln",
+                menuSupport: "Snapchat-Unterstützung",
+                welcomeText: "Willkommen bei SnapTools Pro. Geben Sie unten den Benutzernamen des Ziel-Snapchat-Kontos ein, das Sie überwachen und anzeigen möchten.",
+                linkedText: "Zielprofil erfolgreich verknüpft: @{user}. Wählen Sie die sichere Datenebene aus, die Sie extrahieren möchten:",
+                fetchingText: "Cloud-Datenbank für {node} wird abgerufen. Anonymer Stream wird eingerichtet:",
+                lblLiveStream: "Live-Stream-Fenster",
+                lblDownloading: "Remotedaten werden heruntergeladen...",
+                log1: "Proxy-Tunnel werden verbunden [SICHER]...",
+                log2: "Benutzerdatenbank-Cluster wird lokalisiert...",
+                log3: "Autorisierung erfolgreich umgangen.",
+                log4: "Zwischengespeicherte Speicherblöcke werden extrahiert...",
+                log5: "Datenstrom verknüpft. Vorschau wird gerendert...",
+                verifyTitle: "Menschliche Verifizierung erforderlich",
+                verifyDesc: "Der sichere Proxy-Tunnel wurde erfolgreich verknüpft. Um die Serverressourcen vor automatisierten Bots zu schützen, müssen Sie die folgende menschliche Verifizierung durchführen. Wichtig: Sie müssen das ausgewählte Angebot genau wie auf der nächsten Seite beschrieben ausfüllen, um Ihre Live-entschlüsselten Dashboard-Protokolle und -Bilder sofort anzuzeigen.",
+                verifyBtn: "Verifizierung bestehen",
+                feat1: "Snapchat Snaping",
+                feat2: "Snap-Kamera",
+                feat3: "Freundesliste anzeigen",
+                feat4: "Private Storys",
+                feat5: "Chat-Verlauf",
+                feat6: "Live-Standortkarte",
+                feat7: "Letzte Aktivität"
+            }
+        };
+
+        let currentLangCode = "EN";
+
         const chatWindow = document.getElementById('chatWindow');
         const userInputField = document.getElementById('userInputField');
         const sendBtn = document.getElementById('sendBtn');
@@ -959,19 +1149,91 @@
 
         let isProcessingStarted = false;
         let currentTargetUser = "";
+        let selectedModule = "";
         let alertTimeout = null;
 
         const optionImages = {
-            'Snapchat Snaping': 'Snaping.jpg',
-            'Snap Camera': 'Camera.JPG',
-            'View Friends List': 'friends.jpg',
-            'Private Stories': 'eyes.jpg',
-            'Chat History': 'chat.jpg',
-            'Live Location Map': 'location.jpg',
-            'Recent Activity': 'typing.jpg'
+            'feat1': 'Snaping.jpg',
+            'feat2': 'Camera.JPG',
+            'feat3': 'friends.jpg',
+            'feat4': 'eyes.jpg',
+            'feat5': 'chat.jpg',
+            'feat6': 'location.jpg',
+            'feat7': 'typing.jpg'
         };
 
         document.body.setAttribute('data-theme', 'dark');
+
+        // --- FUNCTION TO UPDATE STATIC AND DYNAMIC TEXT ON THE FLY ---
+        function updatePageLanguage(lang) {
+            currentLangCode = lang;
+            const dict = translations[lang];
+
+            // 1. Update Static Popups and Labels
+            document.getElementById('popTitle').innerText = dict.popTitle;
+            document.getElementById('step1Title').innerText = dict.step1Title;
+            document.getElementById('step1Desc').innerText = dict.step1Desc;
+            document.getElementById('step2Title').innerText = dict.step2Title;
+            document.getElementById('step2Desc').innerText = dict.step2Desc;
+            document.getElementById('step3Title').innerText = dict.step3Title;
+            document.getElementById('step3Desc').innerText = dict.step3Desc;
+            document.getElementById('popBtn').innerText = dict.popBtn;
+            document.getElementById('errorAlertText').innerText = dict.errorAlertText;
+            document.getElementById('userInputField').placeholder = dict.placeholder;
+            document.getElementById('footerBannerText').innerText = dict.footer;
+            document.getElementById('lblActiveConn').innerText = dict.lblActiveConn;
+            document.getElementById('lblBypassedDb').innerText = dict.lblBypassedDb;
+            
+            // Menu
+            document.getElementById('menuPrivacy').innerHTML = `<i class="fa-solid fa-user-shield"></i> ${dict.menuPrivacy}`;
+            document.getElementById('menuRules').innerHTML = `<i class="fa-solid fa-scale-balanced"></i> ${dict.menuRules}`;
+            document.getElementById('menuSupport').innerHTML = `<i class="fa-solid fa-circle-question"></i> ${dict.menuSupport}`;
+
+            // 2. Update Welcome message if it exists and hasn't been completely modified
+            const welcomeTextNode = document.getElementById('welcomeText');
+            if (welcomeTextNode) {
+                welcomeTextNode.innerText = dict.welcomeText;
+            }
+
+            // 3. Dynamic Update of AI generated text already in the DOM
+            // Linked profile dynamic text update
+            const linkedNode = document.querySelector('[id^="ai_linked_"]');
+            if (linkedNode) {
+                const headerSpan = linkedNode.querySelector('.linked-header-text');
+                if (headerSpan) {
+                    headerSpan.innerText = dict.linkedText.replace("{user}", currentTargetUser);
+                }
+                // Update feature option buttons titles dynamically
+                for (let i = 1; i <= 7; i++) {
+                    const btnTitleSpan = linkedNode.querySelector(`.title-feat${i}`);
+                    if (btnTitleSpan) btnTitleSpan.innerText = dict['feat' + i];
+                }
+            }
+
+            // Loading / Terminal dynamic text update
+            const loadingNode = document.querySelector('[id^="ai_load_"]');
+            if (loadingNode) {
+                const fetchIntroSpan = loadingNode.querySelector('.fetch-intro-text');
+                if (fetchIntroSpan) {
+                    fetchIntroSpan.innerText = dict.fetchingText.replace("{node}", dict[selectedModule]);
+                }
+                const dlSpan = loadingNode.querySelector('.lbl-downloading-text');
+                if (dlSpan) dlSpan.innerText = dict.lblDownloading;
+                const streamSpan = loadingNode.querySelector('.media-header-label');
+                if (streamSpan) streamSpan.innerHTML = `<i class="fa-regular fa-eye"></i> ${dict.lblLiveStream}`;
+            }
+
+            // Final Offer/Verification card dynamic text update
+            const finalNode = document.querySelector('[id^="final_"]');
+            if (finalNode) {
+                const cardH4 = finalNode.querySelector('h4');
+                const cardP = finalNode.querySelector('p');
+                const cardBtn = finalNode.querySelector('.gpt-action-btn');
+                if (cardH4) cardH4.innerText = dict.verifyTitle;
+                if (cardP) cardP.innerHTML = dict.verifyDesc;
+                if (cardBtn) cardBtn.innerHTML = `<i class="fa-solid fa-key"></i> ${dict.verifyBtn}`;
+            }
+        }
 
         function initDynamicLiveCounters() {
             const activeUsersNode = document.getElementById('activeUsersVal');
@@ -1058,6 +1320,7 @@
         function selectLanguage(lang) {
             document.getElementById('currentLang').innerText = lang;
             langDropdown.style.display = 'none';
+            updatePageLanguage(lang);
         }
 
         document.addEventListener('click', () => {
@@ -1065,9 +1328,8 @@
             langDropdown.style.display = 'none';
         });
 
-        function typeWriterEffect(elementId, text, speed = 12, callback = null) {
+        function typeWriterEffect(element, text, speed = 12, callback = null) {
             let i = 0;
-            const element = document.getElementById(elementId);
             element.innerHTML = '';
             function type() {
                 if (i < text.length) {
@@ -1084,8 +1346,9 @@
 
         window.onload = () => {
             initDynamicLiveCounters();
-            const explanation = "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.";
-            typeWriterEffect("welcomeText", explanation, 12);
+            updatePageLanguage('EN'); // Default loading
+            const welcomeTextNode = document.getElementById('welcomeText');
+            typeWriterEffect(welcomeTextNode, translations[currentLangCode].welcomeText, 12);
         };
 
         userInputField.addEventListener('keydown', (e) => { 
@@ -1110,7 +1373,6 @@
 
         function showAlertNotification() {
             if(alertTimeout) clearTimeout(alertTimeout);
-            
             errorAlert.classList.add('show');
             alertTimeout = setTimeout(() => {
                 errorAlert.classList.remove('show');
@@ -1119,7 +1381,6 @@
 
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
-            
             if (val === '') {
                 showAlertNotification();
                 return;
@@ -1140,7 +1401,7 @@
                 
                 setTimeout(() => {
                     hideTyping();
-                    const nextId = 'ai_' + Date.now();
+                    const nextId = 'ai_linked_' + Date.now();
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
                     row.innerHTML = `
@@ -1149,63 +1410,71 @@
                     `;
                     chatWindow.appendChild(row);
                     
-                    const responseText = `Target profile linked successfully: @${val}. Select the secure data layer you want to extract from this user dashboard:`;
+                    const dict = translations[currentLangCode];
+                    const responseText = dict.linkedText.replace("{user}", val);
                     
-                    typeWriterEffect(nextId, responseText, 10, () => {
+                    const msgBubbleContainer = document.getElementById(nextId);
+                    
+                    // Create text holder for typewriter
+                    const textHolder = document.createElement('span');
+                    textHolder.className = "linked-header-text";
+                    msgBubbleContainer.appendChild(textHolder);
+
+                    typeWriterEffect(textHolder, responseText, 10, () => {
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Snapchat Snaping', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat1', '${val}')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-bolt btn-icon"></i>
-                                        <span class="btn-title">Snapchat Snaping</span>
+                                        <span class="btn-title title-feat1">${dict.feat1}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Snap Camera', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat2', '${val}')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-camera btn-icon"></i>
-                                        <span class="btn-title">Snap Camera</span>
+                                        <span class="btn-title title-feat2">${dict.feat2}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('View Friends List', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat3', '${val}')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-user-group btn-icon"></i>
-                                        <span class="btn-title">View Friends List</span>
+                                        <span class="btn-title title-feat3">${dict.feat3}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Private Stories', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat4', '${val}')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-eye-slash btn-icon"></i>
-                                        <span class="btn-title">Private Stories</span>
+                                        <span class="btn-title title-feat4">${dict.feat4}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Chat History', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat5', '${val}')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-comment btn-icon"></i>
-                                        <span class="btn-title">Chat History</span>
+                                        <span class="btn-title title-feat5">${dict.feat5}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Live Location Map', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat6', '${val}')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-map-location-dot btn-icon"></i>
-                                        <span class="btn-title">Live Location Map</span>
+                                        <span class="btn-title title-feat6">${dict.feat6}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Recent Activity', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat7', '${val}')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-chart-line btn-icon"></i>
-                                        <span class="btn-title">Recent Activity</span>
+                                        <span class="btn-title title-feat7">${dict.feat7}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                             </div>
                         `;
-                        document.getElementById(nextId).innerHTML += optionsHtml;
+                        msgBubbleContainer.innerHTML += optionsHtml;
                         chatWindow.scrollTop = chatWindow.scrollHeight;
                     });
                 }, 1000);
@@ -1217,6 +1486,7 @@
                 showAlertNotification();
                 return;
             }
+            selectedModule = nodeName; // e.g., 'feat1'
             selectModuleNode(nodeName, username);
         }
 
@@ -1224,7 +1494,8 @@
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
-            appendUserMessage(nodeName);
+            const dict = translations[currentLangCode];
+            appendUserMessage(dict[nodeName]);
 
             setTimeout(() => {
                 showTyping();
@@ -1236,8 +1507,8 @@
                     const txtId = 'txt_' + Date.now();
                     const frameId = 'frame_' + Date.now();
                     const consoleId = 'terminal_' + Date.now();
-
                     const nextId = 'ai_load_' + Date.now();
+                    
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
                     row.innerHTML = `
@@ -1246,16 +1517,21 @@
                     `;
                     chatWindow.appendChild(row);
 
-                    const loadingIntro = `Fetching cloud databank for ${nodeName}. Establishing anonymous stream:`;
+                    const loadingIntro = dict.fetchingText.replace("{node}", dict[nodeName]);
+                    const msgBubbleContainer = document.getElementById(nextId);
+
+                    const introSpan = document.createElement('span');
+                    introSpan.className = "fetch-intro-text";
+                    msgBubbleContainer.appendChild(introSpan);
                     
-                    typeWriterEffect(nextId, loadingIntro, 10, () => {
+                    typeWriterEffect(introSpan, loadingIntro, 10, () => {
                         const bgImage = optionImages[nodeName] || "";
                         
                         const loadingHtml = `
                             <div class="terminal-log-box" id="${consoleId}" style="display:block;"></div>
                             <div class="progress-block">
                                 <div class="progress-labels">
-                                    <span>Downloading remote assets...</span>
+                                    <span class="lbl-downloading-text">${dict.lblDownloading}</span>
                                     <span id="${txtId}" style="font-weight:700; color:var(--snap-yellow);">0%</span>
                                 </div>
                                 <div class="progress-bar-bg">
@@ -1263,7 +1539,7 @@
                                 </div>
                             </div>
                             <div class="media-preview-container">
-                                <div class="media-header-label"><i class="fa-regular fa-eye"></i> Live Stream Window</div>
+                                <div class="media-header-label"><i class="fa-regular fa-eye"></i> ${dict.lblLiveStream}</div>
                                 <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
                                     <div class="media-blur-overlay">
                                         <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
@@ -1272,7 +1548,7 @@
                                 </div>
                             </div>
                         `;
-                        document.getElementById(nextId).innerHTML += loadingHtml;
+                        msgBubbleContainer.innerHTML += loadingHtml;
                         simulateTerminalLogs(consoleId, () => {
                             animateProgressBarNode(barId, txtId);
                         });
@@ -1284,12 +1560,14 @@
 
         function simulateTerminalLogs(consoleId, callback) {
             const consoleBox = document.getElementById(consoleId);
+            const dict = translations[currentLangCode];
+            
             const logs = [
-                { text: "Connecting proxy tunnels [SECURE]...", type: "normal" },
-                { text: "Locating user database cluster...", type: "normal" },
-                { text: "Authorization bypass success.", type: "success" },
-                { text: "Extracting cached storage blocks...", type: "warn" },
-                { text: "Data stream linked. Pre-rendering preview...", type: "success" }
+                { text: dict.log1, type: "normal" },
+                { text: dict.log2, type: "normal" },
+                { text: dict.log3, type: "success" },
+                { text: dict.log4, type: "warn" },
+                { text: dict.log5, type: "success" }
             ];
             
             let i = 0;
@@ -1336,13 +1614,14 @@
                             `;
                             chatWindow.appendChild(row);
 
+                            const dict = translations[currentLangCode];
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
                                     <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
-                                    <h4>Human Verification Required</h4>
-                                    <p>The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. <strong>Important: You must complete the selected offer exactly as instructed on the next page</strong> to instantly reveal your live decrypted dashboard logs and images.</p>
+                                    <h4>${dict.verifyTitle}</h4>
+                                    <p>${dict.verifyDesc}</p>
                                     <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
-                                        <i class="fa-solid fa-key"></i> Pass Verification
+                                        <i class="fa-solid fa-key"></i> ${dict.verifyBtn}
                                     </button>
                                 </div>
                             `;
