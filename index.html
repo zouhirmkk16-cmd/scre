@@ -3,42 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SnapTools Ultimate Live Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>X-Alpha Cyber AI Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --snap-yellow: #FFFC00;
-            --snap-neon-glow: rgba(255, 252, 0, 0.35);
-            --snap-black: #050505;
-            --bg-workspace: #050508;
-            --bg-chat: rgba(5, 5, 8, 0.88);
-            --bg-bubble-user: rgba(18, 18, 26, 0.75);
-            --border-color: rgba(255, 255, 255, 0.07);
-            --text-main: #f8f9fa;
-            --text-muted: #7e8494;
+            --neon-cyan: #00f3ff;
+            --neon-green: #39ff14;
+            --cyber-bg: #030308;
+            --panel-bg: rgba(6, 6, 14, 0.85);
+            --border-neon: rgba(0, 243, 255, 0.2);
+            --text-main: #f0f3f8;
+            --text-muted: #6c768d;
             --font-main: 'Plus Jakarta Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --chat-btn-bg: rgba(12, 12, 20, 0.6);
-            --menu-bg: rgba(8, 8, 12, 0.96);
-            --alert-bg: rgba(20, 6, 6, 0.95);
-            --alert-border: rgba(255, 68, 68, 0.4);
-            --card-glow: 0 25px 60px rgba(0, 0, 0, 0.65);
-        }
-
-        [data-theme="light"] {
-            --bg-workspace: #f4f5f9;
-            --bg-chat: rgba(255, 255, 255, 0.85);
-            --bg-bubble-user: rgba(240, 241, 255, 0.8);
-            --border-color: rgba(0, 0, 0, 0.07);
-            --text-main: #090a0f;
-            --text-muted: #686e7d;
-            --chat-btn-bg: rgba(248, 249, 250, 0.7);
-            --menu-bg: rgba(255, 255, 255, 0.96);
-            --alert-bg: rgba(255, 255, 255, 0.98);
-            --alert-border: rgba(255, 68, 68, 0.3);
-            --card-glow: 0 15px 35px rgba(0, 0, 0, 0.05);
         }
 
         body[lang="ar"] { --font-main: 'Cairo', sans-serif; }
@@ -48,869 +27,537 @@
             margin: 0;
             padding: 0;
             font-family: var(--font-main);
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
         }
 
         body {
-            background-color: var(--bg-workspace);
+            background-color: var(--cyber-bg);
             color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            min-height: 100dvh; 
+            height: 100vh;
+            height: 100dvh;
             overflow: hidden;
             position: relative;
-            transition: background-color 0.3s;
+            display: flex;
+            flex-direction: column;
         }
 
         body.rtl { direction: rtl; }
 
-        /* الكانفاس السينمائي فوق الخلفية مباشرة ليعطي التأثير البصري الحقيقي */
         #bgCanvas {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none; /* يسمح بالضغط على الأزرار عادي */
-            mix-blend-mode: screen;
-            opacity: 0.7;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
         }
 
-        /* --- Welcome Instructions Popup --- */
-        .instructions-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(2, 2, 4, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            padding: 20px;
-            animation: fadeInOverlay 0.4s ease;
+        /* هيدر الوكالة السيبرانية */
+        .ai-header {
+            position: relative; z-index: 10;
+            background: rgba(4, 4, 10, 0.85);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+            padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
         }
+        @media (max-width: 768px) { .ai-header { padding: 15px 20px; } }
 
-        .instructions-card {
-            background: rgba(12, 12, 20, 0.75);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: 40px;
-            width: 100%;
-            max-width: 440px;
-            padding: 40px 32px;
-            box-shadow: var(--card-glow), inset 0 1px 2px rgba(255,255,255,0.1);
-            text-align: center;
-            animation: slideUpPopup 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        .ai-brand { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 20px; letter-spacing: 0.5px; }
+        .ai-brand i { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); animation: pulseGlow 2s infinite; }
+        .ai-brand span { color: var(--neon-cyan); }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
         }
-
-        .instructions-logo {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--snap-yellow), #ffee00);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 28px auto;
-            color: var(--snap-black);
-            font-size: 28px;
-            box-shadow: 0 12px 30px rgba(255, 252, 0, 0.35);
-            transform: rotate(-4deg);
-        }
-
-        .instructions-card h3 { font-size: 26px; font-weight: 800; margin-bottom: 28px; letter-spacing: -0.5px; }
-        .steps-container { display: flex; flex-direction: column; gap: 24px; text-align: left; margin-bottom: 36px; }
-        body.rtl .steps-container { text-align: right; }
-        .step-item { display: flex; gap: 18px; align-items: flex-start; }
-        .step-num {
-            background: rgba(255, 252, 0, 0.05); color: var(--snap-yellow); border: 1px solid rgba(255, 252, 0, 0.3);
-            border-radius: 14px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
-            font-size: 15px; font-weight: 800; flex-shrink: 0;
-        }
-        .step-content h5 { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 5px; }
-        .step-content p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-        .popup-close-btn {
-            width: 100%; background: var(--snap-yellow); color: var(--snap-black); border: none; padding: 18px;
-            border-radius: 22px; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.3s;
-            box-shadow: 0 8px 30px rgba(255,252,0,0.3);
-        }
-        .popup-close-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255,252,0,0.5); }
-
-        @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUpPopup { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- Live Status Bar --- */
-        .live-status-bar {
-            background: rgba(8, 8, 12, 0.5);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            font-size: 12px;
-            color: var(--text-muted);
-            position: relative;
-            z-index: 10;
-            font-weight: 600;
-        }
-
-        .status-dot { width: 8px; height: 8px; background: #00ffaa; border-radius: 50%; box-shadow: 0 0 14px #00ffaa; animation: pulseDot 2s infinite; }
-        @keyframes pulseDot { 0%, 100% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.3); opacity: 1; } }
-        .status-text strong { color: var(--snap-yellow); font-weight: 700; }
-        .status-divider { opacity: 0.3; }
-
-        /* --- Chat Container --- */
-        .chat-container {
-            width: 100%;
-            max-width: 480px;
-            background: var(--bg-chat);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-left: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            height: 100dvh; 
-            position: relative;
-            z-index: 5;
-            box-shadow: var(--card-glow);
-        }
-
-        .chat-header {
-            padding: 20px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(8, 8, 12, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
-            z-index: 15;
-        }
-
-        .header-left { display: flex; align-items: center; gap: 16px; }
-        .menu-bars-btn {
-            background: var(--chat-btn-bg); border: 1px solid var(--border-color); color: var(--text-main);
-            font-size: 15px; cursor: pointer; width: 40px; height: 40px; border-radius: 14px;
-            display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-        }
-        .menu-bars-btn:hover { background: rgba(255,255,255,0.08); }
-        .ai-brand { font-weight: 900; font-size: 26px; letter-spacing: -0.5px; }
-        .ai-brand .part-snap { color: var(--snap-yellow); text-shadow: 0 0 20px rgba(255, 252, 0, 0.4); }
-        .header-actions { display: flex; align-items: center; gap: 12px; }
 
         .lang-btn {
-            background: var(--chat-btn-bg); border: 1px solid var(--border-color); color: var(--text-main);
-            padding: 0 16px; height: 40px; border-radius: 14px; cursor: pointer; font-size: 13px;
-            font-weight: 700; display: flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(0,243,255,0.2); color: var(--text-main);
+            padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;
         }
-
         .lang-dropdown {
-            position: absolute; top: 48px; right: 0; background: var(--menu-bg);
-            border: 1px solid var(--border-color); border-radius: 16px; width: 140px;
-            display: none; flex-direction: column; overflow: hidden; z-index: 1001;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            position: absolute; top: 55px; right: 30px; background: #080812; border: 1px solid rgba(0,243,255,0.2);
+            border-radius: 12px; width: 120px; display: none; flex-direction: column; overflow: hidden; z-index: 1002;
         }
-        body.rtl .lang-dropdown { left: 0; right: auto; }
-        .lang-opt { padding: 14px 18px; color: var(--text-main); font-size: 14px; font-weight: 600; background: transparent; border: none; width: 100%; cursor: pointer; text-align: left;}
+        body.rtl .lang-dropdown { left: 30px; right: auto; }
+        .lang-opt { padding: 10px 14px; color: var(--text-main); background: transparent; border: none; width: 100%; text-align: left; cursor: pointer; font-size: 13px; }
         body.rtl .lang-opt { text-align: right; }
-        .lang-opt:hover { background: rgba(255,255,255,0.05); }
+        .lang-opt:hover { background: rgba(0, 243, 255, 0.1); color: var(--neon-cyan); }
 
-        .theme-btn {
-            background: var(--chat-btn-bg); border: 1px solid var(--border-color);
-            color: var(--text-main); font-size: 14px; width: 40px; height: 40px;
-            display: flex; align-items: center; justify-content: center; border-radius: 14px; cursor: pointer;
+        /* منطقة الشات كاملة الشاشة */
+        .chat-space {
+            position: relative; z-index: 5;
+            flex: 1; display: flex; flex-direction: column;
+            max-width: 900px; width: 100%; margin: 0 auto;
+            padding: 20px; overflow: hidden;
         }
 
-        .snap-dropdown-menu {
-            position: absolute; top: 82px; left: 24px; width: 240px;
-            background: var(--menu-bg); border: 1px solid var(--border-color); border-radius: 20px;
-            display: none; flex-direction: column; overflow: hidden; z-index: 1000;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        .chat-timeline {
+            flex: 1; overflow-y: auto;
+            padding-right: 10px; display: flex; flex-direction: column; gap: 20px;
+            scroll-behavior: smooth;
         }
-        body.rtl .snap-dropdown-menu { left: auto; right: 24px; }
-        .menu-item { padding: 16px 20px; color: var(--text-main); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--border-color); }
-        .menu-item:hover { background: rgba(255,255,255,0.04); }
-        .menu-item i { color: var(--snap-yellow); }
+        /* كستمايز السكرول بار ليناسب الجو */
+        .chat-timeline::-webkit-scrollbar { width: 4px; }
+        .chat-timeline::-webkit-scrollbar-thumb { background: rgba(0, 243, 255, 0.2); border-radius: 10px; }
 
-        .chat-history { flex: 1; overflow-y: auto; padding: 28px 24px; display: flex; flex-direction: column; gap: 28px; position: relative; z-index: 6; }
-        .chat-row { display: flex; gap: 16px; max-width: 100%; }
-        .chat-row.user-row { flex-direction: row-reverse; }
-
-        .bot-avatar {
-            width: 42px; height: 42px; border-radius: 15px; overflow: hidden; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--snap-yellow), #ffee00);
-            box-shadow: 0 6px 16px rgba(255, 252, 0, 0.25);
-        }
-        .bot-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .msg-bubble { font-size: 15px; line-height: 1.6; max-width: 85%; color: var(--text-main); }
-
-        .user-row .msg-bubble {
-            background: var(--bg-bubble-user); padding: 16px 22px; border-radius: 24px 8px 24px 24px;
-            max-width: 80%; font-weight: 600; border: 1px solid var(--border-color);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-        body.rtl .user-row .msg-bubble { border-radius: 8px 24px 24px 24px; }
-
-        .typing-dots { display: inline-flex; gap: 6px; align-items: center; padding: 12px 6px; }
-        .typing-dots span { width: 8px; height: 8px; background: var(--text-muted); border-radius: 50%; animation: bounceDot 1.4s infinite ease-in-out both; }
-        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-
-        /* --- UI Options Overhaul --- */
-        .options-box { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; width: 100%; }
-        .chat-opt-btn {
-            position: relative; width: 100%; height: 96px; border-radius: 24px;
-            border: 1px solid var(--border-color); background-size: cover; background-position: center;
-            cursor: pointer; overflow: hidden; display: flex; align-items: center;
-            justify-content: space-between; padding: 0 26px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3); text-align: left;
-        }
-        body.rtl .chat-opt-btn { text-align: right; }
-        .chat-opt-btn::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(90deg, rgba(8,8,14,0.96) 45%, rgba(8,8,14,0.55) 100%);
-            z-index: 1; transition: all 0.3s ease;
-        }
-        body.rtl .chat-opt-btn::before { background: linear-gradient(-90deg, rgba(8,8,14,0.96) 45%, rgba(8,8,14,0.55) 100%); }
+        /* ستايل فقاعات الشات */
+        .msg-row { display: flex; width: 100%; gap: 14px; align-items: flex-start; animation: fadeInMsg 0.4s ease-out both; }
+        @keyframes fadeInMsg { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .chat-opt-btn::after {
-            content: ''; position: absolute; inset: 0; border-radius: 24px;
-            border: 1px solid transparent; background: linear-gradient(135deg, var(--snap-yellow), transparent) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: destination-out; mask-composite: exclude;
-            opacity: 0; transition: opacity 0.4s ease; z-index: 3;
+        .msg-row.user-side { flex-direction: row-reverse; }
+
+        .agent-avatar {
+            width: 38px; height: 38px; border-radius: 12px; background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon-cyan); display: flex; align-items: center; justify-content: center;
+            color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0,243,255,0.2); flex-shrink: 0;
+        }
+        .user-side .agent-avatar {
+            background: rgba(255, 255, 255, 0.05); border-color: rgba(255,255,255,0.3); color: #fff;
+            box-shadow: none;
         }
 
-        .chat-opt-btn:hover {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 20px rgba(255, 252, 0, 0.15);
-            border-color: rgba(255, 252, 0, 0.4);
+        .msg-bubble {
+            max-width: 75%; background: var(--panel-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-neon); border-radius: 4px 20px 20px 20px; padding: 16px 20px;
+            font-size: 14px; line-height: 1.6; color: #e1e6f0; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-        .chat-opt-btn:hover::after { opacity: 1; }
-
-        .btn-left-content { position: relative; z-index: 2; display: flex; align-items: center; gap: 20px; }
-        .chat-opt-btn i.btn-icon {
-            font-size: 18px; width: 44px; height: 44px; background: rgba(255,252,0,0.05);
-            border: 1px solid rgba(255,252,0,0.2); border-radius: 15px;
-            display: flex; align-items: center; justify-content: center; color: var(--snap-yellow);
+        body.rtl .msg-bubble { border-radius: 20px 4px 20px 20px; }
+        .user-side .msg-bubble {
+            background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.08);
+            border-radius: 20px 4px 20px 20px; color: #fff;
         }
-        .chat-opt-btn:hover i.btn-icon { background: var(--snap-yellow); color: var(--snap-black); box-shadow: 0 0 15px var(--snap-yellow); }
-        .btn-text-block { display: flex; flex-direction: column; }
-        .btn-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
-        .btn-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-        .chat-opt-btn i.fa-chevron-right, .chat-opt-btn i.fa-chevron-left { position: relative; z-index: 2; font-size: 13px; color: var(--text-muted); }
+        body.rtl .user-side .msg-bubble { border-radius: 20px 20px 4px 20px; }
 
-        /* Terminal System */
-        .terminal-log-box {
-            background: rgba(3, 3, 5, 0.85); border: 1px solid var(--border-color); border-radius: 22px;
-            padding: 20px; margin-top: 20px; font-family: var(--font-mono); font-size: 12px;
-            color: #e2e4eb; max-height: 160px; overflow-y: auto; display: none;
+        /* خيارات تفاعلية وسط الشات */
+        .interactive-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; width: 100%;
         }
-        .terminal-line { margin-bottom: 8px; display: flex; gap: 12px; }
-        body.rtl .terminal-line { direction: ltr; justify-content: flex-end; }
-        .terminal-success { color: #00ffaa; }
-        .terminal-warn { color: var(--snap-yellow); }
-
-        .media-preview-container { border: 1px solid var(--border-color); background: rgba(12,12,20,0.5); border-radius: 26px; margin-top: 20px; overflow: hidden; }
-        .media-header-label { padding: 16px 20px; font-size: 13px; color: var(--text-muted); font-weight: 700; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); }
-        .media-frame { position: relative; height: 200px; background-size: cover; background-position: center; }
-        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: rgba(4, 4, 6, 0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); font-size: 13px; font-weight: 700; color: #fff; }
-
-        .progress-block { margin-top: 20px; width: 100%; }
-        .progress-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-main); margin-bottom: 12px; font-weight: 700; }
-        .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #ffee00, var(--snap-yellow)); width: 0%; box-shadow: 0 0 15px var(--snap-yellow); transition: width 0.1s linear; }
-
-        /* Lock Card Offer */
-        .offer-verification-card {
-            border: 1px solid rgba(255, 252, 0, 0.15); background: linear-gradient(160deg, rgba(14,14,22,0.85), rgba(5,5,8,0.85));
-            border-radius: 32px; padding: 40px 28px; margin-top: 20px; display: flex; flex-direction: column;
-            align-items: center; text-align: center; gap: 24px; width: 100%; position: relative; overflow: hidden;
-        }
-        .offer-verification-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--snap-yellow), #ffee00); }
-        .offer-verification-card h4 { font-size: 24px; font-weight: 800; }
-        .offer-verification-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-        .verification-icon { color: var(--snap-black); background: var(--snap-yellow); width: 64px; height: 64px; border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 8px 25px rgba(255,252,0,0.3); }
-
-        .gpt-action-btn {
-            width: 100%; background: var(--snap-yellow); color: var(--snap-black); border: none; padding: 20px; border-radius: 24px; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; box-shadow: 0 8px 30px rgba(255,252,0,0.25); transition: all 0.2s;
-        }
-        .gpt-action-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255,252,0,0.45); }
-
-        /* Floating Input Node */
-        .chat-input-area { padding: 24px; background: rgba(8, 8, 12, 0.65); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-top: 1px solid var(--border-color); position: relative; z-index: 6; }
-        .input-box-container {
-            background: rgba(12, 12, 20, 0.7); border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 26px; display: flex; align-items: center; padding: 10px 12px 10px 26px;
-        }
-        .input-box-container:focus-within { border-color: rgba(255, 252, 0, 0.3); }
-        body.rtl .input-box-container { padding: 10px 26px 10px 12px; }
-        .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 15px; flex-grow: 1; padding: 12px 0; font-weight: 500; }
-        .send-btn { width: 48px; height: 48px; background: var(--snap-yellow); color: var(--snap-black); border: none; border-radius: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 6px 20px rgba(255,252,0,0.3); }
+        @media (max-width: 500px) { .interactive-grid { grid-template-columns: 1fr; } }
         
-        .footer-banner { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 20px; font-weight: 600; letter-spacing: 0.5px; opacity: 0.7; }
-        .hidden-row { display: none !important; }
-
-        .custom-alert {
-            position: fixed; top: 28px; left: 50%; transform: translateX(-50%) translateY(-130px);
-            background: var(--alert-bg); color: #ff4444; border: 1px solid var(--alert-border); padding: 18px 30px; border-radius: 24px;
-            font-weight: 700; font-size: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); z-index: 9999;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s; opacity: 0;
-            display: flex; align-items: center; gap: 14px;
+        .grid-choice-btn {
+            background: rgba(0, 243, 255, 0.03); border: 1px solid rgba(0, 243, 255, 0.15);
+            border-radius: 14px; padding: 14px; color: #fff; font-size: 13px; font-weight: 700;
+            cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; transition: all 0.2s;
         }
-        .custom-alert.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        body.rtl .grid-choice-btn { text-align: right; }
+        .grid-choice-btn i { color: var(--neon-cyan); font-size: 14px; }
+        .grid-choice-btn:hover {
+            border-color: var(--neon-cyan); background: rgba(0, 243, 255, 0.08);
+            box-shadow: 0 0 15px rgba(0,243,255,0.1); transform: translateY(-2px);
+        }
+
+        /* صندوق الإدخال السفلي الذكي */
+        .chat-input-area {
+            position: relative; margin-top: 15px; background: rgba(4, 4, 10, 0.8);
+            border: 1px solid rgba(0, 243, 255, 0.15); border-radius: 22px;
+            padding: 8px 10px 8px 20px; display: flex; align-items: center; gap: 12px;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        }
+        body.rtl .chat-input-area { padding: 8px 20px 8px 10px; }
+        .chat-input-area:focus-within { border-color: var(--neon-cyan); box-shadow: 0 0 20px rgba(0,243,255,0.15); }
+        
+        .chat-core-input {
+            background: transparent; border: none; outline: none; color: #fff;
+            font-size: 14px; flex: 1; padding: 12px 0;
+        }
+        .chat-send-btn {
+            width: 44px; height: 44px; background: var(--neon-cyan); color: #000; border: none;
+            border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 15px; font-weight: 800; transition: transform 0.2s; box-shadow: 0 0 15px rgba(0,243,255,0.3);
+        }
+        .chat-send-btn:hover { transform: scale(1.04); }
+        .chat-input-area.disabled { opacity: 0.4; pointer-events: none; }
+
+        /* شاشة التحميل والكونسول المتقدمة داخل الفقاعة */
+        .ai-console-box {
+            background: #04040a; border: 1px solid rgba(0, 243, 255, 0.1); border-radius: 12px;
+            padding: 12px; font-family: var(--font-mono); font-size: 11px; color: #a9b6d4;
+            margin-top: 10px; display: flex; flex-direction: column; gap: 6px;
+        }
+        .c-line { display: flex; gap: 6px; }
+        .c-g { color: var(--neon-green); }
+        .c-c { color: var(--neon-cyan); }
+
+        .ai-progress-wrap { margin-top: 12px; }
+        .ai-progress-bar { width: 100%; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+        .ai-progress-fill { height: 100%; background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green)); width: 0%; transition: width 0.1s linear; }
+
+        /* كارت فك القفل المقنع جداً */
+        .ai-lock-card {
+            background: linear-gradient(135deg, rgba(10,18,34,0.9) 0%, rgba(5,9,18,0.9) 100%);
+            border: 1px solid var(--neon-cyan); border-radius: 18px; padding: 24px; text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 10px;
+        }
+        .ai-lock-icon {
+            width: 48px; height: 48px; background: rgba(0,243,255,0.1); border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; box-shadow: 0 0 15px rgba(0,243,255,0.2);
+        }
+        .ai-lock-card h4 { font-size: 16px; font-weight: 800; color: #fff; }
+        .ai-lock-card p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+        .ai-unlock-action-btn {
+            width: 100%; background: var(--neon-cyan); color: #000; border: none; padding: 14px;
+            border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 8px; box-shadow: 0 5px 15px rgba(0,243,255,0.3);
+        }
+
+        /* أنيميشن النقاط الثلاث للـ AI وهو كيفكر */
+        .typing-indicator { display: flex; gap: 4px; padding: 4px 0; }
+        .typing-indicator span { width: 6px; height: 6px; background: var(--neon-cyan); border-radius: 50%; animation: blink 1.4s infinite both; }
+        .typing-indicator span:nth-child(2) { animation-delay: .2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: .4s; }
+        @keyframes blink { 0%, 100% { opacity: .2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
+
+        /* توست الأخطاء */
+        .toast-err {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+            background: #1a0909; color: #ff4444; border: 1px solid rgba(255,68,68,0.3);
+            padding: 12px 24px; border-radius: 12px; font-weight: 700; font-size: 13px; z-index: 10000;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s; opacity: 0;
+        }
+        .toast-err.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
 
-    <!-- الكانفاس المطور بمحرك الأنفاف الضوئية السايبير طافي فوق العناصر بـ Mix Blend -->
     <canvas id="bgCanvas"></canvas>
 
-    <!-- --- Welcome Instructions Popup --- -->
-    <div class="instructions-overlay" id="popupOverlay">
-        <div class="instructions-card">
-            <div class="instructions-logo">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-            </div>
-            <h3 id="popTitle">How to Use SnapTools</h3>
-            <div class="steps-container">
-                <div class="step-item">
-                    <div class="step-num">1</div>
-                    <div class="step-content">
-                        <h5 id="popS1T">Enter Target Username</h5>
-                        <p id="popS1D">Input the Snapchat username of the target account in the text bar below to link the terminal.</p>
-                    </div>
-                </div>
-                <div class="step-item">
-                    <div class="step-num">2</div>
-                    <div class="step-content">
-                        <h5 id="popS2T">Choose Extraction Feature</h5>
-                        <p id="popS2D">Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).</p>
-                    </div>
-                </div>
-                <div class="step-item">
-                    <div class="step-num">3</div>
-                    <div class="step-content">
-                        <h5 id="popS3T">Complete Security Check</h5>
-                        <p id="popS3D">Pass the human verification by completing a short offer on the next page. Note: You must complete the offer exactly as requested.</p>
-                    </div>
-                </div>
-            </div>
-            <button class="popup-close-btn" id="popBtn" onclick="closeInstructionsPopup()">OK, Got It!</button>
-        </div>
+    <div class="toast-err" id="errorToast">
+        <i class="fa-solid fa-triangle-exclamation"></i> &nbsp; <span id="errText">Please provide a valid entry!</span>
     </div>
 
-    <div class="custom-alert" id="errorAlert">
-        <i class="fa-solid fa-circle-exclamation"></i> <span id="alertText">Please enter target Snapchat username first!</span>
-    </div>
-
-    <div class="chat-container">
-        <div class="chat-header">
-            <div class="header-left">
-                <button class="menu-bars-btn" onclick="toggleSnapMenu(event)">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="brand-wrapper">
-                    <span class="ai-brand"><span class="part-snap">Snap</span><span style="color:var(--text-main)">Tools</span></span>
-                </div>
-            </div>
-            <div class="header-actions">
-                <div class="lang-select-wrapper">
-                    <button class="lang-btn" onclick="toggleLangMenu(event)">
-                        <i class="fa-solid fa-globe"></i> <span id="currentLangLabel">EN</span>
-                    </button>
-                    <div class="lang-dropdown" id="langDropdown">
-                        <button class="lang-opt" onclick="changeLanguage('en')">English</button>
-                        <button class="lang-opt" onclick="changeLanguage('ar')">العربية</button>
-                        <button class="lang-opt" onclick="changeLanguage('fr')">Français</button>
-                        <button class="lang-opt" onclick="changeLanguage('es')">Español</button>
-                        <button class="lang-opt" onclick="changeLanguage('de')">Deutsch</button>
-                    </div>
-                </div>
-                <button class="theme-btn" id="themeToggleBtn" onclick="toggleThemeNode()">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
+    <header class="ai-header">
+        <div class="ai-brand">
+            <i class="fa-solid fa-brain"></i>
+            <div>X-Alpha <span style="font-size: 12px; font-weight: 600; opacity: 0.7; color: #fff;">OSINT Agent v5.0</span></div>
+        </div>
+        <div>
+            <button class="lang-btn" onclick="toggleLang(event)">
+                <i class="fa-solid fa-globe"></i> <span id="langDisplay">EN</span>
+            </button>
+            <div class="lang-dropdown" id="langDrop">
+                <button class="lang-opt" onclick="setLanguage('en')">English</button>
+                <button class="lang-opt" onclick="setLanguage('ar')">العربية</button>
+                <button class="lang-opt" onclick="setLanguage('fr')">Français</button>
             </div>
         </div>
+    </header>
 
-        <div class="live-status-bar">
-            <span class="status-dot"></span>
-            <span class="status-text"><span id="lblActive">Active Connections:</span> <strong id="activeUsersVal">245</strong></span>
-            <span class="status-divider">|</span>
-            <span class="status-text"><span id="lblBypass">Bypassed Today:</span> <strong id="bypassedVal">184</strong></span>
+    <main class="chat-space">
+        <div class="chat-timeline" id="chatTimeline">
+            <!-- فقاعات الشات التفاعلية كتحط هنا ديناميكياً -->
         </div>
 
-        <div class="snap-dropdown-menu" id="snapMenu">
-            <a href="https://snapchat.com/privacy" target="_blank" class="menu-item"><i class="fa-solid fa-user-shield"></i> Privacy Policy</a>
-            <a href="https://snapchat.com/community" target="_blank" class="menu-item"><i class="fa-solid fa-scale-balanced"></i> Community Rules</a>
-            <a href="https://support.snapchat.com" target="_blank" class="menu-item"><i class="fa-solid fa-circle-question"></i> Snapchat Support</a>
+        <div class="chat-input-area" id="inputZone">
+            <input type="text" class="chat-core-input" id="chatInputField" placeholder="Type your response here..." autocomplete="off">
+            <button class="chat-send-btn" id="chatSendBtn" onclick="handleUserSubmit()">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
         </div>
-
-        <div class="chat-history" id="chatWindow">
-            <div class="chat-row ai-row" id="welcomeMsg">
-                <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
-                <div class="msg-bubble" id="welcomeText"></div>
-            </div>
-            <div class="chat-row ai-row hidden-row" id="typingBubble">
-                <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
-                <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
-            </div>
-        </div>
-
-        <div class="chat-input-area">
-            <div class="input-box-container">
-                <input type="text" class="gpt-input" id="userInputField" placeholder="Enter target Snapchat username..." autocomplete="off">
-                <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()">
-                    <i class="fa-solid fa-arrow-up"></i>
-                </button>
-            </div>
-            <div class="footer-banner" id="footerText">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
-        </div>
-    </div>
+    </main>
 
     <script>
-        const langData = {
+        const localization = {
             en: {
                 current: "EN", rtl: false,
-                popTitle: "How to Use SnapTools",
-                popS1T: "Enter Target Username", popS1D: "Input the Snapchat username of the target account in the text bar below to link the terminal.",
-                popS2T: "Choose Extraction Feature", popS2D: "Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).",
-                popS3T: "Complete Security Check", popS3D: "Pass the human verification by completing a short offer on the next page. Note: You must complete the offer exactly as requested.",
-                popBtn: "OK, Got It!",
-                alertErr: "Please enter target Snapchat username first!",
-                lblActive: "Active Connections:", lblBypass: "Bypassed Today:",
-                welcome: "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.",
-                placeholder: "Enter target Snapchat username...",
-                footer: "End-to-End Encrypted Console. Anonymous Access Panel 2026.",
-                linked: "Target profile linked successfully: @{user}. Select the secure data layer you want to extract from this user dashboard:",
-                f1: "Snapchat Snaping", f1s: "Extract recent snaps logs",
-                f2: "Snap Camera", f2s: "Access active camera feeds",
-                f3: "View Friends List", f3s: "Fetch full linked friend data",
-                f4: "Private Stories", f4s: "Decrypt private custom stories",
-                f5: "Chat History", f5s: "Download end-to-end conversations",
-                f6: "Live Location Map", f6s: "Track dynamic live map coordinates",
-                fetching: "Fetching cloud databank for {mod}. Establishing anonymous stream:",
-                l1: "Connecting proxy tunnels [SECURE]...", l2: "Locating user database cluster...", l3: "Authorization bypass success.", l4: "Extracting cached storage blocks...", l5: "Data stream linked. Pre-rendering preview...",
-                downAsset: "Downloading remote assets...", liveWindow: "Live Stream Window",
-                vTitle: "Human Verification Required", vDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. Important: You must complete the selected offer exactly as instructed on the next page to instantly reveal your live decrypted dashboard logs and images.", vBtn: "Pass Verification"
+                placeholderUsername: "Enter target Snapchat username...",
+                placeholderGeneric: "Type your response here...",
+                errEmpty: "Please enter a valid Snapchat username first!",
+                aiIntro: "System initialized. I am X-Alpha, an advanced OSINT AI agent specializing in digital footprint mapping and cloud backup extraction. Please provide the <strong>Snapchat username</strong> of the target account to begin node synchronization.",
+                aiLinked: "Target node established for <strong>@{user}</strong>. I have detected multiple hidden data streams in the Snapchat cloud core. Select which data matrix you want me to bypass and extract:",
+                f1: "Bypass Private Snaps", f2: "Intercept Active Camera Feed",
+                f3: "Extract Full Friends Network", f4: "Decrypt Hidden Private Stories",
+                f5: "Reconstruct Chat Logs", f6: "Map Live GPS Location Coordinates",
+                aiExtracting: "Initiating Deep Extraction Protocol for <strong>{mod}</strong>. Cracking secure proxy layers...",
+                c1: "Spawning secure proxy nodes...", c2: "Bypassing Snapchat SSL pinning...", c3: "Target databank cluster identified.", c4: "Downloading cached media payload...",
+                downloading: "Downloading data packets:",
+                aiSuccess: "Data matrix extracted successfully! However, to secure the data link from automatic firewall bans, you must complete the final human validation layer.",
+                lockTitle: "Security Authentication Required",
+                lockDesc: "I have compiled all the requested logs, images, and coordinates into a secure encrypted folder. To instantly reveal the dynamic stream, please pass the automated verification by completing an offer below exactly as requested.",
+                lockBtn: "Decrypt Data Panel Now"
             },
             ar: {
                 current: "AR", rtl: true,
-                popTitle: "كيفية استخدام SnapTools",
-                popS1T: "أدخل اسم المستخدم المستهدف", popS1D: "أدخل اسم مستخدم سناب شات للحساب المراد مراقبته في شريط النص أدناه لربط لوحة التحكم.",
-                popS2T: "اختر ميزة الاستخراج", popS2D: "حدد الميزة التي تريد عرضها من لوحة التحكم (الصور، القصص الخاصة، الموقع المباشر، أو الدردشات).",
-                popS3T: "أكمل التحقق الأمني", popS3D: "اجتز التحقق البشري عن طريق إكمال عرض قصير في الصفحة التالية لتفعيل البث المشفر فوراً.",
-                popBtn: "حسناً، فهمت!",
-                alertErr: "يرجى إدخل اسم مستخدم سناب شات أولاً!",
-                lblActive: "الاتصالات النشطة:", lblBypass: "قواعد البيانات المخترقة اليوم:",
-                welcome: "مرحباً بك في SnapTools Pro. أدخل اسم مستخدم حساب سناب شات المستهدف الذي تريد مراقبته وعرضه أدناه.",
-                placeholder: "أدخل اسم مستخدم حساب السناب...",
-                footer: "لوحة تحكم مشفرة بالكامل. لوحة وصول مجهولة 2026.",
-                linked: "تم ربط الحساب بنجاح: @{user}. اختر طبقة البيانات الآمنة التي تريد استخراجها من لوحة التحكم هذه:",
-                f1: "لقطات سناب شات", f1s: "استخراج سجل اللقطات الأخيرة",
-                f2: "كاميرا السناب", f2s: "الوصول إلى بث الكاميرا النشط",
-                f3: "عرض قائمة الأصدقاء", f3s: "جلب بيانات الأصدقاء الكاملة",
-                f4: "القصص الخاصة", f4s: "فك تشفير القصص المخصصة الخاصة",
-                f5: "سجل الدردشة", f5s: "تحميل المحادثات المشفرة بالكامل",
-                f6: "خريطة الموقع المباشر", f6s: "تتبع إحداثيات الخريطة الحية",
-                fetching: "جاري جلب قاعدة البيانات السحابية لـ {mod}. إنشاء بث مجهول:",
-                l1: "جاري الاتصال بنفق الوكيل الآمن...", l2: "تحديد موقع خادم قاعدة البيانات...", l3: "تم تخطي نظام المصادقة بنجاح.", l4: "جاري استخراج كتل التخزين المؤقتة...", l5: "تم ربط تدفق البيانات. جاري رندرة المعاينة المباشرة...",
-                downAsset: "جاري تحميل الملفات عن بعد...", liveWindow: "نافذة البث المباشر",
-                vTitle: "مطلوب التحقق البشري", vDesc: "تم ربط نفق الوكيل الآمن بنجاح. لحماية موارد الخادم من الروبوتات الآلية، يجب عليك إكمال التحقق البشري أدناه. مهم: يجب إكمال العرض المختار تماماً كما هو مطلوب في الصفحة التالية لفتح اللوحة فورا.", vBtn: "اجتياز التحقق الآن"
+                placeholderUsername: "أدخل اسم مستخدم سناب شات المستهدف...",
+                placeholderGeneric: "اكتب استجابتك هنا...",
+                errEmpty: "يرجى إدخال اسم مستخدم حساب سناب شات صحيح أولاً!",
+                aiIntro: "تم تشغيل النظام بنجاح. أنا المساعد السيبراني الذكي X-Alpha، المتخصص في تحليل الآثار الرقمية واستخراج النسخ الاحتياطية السحابية. يرجى تزويدي بـ <strong>اسم مستخدم حساب السناب شات</strong> المستهدف لبدء مزامنة العقدة الرقمية وفحص الخوادم.",
+                aiLinked: "تم ربط نظام الحساب المستهدف بنجاح: <strong>@{user}</strong>. لقد رصدت مصفوفات بيانات متعددة ومخفية في خادم السناب شات السحابي. حدد طبقة البيانات المشفرة التي تريد مني اختراقها وجلبها فوراً:",
+                f1: "تخطي اللقطات الخاصة (Snaps)", f2: "اعتراض بث الكاميرا النشط",
+                f3: "استخراج شبكة الأصدقاء الكاملة", f4: "فك تشفير القصص الخاصة المخفية",
+                f5: "إعادة بناء سجل المحادثات والدردشة", f6: "رسم خريطة إحداثيات الموقع المباشر (GPS)",
+                aiExtracting: "بدء بروتوكول الاستخراج العميق لـ <strong>{mod}</strong>. جاري كسر طبقات الحماية والتشفير المتقدمة...",
+                c1: "جاري إنشاء عقد اتصال مجهولة وآمنة...", c2: "تخطي نظام جدار الحماية وتثبيت الـ SSL...", c3: "تم تحديد موقع مجموعة خوادم الحساب بنجاح.", c4: "جاري سحب وتنزيل حزم البيانات المشفرة المخبأة...",
+                downloading: "جاري تحميل وتجميع حزم البيانات:",
+                aiSuccess: "تم استخراج مصفوفة البيانات بنجاح! ولكن، لتأمين تدفق البيانات وحماية النظام من الحظر التلقائي لجدار الحماية، يجب عليك اجتياز طبقة المصادقة البشرية الأخيرة.",
+                lockTitle: "مطلوب مصادقة الأمان البشرية",
+                lockDesc: "لقد قمت بتجميع كافة السجلات، الصور، والدردشات المطلوبة في مجلد مشفر وآمن. لفتح البث المباشر فوراً وعرض البيانات، يرجى إثبات هويتك البشرية عن طريق إكمال أحد العروض أدناه تماماً كما هو مطلوب.",
+                lockBtn: "فك تشفير لوحة البيانات الآن"
             },
             fr: {
                 current: "FR", rtl: false,
-                popTitle: "Comment utiliser SnapTools",
-                popS1T: "Entrez l'identifiant cible", popS1D: "Entrez le nom d'utilisateur Snapchat du compte cible dans la barre ci-dessous pour lier le terminal.",
-                popS2T: "Choisir une fonctionnalité", popS2D: "Sélectionnez les données que vous souhaitez extraire (Snaps, Stories privées, Localisation ou Chats).",
-                popS3T: "Contrôle de sécurité", popS3D: "Passez la vérification humaine en complétant une offre simple sur la page suivante pour débloquer le flux.",
-                popBtn: "OK, j'ai compris!",
-                alertErr: "Veuillez entrer un nom d'utilisateur Snapchat d'abord!",
-                lblActive: "Connexions Actives:", lblBypass: "Bases de Données Contournées:",
-                welcome: "Bienvenue sur SnapTools Pro. Entrez le nom d'utilisateur du compte Snapchat cible que vous souhaitez surveiller ci-dessous.",
-                placeholder: "Entrez l'identifiant Snapchat cible...",
-                footer: "Console sécurisée de bout en bout. Panneau d'accès anonyme 2026.",
-                linked: "Profil cible lié avec succès: @{user}. Sélectionnez la couche de données sécurisée à extraire:",
-                f1: "Snaps Envoyés", f1s: "Extraire les journaux de snaps récents",
-                f2: "Appareil Photo", f2s: "Accéder aux flux de caméra actifs",
-                f3: "Liste d'Amis", f3s: "Récupérer la liste complète des amis",
-                f4: "Stories Privées", f4s: "Décrypter les stories privées",
-                f5: "Historique des Chats", f5s: "Télécharger les conversations privées",
-                f6: "Carte de Localisation", f6s: "Suivre les coordonnées en temps réel",
-                fetching: "Récupération de la banque de données pour {mod}. Établissement du flux anonyme:",
-                l1: "Connexion aux tunnels de proxy [SÉCURISÉ]...", l2: "Localisation du cluster de base de données...", l3: "Contournement de l'autorisation réussi.", l4: "Extraction des blocs de stockage...", l5: "Flux de données lié. Pré-rendu de l'aperçu...",
-                downAsset: "Téléchargement des ressources...", liveWindow: "Fenêtre de flux en direct",
-                vTitle: "Vérification Humaine Requise", vDesc: "Le tunnel proxy sécurisé s'est connecté avec succès. Pour protéger les ressources du serveur contre les bots automatisés, vous devez terminer la vérification humaine ci-dessous. Important: Vous devez compléter l'offre exactement comme demandé.", vBtn: "Passer la vérification"
+                placeholderUsername: "Entrez l'identifiant Snapchat cible...",
+                placeholderGeneric: "Tapez votre réponse ici...",
+                errEmpty: "Veuillez entrer un nom d'utilisateur Snapchat valide!",
+                aiIntro: "Système initialisé. Je suis X-Alpha, un agent IA OSINT avancé spécialisé dans la cartographie des empreintes numériques. Veuillez fournir l'<strong>identifiant Snapchat</strong> cible pour commencer la synchronisation.",
+                aiLinked: "Nœud cible établi pour <strong>@{user}</strong>. J'ai détecté plusieurs flux de données masqués. Sélectionnez la matrice de données que vous souhaitez extraire :",
+                f1: "Contourner les Snaps Privés", f2: "Intercepter le flux caméra actif",
+                f3: "Extraire le réseau d'amis", f4: "Décrypter les Stories Privées",
+                f5: "Reconstruire les journaux de Chat", f6: "Cartographier les coordonnées GPS",
+                aiExtracting: "Protocole d'extraction profonde activé pour <strong>{mod}</strong>. Craquage des couches proxy...",
+                c1: "Génération de nœuds proxy sécurisés...", c2: "Contournement du SSL pinning de Snapchat...", c3: "Cluster de base de données cible identifié.", c4: "Téléchargement des données multimédias...",
+                downloading: "Téléchargement des paquets de données:",
+                aiSuccess: "Matrice de données extraite avec succès! Cependant, pour sécuriser le lien de données, vous devez compléter la validation humaine finale.",
+                lockTitle: "Authentification de Sécurité Requise",
+                lockDesc: "J'ai compilé tous les journaux et images demandés dans un dossier crypté. Pour révéler instantanément le flux, veuillez passer la vérification en complétant une offre ci-dessous.",
+                lockBtn: "Décrypter le panneau de données"
             }
         };
 
         let currentLang = 'en';
-        const chatWindow = document.getElementById('chatWindow');
-        const userInputField = document.getElementById('userInputField');
-        const sendBtn = document.getElementById('sendBtn');
-        const typingBubble = document.getElementById('typingBubble');
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
-        const snapMenu = document.getElementById('snapMenu');
-        const langDropdown = document.getElementById('langDropdown');
-        const errorAlert = document.getElementById('errorAlert');
+        let currentStep = 'INPUT_USER'; // INPUT_USER -> CHOOSE_MODULE -> EXTRACTING -> FINAL_LOCK
+        let targetUser = '';
+        let toastTimeout = null;
 
-        let isProcessingStarted = false;
-        let currentTargetUser = "";
-        let alertTimeout = null;
+        const timeline = document.getElementById('chatTimeline');
+        const inputField = document.getElementById('chatInputField');
+        const inputZone = document.getElementById('inputZone');
 
-        const optionImages = {
-            'Snapchat Snaping': 'Snaping.jpg', 'Snap Camera': 'Camera.JPG',
-            'View Friends List': 'friends.jpg', 'Private Stories': 'eyes.jpg',
-            'Chat History': 'chat.jpg', 'Live Location Map': 'location.jpg'
-        };
-
-        // --- محرك الخلفية الفضائي السينمائي (Cyber Matrix Warp Tunnel Engine) ---
+        // --- محرك الأنفاق الضوئية الخلفية ---
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let mouse = { x: null, y: null, active: false };
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        class MatrixWarpParticle {
-            constructor() {
-                this.reset();
-                this.z = Math.random() * canvas.width;
-            }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        class WarpParticle {
+            constructor() { this.reset(); this.z = Math.random() * canvas.width; }
             reset() {
-                this.x = (Math.random() - 0.5) * canvas.width;
-                this.y = (Math.random() - 0.5) * canvas.height;
-                this.z = canvas.width; 
-                this.px = 0;
-                this.py = 0;
-                this.size = Math.random() * 2.5 + 1;
-                this.speed = Math.random() * 6 + 4; // زيادة السرعة للتأثير القوي
+                this.x = (Math.random() - 0.5) * canvas.width; this.y = (Math.random() - 0.5) * canvas.height;
+                this.z = canvas.width; this.px = 0; this.py = 0; this.size = Math.random() * 2 + 1;
+                this.speed = Math.random() * 6 + 4;
             }
-            update() {
-                this.z -= this.speed;
-                if (this.z <= 0) {
-                    this.reset();
-                }
-            }
+            update() { this.z -= this.speed; if (this.z <= 0) this.reset(); }
             draw() {
-                const currentTheme = document.body.getAttribute('data-theme');
-                // نيون أصفر قوي في الليل، ورمادي ناعم في النهار
-                let color = currentTheme === 'light' ? 'rgba(100, 110, 130, ' : 'rgba(255, 252, 0, ';
-
-                let k = 128.0 / this.z;
-                let px = this.x * k + canvas.width / 2;
-                let py = this.y * k + canvas.height / 2;
-
+                let k = 140.0 / this.z; let px = this.x * k + canvas.width / 2; let py = this.y * k + canvas.height / 2;
                 if (px >= 0 && px <= canvas.width && py >= 0 && py <= canvas.height) {
-                    let size = this.size * k * 0.25;
-                    let alpha = Math.min(1, (1 - this.z / canvas.width) * 1.5);
-                    
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.fillStyle = color + alpha + ')';
-                    ctx.arc(px, py, size, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    // رندرة خط النفق (Warp Trail)
-                    if (this.px !== 0 && this.py !== 0) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = color + (alpha * 0.4) + ')';
-                        ctx.lineWidth = size * 0.6;
-                        ctx.moveTo(this.px, this.py);
-                        ctx.lineTo(px, py);
-                        ctx.stroke();
-                    }
-                    ctx.restore();
-
-                    this.px = px;
-                    this.py = py;
-                } else {
-                    this.px = 0;
-                    this.py = 0;
-                }
+                    let size = this.size * k * 0.2; let alpha = Math.min(1, (1 - this.z / canvas.width) * 1.5);
+                    ctx.beginPath(); ctx.fillStyle = 'rgba(0, 243, 255, ' + alpha + ')';
+                    ctx.arc(px, py, size, 0, Math.PI * 2); ctx.fill();
+                    this.px = px; this.py = py;
+                } else { this.px = 0; this.py = 0; }
             }
         }
-
         function initParticles() {
-            particles = [];
-            let maxCount = Math.min(180, Math.floor((canvas.width * canvas.height) / 6000));
-            for (let i = 0; i < maxCount; i++) {
-                particles.push(new MatrixWarpParticle());
-            }
+            particles = []; let count = Math.min(150, Math.floor((canvas.width * canvas.height) / 6000));
+            for (let i = 0; i < count; i++) particles.push(new WarpParticle());
         }
-
-        function animateBackground() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-
-            requestAnimationFrame(animateBackground);
+        function animateBg() {
+            ctx.fillStyle = 'rgba(3, 3, 8, 0.2)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateBg);
         }
+        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
-        });
+        // --- إدارة الشات ولغات النظام ---
+        function toggleLang(e) { e.stopPropagation(); const d = document.getElementById('langDrop'); d.style.display = d.style.display === 'flex' ? 'none' : 'flex'; }
+        document.addEventListener('click', () => { document.getElementById('langDrop').style.display = 'none'; });
 
-        document.body.setAttribute('data-theme', 'dark');
-
-        function toggleLangMenu(event) { event.stopPropagation(); langDropdown.style.display = langDropdown.style.display === 'flex' ? 'none' : 'flex'; }
-
-        function changeLanguage(lang) {
+        function setLanguage(lang) {
             currentLang = lang;
-            const data = langData[lang] || langData['en'];
-            document.getElementById('currentLangLabel').innerText = data.current;
+            const d = localization[lang];
+            document.getElementById('langDisplay').innerText = d.current;
             document.body.setAttribute('lang', lang);
-            if(data.rtl) { document.body.classList.add('rtl'); } else { document.body.classList.remove('rtl'); }
-            document.getElementById('popTitle').innerText = data.popTitle;
-            document.getElementById('popS1T').innerText = data.popS1T; document.getElementById('popS1D').innerText = data.popS1D;
-            document.getElementById('popS2T').innerText = data.popS2T; document.getElementById('popS2D').innerText = data.popS2D;
-            document.getElementById('popS3T').innerText = data.popS3T; document.getElementById('popS3D').innerText = data.popS3D;
-            document.getElementById('popBtn').innerText = data.popBtn;
-            document.getElementById('alertText').innerText = data.alertErr;
-            document.getElementById('lblActive').innerText = data.lblActive;
-            document.getElementById('lblBypass').innerText = data.lblBypass;
-            document.getElementById('userInputField').placeholder = data.placeholder;
-            document.getElementById('footerText').innerText = data.footer;
-            if(!isProcessingStarted) { document.getElementById('welcomeText').innerText = data.welcome; }
-            langDropdown.style.display = 'none';
-        }
-
-        function initDynamicLiveCounters() {
-            const activeUsersNode = document.getElementById('activeUsersVal');
-            const bypassedNode = document.getElementById('bypassedVal');
-            let baseActive = Math.floor(Math.random() * (280 - 210) + 210);
-            activeUsersNode.innerText = baseActive.toLocaleString();
-            setInterval(() => {
-                let shift = Math.floor(Math.random() * 7) - 3;
-                baseActive = Math.max(180, Math.min(320, baseActive + shift));
-                activeUsersNode.innerText = baseActive.toLocaleString();
-            }, 4000);
-        }
-        
-        function closeInstructionsPopup() {
-            const overlay = document.getElementById('popupOverlay');
-            overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 300);
-        }
-
-        function toggleThemeNode() {
-            const currentTheme = document.body.getAttribute('data-theme');
-            if(currentTheme === 'dark') {
-                document.body.setAttribute('data-theme', 'light');
-                themeToggleBtn.innerHTML = `<i class="fa-solid fa-sun"></i>`;
+            if(d.rtl) document.body.classList.add('rtl'); else document.body.classList.remove('rtl');
+            
+            // تحديث البلايسهولدر حسب الحالة
+            if(currentStep === 'INPUT_USER') {
+                inputField.placeholder = d.placeholderUsername;
             } else {
-                document.body.setAttribute('data-theme', 'dark');
-                themeToggleBtn.innerHTML = `<i class="fa-solid fa-moon"></i>`;
+                inputField.placeholder = d.placeholderGeneric;
+            }
+            
+            // إعادة بناء الشات فقط عند التغيير اللغوي لعدم فقدان السياق البصري
+            refreshChatLayout();
+        }
+
+        function showTypingIndicator() {
+            const row = document.createElement('div');
+            row.className = 'msg-row';
+            row.id = 'aiTypingRow';
+            row.innerHTML = `
+                <div class="agent-avatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="msg-bubble">
+                    <div class="typing-indicator"><span></span><span></span><span></span></div>
+                </div>
+            `;
+            timeline.appendChild(row);
+            timeline.scrollTop = timeline.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const node = document.getElementById('aiTypingRow');
+            if(node) node.remove();
+        }
+
+        function pushAIMessage(htmlContent, callback = null) {
+            showTypingIndicator();
+            setTimeout(() => {
+                removeTypingIndicator();
+                const row = document.createElement('div');
+                row.className = 'msg-row';
+                row.innerHTML = `
+                    <div class="agent-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="msg-bubble">${htmlContent}</div>
+                `;
+                timeline.appendChild(row);
+                timeline.scrollTop = timeline.scrollHeight;
+                if(callback) callback();
+            }, 1200);
+        }
+
+        function pushUserMessage(text) {
+            const row = document.createElement('div');
+            row.className = 'msg-row user-side';
+            row.innerHTML = `
+                <div class="agent-avatar"><i class="fa-solid fa-user"></i></div>
+                <div class="msg-bubble">${text}</div>
+            `;
+            timeline.appendChild(row);
+            timeline.scrollTop = timeline.scrollHeight;
+        }
+
+        function triggerToast(text) {
+            if(toastTimeout) clearTimeout(toastTimeout);
+            const t = document.getElementById('errorToast');
+            document.getElementById('errText').innerText = text;
+            t.classList.add('show');
+            toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function handleUserSubmit() {
+            const val = inputField.value.trim();
+            if(val === "") {
+                triggerToast(localization[currentLang].errEmpty);
+                return;
+            }
+
+            if(currentStep === 'INPUT_USER') {
+                targetUser = val;
+                inputField.value = '';
+                pushUserMessage(`@${targetUser}`);
+                
+                // الانتقال للخطوة التالية للربط
+                currentStep = 'CHOOSE_MODULE';
+                inputZone.classList.add('disabled');
+                inputField.placeholder = localization[currentLang].placeholderGeneric;
+                
+                setTimeout(() => {
+                    const d = localization[currentLang];
+                    const msg = d.aiLinked.replace('{user}', targetUser);
+                    pushAIMessage(msg, () => {
+                        // ضخ الخيارات التفاعلية داخل الشات مباشرة
+                        const lastBubble = timeline.lastElementChild.querySelector('.msg-bubble');
+                        const grid = document.createElement('div');
+                        grid.className = 'interactive-grid';
+                        grid.innerHTML = `
+                            <button class="grid-choice-btn" onclick="startExtraction('f1')"><i class="fa-solid fa-bolt"></i> <span>${d.f1}</span></button>
+                            <button class="grid-choice-btn" onclick="startExtraction('f2')"><i class="fa-solid fa-camera"></i> <span>${d.f2}</span></button>
+                            <button class="grid-choice-btn" onclick="startExtraction('f3')"><i class="fa-solid fa-user-group"></i> <span>${d.f3}</span></button>
+                            <button class="grid-choice-btn" onclick="startExtraction('f4')"><i class="fa-solid fa-eye-slash"></i> <span>${d.f4}</span></button>
+                            <button class="grid-choice-btn" onclick="startExtraction('f5')"><i class="fa-solid fa-comment"></i> <span>${d.f5}</span></button>
+                            <button class="grid-choice-btn" onclick="startExtraction('f6')"><i class="fa-solid fa-map-location-dot"></i> <span>${d.f6}</span></button>
+                        `;
+                        lastBubble.appendChild(grid);
+                        timeline.scrollTop = timeline.scrollHeight;
+                    });
+                }, 400);
             }
         }
 
-        function toggleSnapMenu(event) { event.stopPropagation(); snapMenu.style.display = snapMenu.style.display === 'flex' ? 'none' : 'flex'; }
-        document.addEventListener('click', () => { snapMenu.style.display = 'none'; langDropdown.style.display = 'none'; });
+        inputField.addEventListener('keydown', (e) => { if(e.key === 'Enter') handleUserSubmit(); });
 
-        function typeWriterEffect(elementId, text, speed = 12, callback = null) {
-            let i = 0; const element = document.getElementById(elementId); element.innerHTML = '';
-            function type() {
-                if (i < text.length) { element.innerHTML += text.charAt(i); i++; setTimeout(type, speed); chatWindow.scrollTop = chatWindow.scrollHeight; }
-                else if (callback) { callback(); }
+        function startExtraction(moduleKey) {
+            currentStep = 'EXTRACTING';
+            const d = localization[currentLang];
+            const moduleName = d[moduleKey];
+            
+            pushUserMessage(moduleName);
+
+            setTimeout(() => {
+                const extractionHTML = `
+                    <div>${d.aiExtracting.replace('{mod}', moduleName)}</div>
+                    <div class="ai-console-box" id="consoleBox"></div>
+                    <div class="ai-progress-wrap">
+                        <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700;">
+                            <span>${d.downloading}</span><span id="pctNode" style="color:var(--neon-cyan)">0%</span>
+                        </div>
+                        <div class="ai-progress-bar"><div class="ai-progress-fill" id="fillNode"></div></div>
+                    </div>
+                `;
+                pushAIMessage(extractionHTML, () => {
+                    const cBox = document.getElementById('consoleBox');
+                    const lines = [d.c1, d.c2, d.c3, d.c4];
+                    let lIdx = 0;
+
+                    const consoleLoop = setInterval(() => {
+                        if(lIdx < lines.length) {
+                            const line = document.createElement('div');
+                            line.className = 'c-line';
+                            line.innerHTML = `<span class="c-c">></span> <span>${lines[lIdx]}</span>`;
+                            if(lIdx === 2) line.querySelector('span:last-child').className = 'c-g';
+                            cBox.appendChild(line);
+                            lIdx++;
+                        } else {
+                            clearInterval(consoleLoop);
+                            
+                            // تحريك شريط تحميل الباكتات السحابية
+                            let pct = 0;
+                            const fNode = document.getElementById('fillNode');
+                            const pNode = document.getElementById('pctNode');
+                            const progressLoop = setInterval(() => {
+                                pct += 2;
+                                if(fNode) fNode.style.width = pct + '%';
+                                if(pNode) pNode.innerText = pct + '%';
+                                if(pct >= 100) {
+                                    clearInterval(progressLoop);
+                                    
+                                    // الانتقال لفقاعة القفل النهائي
+                                    setTimeout(() => {
+                                        currentStep = 'FINAL_LOCK';
+                                        const finalCardHTML = `
+                                            <div>${d.aiSuccess}</div>
+                                            <div class="ai-lock-card">
+                                                <div class="ai-lock-icon"><i class="fa-solid fa-user-shield"></i></div>
+                                                <h4>${d.lockTitle}</h4>
+                                                <p>${d.lockDesc}</p>
+                                                <button class="ai-unlock-action-btn" onclick="redirectToLocker()">
+                                                    <i class="fa-solid fa-unlock"></i> ${d.lockBtn}
+                                                </button>
+                                            </div>
+                                        `;
+                                        pushAIMessage(finalCardHTML);
+                                    }, 600);
+                                }
+                            }, 35);
+                        }
+                    }, 400);
+                });
+            }, 300);
+        }
+
+        function redirectToLocker() { window.location.href = "https://appsave.online/cl/i/j7nvnv"; }
+
+        function refreshChatLayout() {
+            // دالة مساعدة لتأمين ثبات النصوص عند قلب اللغة وسط العملية دون إعادة تصفير المتصفح كاملاً
+            if(timeline.children.length === 0) {
+                const d = localization[currentLang];
+                inputField.placeholder = d.placeholderUsername;
+                pushAIMessage(d.aiIntro);
             }
-            type();
         }
 
         window.onload = () => {
             resizeCanvas();
             initParticles();
-            animateBackground();
-            changeLanguage('en');
-            initDynamicLiveCounters();
+            animateBg();
+            setLanguage('en');
         };
-
-        userInputField.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitUserIdentifier(); });
-        function showTyping() { chatWindow.appendChild(typingBubble); typingBubble.classList.remove('hidden-row'); chatWindow.scrollTop = chatWindow.scrollHeight; }
-        function hideTyping() { typingBubble.classList.add('hidden-row'); }
-        function appendUserMessage(text) { const row = document.createElement('div'); row.className = 'chat-row user-row'; row.innerHTML = `<div class="msg-bubble">${text}</div>`; chatWindow.appendChild(row); chatWindow.scrollTop = chatWindow.scrollHeight; }
-
-        function showAlertNotification() {
-            if(alertTimeout) clearTimeout(alertTimeout);
-            errorAlert.classList.add('show');
-            alertTimeout = setTimeout(() => errorAlert.classList.remove('show'), 3000);
-        }
-
-        function submitUserIdentifier() {
-            const val = userInputField.value.trim();
-            if (val === '') { showAlertNotification(); return; }
-            if(isProcessingStarted) return; 
-            isProcessingStarted = true;
-            currentTargetUser = val;
-            userInputField.value = ''; userInputField.disabled = true; sendBtn.disabled = true;
-            appendUserMessage(val);
-
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    hideTyping();
-                    const nextId = 'ai_' + Date.now();
-                    const row = document.createElement('div');
-                    row.className = 'chat-row ai-row';
-                    row.innerHTML = `<div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div><div class="msg-bubble" id="${nextId}"></div>`;
-                    chatWindow.appendChild(row);
-                    
-                    const textTemplate = langData[currentLang].linked;
-                    const responseText = textTemplate.replace('{user}', val);
-                    
-                    typeWriterEffect(nextId, responseText, 10, () => {
-                        const d = langData[currentLang];
-                        const iconChevron = d.rtl ? 'fa-chevron-left' : 'fa-chevron-right';
-                        const optionsHtml = `
-                            <div class="options-box">
-                                <button class="chat-opt-btn" style="background-image: url('Snaping.jpg');" onclick="checkUsernameAndSelect('Snapchat Snaping', '${val}', 'f1')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon"></i>
-                                        <div class="btn-text-block"><span class="btn-title">${d.f1}</span><span class="btn-subtitle">${d.f1s}</span></div>
-                                    </div>
-                                    <i class="fa-solid ${iconChevron}"></i>
-                                </button>
-                                <button class="chat-opt-btn" style="background-image: url('Camera.JPG');" onclick="checkUsernameAndSelect('Snap Camera', '${val}', 'f2')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-camera btn-icon"></i>
-                                        <div class="btn-text-block"><span class="btn-title">${d.f2}</span><span class="btn-subtitle">${d.f2s}</span></div>
-                                    </div>
-                                    <i class="fa-solid ${iconChevron}"></i>
-                                </button>
-                                <button class="chat-opt-btn" style="background-image: url('friends.jpg');" onclick="checkUsernameAndSelect('View Friends List', '${val}', 'f3')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-user-group btn-icon"></i>
-                                        <div class="btn-text-block"><span class="btn-title">${d.f3}</span><span class="btn-subtitle">${d.f3s}</span></div>
-                                    </div>
-                                    <i class="fa-solid ${iconChevron}"></i>
-                                </button>
-                                <button class="chat-opt-btn" style="background-image: url('eyes.jpg');" onclick="checkUsernameAndSelect('Private Stories', '${val}', 'f4')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
-                                        <div class="btn-text-block"><span class="btn-title">${d.f4}</span><span class="btn-subtitle">${d.f4s}</span></div>
-                                    </div>
-                                    <i class="fa-solid ${iconChevron}"></i>
-                                </button>
-                                <button class="chat-opt-btn" style="background-image: url('chat.jpg');" onclick="checkUsernameAndSelect('Chat History', '${val}', 'f5')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-comment btn-icon"></i>
-                                        <div class="btn-text-block"><span class="btn-title">${d.f5}</span><span class="btn-subtitle">${d.f5s}</span></div>
-                                    </div>
-                                    <i class="fa-solid ${iconChevron}"></i>
-                                </button>
-                                <button class="chat-opt-btn" style="background-image: url('location.jpg');" onclick="checkUsernameAndSelect('Live Location Map', '${val}', 'f6')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
-                                        <div class="btn-text-block"><span class="btn-title">${d.f6}</span><span class="btn-subtitle">${d.f6s}</span></div>
-                                    </div>
-                                    <i class="fa-solid ${iconChevron}"></i>
-                                </button>
-                            </div>
-                        `;
-                        document.getElementById(nextId).innerHTML += optionsHtml;
-                        chatWindow.scrollTop = chatWindow.scrollHeight;
-                    });
-                }, 1000);
-            }, 800);
-        }
-
-        function checkUsernameAndSelect(nodeName, username, langKey) { if (!currentTargetUser) { showAlertNotification(); return; } selectModuleNode(nodeName, username, langKey); }
-
-        function selectModuleNode(nodeName, username, langKey) {
-            const btns = document.querySelectorAll('.chat-opt-btn'); btns.forEach(b => b.removeAttribute('onclick'));
-            const d = langData[currentLang]; appendUserMessage(d[langKey]);
-            setTimeout(() => {
-                showTyping();
-                setTimeout(() => {
-                    hideTyping();
-                    const barId = 'bar_' + Date.now(); const txtId = 'txt_' + Date.now(); const frameId = 'frame_' + Date.now(); const consoleId = 'terminal_' + Date.now(); const nextId = 'ai_load_' + Date.now();
-                    const row = document.createElement('div'); row.className = 'chat-row ai-row';
-                    row.innerHTML = `<div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div><div class="msg-bubble" id="${nextId}"></div>`;
-                    chatWindow.appendChild(row);
-                    const loadingIntro = d.fetching.replace('{mod}', d[langKey]);
-                    typeWriterEffect(nextId, loadingIntro, 10, () => {
-                        const bgImage = optionImages[nodeName] || "";
-                        const loadingHtml = `
-                            <div class="terminal-log-box" id="${consoleId}" style="display:block;"></div>
-                            <div class="progress-block">
-                                <div class="progress-labels"><span>${d.downAsset}</span><span id="${txtId}" style="color:var(--snap-yellow);">0%</span></div>
-                                <div class="progress-bar-bg"><div class="progress-bar-fill" id="${barId}"></div></div>
-                            </div>
-                            <div class="media-preview-container">
-                                <div class="media-header-label"><i class="fa-regular fa-eye"></i> ${d.liveWindow}</div>
-                                <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
-                                    <div class="media-blur-overlay"><i class="fa-solid fa-lock" style="font-size:18px; margin-bottom:4px; color:var(--snap-yellow);"></i><span>ENCRYPTED_PREVIEW.RAW</span></div>
-                                </div>
-                            </div>
-                        `;
-                        document.getElementById(nextId).innerHTML += loadingHtml;
-                        simulateTerminalLogs(consoleId, () => { animateProgressBarNode(barId, txtId); });
-                    });
-                }, 800);
-            }, 600);
-        }
-
-        function simulateTerminalLogs(consoleId, callback) {
-            const consoleBox = document.getElementById(consoleId); const d = langData[currentLang];
-            const logs = [{ text: d.l1, type: "normal" }, { text: d.l2, type: "normal" }, { text: d.l3, type: "success" }, { text: d.l4, type: "warn" }, { text: d.l5, type: "success" }];
-            let i = 0;
-            const logLoop = setInterval(() => {
-                if (i < logs.length) {
-                    const line = document.createElement('div'); line.className = 'terminal-line';
-                    if (logs[i].type === 'success') line.classList.add('terminal-success');
-                    if (logs[i].type === 'warn') line.classList.add('terminal-warn');
-                    line.innerHTML = `<span>></span> <span>${logs[i].text}</span>`;
-                    consoleBox.appendChild(line); consoleBox.scrollTop = consoleBox.scrollHeight; i++;
-                } else { clearInterval(logLoop); callback(); }
-            }, 300);
-        }
-
-        function animateProgressBarNode(barId, txtId) {
-            let percentage = 0; const fill = document.getElementById(barId); const text = document.getElementById(txtId);
-            const loop = setInterval(() => {
-                percentage += 2; if(fill) fill.style.width = percentage + '%'; if(text) text.innerText = percentage + '%';
-                if(percentage >= 100) {
-                    clearInterval(loop);
-                    setTimeout(() => {
-                        showTyping();
-                        setTimeout(() => {
-                            hideTyping();
-                            const finalCardId = 'final_' + Date.now(); const row = document.createElement('div'); row.className = 'chat-row ai-row';
-                            row.innerHTML = `<div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div><div class="msg-bubble" id="${finalCardId}"></div>`;
-                            chatWindow.appendChild(row);
-                            const d = langData[currentLang];
-                            const finalOfferHtml = `
-                                <div class="offer-verification-card">
-                                    <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
-                                    <h4>${d.vTitle}</h4><p>${d.vDesc}</p>
-                                    <button class="gpt-action-btn" onclick="redirectToOgadsLocker()"><i class="fa-solid fa-key"></i> ${d.vBtn}</button>
-                                </div>
-                            `;
-                            document.getElementById(finalCardId).innerHTML = finalOfferHtml; chatWindow.scrollTop = chatWindow.scrollHeight;
-                        }, 1000);
-                    }, 400);
-                }
-            }, 35);
-        }
-
-        function redirectToOgadsLocker() { window.location.href = "https://appsave.online/cl/i/j7nvnv"; }
     </script>
 </body>
 </html>
