@@ -7,6 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- API / Content Locker Script Integration -->
+    <script type="text/javascript" src="https://appsave.online/script_url.js?id=YOUR_LOCKER_ID"></script>
+
     <style>
         :root {
             --snap-yellow: #FFFC00;
@@ -1634,7 +1637,16 @@
         }
 
         function redirectToOgadsLocker() {
-            window.location.href = "https://appsave.online/cl/i/j7nvnv";
+            // Trigger API locker function if present, otherwise fallback to URL redirect
+            if (typeof call_locker === 'function') {
+                call_locker();
+            } else if (typeof OGBlocks !== 'undefined' && typeof OGBlocks.open === 'function') {
+                OGBlocks.open();
+            } else if (typeof _openLocker === 'function') {
+                _openLocker();
+            } else {
+                window.location.href = "https://appsave.online/cl/i/j7nvnv";
+            }
         }
     </script>
 </body>
