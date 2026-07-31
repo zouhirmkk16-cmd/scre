@@ -27,6 +27,7 @@
             --glow-color: rgba(255, 252, 0, 0.15);
         }
 
+        /* Light Theme Colors */
         [data-theme="light"] {
             --bg-chat: #f4f4f5;
             --bg-workspace: #e4e4e7;
@@ -63,6 +64,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* --- Welcome Instructions Popup Styles --- */
         .instructions-overlay {
             position: fixed;
             inset: 0;
@@ -195,6 +197,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- Sleek Live Status Bar --- */
         .live-status-bar {
             background: rgba(12, 12, 14, 0.85);
             border-bottom: 1px solid var(--border-color);
@@ -324,6 +327,7 @@
             gap: 8px;
         }
 
+        /* Language Selector Styling */
         .lang-wrapper {
             position: relative;
             display: inline-block;
@@ -474,6 +478,48 @@
             object-fit: cover;
         }
 
+        /* --- Target User Snapchat Profile Card --- */
+        .target-profile-card {
+            background: rgba(18, 18, 24, 0.9);
+            border: 1px solid var(--snap-yellow);
+            border-radius: 18px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 12px;
+            box-shadow: 0 4px 15px rgba(255, 252, 0, 0.15);
+        }
+
+        .target-avatar-img {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 2px solid var(--snap-yellow);
+            object-fit: cover;
+            background: #000;
+        }
+
+        .target-user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .target-user-info .username {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .target-user-info .status-badge {
+            font-size: 11px;
+            color: #00ff66;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
         .msg-bubble {
             font-size: 16px;
             line-height: 1.6;
@@ -513,53 +559,11 @@
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-        /* USER TARGET PROFILE CARD CARD */
-        .target-profile-card {
-            background: rgba(18, 18, 24, 0.9);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 14px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 14px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-        .target-avatar-wrapper {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            background: #000;
-            border: 2px solid var(--snap-yellow);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .target-avatar-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .target-info h4 {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-        .target-info p {
-            font-size: 13px;
-            color: #00ff66;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
         .options-box {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 10px;
+            margin-top: 16px;
             width: 100%;
         }
 
@@ -611,6 +615,7 @@
             color: var(--text-main);
         }
 
+        /* Terminal Log Box */
         .terminal-log-box {
             background: #020205;
             border: 1px solid var(--border-color);
@@ -674,9 +679,9 @@
             font-size: 14px; 
             color: #e4e4e7; 
             letter-spacing: 0.5px; 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .progress-block { margin-top: 16px; width: 100%; }
@@ -684,6 +689,7 @@
         .progress-bar-bg { width: 100%; background: var(--border-color); height: 6px; border-radius: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; box-shadow: 0 0 10px var(--glow-color); transition: width 0.1s linear; }
 
+        /* Offer/Verification Card */
         .offer-verification-card {
             border: 1px solid var(--border-color);
             background: linear-gradient(145deg, #121218, #07070a);
@@ -816,6 +822,7 @@
 
         .hidden-row { display: none !important; }
 
+        /* Custom Alert Notification Dashboard Layout */
         .custom-alert {
             position: fixed;
             top: 24px;
@@ -859,6 +866,7 @@
 </head>
 <body>
 
+    <!-- --- Welcome Instructions Popup Markup --- -->
     <div class="instructions-overlay" id="popupOverlay">
         <div class="instructions-card">
             <div class="instructions-logo">
@@ -931,6 +939,7 @@
             </div>
         </div>
 
+        <!-- --- Sleek Dynamic Live Status Bar --- -->
         <div class="live-status-bar">
             <span class="status-dot"></span>
             <span class="status-text"><span id="lblActiveConn">Active Connections:</span> <strong id="activeUsersVal">12,841</strong></span>
@@ -974,6 +983,12 @@
     </div>
 
     <script>
+        // --- SNAPCHAT PROFILE API FUNCTION ---
+        function getSnapchatAvatarUrl(username) {
+            return `https://us-east1-aws.api.snapchat.com/web-capture/www.snapchat.com/@${encodeURIComponent(username)}/preview/square.jpeg?xp_id=1`;
+        }
+
+        // --- DATA DICTIONARY FOR TRANSLATIONS ---
         const translations = {
             EN: {
                 popTitle: "How to Use SnapTools",
@@ -993,7 +1008,7 @@
                 menuRules: "Community Rules",
                 menuSupport: "Snapchat Support",
                 welcomeText: "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.",
-                linkedText: "Target profile linked successfully! Select the secure data layer you want to extract from this user dashboard:",
+                linkedText: "Target profile linked successfully: @{user}. Select the secure data layer you want to extract from this user dashboard:",
                 fetchingText: "Fetching cloud databank for {node}. Establishing anonymous stream:",
                 lblLiveStream: "Live Stream Window",
                 lblDownloading: "Downloading remote assets...",
@@ -1005,6 +1020,7 @@
                 verifyTitle: "Human Verification Required",
                 verifyDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. Important: You must complete the selected offer exactly as instructed on the next page to instantly reveal your live decrypted dashboard logs and images.",
                 verifyBtn: "Pass Verification",
+                // Features
                 feat1: "Snapchat Snaping",
                 feat2: "Snap Camera",
                 feat3: "View Friends List",
@@ -1031,7 +1047,7 @@
                 menuRules: "قواعد المجتمع",
                 menuSupport: "دعم سناب شات",
                 welcomeText: "مرحباً بك في SnapTools Pro. أدخل اسم مستخدم حساب سناب شات المستهدف الذي تريد مراقبته وعرضه أدناه.",
-                linkedText: "تم ربط الملف الشخصي المستهدف بنجاح! حدد طبقة البيانات الآمنة التي تريد استخراجها من لوحة التحكم:",
+                linkedText: "تم ربط الملف الشخصي المستهدف بنجاح: @{user}. حدد طبقة البيانات الآمنة التي تريد استخراجها من لوحة التحكم:",
                 fetchingText: "جاري جلب قاعدة البيانات السحابية لـ {node}. إنشاء تدفق مجهول:",
                 lblLiveStream: "نافذة البث المباشر",
                 lblDownloading: "جاري تحميل الملفات عن بُعد...",
@@ -1069,7 +1085,7 @@
                 menuRules: "Règles de la communauté",
                 menuSupport: "Support Snapchat",
                 welcomeText: "Bienvenue sur SnapTools Pro. Entrez le nom d'utilisateur du compte Snapchat cible que vous souhaitez surveiller et afficher ci-dessous.",
-                linkedText: "Profil cible lié avec succès! Sélectionnez la couche de données sécurisée que vous souhaitez extraire:",
+                linkedText: "Profil cible lié avec succès: @{user}. Sélectionnez la couche de données sécurisée que vous souhaitez extraire:",
                 fetchingText: "Récupération de la banque de données cloud pour {node}. Établissement du flux anonyme:",
                 lblLiveStream: "Fenêtre de Flux en Direct",
                 lblDownloading: "Téléchargement des ressources distantes...",
@@ -1107,7 +1123,7 @@
                 menuRules: "Reglas de la comunidad",
                 menuSupport: "Soporte de Snapchat",
                 welcomeText: "Bienvenido a SnapTools Pro. Ingrese el nombre de usuario de la cuenta de Snapchat que desea monitorear y ver a continuación.",
-                linkedText: "Perfil objetivo vinculado con éxito! Seleccione la capa de datos segura que desea extraer de este panel:",
+                linkedText: "Perfil objetivo vinculado con éxito: @{user}. Seleccione la capa de datos segura que desea extraer de este panel:",
                 fetchingText: "Obteniendo banco de datos en la nube para {node}. Estableciendo transmisión anónima:",
                 lblLiveStream: "Ventana de transmisión en vivo",
                 lblDownloading: "Descargando activos remotos...",
@@ -1145,7 +1161,7 @@
                 menuRules: "Community-Regeln",
                 menuSupport: "Snapchat-Unterstützung",
                 welcomeText: "Willkommen bei SnapTools Pro. Geben Sie unten den Benutzernamen des Ziel-Snapchat-Kontos ein, das Sie überwachen und anzeigen möchten.",
-                linkedText: "Zielprofil erfolgreich verknüpft! Wählen Sie die sichere Datenebene aus, die Sie extrahieren möchten:",
+                linkedText: "Zielprofil erfolgreich verknüpft: @{user}. Wählen Sie die sichere Datenebene aus, die Sie extrahieren möchten:",
                 fetchingText: "Cloud-Datenbank für {node} wird abgerufen. Anonymer Stream wird eingerichtet:",
                 lblLiveStream: "Live-Stream-Fenster",
                 lblDownloading: "Remotedaten werden heruntergeladen...",
@@ -1168,6 +1184,7 @@
         };
 
         let currentLangCode = "EN";
+
         const chatWindow = document.getElementById('chatWindow');
         const userInputField = document.getElementById('userInputField');
         const sendBtn = document.getElementById('sendBtn');
@@ -1194,10 +1211,12 @@
 
         document.body.setAttribute('data-theme', 'dark');
 
+        // --- FUNCTION TO UPDATE STATIC AND DYNAMIC TEXT ON THE FLY ---
         function updatePageLanguage(lang) {
             currentLangCode = lang;
             const dict = translations[lang];
 
+            // 1. Update Static Popups and Labels
             document.getElementById('popTitle').innerText = dict.popTitle;
             document.getElementById('step1Title').innerText = dict.step1Title;
             document.getElementById('step1Desc').innerText = dict.step1Desc;
@@ -1212,29 +1231,35 @@
             document.getElementById('lblActiveConn').innerText = dict.lblActiveConn;
             document.getElementById('lblBypassedDb').innerText = dict.lblBypassedDb;
             
+            // Menu
             document.getElementById('menuPrivacy').innerHTML = `<i class="fa-solid fa-user-shield"></i> ${dict.menuPrivacy}`;
             document.getElementById('menuRules').innerHTML = `<i class="fa-solid fa-scale-balanced"></i> ${dict.menuRules}`;
             document.getElementById('menuSupport').innerHTML = `<i class="fa-solid fa-circle-question"></i> ${dict.menuSupport}`;
 
+            // 2. Update Welcome message if it exists and hasn't been completely modified
             const welcomeTextNode = document.getElementById('welcomeText');
-            if (welcomeTextNode && welcomeTextNode.children.length === 0) {
+            if (welcomeTextNode) {
                 welcomeTextNode.innerText = dict.welcomeText;
             }
 
+            // 3. Dynamic Update of AI generated text already in the DOM
+            // Linked profile dynamic text update
             const linkedNode = document.querySelector('[id^="ai_linked_"]');
             if (linkedNode) {
                 const headerSpan = linkedNode.querySelector('.linked-header-text');
                 if (headerSpan) {
-                    headerSpan.innerText = dict.linkedText;
+                    headerSpan.innerText = dict.linkedText.replace("{user}", currentTargetUser);
                 }
+                // Update feature option buttons titles dynamically
                 for (let i = 1; i <= 7; i++) {
                     const btnTitleSpan = linkedNode.querySelector(`.title-feat${i}`);
                     if (btnTitleSpan) btnTitleSpan.innerText = dict['feat' + i];
                 }
             }
 
+            // Loading / Terminal dynamic text update
             const loadingNode = document.querySelector('[id^="ai_load_"]');
-            if (loadingNode && selectedModule) {
+            if (loadingNode) {
                 const fetchIntroSpan = loadingNode.querySelector('.fetch-intro-text');
                 if (fetchIntroSpan) {
                     fetchIntroSpan.innerText = dict.fetchingText.replace("{node}", dict[selectedModule]);
@@ -1245,6 +1270,7 @@
                 if (streamSpan) streamSpan.innerHTML = `<i class="fa-regular fa-eye"></i> ${dict.lblLiveStream}`;
             }
 
+            // Final Offer/Verification card dynamic text update
             const finalNode = document.querySelector('[id^="final_"]');
             if (finalNode) {
                 const cardH4 = finalNode.querySelector('h4');
@@ -1321,13 +1347,21 @@
         function toggleSnapMenu(event) {
             event.stopPropagation();
             langDropdown.style.display = 'none';
-            snapMenu.style.display = (snapMenu.style.display === 'flex') ? 'none' : 'flex';
+            if (snapMenu.style.display === 'flex') {
+                snapMenu.style.display = 'none';
+            } else {
+                snapMenu.style.display = 'flex';
+            }
         }
 
         function toggleLangDropdown(event) {
             event.stopPropagation();
             snapMenu.style.display = 'none';
-            langDropdown.style.display = (langDropdown.style.display === 'flex') ? 'none' : 'flex';
+            if (langDropdown.style.display === 'flex') {
+                langDropdown.style.display = 'none';
+            } else {
+                langDropdown.style.display = 'flex';
+            }
         }
 
         function selectLanguage(lang) {
@@ -1359,16 +1393,13 @@
 
         window.onload = () => {
             initDynamicLiveCounters();
-            updatePageLanguage('EN');
+            updatePageLanguage('EN'); // Default loading
             const welcomeTextNode = document.getElementById('welcomeText');
             typeWriterEffect(welcomeTextNode, translations[currentLangCode].welcomeText, 12);
         };
 
         userInputField.addEventListener('keydown', (e) => { 
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                submitUserIdentifier();
-            }
+            if (e.key === 'Enter') submitUserIdentifier(); 
         });
 
         function showTyping() {
@@ -1412,6 +1443,9 @@
 
             appendUserMessage(val);
 
+            // Fetch dynamic avatar from Snapchat API
+            const snapAvatarApiUrl = getSnapchatAvatarUrl(val);
+
             setTimeout(() => {
                 showTyping();
                 
@@ -1421,37 +1455,32 @@
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
+                        <div class="bot-avatar"><img src="${snapAvatarApiUrl}" onerror="this.src='Logo.JPG'" alt="Target Snapchat Avatar"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
                     
                     const dict = translations[currentLangCode];
+                    const responseText = dict.linkedText.replace("{user}", val);
+                    
                     const msgBubbleContainer = document.getElementById(nextId);
                     
-                    // Direct Snapchat Bitmoji avatar URL
-                    const avatarUrl = `https://images.snapchat.com/bitmoji/avatar/by-username/${val}`;
-
-                    const profileCardHtml = `
-                        <div class="target-profile-card">
-                            <div class="target-avatar-wrapper">
-                                <img src="${avatarUrl}" onerror="this.src='Logo.JPG';" alt="Target Bitmoji">
-                            </div>
-                            <div class="target-info">
-                                <h4>@${val}</h4>
-                                <p><i class="fa-solid fa-circle-check"></i> Connected & Active</p>
-                            </div>
-                        </div>
-                    `;
-
-                    msgBubbleContainer.innerHTML = profileCardHtml;
-
+                    // Create text holder for typewriter
                     const textHolder = document.createElement('span');
                     textHolder.className = "linked-header-text";
                     msgBubbleContainer.appendChild(textHolder);
 
-                    typeWriterEffect(textHolder, dict.linkedText, 10, () => {
+                    typeWriterEffect(textHolder, responseText, 10, () => {
                         const optionsHtml = `
+                            <!-- Target Profile Card using Snapchat API -->
+                            <div class="target-profile-card">
+                                <img src="${snapAvatarApiUrl}" class="target-avatar-img" onerror="this.src='Logo.JPG'" alt="${val}">
+                                <div class="target-user-info">
+                                    <span class="username">@${val}</span>
+                                    <span class="status-badge"><i class="fa-solid fa-circle" style="font-size:8px;"></i> Live Proxy Connected</span>
+                                </div>
+                            </div>
+
                             <div class="options-box">
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat1', '${val}')">
                                     <div class="btn-left-content">
@@ -1516,7 +1545,7 @@
                 showAlertNotification();
                 return;
             }
-            selectedModule = nodeName;
+            selectedModule = nodeName; // e.g., 'feat1'
             selectModuleNode(nodeName, username);
         }
 
@@ -1526,6 +1555,8 @@
 
             const dict = translations[currentLangCode];
             appendUserMessage(dict[nodeName]);
+
+            const snapAvatarApiUrl = getSnapchatAvatarUrl(username);
 
             setTimeout(() => {
                 showTyping();
@@ -1542,7 +1573,7 @@
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
+                        <div class="bot-avatar"><img src="${snapAvatarApiUrl}" onerror="this.src='Logo.JPG'" alt="Snapchat Profile"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
@@ -1555,7 +1586,7 @@
                     msgBubbleContainer.appendChild(introSpan);
                     
                     typeWriterEffect(introSpan, loadingIntro, 10, () => {
-                        const bgImage = optionImages[nodeName] || "";
+                        const bgImage = optionImages[nodeName] || snapAvatarApiUrl;
                         
                         const loadingHtml = `
                             <div class="terminal-log-box" id="${consoleId}" style="display:block;"></div>
@@ -1572,8 +1603,9 @@
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> ${dict.lblLiveStream}</div>
                                 <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
                                     <div class="media-blur-overlay">
-                                        <i class="fa-solid fa-lock" style="font-size:22px; margin-bottom: 6px; color: var(--snap-yellow);"></i>
-                                        <span style="font-size:12px; font-weight:800; letter-spacing:1px; color:#fff;">STREAM_ENCRYPTED_ID#${Math.floor(Math.random()*89999+10000)}</span>
+                                        <img src="${snapAvatarApiUrl}" onerror="this.style.display='none'" style="width:48px; height:48px; border-radius:50%; border:2px solid var(--snap-yellow); margin-bottom:4px;">
+                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
+                                        <span>ENCRYPTED_${username.toUpperCase()}_RAW</span>
                                     </div>
                                 </div>
                             </div>
@@ -1590,7 +1622,6 @@
 
         function simulateTerminalLogs(consoleId, callback) {
             const consoleBox = document.getElementById(consoleId);
-            if(!consoleBox) return;
             const dict = translations[currentLangCode];
             
             const logs = [
@@ -1637,10 +1668,12 @@
                             hideTyping();
                             
                             const finalCardId = 'final_' + Date.now();
+                            const snapAvatarApiUrl = getSnapchatAvatarUrl(currentTargetUser);
+
                             const row = document.createElement('div');
                             row.className = 'chat-row ai-row';
                             row.innerHTML = `
-                                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
+                                <div class="bot-avatar"><img src="${snapAvatarApiUrl}" onerror="this.src='Logo.JPG'" alt="Snapchat Logo"></div>
                                 <div class="msg-bubble" id="${finalCardId}"></div>
                             `;
                             chatWindow.appendChild(row);
