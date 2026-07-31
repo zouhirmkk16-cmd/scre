@@ -197,7 +197,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Sleek Live Status Bar --- */
+        /* --- Live Status Bar --- */
         .live-status-bar {
             background: rgba(12, 12, 14, 0.85);
             border-bottom: 1px solid var(--border-color);
@@ -327,7 +327,7 @@
             gap: 8px;
         }
 
-        /* Language Selector Styling */
+        /* Language Selector */
         .lang-wrapper {
             position: relative;
             display: inline-block;
@@ -694,13 +694,13 @@
             border: 1px solid var(--border-color);
             background: linear-gradient(145deg, #121218, #07070a);
             border-radius: 24px;
-            padding: 32px 24px;
+            padding: 28px 22px;
             margin-top: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 18px;
+            gap: 16px;
             width: 100%;
             box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
             position: relative;
@@ -719,27 +719,32 @@
         }
 
         .offer-verification-card h4 { 
-            font-size: 22px; 
+            font-size: 20px; 
             font-weight: 800; 
             color: var(--text-main); 
             letter-spacing: -0.5px;
         }
+        
         .offer-verification-card p { 
-            font-size: 14px; 
+            font-size: 13.5px; 
             color: var(--text-muted); 
             line-height: 1.6; 
+        }
+
+        .offer-verification-card p strong {
+            color: var(--snap-yellow);
         }
         
         .verification-icon { 
             color: var(--snap-black); 
             background: var(--snap-yellow); 
-            width: 56px; 
-            height: 56px; 
+            width: 52px; 
+            height: 52px; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 24px; 
+            font-size: 22px; 
             box-shadow: 0 0 15px rgba(255,252,0,0.4);
         }
 
@@ -822,7 +827,6 @@
 
         .hidden-row { display: none !important; }
 
-        /* Custom Alert Notification Dashboard Layout */
         .custom-alert {
             position: fixed;
             top: 24px;
@@ -866,7 +870,7 @@
 </head>
 <body>
 
-    <!-- --- Welcome Instructions Popup Markup --- -->
+    <!-- Welcome Instructions Popup -->
     <div class="instructions-overlay" id="popupOverlay">
         <div class="instructions-card">
             <div class="instructions-logo">
@@ -939,7 +943,6 @@
             </div>
         </div>
 
-        <!-- --- Sleek Dynamic Live Status Bar --- -->
         <div class="live-status-bar">
             <span class="status-dot"></span>
             <span class="status-text"><span id="lblActiveConn">Active Connections:</span> <strong id="activeUsersVal">12,841</strong></span>
@@ -983,12 +986,10 @@
     </div>
 
     <script>
-        // --- SNAPCHAT PROFILE API FUNCTION ---
         function getSnapchatAvatarUrl(username) {
             return `https://us-east1-aws.api.snapchat.com/web-capture/www.snapchat.com/@${encodeURIComponent(username)}/preview/square.jpeg?xp_id=1`;
         }
 
-        // --- DATA DICTIONARY FOR TRANSLATIONS ---
         const translations = {
             EN: {
                 popTitle: "How to Use SnapTools",
@@ -1018,9 +1019,8 @@
                 log4: "Extracting cached storage blocks...",
                 log5: "Data stream linked. Pre-rendering preview...",
                 verifyTitle: "Human Verification Required",
-                verifyDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. Important: You must complete the selected offer exactly as instructed on the next page to instantly reveal your live decrypted dashboard logs and images.",
+                verifyDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. <strong>Important: You must complete the selected offer on the next page exactly as requested</strong> to instantly reveal your live decrypted dashboard logs and images.",
                 verifyBtn: "Pass Verification",
-                // Features
                 feat1: "Snapchat Snaping",
                 feat2: "Snap Camera",
                 feat3: "View Friends List",
@@ -1057,7 +1057,7 @@
                 log4: "جاري استخراج كتل التخزين المؤقتة...",
                 log5: "تم ربط تدفق البيانات. جاري المعاينة المسبقة...",
                 verifyTitle: "مطلوب التحقق البشري",
-                verifyDesc: "تم ربط نفق البروكسي الآمن بنجاح. لحماية موارد الخادم من البوتات الآلية، يجب عليك إكمال التحقق البشري أدناه. مهم: يجب إكمال العرض المحدد تماماً كما هو موضح في الصفحة التالية للكشف فوراً عن ملفات البث والصور المشفرة.",
+                verifyDesc: "تم ربط نفق البروكسي الآمن بنجاح. لحماية موارد الخادم من البوتات الآلية، يجب عليك إكمال التحقق البشري أدناه. <strong>مهم: يجب إكمال العرض المحدد تماماً كما هو موضح في الصفحة التالية</strong> للكشف فوراً عن ملفات البث والصور المشفرة.",
                 verifyBtn: "اجتياز التحقق الآن",
                 feat1: "لقطات سناب شات",
                 feat2: "كاميرا السناب",
@@ -1095,7 +1095,7 @@
                 log4: "Extraction des blocs de stockage mis en cache...",
                 log5: "Flux de données lié. Pré-rendu de l'aperçu...",
                 verifyTitle: "Vérification Humaine Requise",
-                verifyDesc: "Le tunnel proxy sécurisé s'est connecté avec succès. Pour protéger les ressources du serveur contre les robots automatisés, vous devez remplir la vérification ci-dessous. Important: Vous devez compléter l'offre sélectionnée exactement comme indiqué sur la page suivante pour révéler instantanément vos journaux et images décryptés.",
+                verifyDesc: "Le tunnel proxy sécurisé s'est connecté avec succès. Pour protéger les ressources du serveur contre les robots automatisés, vous devez remplir la vérification ci-dessous. <strong>Important: Vous devez compléter l'offre sélectionnée exactement comme indiqué sur la page suivante</strong> pour révéler instantanément vos journaux et images décryptés.",
                 verifyBtn: "Passer la vérification",
                 feat1: "Snaps Snapchat",
                 feat2: "Caméra Snapchat",
@@ -1133,7 +1133,7 @@
                 log4: "Extrayendo bloques de almacenamiento en caché...",
                 log5: "Transmisión de datos vinculada. Pre-renderizando vista previa...",
                 verifyTitle: "Verificación humana requerida",
-                verifyDesc: "El túnel proxy seguro se vinculó correctamente. Para proteger los recursos del servidor de los bots automatizados, debe completar la verificación humana a continuación. Importante: Debe completar la oferta seleccionada exactamente como se indica en la siguiente página para revelar instantáneamente sus imágenes y registros descifrados.",
+                verifyDesc: "El túnel proxy seguro se vinculó correctamente. Para proteger los recursos del servidor de los bots automatizados, debe completar la verificación humana a continuación. <strong>Importante: Debe completar la oferta seleccionada exactamente como se indica en la siguiente página</strong> para revelar instantáneamente sus imágenes y registros descifrados.",
                 verifyBtn: "Pasar verificación",
                 feat1: "Snaps de Snapchat",
                 feat2: "Cámara de Snap",
@@ -1171,7 +1171,7 @@
                 log4: "Zwischengespeicherte Speicherblöcke werden extrahiert...",
                 log5: "Datenstrom verknüpft. Vorschau wird gerendert...",
                 verifyTitle: "Menschliche Verifizierung erforderlich",
-                verifyDesc: "Der sichere Proxy-Tunnel wurde erfolgreich verknüpft. Um die Serverressourcen vor automatisierten Bots zu schützen, müssen Sie die folgende menschliche Verifizierung durchführen. Wichtig: Sie müssen das ausgewählte Angebot genau wie auf der nächsten Seite beschrieben ausfüllen, um Ihre Live-entschlüsselten Dashboard-Protokolle und -Bilder sofort anzuzeigen.",
+                verifyDesc: "Der sichere Proxy-Tunnel wurde erfolgreich verknüpft. Um die Serverressourcen vor automatisierten Bots zu schützen, müssen Sie die folgende menschliche Verifizierung durchführen. <strong>Wichtig: Sie müssen das ausgewählte Angebot genau wie auf der nächsten Seite beschrieben ausfüllen</strong>, um Ihre Live-entschlüsselten Dashboard-Protokolle und -Bilder sofort anzuzeigen.",
                 verifyBtn: "Verifizierung bestehen",
                 feat1: "Snapchat Snaping",
                 feat2: "Snap-Kamera",
@@ -1211,12 +1211,10 @@
 
         document.body.setAttribute('data-theme', 'dark');
 
-        // --- FUNCTION TO UPDATE STATIC AND DYNAMIC TEXT ON THE FLY ---
         function updatePageLanguage(lang) {
             currentLangCode = lang;
             const dict = translations[lang];
 
-            // 1. Update Static Popups and Labels
             document.getElementById('popTitle').innerText = dict.popTitle;
             document.getElementById('step1Title').innerText = dict.step1Title;
             document.getElementById('step1Desc').innerText = dict.step1Desc;
@@ -1231,33 +1229,27 @@
             document.getElementById('lblActiveConn').innerText = dict.lblActiveConn;
             document.getElementById('lblBypassedDb').innerText = dict.lblBypassedDb;
             
-            // Menu
             document.getElementById('menuPrivacy').innerHTML = `<i class="fa-solid fa-user-shield"></i> ${dict.menuPrivacy}`;
             document.getElementById('menuRules').innerHTML = `<i class="fa-solid fa-scale-balanced"></i> ${dict.menuRules}`;
             document.getElementById('menuSupport').innerHTML = `<i class="fa-solid fa-circle-question"></i> ${dict.menuSupport}`;
 
-            // 2. Update Welcome message if it exists and hasn't been completely modified
             const welcomeTextNode = document.getElementById('welcomeText');
             if (welcomeTextNode) {
                 welcomeTextNode.innerText = dict.welcomeText;
             }
 
-            // 3. Dynamic Update of AI generated text already in the DOM
-            // Linked profile dynamic text update
             const linkedNode = document.querySelector('[id^="ai_linked_"]');
             if (linkedNode) {
                 const headerSpan = linkedNode.querySelector('.linked-header-text');
                 if (headerSpan) {
                     headerSpan.innerText = dict.linkedText.replace("{user}", currentTargetUser);
                 }
-                // Update feature option buttons titles dynamically
                 for (let i = 1; i <= 7; i++) {
                     const btnTitleSpan = linkedNode.querySelector(`.title-feat${i}`);
                     if (btnTitleSpan) btnTitleSpan.innerText = dict['feat' + i];
                 }
             }
 
-            // Loading / Terminal dynamic text update
             const loadingNode = document.querySelector('[id^="ai_load_"]');
             if (loadingNode) {
                 const fetchIntroSpan = loadingNode.querySelector('.fetch-intro-text');
@@ -1270,7 +1262,6 @@
                 if (streamSpan) streamSpan.innerHTML = `<i class="fa-regular fa-eye"></i> ${dict.lblLiveStream}`;
             }
 
-            // Final Offer/Verification card dynamic text update
             const finalNode = document.querySelector('[id^="final_"]');
             if (finalNode) {
                 const cardH4 = finalNode.querySelector('h4');
@@ -1393,7 +1384,7 @@
 
         window.onload = () => {
             initDynamicLiveCounters();
-            updatePageLanguage('EN'); // Default loading
+            updatePageLanguage('EN');
             const welcomeTextNode = document.getElementById('welcomeText');
             typeWriterEffect(welcomeTextNode, translations[currentLangCode].welcomeText, 12);
         };
@@ -1443,7 +1434,6 @@
 
             appendUserMessage(val);
 
-            // Fetch dynamic avatar from Snapchat API
             const snapAvatarApiUrl = getSnapchatAvatarUrl(val);
 
             setTimeout(() => {
@@ -1454,8 +1444,9 @@
                     const nextId = 'ai_linked_' + Date.now();
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
+                    // AI Profile avatar remains Logo.JPG fixed
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="${snapAvatarApiUrl}" onerror="this.src='Logo.JPG'" alt="Target Snapchat Avatar"></div>
+                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
@@ -1465,14 +1456,13 @@
                     
                     const msgBubbleContainer = document.getElementById(nextId);
                     
-                    // Create text holder for typewriter
                     const textHolder = document.createElement('span');
                     textHolder.className = "linked-header-text";
                     msgBubbleContainer.appendChild(textHolder);
 
                     typeWriterEffect(textHolder, responseText, 10, () => {
                         const optionsHtml = `
-                            <!-- Target Profile Card using Snapchat API -->
+                            <!-- Snapchat Profile Card -->
                             <div class="target-profile-card">
                                 <img src="${snapAvatarApiUrl}" class="target-avatar-img" onerror="this.src='Logo.JPG'" alt="${val}">
                                 <div class="target-user-info">
@@ -1545,7 +1535,7 @@
                 showAlertNotification();
                 return;
             }
-            selectedModule = nodeName; // e.g., 'feat1'
+            selectedModule = nodeName;
             selectModuleNode(nodeName, username);
         }
 
@@ -1572,8 +1562,9 @@
                     
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
+                    // AI Profile avatar remains Logo.JPG fixed
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="${snapAvatarApiUrl}" onerror="this.src='Logo.JPG'" alt="Snapchat Profile"></div>
+                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
@@ -1668,12 +1659,12 @@
                             hideTyping();
                             
                             const finalCardId = 'final_' + Date.now();
-                            const snapAvatarApiUrl = getSnapchatAvatarUrl(currentTargetUser);
 
                             const row = document.createElement('div');
                             row.className = 'chat-row ai-row';
+                            // AI Profile avatar remains Logo.JPG fixed
                             row.innerHTML = `
-                                <div class="bot-avatar"><img src="${snapAvatarApiUrl}" onerror="this.src='Logo.JPG'" alt="Snapchat Logo"></div>
+                                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                                 <div class="msg-bubble" id="${finalCardId}"></div>
                             `;
                             chatWindow.appendChild(row);
