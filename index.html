@@ -1091,8 +1091,8 @@
                 if (dlSpan) dlSpan.innerText = dict.lblDownloading;
             }
 
-            const finalNode = document.querySelector('[id^="final_"]');
-            if (finalNode) {
+            const finalNodes = document.querySelectorAll('[id^="final_"]');
+            finalNodes.forEach(finalNode => {
                 const cardH3 = finalNode.querySelector('h3');
                 const cardP = finalNode.querySelector('p');
                 const cardBtn = finalNode.querySelector('.gpt-action-btn');
@@ -1111,7 +1111,7 @@
                     featList[3].innerHTML = `<i class="fa-solid fa-check" style="color: #00ff66; margin-right: 6px;"></i> ${dict.feat4}`;
                     featList[4].innerHTML = `<i class="fa-solid fa-check" style="color: #00ff66; margin-right: 6px;"></i> ${dict.feat5}`;
                 }
-            }
+            });
         }
 
         function closeInstructionsPopup() {
