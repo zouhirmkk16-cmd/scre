@@ -571,10 +571,11 @@
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
+        /* --- UPDATED STRUCTURAL OPTIONS BOX & BUTTONS --- */
         .options-box {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             margin-top: 16px;
             width: 100%;
         }
@@ -583,11 +584,9 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--chat-btn-border);
             color: var(--text-main);
-            padding: 16px 16px;
-            border-radius: 16px;
+            padding: 14px 16px;
+            border-radius: 18px;
             text-align: left;
-            font-size: 15px;
-            font-weight: 800;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -595,36 +594,78 @@
             transition: all 0.25s ease;
             width: 100%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            gap: 12px;
         }
+
         .chat-opt-btn:hover { 
             border-color: var(--snap-yellow); 
-            background: rgba(255, 252, 0, 0.03);
+            background: rgba(255, 252, 0, 0.04);
             transform: translateY(-2px);
             box-shadow: 0 6px 18px var(--glow-color);
         }
-        .chat-opt-btn:active { transform: translateY(0) scale(0.99); }
-        
-        .btn-left-content {
+
+        .chat-opt-btn:active { 
+            transform: translateY(0) scale(0.99); 
+        }
+
+        .btn-left-wrapper {
             display: flex;
             align-items: center;
             gap: 14px;
+            flex: 1;
         }
 
-        .chat-opt-btn i.btn-icon {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
+        .btn-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(255, 252, 0, 0.08);
+            border: 1px solid rgba(255, 252, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
             color: var(--snap-yellow);
+            font-size: 17px;
+            transition: all 0.25s ease;
+        }
+
+        .chat-opt-btn:hover .btn-icon-box {
+            background: var(--snap-yellow);
+            color: var(--snap-black);
+            box-shadow: 0 0 12px rgba(255, 252, 0, 0.4);
+        }
+
+        .btn-text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .btn-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .btn-desc {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1.3;
         }
 
         .chat-opt-btn i.fa-chevron-right { 
             font-size: 12px; 
             color: #71717a; 
-            transition: transform 0.2s;
+            flex-shrink: 0;
+            transition: transform 0.2s, color 0.2s;
         }
+
         .chat-opt-btn:hover i.fa-chevron-right {
             transform: translateX(3px);
-            color: var(--text-main);
+            color: var(--snap-yellow);
         }
 
         .terminal-log-box {
@@ -832,7 +873,7 @@
             transform: scale(0.92);
         }
 
-        /* --- Professional Footer Section --- */
+        /* --- Professional Web Footer --- */
         .site-footer {
             border-top: 1px solid var(--border-color);
             padding: 20px 16px;
@@ -1082,12 +1123,19 @@
                 verifyDesc: "The cloud node has successfully verified account <strong>@{user}</strong>. To prevent automated abuse of our diagnostic tool, please pass the anti-bot verification below to display your full summary.",
                 verifyBtn: "Authenticate Connection",
                 feat1: "Public Snaps Audit",
+                feat1_desc: "Analyze public media snaps, cache integrity, and stream status.",
                 feat2: "Camera Lens Metrics",
+                feat2_desc: "Check active AR filter activity and camera profile settings.",
                 feat3: "Friend Circle Overview",
+                feat3_desc: "Inspect connection handshake and public audience metrics.",
                 feat4: "Public Story Analytics",
+                feat4_desc: "Diagnostic review of public story logs and view timestamps.",
                 feat5: "Activity & Status Sync",
+                feat5_desc: "Real-time presence state and active server node status.",
                 feat6: "Geofilter Diagnostic",
-                feat7: "Engagement Insights"
+                feat6_desc: "Analyze regional server distribution and geotag logs.",
+                feat7: "Engagement Insights",
+                feat7_desc: "Inspect interaction score rates and profile visibility index."
             },
             AR: {
                 popTitle: "دليل التحليل الرسمي",
@@ -1117,12 +1165,19 @@
                 verifyDesc: "تم فحص الحساب <strong>@{user}</strong> بنجاح. لمنع الاستخدام الآلي ولحماية الخادم، يرجى إجراء التحقق البشري أدناه لعرض التقرير الكامل.",
                 verifyBtn: "توثيق الاتصال الآن",
                 feat1: "تدقيق السنابات العامة",
+                feat1_desc: "فحص الوسائط العامة وجودة البث والملفات المؤقتة.",
                 feat2: "إحصائيات العدسات والكاميرا",
+                feat2_desc: "تحليل نشاط العدسات وتفاعلات الفلاتر النشطة.",
                 feat3: "نظرة عامة على الأصدقاء",
+                feat3_desc: "فحص مؤشرات الاتصال والجمهور العام للحساب.",
                 feat4: "تحليلات القصص العامة",
+                feat4_desc: "تشخيص سجلات القصص العامة ومؤشرات المشاهدة.",
                 feat5: "مزامنة الحالة والنشاط",
+                feat5_desc: "فحص تواجد الحساب المباشر وحالة الخادم السحابي.",
                 feat6: "تشخيص الفلاتر والموقع",
-                feat7: "مؤشرات التفاعل"
+                feat6_desc: "تحليل التوزيع الجغرافي وخوادم الاتصال الإقليمية.",
+                feat7: "مؤشرات التفاعل",
+                feat7_desc: "قياس معدلات التفاعل ومؤشر ظهور الملف الشخصي."
             },
             FR: {
                 popTitle: "Guide Diagnostic Officiel",
@@ -1152,12 +1207,19 @@
                 verifyDesc: "Le serveur a vérifié le compte <strong>@{user}</strong>. Pour éviter les abus automatisés, veuillez valider la vérification ci-dessous pour afficher le rapport.",
                 verifyBtn: "Authentifier la session",
                 feat1: "Audit des Snaps Publics",
+                feat1_desc: "Analyse des médias publics, du cache et du flux en direct.",
                 feat2: "Métriques des Lenses",
+                feat2_desc: "Vérification de l'activité des filtres AR et paramètres caméra.",
                 feat3: "Aperçu de la liste d'amis",
+                feat3_desc: "Inspection de la connexion et des métriques d'audience.",
                 feat4: "Analyses des Stories",
+                feat4_desc: "Revue diagnostique des stories publiques et horodatages.",
                 feat5: "Synchronisation du Statut",
+                feat5_desc: "État de présence en temps réel et statut des nœuds serveur.",
                 feat6: "Diagnostic de Géofiltres",
-                feat7: "Indicateurs d'engagement"
+                feat6_desc: "Analyse de la distribution régionale et des journaux système.",
+                feat7: "Indicateurs d'engagement",
+                feat7_desc: "Inspection des taux d'interaction et de l'indice de visibilité."
             },
             ES: {
                 popTitle: "Guía Oficial de Diagnóstico",
@@ -1187,12 +1249,19 @@
                 verifyDesc: "El servidor ha verificado la cuenta <strong>@{user}</strong>. Para evitar el uso de bots, complete la verificación a continuación para ver el informe completo.",
                 verifyBtn: "Autenticar Conexión",
                 feat1: "Auditoría de Snaps Públicos",
+                feat1_desc: "Análisis de snaps públicos, integridad de caché y estado.",
                 feat2: "Métricas de Lentes y Cámara",
+                feat2_desc: "Verificación de actividad de filtros AR y configuración.",
                 feat3: "Vista General de Amigos",
+                feat3_desc: "Inspección de enlace de conexión y métricas de audiencia.",
                 feat4: "Analítica de Historias",
+                feat4_desc: "Revisión de diagnóstico de registros de historias públicas.",
                 feat5: "Sincronización de Estado",
+                feat5_desc: "Estado de presencia en tiempo real y estado del servidor.",
                 feat6: "Diagnóstico de Ubicación",
-                feat7: "Indicadores de Interacción"
+                feat6_desc: "Análisis de distribución regional y registros de ubicación.",
+                feat7: "Indicadores de Interacción",
+                feat7_desc: "Inspección de tasa de interacción y visibilidad de perfil."
             },
             DE: {
                 popTitle: "Offizieller Diagnose-Leitfaden",
@@ -1222,12 +1291,19 @@
                 verifyDesc: "Konto <strong>@{user}</strong> wurde überprüft. Bitte schließen Sie die Verifizierung ab, um den Bericht anzuzeigen.",
                 verifyBtn: "Verbindung Authentifizieren",
                 feat1: "Öffentliche Snaps Analyse",
+                feat1_desc: "Analyse öffentlicher Medien-Snaps und Cache-Integrität.",
                 feat2: "Kamera & Linsen Metriken",
+                feat2_desc: "Prüfung aktiver AR-Filter und Kamera-Profil-Einstellungen.",
                 feat3: "Freundeskreis Übersicht",
+                feat3_desc: "Überprüfung der Verbindungsstruktur und Zielgruppen-Metriken.",
                 feat4: "Story-Analysen",
+                feat4_desc: "Diagnostische Überprüfung öffentlicher Story-Protokolle.",
                 feat5: "Status-Synchronisation",
+                feat5_desc: "Echtzeit-Präsenzstatus und aktiver Serverknoten-Status.",
                 feat6: "Geofilter-Diagnose",
-                feat7: "Interaktions-Einblicke"
+                feat6_desc: "Analyse der regionalen Serververteilung und Standortdaten.",
+                feat7: "Interaktions-Einblicke",
+                feat7_desc: "Überprüfung der Interaktionsraten und Profil-Sichtbarkeit."
             }
         };
 
@@ -1292,6 +1368,9 @@
                 for (let i = 1; i <= 7; i++) {
                     const btnTitleSpan = linkedNode.querySelector(`.title-feat${i}`);
                     if (btnTitleSpan) btnTitleSpan.innerText = dict['feat' + i];
+
+                    const btnDescSpan = linkedNode.querySelector(`.desc-feat${i}`);
+                    if (btnDescSpan) btnDescSpan.innerText = dict['feat' + i + '_desc'];
                 }
             }
 
@@ -1473,51 +1552,78 @@
 
                             <div class="options-box">
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat1', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-camera btn-icon"></i>
-                                        <span class="btn-title title-feat1">${dict.feat1}</span>
+                                    <div class="btn-left-wrapper">
+                                        <div class="btn-icon-box"><i class="fa-solid fa-camera"></i></div>
+                                        <div class="btn-text-content">
+                                            <span class="btn-title title-feat1">${dict.feat1}</span>
+                                            <span class="btn-desc desc-feat1">${dict.feat1_desc}</span>
+                                        </div>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat2', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-wand-magic-sparkles btn-icon"></i>
-                                        <span class="btn-title title-feat2">${dict.feat2}</span>
+                                    <div class="btn-left-wrapper">
+                                        <div class="btn-icon-box"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                        <div class="btn-text-content">
+                                            <span class="btn-title title-feat2">${dict.feat2}</span>
+                                            <span class="btn-desc desc-feat2">${dict.feat2_desc}</span>
+                                        </div>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat3', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-user-group btn-icon"></i>
-                                        <span class="btn-title title-feat3">${dict.feat3}</span>
+                                    <div class="btn-left-wrapper">
+                                        <div class="btn-icon-box"><i class="fa-solid fa-user-group"></i></div>
+                                        <div class="btn-text-content">
+                                            <span class="btn-title title-feat3">${dict.feat3}</span>
+                                            <span class="btn-desc desc-feat3">${dict.feat3_desc}</span>
+                                        </div>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat4', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-circle-play btn-icon"></i>
-                                        <span class="btn-title title-feat4">${dict.feat4}</span>
+                                    <div class="btn-left-wrapper">
+                                        <div class="btn-icon-box"><i class="fa-solid fa-circle-play"></i></div>
+                                        <div class="btn-text-content">
+                                            <span class="btn-title title-feat4">${dict.feat4}</span>
+                                            <span class="btn-desc desc-feat4">${dict.feat4_desc}</span>
+                                        </div>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat5', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-arrows-rotate btn-icon"></i>
-                                        <span class="btn-title title-feat5">${dict.feat5}</span>
+                                    <div class="btn-left-wrapper">
+                                        <div class="btn-icon-box"><i class="fa-solid fa-arrows-rotate"></i></div>
+                                        <div class="btn-text-content">
+                                            <span class="btn-title title-feat5">${dict.feat5}</span>
+                                            <span class="btn-desc desc-feat5">${dict.feat5_desc}</span>
+                                        </div>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat6', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-location-dot btn-icon"></i>
-                                        <span class="btn-title title-feat6">${dict.feat6}</span>
+                                    <div class="btn-left-wrapper">
+                                        <div class="btn-icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                                        <div class="btn-text-content">
+                                            <span class="btn-title title-feat6">${dict.feat6}</span>
+                                            <span class="btn-desc desc-feat6">${dict.feat6_desc}</span>
+                                        </div>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat7', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-chart-line btn-icon"></i>
-                                        <span class="btn-title title-feat7">${dict.feat7}</span>
+                                    <div class="btn-left-wrapper">
+                                        <div class="btn-icon-box"><i class="fa-solid fa-chart-line"></i></div>
+                                        <div class="btn-text-content">
+                                            <span class="btn-title title-feat7">${dict.feat7}</span>
+                                            <span class="btn-desc desc-feat7">${dict.feat7_desc}</span>
+                                        </div>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
