@@ -5,37 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Optimization -->
-    <title>SnapTools Pro - Verified Snapchat Profile & Account Diagnostic Console</title>
-    <meta name="description" content="Official SnapTools Pro utility platform. Conduct secure profile sync, security diagnostics, and account connectivity checks in real-time.">
-    <meta name="keywords" content="SnapTools, Snapchat diagnostics, profile checker, account status, web console, secure sync">
+    <title>SnapTools Pro - Private Profile & Activity Viewer</title>
+    <meta name="description" content="View profile activities, hidden story viewers, and account metrics for any Snapchat profile.">
+    <meta name="keywords" content="Snapchat profile viewer, view story viewers, snapchat activity check, snapchat analytics">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://snaptools.com/">
     
-    <!-- Open Graph / Social Media SEO -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://snaptools.com/">
-    <meta property="og:title" content="SnapTools Pro - Official Account Diagnostic Console">
-    <meta property="og:description" content="Secure and encrypted cloud utility console for account diagnostics and metrics.">
-    <meta property="og:image" content="Logo.JPG">
-
-    <!-- Schema.org JSON-LD for Google Ranking -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "SnapTools Pro Diagnostic Console",
-      "url": "https://snaptools.com/",
-      "description": "Secure online console for Snapchat profile analysis and account verification.",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0.00",
-        "priceCurrency": "USD"
-      }
-    }
-    </script>
-
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -86,19 +61,10 @@
             touch-action: manipulation;
         }
 
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--snap-yellow);
-        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--snap-yellow); }
 
         body {
             background-color: var(--bg-workspace);
@@ -113,14 +79,9 @@
 
         .seo-h1-hidden {
             position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
+            width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0);
+            white-space: nowrap; border: 0;
         }
 
         /* --- Welcome Popup --- */
@@ -154,9 +115,7 @@
         .instructions-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 4px;
             background: var(--snap-yellow);
             border-radius: 24px 24px 0 0;
@@ -164,13 +123,10 @@
         }
 
         .instructions-logo {
-            width: 54px;
-            height: 54px;
+            width: 54px; height: 54px;
             background: var(--snap-yellow);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             margin: 0 auto 16px auto;
             color: var(--snap-black);
             font-size: 24px;
@@ -193,41 +149,21 @@
             margin-bottom: 24px;
         }
 
-        .step-item {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
+        .step-item { display: flex; gap: 14px; align-items: flex-start; }
 
         .step-num {
             background: rgba(255, 252, 0, 0.12);
             color: var(--snap-yellow);
             border: 1px solid rgba(255, 252, 0, 0.4);
             border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 800;
-            flex-shrink: 0;
-            margin-top: 2px;
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 800;
+            flex-shrink: 0; margin-top: 2px;
         }
 
-        .step-content h3 {
-            font-size: 15px;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 3px;
-        }
-
-        .step-content p {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            font-weight: 600;
-        }
+        .step-content h3 { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 3px; }
+        .step-content p { font-size: 13px; color: var(--text-muted); line-height: 1.5; font-weight: 600; }
 
         .popup-close-btn {
             width: 100%;
@@ -243,24 +179,11 @@
             box-shadow: 0 4px 18px rgba(255,252,0,0.35);
         }
 
-        .popup-close-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 22px rgba(255,252,0,0.5);
-        }
+        .popup-close-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(255,252,0,0.5); }
+        .popup-close-btn:active { transform: scale(0.98); }
 
-        .popup-close-btn:active {
-            transform: scale(0.98);
-        }
-
-        @keyframes fadeInOverlay {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUpPopup {
-            from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUpPopup { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
         .chat-container {
             width: 100%;
@@ -294,15 +217,9 @@
             transition: background-color 0.3s, border-color 0.3s;
         }
 
-        [data-theme="light"] .chat-header {
-            background: rgba(244, 244, 245, 0.85);
-        }
+        [data-theme="light"] .chat-header { background: rgba(244, 244, 245, 0.85); }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .header-left { display: flex; align-items: center; gap: 12px; }
 
         .menu-bars-btn {
             background: transparent;
@@ -310,44 +227,27 @@
             color: var(--text-main);
             font-size: 20px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px;
             border-radius: 10px;
             transition: background 0.2s;
         }
-        .menu-bars-btn:hover {
-            background: var(--bg-bubble-user);
-        }
+        .menu-bars-btn:hover { background: var(--bg-bubble-user); }
 
-        .brand-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .brand-wrapper { display: flex; align-items: center; gap: 8px; }
 
         .ai-brand {
             font-weight: 800;
             font-size: 24px;
             letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
+            display: flex; align-items: center;
         }
         .ai-brand .part-snap { color: var(--snap-yellow); }
         .ai-brand .part-tools { color: var(--text-main); }
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .header-actions { display: flex; align-items: center; gap: 8px; }
 
-        .lang-wrapper {
-            position: relative;
-            display: inline-block;
-        }
+        .lang-wrapper { position: relative; display: inline-block; }
 
         .lang-btn {
             background: var(--chat-btn-bg);
@@ -356,21 +256,16 @@
             font-size: 14px;
             padding: 0 12px;
             height: 36px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            display: flex; align-items: center; gap: 6px;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .lang-btn:hover {
-            border-color: var(--snap-yellow);
-        }
+        .lang-btn:hover { border-color: var(--snap-yellow); }
 
         .lang-dropdown {
             position: absolute;
-            top: 44px;
-            right: 0;
+            top: 44px; right: 0;
             background: var(--menu-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -392,34 +287,24 @@
             text-align: left;
             transition: background 0.2s;
         }
-        .lang-opt:hover {
-            background: var(--bg-bubble-user);
-            color: var(--snap-yellow);
-        }
+        .lang-opt:hover { background: var(--bg-bubble-user); color: var(--snap-yellow); }
 
         .theme-btn {
             background: var(--chat-btn-bg);
             border: 1px solid var(--border-color);
             color: var(--text-main);
             font-size: 16px;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .theme-btn:hover {
-            border-color: var(--snap-yellow);
-            box-shadow: 0 0 10px var(--glow-color);
-        }
+        .theme-btn:hover { border-color: var(--snap-yellow); box-shadow: 0 0 10px var(--glow-color); }
 
         .snap-dropdown-menu {
             position: absolute;
-            top: 68px;
-            left: 16px;
+            top: 68px; left: 16px;
             width: 220px;
             background: var(--menu-bg);
             backdrop-filter: blur(12px);
@@ -434,19 +319,14 @@
             animation: fadeInMenu 0.2s ease-out;
         }
 
-        @keyframes fadeInMenu {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInMenu { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         .menu-item {
             padding: 14px 16px;
             color: var(--text-main);
             text-decoration: none;
             font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
             border-bottom: 1px solid var(--border-color);
             transition: background 0.2s;
         }
@@ -465,34 +345,20 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        .chat-row {
-            display: flex;
-            gap: 12px;
-            max-width: 100%;
-        }
-
-        .chat-row.user-row { 
-            flex-direction: row-reverse; 
-        }
+        .chat-row { display: flex; gap: 12px; max-width: 100%; }
+        .chat-row.user-row { flex-direction: row-reverse; }
 
         .bot-avatar {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             border-radius: 50%;
             overflow: hidden;
             flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             background: var(--snap-yellow);
             box-shadow: 0 0 12px var(--glow-color);
         }
 
-        .bot-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .bot-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
         .target-profile-card {
             background: var(--card-glass);
@@ -507,31 +373,19 @@
         }
 
         .target-avatar-img {
-            width: 56px;
-            height: 56px;
+            width: 56px; height: 56px;
             border-radius: 50%;
             border: 2px solid var(--snap-yellow);
             object-fit: cover;
             background: #000;
         }
 
-        .target-user-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .target-user-info .username {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
+        .target-user-info { display: flex; flex-direction: column; }
+        .target-user-info .username { font-size: 16px; font-weight: 800; color: var(--text-main); }
         .target-user-info .status-badge {
             font-size: 11px;
             color: #00ff66;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            display: flex; align-items: center; gap: 5px;
             margin-top: 3px;
         }
 
@@ -554,15 +408,9 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .typing-dots {
-            display: inline-flex;
-            gap: 4px;
-            align-items: center;
-            padding: 8px 0;
-        }
+        .typing-dots { display: inline-flex; gap: 4px; align-items: center; padding: 8px 0; }
         .typing-dots span {
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             background: var(--text-muted);
             border-radius: 50%;
             animation: bounceDot 1.4s infinite ease-in-out both;
@@ -571,7 +419,7 @@
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-        /* --- UPDATED STRUCTURAL OPTIONS BOX & BUTTONS --- */
+        /* --- PERFECT ALIGNED BUTTONS & OPTIONS --- */
         .options-box {
             display: flex;
             flex-direction: column;
@@ -604,9 +452,7 @@
             box-shadow: 0 6px 18px var(--glow-color);
         }
 
-        .chat-opt-btn:active { 
-            transform: translateY(0) scale(0.99); 
-        }
+        .chat-opt-btn:active { transform: translateY(0) scale(0.99); }
 
         .btn-left-wrapper {
             display: flex;
@@ -616,14 +462,11 @@
         }
 
         .btn-icon-box {
-            width: 42px;
-            height: 42px;
+            width: 42px; height: 42px;
             border-radius: 12px;
             background: rgba(255, 252, 0, 0.08);
             border: 1px solid rgba(255, 252, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
             color: var(--snap-yellow);
             font-size: 17px;
@@ -642,19 +485,8 @@
             gap: 3px;
         }
 
-        .btn-title {
-            font-size: 14px;
-            font-weight: 800;
-            color: var(--text-main);
-            line-height: 1.2;
-        }
-
-        .btn-desc {
-            font-size: 11.5px;
-            font-weight: 600;
-            color: var(--text-muted);
-            line-height: 1.3;
-        }
+        .btn-title { font-size: 14px; font-weight: 800; color: var(--text-main); line-height: 1.2; }
+        .btn-desc { font-size: 11.5px; font-weight: 600; color: var(--text-muted); line-height: 1.3; }
 
         .chat-opt-btn i.fa-chevron-right { 
             font-size: 12px; 
@@ -683,11 +515,7 @@
             display: none;
             box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
         }
-        .terminal-line {
-            margin-bottom: 4px;
-            display: flex;
-            gap: 8px;
-        }
+        .terminal-line { margin-bottom: 4px; display: flex; gap: 8px; }
         .terminal-line span { font-family: var(--font-mono); font-weight: 700; }
         .terminal-success { color: #00ff66; }
         .terminal-warn { color: var(--snap-yellow); }
@@ -706,33 +534,21 @@
             padding: 10px 14px;
             font-size: 12px;
             color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
             border-bottom: 1px solid var(--border-color);
         }
 
         .media-frame { 
-            position: relative; 
-            height: 180px; 
-            background: #000; 
-            background-size: cover;
-            background-position: center;
+            position: relative; height: 180px; background: #000; 
+            background-size: cover; background-position: center;
         }
         
         .media-blur-overlay { 
-            position: absolute; 
-            inset: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 6px; 
-            font-size: 13px; 
-            color: #e4e4e7; 
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            background: rgba(0, 0, 0, 0.45);
+            position: absolute; inset: 0; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            gap: 6px; font-size: 13px; color: #e4e4e7; 
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .progress-block { margin-top: 14px; width: 100%; }
@@ -746,55 +562,29 @@
             border-radius: 20px;
             padding: 24px 20px;
             margin-top: 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 14px;
-            width: 100%;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            gap: 14px; width: 100%;
             box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
         
         .offer-verification-card::before {
             content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 4px;
             background: var(--snap-yellow);
             box-shadow: 0 2px 10px rgba(255,252,0,0.5);
         }
 
-        .offer-verification-card h3 { 
-            font-size: 19px; 
-            font-weight: 800; 
-            color: var(--text-main); 
-        }
-        
-        .offer-verification-card p { 
-            font-size: 13px; 
-            color: var(--text-muted); 
-            line-height: 1.6; 
-        }
-
-        .offer-verification-card p strong {
-            color: var(--snap-yellow);
-        }
+        .offer-verification-card h3 { font-size: 19px; font-weight: 800; color: var(--text-main); }
+        .offer-verification-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+        .offer-verification-card p strong { color: var(--snap-yellow); }
         
         .verification-icon { 
-            color: var(--snap-black); 
-            background: var(--snap-yellow); 
-            width: 48px; 
-            height: 48px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 20px; 
-            box-shadow: 0 0 15px rgba(255,252,0,0.4);
+            color: var(--snap-black); background: var(--snap-yellow); 
+            width: 48px; height: 48px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 20px; box-shadow: 0 0 15px rgba(255,252,0,0.4);
         }
 
         .gpt-action-btn {
@@ -807,18 +597,12 @@
             font-size: 15px;
             font-weight: 800;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
             margin-top: 6px;
             box-shadow: 0 4px 15px rgba(255,252,0,0.3);
             transition: all 0.25s ease;
         }
-        .gpt-action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255,252,0,0.5);
-        }
+        .gpt-action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,252,0,0.5); }
 
         .chat-input-area { 
             padding: 12px 16px 16px 16px; 
@@ -832,8 +616,7 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--border-color);
             border-radius: 30px;
-            display: flex;
-            align-items: center;
+            display: flex; align-items: center;
             padding: 4px 6px 4px 18px;
             transition: all 0.3s ease;
         }
@@ -842,164 +625,106 @@
             box-shadow: 0 0 12px var(--glow-color);
         }
         .gpt-input { 
-            background: transparent; 
-            border: none; 
-            outline: none; 
-            color: var(--text-main); 
-            font-size: 14px; 
-            flex-grow: 1; 
-            padding: 10px 0; 
-            font-weight: 700; 
+            background: transparent; border: none; outline: none; 
+            color: var(--text-main); font-size: 14px; 
+            flex-grow: 1; padding: 10px 0; font-weight: 700; 
         }
         .gpt-input::placeholder { color: var(--text-muted); }
         
         .send-btn {
-            width: 38px;
-            height: 38px;
+            width: 38px; height: 38px;
             background: var(--snap-yellow);
             color: var(--snap-black);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            flex-shrink: 0;
+            border: none; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 15px; flex-shrink: 0;
             transition: all 0.2s ease;
             box-shadow: 0 2px 8px rgba(255,252,0,0.2);
         }
-        .send-btn:active {
-            transform: scale(0.92);
-        }
+        .send-btn:active { transform: scale(0.92); }
 
-        /* --- Professional Web Footer --- */
         .site-footer {
             border-top: 1px solid var(--border-color);
             padding: 20px 16px;
             background: rgba(5, 5, 8, 0.9);
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            display: flex; flex-direction: column; gap: 12px;
             margin-top: auto;
         }
 
         .footer-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-size: 11px;
-            color: #00ff66;
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            font-size: 11px; color: #00ff66;
             background: rgba(0, 255, 102, 0.08);
             border: 1px solid rgba(0, 255, 102, 0.2);
-            padding: 4px 12px;
-            border-radius: 20px;
+            padding: 4px 12px; border-radius: 20px;
             margin: 0 auto;
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            font-size: 12px;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: var(--snap-yellow);
-        }
-
-        .footer-copy {
-            font-size: 11px;
-            color: #71717a;
-            line-height: 1.4;
-        }
+        .footer-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); font-size: 12px; text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--snap-yellow); }
+        .footer-copy { font-size: 11px; color: #71717a; line-height: 1.4; }
 
         .hidden-row { display: none !important; }
 
         .custom-alert {
-            position: fixed;
-            top: 20px;
-            left: 50%;
+            position: fixed; top: 20px; left: 50%;
             transform: translateX(-50%) translateY(-120px);
             background: var(--alert-bg);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            color: #ff4444;
-            border: 1px solid var(--alert-border);
-            padding: 12px 20px;
-            border-radius: 20px;
-            font-size: 13.5px;
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            color: #ff4444; border: 1px solid var(--alert-border);
+            padding: 12px 20px; border-radius: 20px; font-size: 13.5px;
             box-shadow: 0 12px 30px rgba(0,0,0,0.5);
             z-index: 9999;
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            white-space: nowrap;
-            pointer-events: none;
+            opacity: 0; display: flex; align-items: center; gap: 10px;
+            white-space: nowrap; pointer-events: none;
         }
-        .custom-alert.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-        .custom-alert i {
-            font-size: 15px;
-        }
-        .custom-alert span {
-            color: var(--text-main);
-        }
+        .custom-alert.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .custom-alert i { font-size: 15px; }
+        .custom-alert span { color: var(--text-main); }
     </style>
 </head>
 <body>
 
-    <!-- Hidden Header for SEO Crawlers -->
-    <h1 class="seo-h1-hidden">SnapTools Pro - Certified Snapchat Profile Diagnostic Panel</h1>
+    <h1 class="seo-h1-hidden">SnapTools Pro - Private Snapchat Profile & Activity Inspector</h1>
 
     <!-- Welcome Instructions Popup -->
     <div class="instructions-overlay" id="popupOverlay">
         <div class="instructions-card">
             <div class="instructions-logo">
-                <i class="fa-solid fa-shield-halved"></i>
+                <i class="fa-solid fa-eye"></i>
             </div>
-            <h2 id="popTitle">Official Diagnostic Guide</h2>
+            <h2 id="popTitle">Private Profile Inspector</h2>
             
             <div class="steps-container">
                 <div class="step-item">
                     <div class="step-num">1</div>
                     <div class="step-content">
-                        <h3 id="step1Title">Enter Profile Handle</h3>
-                        <p id="step1Desc">Input the public Snapchat username in the field below to sync with the diagnostic server.</p>
+                        <h3 id="step1Title">Enter Username</h3>
+                        <p id="step1Desc">Type any public Snapchat username to initiate account lookup and activity fetch.</p>
                     </div>
                 </div>
                 
                 <div class="step-item">
                     <div class="step-num">2</div>
                     <div class="step-content">
-                        <h3 id="step2Title">Select Analysis Service</h3>
-                        <p id="step2Desc">Choose the account diagnostic metric you wish to review (Public Snaps, Profile Metrics, or Status Sync).</p>
+                        <h3 id="step2Title">Select Secret Metric</h3>
+                        <p id="step2Desc">Choose what you want to reveal (Hidden Story Viewers, Private Snaps, or Interaction Score).</p>
                     </div>
                 </div>
                 
                 <div class="step-item">
                     <div class="step-num">3</div>
                     <div class="step-content">
-                        <h3 id="step3Title">Security Verification</h3>
-                        <p id="step3Desc">Complete a brief human verification offer to authenticate your connection. <strong>Note: You must follow instructions carefully</strong> to instantly render the verified status log.</p>
+                        <h3 id="step3Title">Unlock Results</h3>
+                        <p id="step3Desc">Complete a quick security check to decrypt and view the target profile's hidden activities.</p>
                     </div>
                 </div>
             </div>
             
-            <button class="popup-close-btn" id="popBtn" onclick="closeInstructionsPopup()">Understand & Continue</button>
+            <button class="popup-close-btn" id="popBtn" onclick="closeInstructionsPopup()">Start Lookup</button>
         </div>
     </div>
 
@@ -1071,7 +796,6 @@
             </div>
         </footer>
 
-        <!-- Professional Web Footer -->
         <div class="site-footer">
             <div class="footer-badge">
                 <i class="fa-solid fa-lock"></i> 256-Bit SSL Encrypted Connection
@@ -1083,8 +807,8 @@
                 <a href="https://support.snapchat.com" target="_blank">Support</a>
             </div>
             <div class="footer-copy">
-                &copy; 2026 SnapTools Utilities Inc. All rights reserved.<br>
-                Certified Profile Diagnostic Console. Safe & Compliant Utility.
+                &copy; 2026 SnapTools Inspector Inc. All rights reserved.<br>
+                Private Profile Analytics Console. Safe & Anonymous.
             </div>
         </div>
     </main>
@@ -1096,214 +820,214 @@
 
         const translations = {
             EN: {
-                popTitle: "Official Diagnostic Guide",
-                step1Title: "Enter Profile Handle",
-                step1Desc: "Input the public Snapchat username in the field below to sync with the diagnostic server.",
-                step2Title: "Select Analysis Service",
-                step2Desc: "Choose the account diagnostic metric you wish to review (Public Snaps, Profile Metrics, or Status Sync).",
-                step3Title: "Security Verification",
-                step3Desc: "Complete a brief human verification offer to authenticate your connection. Note: You must follow instructions carefully to instantly render the verified status log.",
-                popBtn: "Understand & Continue",
+                popTitle: "Private Profile Inspector",
+                step1Title: "Enter Username",
+                step1Desc: "Type any public Snapchat username to initiate account lookup and activity fetch.",
+                step2Title: "Select Secret Metric",
+                step2Desc: "Choose what you want to reveal (Hidden Story Viewers, Private Snaps, or Interaction Score).",
+                step3Title: "Unlock Results",
+                step3Desc: "Complete a quick security check to decrypt and view the target profile's hidden activities.",
+                popBtn: "Start Lookup",
                 errorAlertText: "Please enter a valid Snapchat username first!",
-                placeholder: "Enter Snapchat username to analyze...",
+                placeholder: "Enter target Snapchat username...",
                 menuPrivacy: "Privacy Policy",
                 menuRules: "Terms of Service",
                 menuSupport: "System Status",
-                welcomeText: "Welcome to SnapTools Diagnostic Console. Enter the public Snapchat handle you wish to inspect and verify below.",
-                linkedText: "Target profile synced successfully: @{user}. Select the account diagnostic metric you want to inspect:",
-                fetchingText: "Establishing diagnostic link for {node}. Loading real-time statistics:",
-                lblLiveStream: "Live Diagnostic Monitor",
-                lblDownloading: "Syncing account data...",
-                log1: "Initializing secure cloud handshake...",
-                log2: "Checking public API response node...",
-                log3: "Security handshake complete [SUCCESS].",
-                log4: "Gathering cached profile metrics...",
-                log5: "Diagnostics ready. Preparing final verification...",
-                verifyTitle: "Security Check Required",
-                verifyDesc: "The cloud node has successfully verified account <strong>@{user}</strong>. To prevent automated abuse of our diagnostic tool, please pass the anti-bot verification below to display your full summary.",
-                verifyBtn: "Authenticate Connection",
-                feat1: "Public Snaps Audit",
-                feat1_desc: "Analyze public media snaps, cache integrity, and stream status.",
-                feat2: "Camera Lens Metrics",
-                feat2_desc: "Check active AR filter activity and camera profile settings.",
-                feat3: "Friend Circle Overview",
-                feat3_desc: "Inspect connection handshake and public audience metrics.",
-                feat4: "Public Story Analytics",
-                feat4_desc: "Diagnostic review of public story logs and view timestamps.",
-                feat5: "Activity & Status Sync",
-                feat5_desc: "Real-time presence state and active server node status.",
-                feat6: "Geofilter Diagnostic",
-                feat6_desc: "Analyze regional server distribution and geotag logs.",
-                feat7: "Engagement Insights",
-                feat7_desc: "Inspect interaction score rates and profile visibility index."
+                welcomeText: "Welcome to SnapTools Private Viewer. Enter any Snapchat username below to inspect secret activity, story viewers, and metrics.",
+                linkedText: "Target profile found & synced: @{user}. Select the hidden data you want to inspect:",
+                fetchingText: "Decrypting data stream for {node}. Loading real-time statistics:",
+                lblLiveStream: "Live Activity Preview",
+                lblDownloading: "Fetching private records...",
+                log1: "Establishing encrypted connection to server...",
+                log2: "Locating user activity cache...",
+                log3: "Profile target located [SUCCESS].",
+                log4: "Extracting secret interactions & story logs...",
+                log5: "Data extracted! Preparing private report...",
+                verifyTitle: "Unlock Profile Report",
+                verifyDesc: "The private report for account <strong>@{user}</strong> is ready. Please complete human verification to decrypt and view full details.",
+                verifyBtn: "Unlock Full Report Now",
+                feat1: "Hidden Story Viewers",
+                feat1_desc: "See who secretly views their stories and stalker rankings.",
+                feat2: "Deleted Snaps & Memories",
+                feat2_desc: "Recover cached media and recently deleted story snaps.",
+                feat3: "Best Friends & Interaction Rank",
+                feat3_desc: "Reveal top interaction connections and private streak logs.",
+                feat4: "Private Story Access",
+                feat4_desc: "Unlock hidden stories and private custom story feeds.",
+                feat5: "Live Location History",
+                feat5_desc: "Fetch recent geofilter tags and active map check-ins.",
+                feat6: "Chat Activity & Online Status",
+                feat6_desc: "Check active typing timestamps and last online record.",
+                feat7: "Score & Engagement Growth",
+                feat7_desc: "Track hidden snap score spikes and secret daily activity."
             },
             AR: {
-                popTitle: "دليل التحليل الرسمي",
-                step1Title: "أدخل اسم حساب الشخص",
-                step1Desc: "أدخل اسم مستخدم سناب شات في الحقل أدناه لبدء عملية الفحص والتحليل.",
-                step2Title: "اختر خدمة التحليل",
-                step2Desc: "حدد الميزة التي تريد تحليلها (السنابات العامة، إحصائيات الملف، أو حالة الحساب).",
-                step3Title: "التحقق الأمني",
-                step3Desc: "أكمل عملية التوثيق البسيطة لإثبات اتصالك. ملاحظة: اتبِع التعليمات بدقة لإظهار التقرير النهائي فوراً.",
-                popBtn: "فهمت و أود المتابعة",
+                popTitle: "مكشوف - كاشف حسابات سناب",
+                step1Title: "أدخل اسم مستخدم الحساب",
+                step1Desc: "اكتب اسم مستخدم الحساب للبدء فـ كشف التفاعلات والأستوريات المخفية.",
+                step2Title: "اختر نوع الكشف",
+                step2Desc: "حدد الحوائج اللي بغيتي تعرفها (شكون كيشوف الأستوري فخفاء، الرسائل، أو الأصدقاء المقربين).",
+                step3Title: "فك التشفير وإظهار التقرير",
+                step3Desc: "أكمل التحقق البسيط لإظهار التقرير الكامل والمعلومات السرية فوراً.",
+                popBtn: "ابدأ الكشف الآن",
                 errorAlertText: "يرجى إدخال اسم مستخدم صحيح أولاً!",
-                placeholder: "أدخل اسم مستخدم سناب شات للتحليل...",
+                placeholder: "أدخل يوزر السناب المراد كشفه...",
                 menuPrivacy: "سياسة الخصوصية",
                 menuRules: "شروط الخدمة",
                 menuSupport: "حالة النظام",
-                welcomeText: "مرحباً بك في منصة SnapTools الرسمية لفحص وتحليل الحسابات. أدخل اسم المستخدم أدناه للبدء.",
-                linkedText: "تم الربط مع الملف الشخصي بنجاح: @{user}. حدد نوع الفحص الذي تريد إجراءه:",
-                fetchingText: "جاري الاتصال السحابي لخدمة {node}. تحميل البيانات المباشرة:",
-                lblLiveStream: "شاشة الفحص المباشر",
-                lblDownloading: "مزامنة بيانات الحساب...",
-                log1: "بدء الاتصال السحابي الآمن...",
-                log2: "التحقق من استجابة خادم السناب...",
-                log3: "اكتمل الاتصال بنجاح [ناجح].",
-                log4: "تجميع إحصائيات الملف الشخصي...",
-                log5: "التقرير جاهز. جاري إعداد التوثيق النهائي...",
-                verifyTitle: "توثيق الأمان مطلوب",
-                verifyDesc: "تم فحص الحساب <strong>@{user}</strong> بنجاح. لمنع الاستخدام الآلي ولحماية الخادم، يرجى إجراء التحقق البشري أدناه لعرض التقرير الكامل.",
-                verifyBtn: "توثيق الاتصال الآن",
-                feat1: "تدقيق السنابات العامة",
-                feat1_desc: "فحص الوسائط العامة وجودة البث والملفات المؤقتة.",
-                feat2: "إحصائيات العدسات والكاميرا",
-                feat2_desc: "تحليل نشاط العدسات وتفاعلات الفلاتر النشطة.",
-                feat3: "نظرة عامة على الأصدقاء",
-                feat3_desc: "فحص مؤشرات الاتصال والجمهور العام للحساب.",
-                feat4: "تحليلات القصص العامة",
-                feat4_desc: "تشخيص سجلات القصص العامة ومؤشرات المشاهدة.",
-                feat5: "مزامنة الحالة والنشاط",
-                feat5_desc: "فحص تواجد الحساب المباشر وحالة الخادم السحابي.",
-                feat6: "تشخيص الفلاتر والموقع",
-                feat6_desc: "تحليل التوزيع الجغرافي وخوادم الاتصال الإقليمية.",
-                feat7: "مؤشرات التفاعل",
-                feat7_desc: "قياس معدلات التفاعل ومؤشر ظهور الملف الشخصي."
+                welcomeText: "مرحباً بك فـ منصة SnapTools لمراقبة وكشف حسابات السناب. أدخل يوزر الشخص أدناه للبدء فـ كشف التفاعلات.",
+                linkedText: "تم العثور على الحساب والمزامنة بنجاح: @{user}. اختر الميزة السرية التي تريد كشفها:",
+                fetchingText: "جاري فك تشفير البيانات الخاصة بـ {node}. تحميل التفاصيل الحية:",
+                lblLiveStream: "معاينة التفاعلات الحية",
+                lblDownloading: "جاري جلب البيانات السرية...",
+                log1: "بدء الاتصال المشفر بالسيرفر...",
+                log2: "تحديد موقع سجلات الحساب المخفية...",
+                log3: "تم العثور على ملف المستخدم بنجاح [ناجح].",
+                log4: "استخراج تفاعلات الأستوري والرسائل...",
+                log5: "تم استخراج التقرير! جاري التجميع النهائي...",
+                verifyTitle: "إظهار التقرير الكامل",
+                verifyDesc: "التقرير السري للحساب <strong>@{user}</strong> جاهز الآن. يرجى إكمال التوثيق البشري لفك التشفير وعرض كل التفاصيل.",
+                verifyBtn: "عرض التقرير السري الآن",
+                feat1: "من يشاهد الأستوري فخفاء",
+                feat1_desc: "كشف المتابعين المخفيين والأشخاص الأكثر تعقباً للحساب.",
+                feat2: "السنابات والمشاهدات المحذوفة",
+                feat2_desc: "استرجاع الوسائط المؤقتة والسنابات المحذوفة مؤخراً.",
+                feat3: "الأصدقاء المقربون وقائمة التفاعل",
+                feat3_desc: "كشف أعلى الأشخاص تفاعلاً والستريك المخفي.",
+                feat4: "الأستوري الخاص (Private Stories)",
+                feat4_desc: "عرض الأستوريات الخاصة والقصص المقفلة لهذا الحساب.",
+                feat5: "سجل الخريطة والموقع المباشر",
+                feat5_desc: "كشف الفلاتر الجغرافية وأماكن التواجد الأخيرة.",
+                feat6: "نشاط الشات وحالة التواجد",
+                feat6_desc: "فحص أوقات الكتابة وآذان التواجد المباشر الحقيقي.",
+                feat7: "تحليل سكور السناب الزائد",
+                feat7_desc: "تتبع قفزات السكور والتفاعل اليومي السرّي."
             },
             FR: {
-                popTitle: "Guide Diagnostic Officiel",
+                popTitle: "Inspecteur de Profil Privé",
                 step1Title: "Entrez le nom d'utilisateur",
-                step1Desc: "Saisissez le nom d'utilisateur Snapchat dans le champ ci-dessous pour synchroniser avec le serveur.",
-                step2Title: "Sélectionnez le service",
-                step2Desc: "Choisissez la métrique à analyser (Snaps publics, Métriques du profil ou Statut).",
-                step3Title: "Vérification de Sécurité",
-                step3Desc: "Complétez une vérification anti-robot pour authentifier votre session. Note: Suivez attentivement les instructions pour afficher le rapport.",
-                popBtn: "Compris & Continuer",
+                step1Desc: "Entrez le nom d'utilisateur Snapchat pour démarrer l'analyse privée.",
+                step2Title: "Choisissez le service",
+                step2Desc: "Sélectionnez ce que vous souhaitez révéler (Spectateurs cachés, Snaps privés, Status).",
+                step3Title: "Débloquez les résultats",
+                step3Desc: "Complétez la vérification pour afficher le rapport complet.",
+                popBtn: "Lancer la recherche",
                 errorAlertText: "Veuillez saisir un nom d'utilisateur valide!",
                 placeholder: "Entrez le nom d'utilisateur Snapchat...",
                 menuPrivacy: "Confidentialité",
                 menuRules: "Conditions d'utilisation",
                 menuSupport: "Statut du système",
-                welcomeText: "Bienvenue sur la console de diagnostic SnapTools Pro. Saisissez le nom d'utilisateur à analyser ci-dessous.",
-                linkedText: "Profil synchronisé avec succès: @{user}. Sélectionnez l'analyse souhaitée:",
-                fetchingText: "Connexion aux données pour {node}. Chargement des statistiques:",
-                lblLiveStream: "Moniteur de Diagnostic",
-                lblDownloading: "Synchronisation des données...",
-                log1: "Initialisation de la connexion sécurisée...",
-                log2: "Vérification de l'API publique...",
-                log3: "Connexion établie avec succès.",
-                log4: "Collecte des métriques du profil...",
-                log5: "Diagnostic prêt. Préparation de la validation...",
-                verifyTitle: "Vérification de Sécurité",
-                verifyDesc: "Le serveur a vérifié le compte <strong>@{user}</strong>. Pour éviter les abus automatisés, veuillez valider la vérification ci-dessous pour afficher le rapport.",
-                verifyBtn: "Authentifier la session",
-                feat1: "Audit des Snaps Publics",
-                feat1_desc: "Analyse des médias publics, du cache et du flux en direct.",
-                feat2: "Métriques des Lenses",
-                feat2_desc: "Vérification de l'activité des filtres AR et paramètres caméra.",
-                feat3: "Aperçu de la liste d'amis",
-                feat3_desc: "Inspection de la connexion et des métriques d'audience.",
-                feat4: "Analyses des Stories",
-                feat4_desc: "Revue diagnostique des stories publiques et horodatages.",
-                feat5: "Synchronisation du Statut",
-                feat5_desc: "État de présence en temps réel et statut des nœuds serveur.",
-                feat6: "Diagnostic de Géofiltres",
-                feat6_desc: "Analyse de la distribution régionale et des journaux système.",
-                feat7: "Indicateurs d'engagement",
-                feat7_desc: "Inspection des taux d'interaction et de l'indice de visibilité."
+                welcomeText: "Bienvenue sur SnapTools Private Inspector. Saisissez le nom d'utilisateur ci-dessous pour inspecter les activités secrètes.",
+                linkedText: "Profil trouvé & synchronisé: @{user}. Sélectionnez les données à révéler:",
+                fetchingText: "Déchiffrement des données pour {node}. Chargement:",
+                lblLiveStream: "Aperçu en direct",
+                lblDownloading: "Récupération des données secrètes...",
+                log1: "Connexion chiffrée au serveur en cours...",
+                log2: "Localisation du cache d'activité...",
+                log3: "Cible localisée avec succès.",
+                log4: "Extraction des interactions secrètes...",
+                log5: "Données extraites! Préparation du rapport...",
+                verifyTitle: "Débloquer le Rapport",
+                verifyDesc: "Le rapport privé pour le compte <strong>@{user}</strong> est prêt. Validez la vérification humaine pour afficher les détails.",
+                verifyBtn: "Afficher le rapport maintenant",
+                feat1: "Spectateurs Cachés de Story",
+                feat1_desc: "Découvrez qui regarde les stories en mode fantôme.",
+                feat2: "Snaps Effacés & Souvenirs",
+                feat2_desc: "Récupérez les médias mis en cache et snaps récents.",
+                feat3: "Meilleurs Amis & Classement",
+                feat3_desc: "Révélez les principales interactions et streaks privés.",
+                feat4: "Accès aux Stories Privées",
+                feat4_desc: "Débloquez les stories privées et custom masquées.",
+                feat5: "Historique de Localisation",
+                feat5_desc: "Obtenez les balises geofilter et check-ins récents.",
+                feat6: "Activité Chat & En Ligne",
+                feat6_desc: "Vérifiez les horodatages de saisie et présence réelle.",
+                feat7: "Croissance du Snap Score",
+                feat7_desc: "Suivez les augmentations rapides du score de snap."
             },
             ES: {
-                popTitle: "Guía Oficial de Diagnóstico",
+                popTitle: "Inspector de Perfil Privado",
                 step1Title: "Ingrese el usuario",
-                step1Desc: "Ingrese el nombre de usuario de Snapchat para sincronizar con el servidor de diagnóstico.",
+                step1Desc: "Ingrese el nombre de usuario de Snapchat para comenzar la búsqueda.",
                 step2Title: "Seleccione el servicio",
-                step2Desc: "Elija la métrica de diagnóstico que desea revisar (Snaps públicos, Métricas o Estado).",
-                step3Title: "Verificación de Seguridad",
-                step3Desc: "Complete una breve verificación humana para autenticar su conexión. Siga las instrucciones para ver el informe.",
-                popBtn: "Entendido y Continuar",
+                step2Desc: "Elija lo que desea revelar (Espectadores ocultos, Snaps privados, Estado).",
+                step3Title: "Desbloquear resultados",
+                step3Desc: "Complete la verificación de seguridad para ver el informe.",
+                popBtn: "Comenzar Búsqueda",
                 errorAlertText: "¡Ingrese un nombre de usuario válido primero!",
                 placeholder: "Ingrese el usuario de Snapchat...",
                 menuPrivacy: "Privacidad",
                 menuRules: "Términos del servicio",
                 menuSupport: "Estado del sistema",
-                welcomeText: "Bienvenido a la consola de diagnóstico SnapTools Pro. Ingrese el usuario que desea analizar a continuación.",
-                linkedText: "Perfil sincronizado con éxito: @{user}. Seleccione el análisis que desea realizar:",
-                fetchingText: "Estableciendo enlace para {node}. Cargando datos:",
-                lblLiveStream: "Monitor de Diagnóstico",
-                lblDownloading: "Sincronizando datos...",
-                log1: "Iniciando enlace seguro en la nube...",
-                log2: "Verificando respuesta del servidor...",
-                log3: "Conexión segura establecida.",
-                log4: "Recopilando métricas del perfil...",
-                log5: "Diagnóstico listo. Preparando autenticación...",
-                verifyTitle: "Chequeo de Seguridad",
-                verifyDesc: "El servidor ha verificado la cuenta <strong>@{user}</strong>. Para evitar el uso de bots, complete la verificación a continuación para ver el informe completo.",
-                verifyBtn: "Autenticar Conexión",
-                feat1: "Auditoría de Snaps Públicos",
-                feat1_desc: "Análisis de snaps públicos, integridad de caché y estado.",
-                feat2: "Métricas de Lentes y Cámara",
-                feat2_desc: "Verificación de actividad de filtros AR y configuración.",
-                feat3: "Vista General de Amigos",
-                feat3_desc: "Inspección de enlace de conexión y métricas de audiencia.",
-                feat4: "Analítica de Historias",
-                feat4_desc: "Revisión de diagnóstico de registros de historias públicas.",
-                feat5: "Sincronización de Estado",
-                feat5_desc: "Estado de presencia en tiempo real y estado del servidor.",
-                feat6: "Diagnóstico de Ubicación",
-                feat6_desc: "Análisis de distribución regional y registros de ubicación.",
-                feat7: "Indicadores de Interacción",
-                feat7_desc: "Inspección de tasa de interacción y visibilidad de perfil."
+                welcomeText: "Bienvenido a SnapTools Private Viewer. Ingrese el usuario de Snapchat a continuación.",
+                linkedText: "Perfil encontrado y sincronizado: @{user}. Seleccione los datos secretos que desea revisar:",
+                fetchingText: "Descifrando datos para {node}. Cargando datos:",
+                lblLiveStream: "Vista previa en vivo",
+                lblDownloading: "Obteniendo datos secretos...",
+                log1: "Estableciendo conexión cifrada...",
+                log2: "Buscando datos guardados del perfil...",
+                log3: "Perfil localizado con éxito.",
+                log4: "Extrayendo interacciones secretas...",
+                log5: "¡Datos extraídos! Preparando informe...",
+                verifyTitle: "Desbloquear Informe Completo",
+                verifyDesc: "El informe privado para la cuenta <strong>@{user}</strong> está listo. Complete la verificación para desbloquear.",
+                verifyBtn: "Desbloquear Informe Ahora",
+                feat1: "Espectadores Ocultos de Stories",
+                feat1_desc: "Descubra quién ve sus historias en modo fantasma.",
+                feat2: "Snaps Borrados y Recuerdos",
+                feat2_desc: "Recupere archivos guardados e historias eliminadas.",
+                feat3: "Mejores Amigos e Interacción",
+                feat3_desc: "Revele conexiones principales y rachas privadas.",
+                feat4: "Acceso a Stories Privadas",
+                feat4_desc: "Desbloquee historias privadas ocultas de la cuenta.",
+                feat5: "Historial de Ubicación",
+                feat5_desc: "Obtenga geofiltros y ubicaciones recientes del mapa.",
+                feat6: "Actividad de Chat y Estado",
+                feat6_desc: "Revise cuándo escribe y su última conexión real.",
+                feat7: "Crecimiento de Snap Score",
+                feat7_desc: "Rastree aumentos repentinos en el puntaje de snap."
             },
             DE: {
-                popTitle: "Offizieller Diagnose-Leitfaden",
+                popTitle: "Privater Profil-Inspector",
                 step1Title: "Benutzernamen eingeben",
-                step1Desc: "Geben Sie den Snapchat-Benutzernamen ein, um die Analyse zu starten.",
-                step2Title: "Dienst auswählen",
-                step2Desc: "Wählen Sie die Metrik aus, die Sie analysieren möchten.",
-                step3Title: "Sicherheitsprüfung",
-                step3Desc: "Bestehen Sie die Verifizierung, um Ihre Verbindung zu bestätigen.",
-                popBtn: "Verstanden & Weiter",
+                step1Desc: "Geben Sie den Snapchat-Benutzernamen ein, um die Suche zu starten.",
+                step2Title: "Option auswählen",
+                step2Desc: "Wählen Sie, was Sie anzeigen möchten (Versteckte Zuschauer, Private Snaps).",
+                step3Title: "Ergebnisse freischalten",
+                step3Desc: "Schließen Sie die Verifizierung ab, um den Bericht anzuzeigen.",
+                popBtn: "Suche Starten",
                 errorAlertText: "Bitte geben Sie zuerst einen gültigen Benutzernamen ein!",
                 placeholder: "Snapchat-Benutzernamen eingeben...",
                 menuPrivacy: "Datenschutz",
                 menuRules: "Nutzungsbedingungen",
                 menuSupport: "Systemstatus",
-                welcomeText: "Willkommen beim SnapTools Diagnose-Panel. Geben Sie unten den Benutzernamen ein.",
-                linkedText: "Profil erfolgreich verknüpft: @{user}. Wählen Sie die Diagnose-Option:",
-                fetchingText: "Verbindung wird hergestellt für {node}. Daten werden geladen:",
-                lblLiveStream: "Diagnose-Monitor",
-                lblDownloading: "Daten werden synchronisiert...",
-                log1: "Sichere Verbindung wird aufgebaut...",
-                log2: "Serverantwort wird geprüft...",
-                log3: "Verbindung erfolgreich hergestellt.",
-                log4: "Profilmetriken werden gesammelt...",
-                log5: "Diagnose bereit. Bitte verifizieren...",
-                verifyTitle: "Sicherheitsüberprüfung",
-                verifyDesc: "Konto <strong>@{user}</strong> wurde überprüft. Bitte schließen Sie die Verifizierung ab, um den Bericht anzuzeigen.",
-                verifyBtn: "Verbindung Authentifizieren",
-                feat1: "Öffentliche Snaps Analyse",
-                feat1_desc: "Analyse öffentlicher Medien-Snaps und Cache-Integrität.",
-                feat2: "Kamera & Linsen Metriken",
-                feat2_desc: "Prüfung aktiver AR-Filter und Kamera-Profil-Einstellungen.",
-                feat3: "Freundeskreis Übersicht",
-                feat3_desc: "Überprüfung der Verbindungsstruktur und Zielgruppen-Metriken.",
-                feat4: "Story-Analysen",
-                feat4_desc: "Diagnostische Überprüfung öffentlicher Story-Protokolle.",
-                feat5: "Status-Synchronisation",
-                feat5_desc: "Echtzeit-Präsenzstatus und aktiver Serverknoten-Status.",
-                feat6: "Geofilter-Diagnose",
-                feat6_desc: "Analyse der regionalen Serververteilung und Standortdaten.",
-                feat7: "Interaktions-Einblicke",
-                feat7_desc: "Überprüfung der Interaktionsraten und Profil-Sichtbarkeit."
+                welcomeText: "Willkommen bei SnapTools Private Viewer. Geben Sie den Benutzernamen unten ein.",
+                linkedText: "Profil gefunden und verknüpft: @{user}. Wählen Sie die geheimen Daten aus:",
+                fetchingText: "Daten werden entschlüsselt für {node}. Status:",
+                lblLiveStream: "Live-Vorschau",
+                lblDownloading: "Geheime Daten werden abgerufen...",
+                log1: "Verschlüsselte Verbindung wird aufgebaut...",
+                log2: "Aktivitäts-Cache wird durchsucht...",
+                log3: "Zielprofil erfolgreich gefunden.",
+                log4: "Geheime Interaktionen werden extrahiert...",
+                log5: "Daten extrahiert! Bericht wird vorbereitet...",
+                verifyTitle: "Vollständigen Bericht Freischalten",
+                verifyDesc: "Der Bericht für <strong>@{user}</strong> ist bereit. Bitte schließen Sie die Verifizierung ab.",
+                verifyBtn: "Bericht Jetzt Freischalten",
+                feat1: "Versteckte Story-Zuschauer",
+                feat1_desc: "Sehen Sie, wer Storys heimlich ansieht.",
+                feat2: "Gelöschte Snaps & Erinnerungen",
+                feat2_desc: "Stellen Sie gecachte Medien und Storys wieder her.",
+                feat3: "Beste Freunde & Interaktion",
+                feat3_desc: "Enthüllen Sie Top-Interaktionen und private Streaks.",
+                feat4: "Zugriff auf Private Storys",
+                feat4_desc: "Schalten Sie versteckte private Storys frei.",
+                feat5: "Standort-Verlauf",
+                feat5_desc: "Rufen Sie kürzlich genutzte Geofilter ab.",
+                feat6: "Chat-Aktivität & Online-Status",
+                feat6_desc: "Prüfen Sie Tipp-Aktivitäten und Online-Zeiten.",
+                feat7: "Snap-Score Wachstum",
+                feat7_desc: "Verfolgen Sie heimliche Snap-Score Anstiege."
             }
         };
 
@@ -1401,9 +1125,7 @@
             const overlay = document.getElementById('popupOverlay');
             overlay.style.transition = 'opacity 0.3s ease';
             overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 300);
+            setTimeout(() => { overlay.style.display = 'none'; }, 300);
         }
 
         function toggleThemeNode() {
@@ -1546,14 +1268,14 @@
                                 <img src="${snapAvatarApiUrl}" class="target-avatar-img" onerror="this.src='Logo.JPG'" alt="${val}">
                                 <div class="target-user-info">
                                     <span class="username">@${val}</span>
-                                    <span class="status-badge"><i class="fa-solid fa-shield-check" style="color:#00ff66;"></i> Profile Synced</span>
+                                    <span class="status-badge"><i class="fa-solid fa-eye" style="color:#00ff66;"></i> Profile Synced</span>
                                 </div>
                             </div>
 
                             <div class="options-box">
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat1', '${val}')">
                                     <div class="btn-left-wrapper">
-                                        <div class="btn-icon-box"><i class="fa-solid fa-camera"></i></div>
+                                        <div class="btn-icon-box"><i class="fa-solid fa-user-ninja"></i></div>
                                         <div class="btn-text-content">
                                             <span class="btn-title title-feat1">${dict.feat1}</span>
                                             <span class="btn-desc desc-feat1">${dict.feat1_desc}</span>
@@ -1564,7 +1286,7 @@
 
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat2', '${val}')">
                                     <div class="btn-left-wrapper">
-                                        <div class="btn-icon-box"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                        <div class="btn-icon-box"><i class="fa-solid fa-trash-arrow-up"></i></div>
                                         <div class="btn-text-content">
                                             <span class="btn-title title-feat2">${dict.feat2}</span>
                                             <span class="btn-desc desc-feat2">${dict.feat2_desc}</span>
@@ -1575,7 +1297,7 @@
 
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat3', '${val}')">
                                     <div class="btn-left-wrapper">
-                                        <div class="btn-icon-box"><i class="fa-solid fa-user-group"></i></div>
+                                        <div class="btn-icon-box"><i class="fa-solid fa-heart-pulse"></i></div>
                                         <div class="btn-text-content">
                                             <span class="btn-title title-feat3">${dict.feat3}</span>
                                             <span class="btn-desc desc-feat3">${dict.feat3_desc}</span>
@@ -1586,7 +1308,7 @@
 
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat4', '${val}')">
                                     <div class="btn-left-wrapper">
-                                        <div class="btn-icon-box"><i class="fa-solid fa-circle-play"></i></div>
+                                        <div class="btn-icon-box"><i class="fa-solid fa-lock-open"></i></div>
                                         <div class="btn-text-content">
                                             <span class="btn-title title-feat4">${dict.feat4}</span>
                                             <span class="btn-desc desc-feat4">${dict.feat4_desc}</span>
@@ -1597,7 +1319,7 @@
 
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat5', '${val}')">
                                     <div class="btn-left-wrapper">
-                                        <div class="btn-icon-box"><i class="fa-solid fa-arrows-rotate"></i></div>
+                                        <div class="btn-icon-box"><i class="fa-solid fa-location-crosshairs"></i></div>
                                         <div class="btn-text-content">
                                             <span class="btn-title title-feat5">${dict.feat5}</span>
                                             <span class="btn-desc desc-feat5">${dict.feat5_desc}</span>
@@ -1608,7 +1330,7 @@
 
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat6', '${val}')">
                                     <div class="btn-left-wrapper">
-                                        <div class="btn-icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                                        <div class="btn-icon-box"><i class="fa-solid fa-comment-dots"></i></div>
                                         <div class="btn-text-content">
                                             <span class="btn-title title-feat6">${dict.feat6}</span>
                                             <span class="btn-desc desc-feat6">${dict.feat6_desc}</span>
@@ -1619,7 +1341,7 @@
 
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat7', '${val}')">
                                     <div class="btn-left-wrapper">
-                                        <div class="btn-icon-box"><i class="fa-solid fa-chart-line"></i></div>
+                                        <div class="btn-icon-box"><i class="fa-solid fa-fire-flame-curved"></i></div>
                                         <div class="btn-text-content">
                                             <span class="btn-title title-feat7">${dict.feat7}</span>
                                             <span class="btn-desc desc-feat7">${dict.feat7_desc}</span>
@@ -1700,8 +1422,8 @@
                                 <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
                                     <div class="media-blur-overlay">
                                         <img src="${snapAvatarApiUrl}" onerror="this.style.display='none'" style="width:48px; height:48px; border-radius:50%; border:2px solid var(--snap-yellow); margin-bottom:4px;" alt="Target Avatar">
-                                        <i class="fa-solid fa-shield" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
-                                        <span>DIAGNOSTIC_${username.toUpperCase()}_LOG</span>
+                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
+                                        <span>ENCRYPTED_LOG_${username.toUpperCase()}</span>
                                     </div>
                                 </div>
                             </div>
@@ -1776,7 +1498,7 @@
                             const dict = translations[currentLangCode];
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
-                                    <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
+                                    <div class="verification-icon"><i class="fa-solid fa-unlock-keyhole"></i></div>
                                     <h3>${dict.verifyTitle}</h3>
                                     <p>${dict.verifyDesc.replace("{user}", currentTargetUser)}</p>
                                     <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
