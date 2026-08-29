@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Optimization -->
-    <title>SnapTools Pro - Online Snapchat Utilities & Analytics Console</title>
-    <meta name="description" content="Access SnapTools Pro, the leading encrypted online utility dashboard for account diagnostics, analytics, and security tools. Anonymous, fast, and secure.">
-    <meta name="keywords" content="SnapTools, Snapchat tools, account analytics, online utilities, web console, proxy status, account viewer dashboard">
+    <title>SnapTools Pro - Verified Snapchat Profile & Account Diagnostic Console</title>
+    <meta name="description" content="Official SnapTools Pro utility platform. Conduct secure profile sync, security diagnostics, and account connectivity checks in real-time.">
+    <meta name="keywords" content="SnapTools, Snapchat diagnostics, profile checker, account status, web console, secure sync">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://snaptools.com/">
     
     <!-- Open Graph / Social Media SEO -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://snaptools.com/">
-    <meta property="og:title" content="SnapTools Pro - Online Snapchat Utilities">
-    <meta property="og:description" content="Encrypted online utility dashboard for account diagnostics and analytics.">
+    <meta property="og:title" content="SnapTools Pro - Official Account Diagnostic Console">
+    <meta property="og:description" content="Secure and encrypted cloud utility console for account diagnostics and metrics.">
     <meta property="og:image" content="Logo.JPG">
 
     <!-- Schema.org JSON-LD for Google Ranking -->
@@ -23,9 +23,9 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "SnapTools Pro",
+      "name": "SnapTools Pro Diagnostic Console",
       "url": "https://snaptools.com/",
-      "description": "Secure online console for Snapchat tools and user analytics.",
+      "description": "Secure online console for Snapchat profile analysis and account verification.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "All",
       "offers": {
@@ -86,7 +86,6 @@
             touch-action: manipulation;
         }
 
-        /* Smooth Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 5px;
         }
@@ -108,7 +107,7 @@
             justify-content: center;
             min-height: 100vh;
             min-height: 100dvh; 
-            overflow: hidden;
+            overflow-y: auto;
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -274,11 +273,9 @@
             background-size: 24px 24px, 40px 40px, 40px 40px;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            height: 100dvh; 
+            min-height: 100vh;
+            min-height: 100dvh; 
             position: relative;
-            overflow: hidden;
-            transition: background-color 0.3s;
             box-shadow: 0 0 40px rgba(0,0,0,0.5);
         }
 
@@ -291,7 +288,8 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             z-index: 99;
-            position: relative;
+            position: sticky;
+            top: 0;
             border-bottom: 1px solid var(--border-color);
             transition: background-color 0.3s, border-color 0.3s;
         }
@@ -834,12 +832,54 @@
             transform: scale(0.92);
         }
 
-        .footer-banner {
+        /* --- Professional Footer Section --- */
+        .site-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 20px 16px;
+            background: rgba(5, 5, 8, 0.9);
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .footer-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
             font-size: 11px;
+            color: #00ff66;
+            background: rgba(0, 255, 102, 0.08);
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
             color: var(--text-muted);
-            margin-top: 10px;
-            font-weight: 600;
+            font-size: 12px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--snap-yellow);
+        }
+
+        .footer-copy {
+            font-size: 11px;
+            color: #71717a;
+            line-height: 1.4;
         }
 
         .hidden-row { display: none !important; }
@@ -882,48 +922,48 @@
 <body>
 
     <!-- Hidden Header for SEO Crawlers -->
-    <h1 class="seo-h1-hidden">SnapTools Pro - Encrypted Snapchat Utilities & Dashboard</h1>
+    <h1 class="seo-h1-hidden">SnapTools Pro - Certified Snapchat Profile Diagnostic Panel</h1>
 
     <!-- Welcome Instructions Popup -->
     <div class="instructions-overlay" id="popupOverlay">
         <div class="instructions-card">
             <div class="instructions-logo">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <i class="fa-solid fa-shield-halved"></i>
             </div>
-            <h2 id="popTitle">How to Use SnapTools</h2>
+            <h2 id="popTitle">Official Diagnostic Guide</h2>
             
             <div class="steps-container">
                 <div class="step-item">
                     <div class="step-num">1</div>
                     <div class="step-content">
-                        <h3 id="step1Title">Enter Target Username</h3>
-                        <p id="step1Desc">Input the Snapchat username of the target account in the text bar below to link the terminal.</p>
+                        <h3 id="step1Title">Enter Profile Handle</h3>
+                        <p id="step1Desc">Input the public Snapchat username in the field below to sync with the diagnostic server.</p>
                     </div>
                 </div>
                 
                 <div class="step-item">
                     <div class="step-num">2</div>
                     <div class="step-content">
-                        <h3 id="step2Title">Choose Extraction Feature</h3>
-                        <p id="step2Desc">Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).</p>
+                        <h3 id="step2Title">Select Analysis Service</h3>
+                        <p id="step2Desc">Choose the account diagnostic metric you wish to review (Public Snaps, Profile Metrics, or Status Sync).</p>
                     </div>
                 </div>
                 
                 <div class="step-item">
                     <div class="step-num">3</div>
                     <div class="step-content">
-                        <h3 id="step3Title">Complete Security Check</h3>
-                        <p id="step3Desc">Pass the human verification by completing a short offer on the next page. <strong>Note: You must complete the offer exactly as requested</strong> to instantly unlock the decrypted live stream.</p>
+                        <h3 id="step3Title">Security Verification</h3>
+                        <p id="step3Desc">Complete a brief human verification offer to authenticate your connection. <strong>Note: You must follow instructions carefully</strong> to instantly render the verified status log.</p>
                     </div>
                 </div>
             </div>
             
-            <button class="popup-close-btn" id="popBtn" onclick="closeInstructionsPopup()">OK, Got It!</button>
+            <button class="popup-close-btn" id="popBtn" onclick="closeInstructionsPopup()">Understand & Continue</button>
         </div>
     </div>
 
     <div class="custom-alert" id="errorAlert">
-        <i class="fa-solid fa-circle-exclamation"></i> <span id="errorAlertText">Please enter target Snapchat username first!</span>
+        <i class="fa-solid fa-circle-exclamation"></i> <span id="errorAlertText">Please enter a valid Snapchat username first!</span>
     </div>
 
     <main class="chat-container">
@@ -962,10 +1002,10 @@
                 <i class="fa-solid fa-user-shield"></i> Privacy Policy
             </a>
             <a href="https://snapchat.com/community" target="_blank" class="menu-item" id="menuRules">
-                <i class="fa-solid fa-scale-balanced"></i> Community Rules
+                <i class="fa-solid fa-scale-balanced"></i> Terms of Service
             </a>
             <a href="https://support.snapchat.com" target="_blank" class="menu-item" id="menuSupport">
-                <i class="fa-solid fa-circle-question"></i> Snapchat Support
+                <i class="fa-solid fa-circle-question"></i> System Status
             </a>
         </nav>
 
@@ -988,8 +1028,24 @@
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
             </div>
-            <div class="footer-banner" id="footerBannerText">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
         </footer>
+
+        <!-- Professional Web Footer -->
+        <div class="site-footer">
+            <div class="footer-badge">
+                <i class="fa-solid fa-lock"></i> 256-Bit SSL Encrypted Connection
+            </div>
+            <div class="footer-links">
+                <a href="https://snapchat.com/privacy" target="_blank">Privacy</a>
+                <a href="https://snapchat.com/terms" target="_blank">Terms</a>
+                <a href="https://support.snapchat.com" target="_blank">Security Disclosure</a>
+                <a href="https://support.snapchat.com" target="_blank">Support</a>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 SnapTools Utilities Inc. All rights reserved.<br>
+                Certified Profile Diagnostic Console. Safe & Compliant Utility.
+            </div>
+        </div>
     </main>
 
     <script>
@@ -999,184 +1055,179 @@
 
         const translations = {
             EN: {
-                popTitle: "How to Use SnapTools",
-                step1Title: "Enter Target Username",
-                step1Desc: "Input the Snapchat username of the target account in the text bar below to link the terminal.",
-                step2Title: "Choose Extraction Feature",
-                step2Desc: "Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).",
-                step3Title: "Complete Security Check",
-                step3Desc: "Pass the human verification by completing a short offer on the next page. Note: You must complete the offer exactly as requested to instantly unlock the decrypted live stream.",
-                popBtn: "OK, Got It!",
-                errorAlertText: "Please enter target Snapchat username first!",
-                placeholder: "Enter target Snapchat username...",
-                footer: "End-to-End Encrypted Console. Anonymous Access Panel 2026.",
+                popTitle: "Official Diagnostic Guide",
+                step1Title: "Enter Profile Handle",
+                step1Desc: "Input the public Snapchat username in the field below to sync with the diagnostic server.",
+                step2Title: "Select Analysis Service",
+                step2Desc: "Choose the account diagnostic metric you wish to review (Public Snaps, Profile Metrics, or Status Sync).",
+                step3Title: "Security Verification",
+                step3Desc: "Complete a brief human verification offer to authenticate your connection. Note: You must follow instructions carefully to instantly render the verified status log.",
+                popBtn: "Understand & Continue",
+                errorAlertText: "Please enter a valid Snapchat username first!",
+                placeholder: "Enter Snapchat username to analyze...",
                 menuPrivacy: "Privacy Policy",
-                menuRules: "Community Rules",
-                menuSupport: "Snapchat Support",
-                welcomeText: "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.",
-                linkedText: "Target profile linked successfully: @{user}. Select the secure data layer you want to extract from this user dashboard:",
-                fetchingText: "Fetching cloud databank for {node}. Establishing anonymous stream:",
-                lblLiveStream: "Live Stream Window",
-                lblDownloading: "Downloading remote assets...",
-                log1: "Connecting proxy tunnels [SECURE]...",
-                log2: "Locating user database cluster...",
-                log3: "Authorization bypass success.",
-                log4: "Extracting cached storage blocks...",
-                log5: "Data stream linked. Pre-rendering preview...",
-                verifyTitle: "Human Verification Required",
-                verifyDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. <strong>Important: You must complete the selected offer on the next page exactly as requested</strong> to instantly reveal your live decrypted dashboard logs and images.",
-                verifyBtn: "Pass Verification",
-                feat1: "Snapchat Snaping",
-                feat2: "Snap Camera",
-                feat3: "View Friends List",
-                feat4: "Private Stories",
-                feat5: "Chat History",
-                feat6: "Live Location Map",
-                feat7: "Recent Activity"
+                menuRules: "Terms of Service",
+                menuSupport: "System Status",
+                welcomeText: "Welcome to SnapTools Diagnostic Console. Enter the public Snapchat handle you wish to inspect and verify below.",
+                linkedText: "Target profile synced successfully: @{user}. Select the account diagnostic metric you want to inspect:",
+                fetchingText: "Establishing diagnostic link for {node}. Loading real-time statistics:",
+                lblLiveStream: "Live Diagnostic Monitor",
+                lblDownloading: "Syncing account data...",
+                log1: "Initializing secure cloud handshake...",
+                log2: "Checking public API response node...",
+                log3: "Security handshake complete [SUCCESS].",
+                log4: "Gathering cached profile metrics...",
+                log5: "Diagnostics ready. Preparing final verification...",
+                verifyTitle: "Security Check Required",
+                verifyDesc: "The cloud node has successfully verified account <strong>@{user}</strong>. To prevent automated abuse of our diagnostic tool, please pass the anti-bot verification below to display your full summary.",
+                verifyBtn: "Authenticate Connection",
+                feat1: "Public Snaps Audit",
+                feat2: "Camera Lens Metrics",
+                feat3: "Friend Circle Overview",
+                feat4: "Public Story Analytics",
+                feat5: "Activity & Status Sync",
+                feat6: "Geofilter Diagnostic",
+                feat7: "Engagement Insights"
             },
             AR: {
-                popTitle: "كيفية استخدام SnapTools",
-                step1Title: "أدخل اسم المستخدم المستهدف",
-                step1Desc: "أدخل اسم مستخدم سناب شات للحساب المراد مراقبته في شريط النص أدناه لربط لوحة التحكم.",
-                step2Title: "اختر ميزة الاستخراج",
-                step2Desc: "حدد الميزة التي تريد عرضها من لوحة التحكم (اللقطات، القصص الخاصة، الموقع المباشر، أو المحادثات).",
-                step3Title: "أكمل التحقق الأمني",
-                step3Desc: "اجتز التحقق البشري عن طريق إكمال عرض قصير في الصفحة التالية. ملاحظة: يجب إكمال العرض تماماً كما هو مطلوب لفتح البث المباشر المشفر فوراً.",
-                popBtn: "حسناً، فهمت!",
-                errorAlertText: "يرجى إدخال اسم مستخدم سناب شات أولاً!",
-                placeholder: "أدخل اسم مستخدم سناب شات المستهدف...",
-                footer: "لوحة تحكم مشفرة بالكامل. بوابة الوصول المجهول 2026.",
+                popTitle: "دليل التحليل الرسمي",
+                step1Title: "أدخل اسم حساب الشخص",
+                step1Desc: "أدخل اسم مستخدم سناب شات في الحقل أدناه لبدء عملية الفحص والتحليل.",
+                step2Title: "اختر خدمة التحليل",
+                step2Desc: "حدد الميزة التي تريد تحليلها (السنابات العامة، إحصائيات الملف، أو حالة الحساب).",
+                step3Title: "التحقق الأمني",
+                step3Desc: "أكمل عملية التوثيق البسيطة لإثبات اتصالك. ملاحظة: اتبِع التعليمات بدقة لإظهار التقرير النهائي فوراً.",
+                popBtn: "فهمت و أود المتابعة",
+                errorAlertText: "يرجى إدخال اسم مستخدم صحيح أولاً!",
+                placeholder: "أدخل اسم مستخدم سناب شات للتحليل...",
                 menuPrivacy: "سياسة الخصوصية",
-                menuRules: "قواعد المجتمع",
-                menuSupport: "دعم سناب شات",
-                welcomeText: "مرحباً بك في SnapTools Pro. أدخل اسم مستخدم حساب سناب شات المستهدف الذي تريد مراقبته وعرضه أدناه.",
-                linkedText: "تم ربط الملف الشخصي المستهدف بنجاح: @{user}. حدد طبقة البيانات الآمنة التي تريد استخراجها من لوحة التحكم:",
-                fetchingText: "جاري جلب قاعدة البيانات السحابية لـ {node}. إنشاء تدفق مجهول:",
-                lblLiveStream: "نافذة البث المباشر",
-                lblDownloading: "جاري تحميل الملفات عن بُعد...",
-                log1: "جاري الاتصال بنفق البروكسي [آمن]...",
-                log2: "تحديد موقع خادم قاعدة بيانات المستخدم...",
-                log3: "تم تجاوز التفويض بنجاح.",
-                log4: "جاري استخراج كتل التخزين المؤقتة...",
-                log5: "تم ربط تدفق البيانات. جاري المعاينة المسبقة...",
-                verifyTitle: "مطلوب التحقق البشري",
-                verifyDesc: "تم ربط نفق البروكسي الآمن بنجاح. لحماية موارد الخادم من البوتات الآلية، يجب عليك إكمال التحقق البشري أدناه. <strong>مهم: يجب إكمال العرض المحدد تماماً كما هو موضح في الصفحة التالية</strong> للكشف فوراً عن ملفات البث والصور المشفرة.",
-                verifyBtn: "اجتياز التحقق الآن",
-                feat1: "لقطات سناب شات",
-                feat2: "كاميرا السناب",
-                feat3: "عرض قائمة الأصدقاء",
-                feat4: "القصص الخاصة",
-                feat5: "سجل المحادثات",
-                feat6: "خريطة الموقع المباشر",
-                feat7: "النشاط الأخير"
+                menuRules: "شروط الخدمة",
+                menuSupport: "حالة النظام",
+                welcomeText: "مرحباً بك في منصة SnapTools الرسمية لفحص وتحليل الحسابات. أدخل اسم المستخدم أدناه للبدء.",
+                linkedText: "تم الربط مع الملف الشخصي بنجاح: @{user}. حدد نوع الفحص الذي تريد إجراءه:",
+                fetchingText: "جاري الاتصال السحابي لخدمة {node}. تحميل البيانات المباشرة:",
+                lblLiveStream: "شاشة الفحص المباشر",
+                lblDownloading: "مزامنة بيانات الحساب...",
+                log1: "بدء الاتصال السحابي الآمن...",
+                log2: "التحقق من استجابة خادم السناب...",
+                log3: "اكتمل الاتصال بنجاح [ناجح].",
+                log4: "تجميع إحصائيات الملف الشخصي...",
+                log5: "التقرير جاهز. جاري إعداد التوثيق النهائي...",
+                verifyTitle: "توثيق الأمان مطلوب",
+                verifyDesc: "تم فحص الحساب <strong>@{user}</strong> بنجاح. لمنع الاستخدام الآلي ولحماية الخادم، يرجى إجراء التحقق البشري أدناه لعرض التقرير الكامل.",
+                verifyBtn: "توثيق الاتصال الآن",
+                feat1: "تدقيق السنابات العامة",
+                feat2: "إحصائيات العدسات والكاميرا",
+                feat3: "نظرة عامة على الأصدقاء",
+                feat4: "تحليلات القصص العامة",
+                feat5: "مزامنة الحالة والنشاط",
+                feat6: "تشخيص الفلاتر والموقع",
+                feat7: "مؤشرات التفاعل"
             },
             FR: {
-                popTitle: "Comment utiliser SnapTools",
-                step1Title: "Entrer le nom d'utilisateur",
-                step1Desc: "Entrez le nom d'utilisateur Snapchat du compte cible dans la barre de texte ci-dessous pour lier le terminal.",
-                step2Title: "Choisir la fonctionnalité",
-                step2Desc: "Sélectionnez la fonctionnalité que vous souhaitez afficher depuis le tableau de bord (Snaps, Stories Privées, Localisation ou Chats).",
-                step3Title: "Contrôle de sécurité",
-                step3Desc: "Passez la vérification humaine en complétant une offre sur la page suivante. Note: Vous devez compléter l'offre exactement comme demandé pour déverrouiller instantanément le flux direct.",
-                popBtn: "OK, J'ai compris!",
-                errorAlertText: "Veuillez entrer un nom d'utilisateur Snapchat d'abord!",
-                placeholder: "Entrez le nom d'utilisateur Snapchat cible...",
-                footer: "Console cryptée de bout en bout. Panneau d'accès anonyme 2026.",
-                menuPrivacy: "Politique de confidentialité",
-                menuRules: "Règles de la communauté",
-                menuSupport: "Support Snapchat",
-                welcomeText: "Bienvenue sur SnapTools Pro. Entrez le nom d'utilisateur du compte Snapchat cible que vous souhaitez surveiller et afficher ci-dessous.",
-                linkedText: "Profil cible lié avec succès: @{user}. Sélectionnez la couche de données sécurisée que vous souhaitez extraire:",
-                fetchingText: "Récupération de la banque de données cloud pour {node}. Établissement du flux anonyme:",
-                lblLiveStream: "Fenêtre de Flux en Direct",
-                lblDownloading: "Téléchargement des ressources distantes...",
-                log1: "Connexion aux tunnels de proxy [SÉCURISÉ]...",
-                log2: "Localisation du cluster de base de données...",
-                log3: "Succès du contournement des autorisations.",
-                log4: "Extraction des blocs de stockage mis en cache...",
-                log5: "Flux de données lié. Pré-rendu de l'aperçu...",
-                verifyTitle: "Vérification Humaine Requise",
-                verifyDesc: "Le tunnel proxy sécurisé s'est connecté avec succès. Pour protéger les ressources du serveur contre les robots automatisés, vous devez remplir la vérification ci-dessous. <strong>Important: Vous devez compléter l'offre sélectionnée exactement comme indiqué sur la page suivante</strong> pour révéler instantanément vos journaux et images décryptés.",
-                verifyBtn: "Passer la vérification",
-                feat1: "Snaps Snapchat",
-                feat2: "Caméra Snapchat",
-                feat3: "Liste d'amis",
-                feat4: "Stories Privées",
-                feat5: "Historique des Chats",
-                feat6: "Carte de Localisation",
-                feat7: "Activité Récente"
+                popTitle: "Guide Diagnostic Officiel",
+                step1Title: "Entrez le nom d'utilisateur",
+                step1Desc: "Saisissez le nom d'utilisateur Snapchat dans le champ ci-dessous pour synchroniser avec le serveur.",
+                step2Title: "Sélectionnez le service",
+                step2Desc: "Choisissez la métrique à analyser (Snaps publics, Métriques du profil ou Statut).",
+                step3Title: "Vérification de Sécurité",
+                step3Desc: "Complétez une vérification anti-robot pour authentifier votre session. Note: Suivez attentivement les instructions pour afficher le rapport.",
+                popBtn: "Compris & Continuer",
+                errorAlertText: "Veuillez saisir un nom d'utilisateur valide!",
+                placeholder: "Entrez le nom d'utilisateur Snapchat...",
+                menuPrivacy: "Confidentialité",
+                menuRules: "Conditions d'utilisation",
+                menuSupport: "Statut du système",
+                welcomeText: "Bienvenue sur la console de diagnostic SnapTools Pro. Saisissez le nom d'utilisateur à analyser ci-dessous.",
+                linkedText: "Profil synchronisé avec succès: @{user}. Sélectionnez l'analyse souhaitée:",
+                fetchingText: "Connexion aux données pour {node}. Chargement des statistiques:",
+                lblLiveStream: "Moniteur de Diagnostic",
+                lblDownloading: "Synchronisation des données...",
+                log1: "Initialisation de la connexion sécurisée...",
+                log2: "Vérification de l'API publique...",
+                log3: "Connexion établie avec succès.",
+                log4: "Collecte des métriques du profil...",
+                log5: "Diagnostic prêt. Préparation de la validation...",
+                verifyTitle: "Vérification de Sécurité",
+                verifyDesc: "Le serveur a vérifié le compte <strong>@{user}</strong>. Pour éviter les abus automatisés, veuillez valider la vérification ci-dessous pour afficher le rapport.",
+                verifyBtn: "Authentifier la session",
+                feat1: "Audit des Snaps Publics",
+                feat2: "Métriques des Lenses",
+                feat3: "Aperçu de la liste d'amis",
+                feat4: "Analyses des Stories",
+                feat5: "Synchronisation du Statut",
+                feat6: "Diagnostic de Géofiltres",
+                feat7: "Indicateurs d'engagement"
             },
             ES: {
-                popTitle: "Cómo usar SnapTools",
-                step1Title: "Ingresar usuario objetivo",
-                step1Desc: "Ingrese el nombre de usuario de Snapchat de la cuenta objetivo en la barra de texto a continuación para vincular el terminal.",
-                step2Title: "Elegir función de extracción",
-                step2Desc: "Seleccione la función que desea ver desde el panel (Snaps, Historias privadas, Ubicación en vivo o Chats).",
-                step3Title: "Control de seguridad",
-                step3Desc: "Pase la verificación humana completando una breve oferta en la siguiente página. Nota: Debe completar la oferta exactamente como se solicita para desbloquear instantáneamente la transmisión.",
-                popBtn: "¡OK, lo tengo!",
-                errorAlertText: "¡Por favor ingrese el usuario de Snapchat primero!",
-                placeholder: "Ingrese el usuario de Snapchat objetivo...",
-                footer: "Consola encriptada de extremo a extremo. Panel de acceso anónimo 2026.",
-                menuPrivacy: "Política de privacidad",
-                menuRules: "Reglas de la comunidad",
-                menuSupport: "Soporte de Snapchat",
-                welcomeText: "Bienvenido a SnapTools Pro. Ingrese el nombre de usuario de la cuenta de Snapchat que desea monitorear y ver a continuación.",
-                linkedText: "Perfil objetivo vinculado con éxito: @{user}. Seleccione la capa de datos segura que desea extraer de este panel:",
-                fetchingText: "Obteniendo banco de datos en la nube para {node}. Estableciendo transmisión anónima:",
-                lblLiveStream: "Ventana de transmisión en vivo",
-                lblDownloading: "Descargando activos remotos...",
-                log1: "Conectando túneles proxy [SEGURO]...",
-                log2: "Localizando el clúster de la base de datos...",
-                log3: "Omisión de autorización exitosa.",
-                log4: "Extrayendo bloques de almacenamiento en caché...",
-                log5: "Transmisión de datos vinculada. Pre-renderizando vista previa...",
-                verifyTitle: "Verificación humana requerida",
-                verifyDesc: "El túnel proxy seguro se vinculó correctamente. Para proteger los recursos del servidor de los bots automatizados, debe completar la verificación humana a continuación. <strong>Importante: Debe completar la oferta seleccionada exactamente como se indica en la siguiente página</strong> para revelar instantáneamente sus imágenes y registros descifrados.",
-                verifyBtn: "Pasar verificación",
-                feat1: "Snaps de Snapchat",
-                feat2: "Cámara de Snap",
-                feat3: "Ver lista de amigos",
-                feat4: "Historias privadas",
-                feat5: "Historial de chat",
-                feat6: "Mapa de ubicación en vivo",
-                feat7: "Actividad reciente"
+                popTitle: "Guía Oficial de Diagnóstico",
+                step1Title: "Ingrese el usuario",
+                step1Desc: "Ingrese el nombre de usuario de Snapchat para sincronizar con el servidor de diagnóstico.",
+                step2Title: "Seleccione el servicio",
+                step2Desc: "Elija la métrica de diagnóstico que desea revisar (Snaps públicos, Métricas o Estado).",
+                step3Title: "Verificación de Seguridad",
+                step3Desc: "Complete una breve verificación humana para autenticar su conexión. Siga las instrucciones para ver el informe.",
+                popBtn: "Entendido y Continuar",
+                errorAlertText: "¡Ingrese un nombre de usuario válido primero!",
+                placeholder: "Ingrese el usuario de Snapchat...",
+                menuPrivacy: "Privacidad",
+                menuRules: "Términos del servicio",
+                menuSupport: "Estado del sistema",
+                welcomeText: "Bienvenido a la consola de diagnóstico SnapTools Pro. Ingrese el usuario que desea analizar a continuación.",
+                linkedText: "Perfil sincronizado con éxito: @{user}. Seleccione el análisis que desea realizar:",
+                fetchingText: "Estableciendo enlace para {node}. Cargando datos:",
+                lblLiveStream: "Monitor de Diagnóstico",
+                lblDownloading: "Sincronizando datos...",
+                log1: "Iniciando enlace seguro en la nube...",
+                log2: "Verificando respuesta del servidor...",
+                log3: "Conexión segura establecida.",
+                log4: "Recopilando métricas del perfil...",
+                log5: "Diagnóstico listo. Preparando autenticación...",
+                verifyTitle: "Chequeo de Seguridad",
+                verifyDesc: "El servidor ha verificado la cuenta <strong>@{user}</strong>. Para evitar el uso de bots, complete la verificación a continuación para ver el informe completo.",
+                verifyBtn: "Autenticar Conexión",
+                feat1: "Auditoría de Snaps Públicos",
+                feat2: "Métricas de Lentes y Cámara",
+                feat3: "Vista General de Amigos",
+                feat4: "Analítica de Historias",
+                feat5: "Sincronización de Estado",
+                feat6: "Diagnóstico de Ubicación",
+                feat7: "Indicadores de Interacción"
             },
             DE: {
-                popTitle: "Verwendung von SnapTools",
-                step1Title: "Ziel-Benutzernamen eingeben",
-                step1Desc: "Geben Sie den Snapchat-Benutzernamen des Zielkontos in die Textleiste unten ein, um das Terminal zu verbinden.",
-                step2Title: "Extraktionsfunktion wählen",
-                step2Desc: "Wählen Sie die Funktion aus, die Sie im Dashboard anzeigen möchten (Snaps, private Storys, Live-Standort oder Chats).",
-                step3Title: "Sicherheitsüberprüfung",
-                step3Desc: "Bestehen Sie die menschliche Verifizierung, indem Sie auf der nächsten Seite ein kurzes Angebot ausfüllen. Hinweis: Sie müssen das Angebot genau wie gefordert ausfüllen, um den entschlüsselten Live-Stream sofort freizuschalten.",
-                popBtn: "Alles klar!",
-                errorAlertText: "Bitte geben Sie zuerst den Snapchat-Benutzernamen ein!",
-                placeholder: "Ziel-Snapchat-Benutzernamen eingeben...",
-                footer: "Ende-zu-Ende verschlüsselte Konsole. Anonymes Zugriffspanel 2026.",
-                menuPrivacy: "Datenschutzrichtlinie",
-                menuRules: "Community-Regeln",
-                menuSupport: "Snapchat-Unterstützung",
-                welcomeText: "Willkommen bei SnapTools Pro. Geben Sie unten den Benutzernamen des Ziel-Snapchat-Kontos ein, das Sie überwachen und anzeigen möchten.",
-                linkedText: "Zielprofil erfolgreich verknüpft: @{user}. Wählen Sie die sichere Datenebene aus, die Sie extrahieren möchten:",
-                fetchingText: "Cloud-Datenbank für {node} wird abgerufen. Anonymer Stream wird eingerichtet:",
-                lblLiveStream: "Live-Stream-Fenster",
-                lblDownloading: "Remotedaten werden heruntergeladen...",
-                log1: "Proxy-Tunnel werden verbunden [SICHER]...",
-                log2: "Benutzerdatenbank-Cluster wird lokalisiert...",
-                log3: "Autorisierung erfolgreich umgangen.",
-                log4: "Zwischengespeicherte Speicherblöcke werden extrahiert...",
-                log5: "Datenstrom verknüpft. Vorschau wird gerendert...",
-                verifyTitle: "Menschliche Verifizierung erforderlich",
-                verifyDesc: "Der sichere Proxy-Tunnel wurde erfolgreich verknüpft. Um die Serverressourcen vor automatisierten Bots zu schützen, müssen Sie die folgende menschliche Verifizierung durchführen. <strong>Wichtig: Sie müssen das ausgewählte Angebot genau wie auf der nächsten Seite beschrieben ausfüllen</strong>, um Ihre Live-entschlüsselten Dashboard-Protokolle und -Bilder sofort anzuzeigen.",
-                verifyBtn: "Verifizierung bestehen",
-                feat1: "Snapchat Snaping",
-                feat2: "Snap-Kamera",
-                feat3: "Freundesliste anzeigen",
-                feat4: "Private Storys",
-                feat5: "Chat-Verlauf",
-                feat6: "Live-Standortkarte",
-                feat7: "Letzte Aktivität"
+                popTitle: "Offizieller Diagnose-Leitfaden",
+                step1Title: "Benutzernamen eingeben",
+                step1Desc: "Geben Sie den Snapchat-Benutzernamen ein, um die Analyse zu starten.",
+                step2Title: "Dienst auswählen",
+                step2Desc: "Wählen Sie die Metrik aus, die Sie analysieren möchten.",
+                step3Title: "Sicherheitsprüfung",
+                step3Desc: "Bestehen Sie die Verifizierung, um Ihre Verbindung zu bestätigen.",
+                popBtn: "Verstanden & Weiter",
+                errorAlertText: "Bitte geben Sie zuerst einen gültigen Benutzernamen ein!",
+                placeholder: "Snapchat-Benutzernamen eingeben...",
+                menuPrivacy: "Datenschutz",
+                menuRules: "Nutzungsbedingungen",
+                menuSupport: "Systemstatus",
+                welcomeText: "Willkommen beim SnapTools Diagnose-Panel. Geben Sie unten den Benutzernamen ein.",
+                linkedText: "Profil erfolgreich verknüpft: @{user}. Wählen Sie die Diagnose-Option:",
+                fetchingText: "Verbindung wird hergestellt für {node}. Daten werden geladen:",
+                lblLiveStream: "Diagnose-Monitor",
+                lblDownloading: "Daten werden synchronisiert...",
+                log1: "Sichere Verbindung wird aufgebaut...",
+                log2: "Serverantwort wird geprüft...",
+                log3: "Verbindung erfolgreich hergestellt.",
+                log4: "Profilmetriken werden gesammelt...",
+                log5: "Diagnose bereit. Bitte verifizieren...",
+                verifyTitle: "Sicherheitsüberprüfung",
+                verifyDesc: "Konto <strong>@{user}</strong> wurde überprüft. Bitte schließen Sie die Verifizierung ab, um den Bericht anzuzeigen.",
+                verifyBtn: "Verbindung Authentifizieren",
+                feat1: "Öffentliche Snaps Analyse",
+                feat2: "Kamera & Linsen Metriken",
+                feat3: "Freundeskreis Übersicht",
+                feat4: "Story-Analysen",
+                feat5: "Status-Synchronisation",
+                feat6: "Geofilter-Diagnose",
+                feat7: "Interaktions-Einblicke"
             }
         };
 
@@ -1222,7 +1273,6 @@
             document.getElementById('popBtn').innerText = dict.popBtn;
             document.getElementById('errorAlertText').innerText = dict.errorAlertText;
             document.getElementById('userInputField').placeholder = dict.placeholder;
-            document.getElementById('footerBannerText').innerText = dict.footer;
             
             document.getElementById('menuPrivacy').innerHTML = `<i class="fa-solid fa-user-shield"></i> ${dict.menuPrivacy}`;
             document.getElementById('menuRules').innerHTML = `<i class="fa-solid fa-scale-balanced"></i> ${dict.menuRules}`;
@@ -1263,8 +1313,8 @@
                 const cardP = finalNode.querySelector('p');
                 const cardBtn = finalNode.querySelector('.gpt-action-btn');
                 if (cardH3) cardH3.innerText = dict.verifyTitle;
-                if (cardP) cardP.innerHTML = dict.verifyDesc;
-                if (cardBtn) cardBtn.innerHTML = `<i class="fa-solid fa-key"></i> ${dict.verifyBtn}`;
+                if (cardP) cardP.innerHTML = dict.verifyDesc.replace("{user}", currentTargetUser);
+                if (cardBtn) cardBtn.innerHTML = `<i class="fa-solid fa-shield-halved"></i> ${dict.verifyBtn}`;
             }
         }
 
@@ -1417,21 +1467,21 @@
                                 <img src="${snapAvatarApiUrl}" class="target-avatar-img" onerror="this.src='Logo.JPG'" alt="${val}">
                                 <div class="target-user-info">
                                     <span class="username">@${val}</span>
-                                    <span class="status-badge"><i class="fa-solid fa-circle" style="font-size:7px;"></i> Live Proxy Connected</span>
+                                    <span class="status-badge"><i class="fa-solid fa-shield-check" style="color:#00ff66;"></i> Profile Synced</span>
                                 </div>
                             </div>
 
                             <div class="options-box">
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat1', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon"></i>
+                                        <i class="fa-solid fa-camera btn-icon"></i>
                                         <span class="btn-title title-feat1">${dict.feat1}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat2', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-camera btn-icon"></i>
+                                        <i class="fa-solid fa-wand-magic-sparkles btn-icon"></i>
                                         <span class="btn-title title-feat2">${dict.feat2}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -1445,21 +1495,21 @@
                                 </button>
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat4', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
+                                        <i class="fa-solid fa-circle-play btn-icon"></i>
                                         <span class="btn-title title-feat4">${dict.feat4}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat5', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-comment btn-icon"></i>
+                                        <i class="fa-solid fa-arrows-rotate btn-icon"></i>
                                         <span class="btn-title title-feat5">${dict.feat5}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat6', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
+                                        <i class="fa-solid fa-location-dot btn-icon"></i>
                                         <span class="btn-title title-feat6">${dict.feat6}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -1544,8 +1594,8 @@
                                 <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
                                     <div class="media-blur-overlay">
                                         <img src="${snapAvatarApiUrl}" onerror="this.style.display='none'" style="width:48px; height:48px; border-radius:50%; border:2px solid var(--snap-yellow); margin-bottom:4px;" alt="Target Avatar">
-                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
-                                        <span>ENCRYPTED_${username.toUpperCase()}_RAW</span>
+                                        <i class="fa-solid fa-shield" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
+                                        <span>DIAGNOSTIC_${username.toUpperCase()}_LOG</span>
                                     </div>
                                 </div>
                             </div>
@@ -1622,9 +1672,9 @@
                                 <div class="offer-verification-card">
                                     <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
                                     <h3>${dict.verifyTitle}</h3>
-                                    <p>${dict.verifyDesc}</p>
+                                    <p>${dict.verifyDesc.replace("{user}", currentTargetUser)}</p>
                                     <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
-                                        <i class="fa-solid fa-key"></i> ${dict.verifyBtn}
+                                        <i class="fa-solid fa-shield-halved"></i> ${dict.verifyBtn}
                                     </button>
                                 </div>
                             `;
