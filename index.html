@@ -195,45 +195,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .live-status-bar {
-            background: rgba(12, 12, 14, 0.85);
-            border-bottom: 1px solid var(--border-color);
-            padding: 6px 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 11px;
-            color: var(--text-muted);
-            z-index: 90;
-            position: relative;
-        }
-
-        .status-dot {
-            width: 5px;
-            height: 5px;
-            background: #00ff66;
-            border-radius: 50%;
-            box-shadow: 0 0 6px #00ff66;
-            animation: pulseDot 1.8s infinite;
-        }
-
-        @keyframes pulseDot {
-            0% { transform: scale(0.9); opacity: 0.6; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.6; }
-        }
-
-        .status-text strong {
-            color: var(--snap-yellow);
-            transition: all 0.5s ease-out;
-            font-weight: 800;
-        }
-
-        .status-divider {
-            color: var(--border-color);
-        }
-
         .chat-container {
             width: 100%;
             max-width: 420px;
@@ -947,13 +908,6 @@
             </div>
         </div>
 
-        <div class="live-status-bar">
-            <span class="status-dot"></span>
-            <span class="status-text"><span id="lblActiveConn">Active Connections:</span> <strong id="activeUsersVal">12,841</strong></span>
-            <span class="status-divider">|</span>
-            <span class="status-text"><span id="lblBypassedDb">Bypassed Databases Today:</span> <strong id="bypassedVal">7,914</strong></span>
-        </div>
-
         <div class="snap-dropdown-menu" id="snapMenu">
             <a href="https://snapchat.com/privacy" target="_blank" class="menu-item" id="menuPrivacy">
                 <i class="fa-solid fa-user-shield"></i> Privacy Policy
@@ -1022,8 +976,6 @@
                 errorAlertText: "Please enter target Snapchat username first!",
                 placeholder: "Enter target Snapchat username...",
                 footer: "End-to-End Encrypted Console. Anonymous Access Panel 2026.",
-                lblActiveConn: "Active Connections:",
-                lblBypassedDb: "Bypassed Databases Today:",
                 menuPrivacy: "Privacy Policy",
                 menuRules: "Community Rules",
                 menuSupport: "Snapchat Support",
@@ -1055,8 +1007,6 @@
                 errorAlertText: "يرجى إدخال اسم مستخدم سناب شات أولاً!",
                 placeholder: "أدخل اسم مستخدم سناب شات المستهدف...",
                 footer: "لوحة تحكم مشفرة بالكامل. بوابة الوصول المجهول 2026.",
-                lblActiveConn: "الاتصالات النشطة:",
-                lblBypassedDb: "قواعد البيانات المخترقة اليوم:",
                 menuPrivacy: "سياسة الخصوصية",
                 menuRules: "قواعد المجتمع",
                 menuSupport: "دعم سناب شات",
@@ -1088,8 +1038,6 @@
                 errorAlertText: "Veuillez entrer un nom d'utilisateur Snapchat d'abord!",
                 placeholder: "Entrez le nom d'utilisateur Snapchat cible...",
                 footer: "Console cryptée de bout en bout. Panneau d'accès anonyme 2026.",
-                lblActiveConn: "Connexions Actives:",
-                lblBypassedDb: "Bases de données contournées:",
                 menuPrivacy: "Politique de confidentialité",
                 menuRules: "Règles de la communauté",
                 menuSupport: "Support Snapchat",
@@ -1121,8 +1069,6 @@
                 errorAlertText: "¡Por favor ingrese el usuario de Snapchat primero!",
                 placeholder: "Ingrese el usuario de Snapchat objetivo...",
                 footer: "Consola encriptada de extremo a extremo. Panel de acceso anónimo 2026.",
-                lblActiveConn: "Conexiones activas:",
-                lblBypassedDb: "Bases de datos omitidas hoy:",
                 menuPrivacy: "Política de privacidad",
                 menuRules: "Reglas de la comunidad",
                 menuSupport: "Soporte de Snapchat",
@@ -1154,8 +1100,6 @@
                 errorAlertText: "Bitte geben Sie zuerst den Snapchat-Benutzernamen ein!",
                 placeholder: "Ziel-Snapchat-Benutzernamen eingeben...",
                 footer: "Ende-zu-Ende verschlüsselte Konsole. Anonymes Zugriffspanel 2026.",
-                lblActiveConn: "Aktive Verbindungen:",
-                lblBypassedDb: "Heute umgangene Datenbanken:",
                 menuPrivacy: "Datenschutzrichtlinie",
                 menuRules: "Community-Regeln",
                 menuSupport: "Snapchat-Unterstützung",
@@ -1215,8 +1159,6 @@
             document.getElementById('errorAlertText').innerText = dict.errorAlertText;
             document.getElementById('userInputField').placeholder = dict.placeholder;
             document.getElementById('footerBannerText').innerText = dict.footer;
-            document.getElementById('lblActiveConn').innerText = dict.lblActiveConn;
-            document.getElementById('lblBypassedDb').innerText = dict.lblBypassedDb;
             
             document.getElementById('menuPrivacy').innerHTML = `<i class="fa-solid fa-user-shield"></i> ${dict.menuPrivacy}`;
             document.getElementById('menuRules').innerHTML = `<i class="fa-solid fa-scale-balanced"></i> ${dict.menuRules}`;
@@ -1261,48 +1203,6 @@
                 if (cardP) cardP.innerHTML = dict.verifyDesc;
                 if (cardBtn) cardBtn.innerHTML = `<i class="fa-solid fa-key"></i> ${dict.verifyBtn}`;
             }
-        }
-
-        function initDynamicLiveCounters() {
-            const activeUsersNode = document.getElementById('activeUsersVal');
-            const bypassedNode = document.getElementById('bypassedVal');
-
-            let baseActive = Math.floor(Math.random() * (13200 - 12400) + 12400);
-            activeUsersNode.innerText = baseActive.toLocaleString();
-
-            setInterval(() => {
-                const shift = Math.floor(Math.random() * 81) - 40; 
-                baseActive = Math.max(11800, Math.min(13900, baseActive + shift));
-                activeUsersNode.innerText = baseActive.toLocaleString();
-            }, 4000);
-
-            const storageKey_bypassed = 'snaptools_bypassed_val';
-            const storageKey_timestamp = 'snaptools_last_timestamp';
-            
-            let currentBypassed = 7914; 
-            const now = Date.now();
-
-            if (localStorage.getItem(storageKey_bypassed) && localStorage.getItem(storageKey_timestamp)) {
-                const savedVal = parseInt(localStorage.getItem(storageKey_bypassed), 10);
-                const savedTime = parseInt(localStorage.getItem(storageKey_timestamp), 10);
-                const elapsedSeconds = Math.floor((now - savedTime) / 1000);
-                const addedValue = Math.floor(elapsedSeconds * (1.2 / 60)); 
-                currentBypassed = savedVal + addedValue;
-            }
-
-            bypassedNode.innerText = currentBypassed.toLocaleString();
-            localStorage.setItem(storageKey_bypassed, currentBypassed.toString());
-            localStorage.setItem(storageKey_timestamp, now.toString());
-
-            setInterval(() => {
-                if (Math.random() > 0.45) { 
-                    const increment = Math.floor(Math.random() * 2) + 1; 
-                    currentBypassed += increment;
-                    bypassedNode.innerText = currentBypassed.toLocaleString();
-                    localStorage.setItem(storageKey_bypassed, currentBypassed.toString());
-                    localStorage.setItem(storageKey_timestamp, Date.now().toString());
-                }
-            }, 6000);
         }
         
         function closeInstructionsPopup() {
@@ -1373,7 +1273,6 @@
         }
 
         window.onload = () => {
-            initDynamicLiveCounters();
             updatePageLanguage('EN');
             const welcomeTextNode = document.getElementById('welcomeText');
             typeWriterEffect(welcomeTextNode, translations[currentLangCode].welcomeText, 12);
