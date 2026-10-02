@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SnapTools Pro - Dashboard</title>
+    <title>SnapTools</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -27,6 +27,7 @@
             --glow-color: rgba(255, 252, 0, 0.15);
         }
 
+        /* Light Theme Colors */
         [data-theme="light"] {
             --bg-chat: #f4f4f5;
             --bg-workspace: #e4e4e7;
@@ -63,6 +64,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* --- Welcome Instructions Popup Styles --- */
         .instructions-overlay {
             position: fixed;
             inset: 0;
@@ -73,18 +75,18 @@
             align-items: center;
             justify-content: center;
             z-index: 10000;
-            padding: 16px;
+            padding: 20px;
             animation: fadeInOverlay 0.3s ease-out;
         }
 
         .instructions-card {
             background: #0f0f13;
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 24px;
             width: 100%;
-            max-width: 360px;
-            padding: 20px 18px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            max-width: 400px;
+            padding: 28px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
             text-align: center;
             position: relative;
             animation: slideUpPopup 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -96,45 +98,45 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 4px;
             background: var(--snap-yellow);
-            border-radius: 20px 20px 0 0;
+            border-radius: 24px 24px 0 0;
             box-shadow: 0 2px 10px rgba(255, 252, 0, 0.4);
         }
 
         .instructions-logo {
-            width: 42px;
-            height: 42px;
+            width: 50px;
+            height: 50px;
             background: var(--snap-yellow);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px auto;
+            margin: 0 auto 16px auto;
             color: var(--snap-black);
-            font-size: 20px;
-            box-shadow: 0 0 12px rgba(255, 252, 0, 0.3);
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(255, 252, 0, 0.3);
         }
 
         .instructions-card h3 {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 800;
-            margin-bottom: 14px;
-            letter-spacing: -0.3px;
+            margin-bottom: 18px;
+            letter-spacing: -0.5px;
             color: var(--text-main);
         }
 
         .steps-container {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
             text-align: left;
-            margin-bottom: 18px;
+            margin-bottom: 24px;
         }
 
         .step-item {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             align-items: flex-start;
         }
 
@@ -143,28 +145,28 @@
             color: var(--snap-yellow);
             border: 1px solid rgba(255, 252, 0, 0.3);
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 800;
             flex-shrink: 0;
             margin-top: 2px;
         }
 
         .step-content h5 {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 800;
             color: var(--text-main);
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
 
         .step-content p {
-            font-size: 11.5px;
+            font-size: 13px;
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .popup-close-btn {
@@ -172,13 +174,13 @@
             background: var(--snap-yellow);
             color: var(--snap-black);
             border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 14px;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 16px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(255,252,0,0.3);
+            box-shadow: 0 4px 15px rgba(255,252,0,0.3);
         }
 
         .popup-close-btn:active {
@@ -191,19 +193,59 @@
         }
 
         @keyframes slideUpPopup {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Live Status Bar --- */
+        .live-status-bar {
+            background: rgba(12, 12, 14, 0.85);
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+            z-index: 90;
+            position: relative;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #00ff66;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ff66;
+            animation: pulseDot 1.8s infinite;
+        }
+
+        @keyframes pulseDot {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        .status-text strong {
+            color: var(--snap-yellow);
+            transition: all 0.5s ease-out;
+            font-weight: 800;
+        }
+
+        .status-divider {
+            color: var(--border-color);
         }
 
         .chat-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 480px;
             background: var(--bg-chat);
             background-image: 
                 radial-gradient(var(--border-color) 1px, transparent 0),
                 linear-gradient(to right, rgba(255,252,0,0.01) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255,252,0,0.01) 1px, transparent 1px);
-            background-size: 20px 20px, 30px 30px, 30px 30px;
+            background-size: 24px 24px, 40px 40px, 40px 40px;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -223,7 +265,7 @@
         }
 
         .chat-header {
-            padding: 12px 16px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -231,28 +273,28 @@
             z-index: 99;
             position: relative;
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             transition: background-color 0.3s, border-color 0.3s;
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .menu-bars-btn {
             background: transparent;
             border: none;
             color: var(--text-main);
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
             transition: background 0.2s;
         }
         .menu-bars-btn:hover {
@@ -262,12 +304,12 @@
         .brand-wrapper {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .ai-brand {
             font-weight: 800;
-            font-size: 20px;
+            font-size: 24px;
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
@@ -282,9 +324,10 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
+        /* Language Selector */
         .lang-wrapper {
             position: relative;
             display: inline-block;
@@ -294,13 +337,13 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            font-size: 12px;
-            padding: 0 10px;
-            height: 32px;
+            font-size: 14px;
+            padding: 0 12px;
+            height: 36px;
             display: flex;
             align-items: center;
-            gap: 5px;
-            border-radius: 8px;
+            gap: 6px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -310,25 +353,25 @@
 
         .lang-dropdown {
             position: absolute;
-            top: 38px;
+            top: 42px;
             right: 0;
             background: var(--menu-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             display: none;
             flex-direction: column;
             overflow: hidden;
             z-index: 1001;
-            min-width: 110px;
+            min-width: 120px;
         }
 
         .lang-opt {
-            padding: 8px 12px;
+            padding: 10px 14px;
             color: var(--text-main);
-            font-size: 12px;
+            font-size: 13px;
             cursor: pointer;
             text-align: left;
             transition: background 0.2s;
@@ -342,13 +385,13 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            font-size: 14px;
-            width: 32px;
-            height: 32px;
+            font-size: 16px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -359,15 +402,15 @@
 
         .snap-dropdown-menu {
             position: absolute;
-            top: 56px;
-            left: 12px;
-            width: 200px;
+            top: 68px;
+            left: 16px;
+            width: 220px;
             background: var(--menu-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -376,39 +419,39 @@
         }
 
         @keyframes fadeInMenu {
-            from { opacity: 0; transform: translateY(-8px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .menu-item {
-            padding: 12px 14px;
+            padding: 14px 16px;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             border-bottom: 1px solid var(--border-color);
             transition: background 0.2s;
         }
         .menu-item:last-child { border-bottom: none; }
         .menu-item:hover, .menu-item:active { background: var(--bg-bubble-user); }
-        .menu-item i { color: var(--snap-yellow); width: 14px; text-align: center; font-size: 13px; }
+        .menu-item i { color: var(--snap-yellow); width: 16px; text-align: center; font-size: 14px; }
 
         .chat-history {
             flex: 1;
             overflow-y: auto;
-            padding: 16px 12px;
+            padding: 20px 16px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 22px;
             z-index: 5;
             -webkit-overflow-scrolling: touch;
         }
 
         .chat-row {
             display: flex;
-            gap: 10px;
+            gap: 14px;
             max-width: 100%;
         }
 
@@ -417,8 +460,8 @@
         }
 
         .bot-avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             overflow: hidden;
             flex-shrink: 0;
@@ -426,7 +469,7 @@
             align-items: center;
             justify-content: center;
             background: var(--snap-yellow);
-            box-shadow: 0 0 8px var(--glow-color);
+            box-shadow: 0 0 10px var(--glow-color);
         }
 
         .bot-avatar img {
@@ -435,21 +478,22 @@
             object-fit: cover;
         }
 
+        /* --- Target User Snapchat Profile Card --- */
         .target-profile-card {
             background: rgba(18, 18, 24, 0.9);
             border: 1px solid var(--snap-yellow);
-            border-radius: 14px;
-            padding: 10px 12px;
+            border-radius: 18px;
+            padding: 14px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-            box-shadow: 0 4px 12px rgba(255, 252, 0, 0.12);
+            gap: 14px;
+            margin-top: 12px;
+            box-shadow: 0 4px 15px rgba(255, 252, 0, 0.15);
         }
 
         .target-avatar-img {
-            width: 46px;
-            height: 46px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
             border: 2px solid var(--snap-yellow);
             object-fit: cover;
@@ -462,13 +506,13 @@
         }
 
         .target-user-info .username {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 800;
             color: var(--text-main);
         }
 
         .target-user-info .status-badge {
-            font-size: 10px;
+            font-size: 11px;
             color: #00ff66;
             display: flex;
             align-items: center;
@@ -477,19 +521,19 @@
         }
 
         .msg-bubble {
-            font-size: 14px;
-            line-height: 1.5;
-            max-width: 88%;
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 85%;
             color: var(--text-main);
-            padding-top: 4px;
+            padding-top: 6px;
             font-weight: 700;
         }
 
         .user-row .msg-bubble {
             background: var(--bg-bubble-user);
-            padding: 10px 14px;
-            border-radius: 14px 4px 14px 14px;
-            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 18px 4px 18px 18px;
+            max-width: 75%;
             font-weight: 800;
             border: 1px solid var(--border-color);
         }
@@ -502,11 +546,11 @@
             display: inline-flex;
             gap: 4px;
             align-items: center;
-            padding: 6px 0;
+            padding: 8px 0;
         }
         .typing-dots span {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background: var(--text-muted);
             border-radius: 50%;
             animation: bounceDot 1.4s infinite ease-in-out both;
@@ -518,8 +562,8 @@
         .options-box {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-top: 12px;
+            gap: 12px;
+            margin-top: 16px;
             width: 100%;
         }
 
@@ -527,10 +571,10 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--chat-btn-border);
             color: var(--text-main);
-            padding: 12px 14px;
-            border-radius: 12px;
+            padding: 18px 16px;
+            border-radius: 18px;
             text-align: left;
-            font-size: 13.5px;
+            font-size: 16px;
             font-weight: 800;
             cursor: pointer;
             display: flex;
@@ -538,86 +582,87 @@
             justify-content: space-between;
             transition: all 0.25s ease;
             width: 100%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .chat-opt-btn:hover { 
             border-color: var(--snap-yellow); 
             background: rgba(255, 252, 0, 0.02);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px var(--glow-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px var(--glow-color);
         }
         .chat-opt-btn:active { transform: translateY(0) scale(0.99); }
         
         .btn-left-content {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
         .chat-opt-btn i.btn-icon {
-            font-size: 14px;
-            width: 18px;
+            font-size: 16px;
+            width: 20px;
             text-align: center;
             color: var(--snap-yellow);
         }
 
         .chat-opt-btn i.fa-chevron-right { 
-            font-size: 11px; 
+            font-size: 13px; 
             color: #71717a; 
             transition: transform 0.2s;
         }
         .chat-opt-btn:hover i.fa-chevron-right {
-            transform: translateX(2px);
+            transform: translateX(3px);
             color: var(--text-main);
         }
 
+        /* Terminal Log Box */
         .terminal-log-box {
             background: #020205;
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 12px;
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: 16px;
             font-family: var(--font-mono);
-            font-size: 11px;
+            font-size: 12px;
             color: #e4e4e7;
-            max-height: 130px;
+            max-height: 160px;
             overflow-y: auto;
-            line-height: 1.5;
+            line-height: 1.6;
             display: none;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
         }
         .terminal-line {
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             display: flex;
-            gap: 8px;
+            gap: 10px;
         }
         .terminal-line span { font-family: var(--font-mono); font-weight: 700; }
-        .terminal-success { color: #00ff66; text-shadow: 0 0 6px rgba(0,255,102,0.2); }
-        .terminal-warn { color: var(--snap-yellow); text-shadow: 0 0 6px rgba(255,252,0,0.2); }
+        .terminal-success { color: #00ff66; text-shadow: 0 0 8px rgba(0,255,102,0.2); }
+        .terminal-warn { color: var(--snap-yellow); text-shadow: 0 0 8px rgba(255,252,0,0.2); }
 
         .media-preview-container {
             border: 1px solid var(--border-color);
             background: var(--chat-btn-bg);
-            border-radius: 16px;
-            margin-top: 12px;
+            border-radius: 20px;
+            margin-top: 16px;
             overflow: hidden;
             max-width: 100%;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
 
         .media-header-label {
-            padding: 8px 12px;
-            font-size: 11.5px;
+            padding: 12px 16px;
+            font-size: 13px;
             color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             border-bottom: 1px solid var(--border-color);
         }
 
         .media-frame { 
             position: relative; 
-            height: 140px; 
+            height: 180px; 
             background: #000; 
             background-size: cover;
             background-position: center;
@@ -630,8 +675,8 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            gap: 6px; 
-            font-size: 12px; 
+            gap: 8px; 
+            font-size: 14px; 
             color: #e4e4e7; 
             letter-spacing: 0.5px; 
             backdrop-filter: blur(4px);
@@ -639,24 +684,25 @@
             background: rgba(0, 0, 0, 0.4);
         }
 
-        .progress-block { margin-top: 12px; width: 100%; }
-        .progress-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-main); margin-bottom: 6px; }
-        .progress-bar-bg { width: 100%; background: var(--border-color); height: 5px; border-radius: 8px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; box-shadow: 0 0 8px var(--glow-color); transition: width 0.1s linear; }
+        .progress-block { margin-top: 16px; width: 100%; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; }
+        .progress-bar-bg { width: 100%; background: var(--border-color); height: 6px; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; box-shadow: 0 0 10px var(--glow-color); transition: width 0.1s linear; }
 
+        /* Offer/Verification Card */
         .offer-verification-card {
             border: 1px solid var(--border-color);
             background: linear-gradient(145deg, #121218, #07070a);
-            border-radius: 18px;
-            padding: 20px 16px;
-            margin-top: 12px;
+            border-radius: 24px;
+            padding: 28px 22px;
+            margin-top: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 12px;
+            gap: 16px;
             width: 100%;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
             position: relative;
             overflow: hidden;
         }
@@ -667,22 +713,22 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 4px;
             background: var(--snap-yellow);
-            box-shadow: 0 2px 8px rgba(255,252,0,0.5);
+            box-shadow: 0 2px 10px rgba(255,252,0,0.5);
         }
 
         .offer-verification-card h4 { 
-            font-size: 16px; 
+            font-size: 20px; 
             font-weight: 800; 
             color: var(--text-main); 
-            letter-spacing: -0.3px;
+            letter-spacing: -0.5px;
         }
         
         .offer-verification-card p { 
-            font-size: 12px; 
+            font-size: 13.5px; 
             color: var(--text-muted); 
-            line-height: 1.5; 
+            line-height: 1.6; 
         }
 
         .offer-verification-card p strong {
@@ -692,14 +738,14 @@
         .verification-icon { 
             color: var(--snap-black); 
             background: var(--snap-yellow); 
-            width: 42px; 
-            height: 42px; 
+            width: 52px; 
+            height: 52px; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 18px; 
-            box-shadow: 0 0 12px rgba(255,252,0,0.4);
+            font-size: 22px; 
+            box-shadow: 0 0 15px rgba(255,252,0,0.4);
         }
 
         .gpt-action-btn {
@@ -707,29 +753,29 @@
             background: var(--snap-yellow);
             color: var(--snap-black);
             border: none;
-            padding: 12px;
-            border-radius: 20px;
-            font-size: 14px;
+            padding: 16px;
+            border-radius: 28px;
+            font-size: 16px;
             font-weight: 800;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-top: 4px;
-            box-shadow: 0 4px 12px rgba(255,252,0,0.3);
+            gap: 10px;
+            margin-top: 8px;
+            box-shadow: 0 4px 15px rgba(255,252,0,0.3);
             transition: all 0.25s ease;
         }
         .gpt-action-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(255,252,0,0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,252,0,0.5);
         }
         .gpt-action-btn:active {
             transform: translateY(0);
         }
 
         .chat-input-area { 
-            padding: 10px 12px 14px 12px; 
+            padding: 12px 16px 20px 16px; 
             background: var(--bg-chat);
             z-index: 10;
             transition: background-color 0.3s;
@@ -739,22 +785,22 @@
         .input-box-container {
             background: var(--chat-btn-bg);
             border: 1px solid var(--border-color);
-            border-radius: 24px;
+            border-radius: 30px;
             display: flex;
             align-items: center;
-            padding: 4px 6px 4px 16px;
+            padding: 6px 8px 6px 20px;
             transition: all 0.3s ease;
         }
         .input-box-container:focus-within {
             border-color: var(--snap-yellow);
-            box-shadow: 0 0 8px var(--glow-color);
+            box-shadow: 0 0 10px var(--glow-color);
         }
-        .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 13.5px; flex-grow: 1; padding: 8px 0; font-weight: 700; }
+        .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 15px; flex-grow: 1; padding: 10px 0; font-weight: 700; }
         .gpt-input::placeholder { color: var(--text-muted); }
         
         .send-btn {
-            width: 34px;
-            height: 34px;
+            width: 40px;
+            height: 40px;
             background: var(--snap-yellow);
             color: var(--snap-black);
             border: none;
@@ -763,10 +809,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 16px;
             flex-shrink: 0;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(255,252,0,0.2);
+            box-shadow: 0 2px 8px rgba(255,252,0,0.2);
         }
         .send-btn:active {
             transform: scale(0.92);
@@ -774,33 +820,33 @@
 
         .footer-banner {
             text-align: center;
-            font-size: 10.5px;
+            font-size: 12px;
             color: var(--text-muted);
-            margin-top: 10px;
+            margin-top: 14px;
         }
 
         .hidden-row { display: none !important; }
 
         .custom-alert {
             position: fixed;
-            top: 16px;
+            top: 24px;
             left: 50%;
-            transform: translateX(-50%) translateY(-100px);
+            transform: translateX(-50%) translateY(-120px);
             background: var(--alert-bg);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             color: #ff4444;
             border: 1px solid var(--alert-border);
-            padding: 10px 18px;
-            border-radius: 16px;
-            font-size: 12.5px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            padding: 14px 22px;
+            border-radius: 20px;
+            font-size: 14px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
             z-index: 9999;
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
             opacity: 0;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             white-space: nowrap;
             pointer-events: none;
         }
@@ -809,7 +855,7 @@
             opacity: 1;
         }
         .custom-alert i {
-            font-size: 14px;
+            font-size: 16px;
             animation: pulseAlert 1.5s infinite;
         }
         .custom-alert span {
@@ -820,22 +866,11 @@
             50% { opacity: 1; }
             100% { opacity: 0.6; }
         }
-
-        @media (max-width: 380px) {
-            .chat-container {
-                max-width: 100%;
-            }
-            .ai-brand {
-                font-size: 18px;
-            }
-            .msg-bubble {
-                font-size: 13px;
-            }
-        }
     </style>
 </head>
 <body>
 
+    <!-- Welcome Instructions Popup -->
     <div class="instructions-overlay" id="popupOverlay">
         <div class="instructions-card">
             <div class="instructions-logo">
@@ -856,7 +891,7 @@
                     <div class="step-num">2</div>
                     <div class="step-content">
                         <h5 id="step2Title">Choose Extraction Feature</h5>
-                        <p id="step2Desc">Select the feature you want to view from the dashboard (View Best Friend List or Show Typing in Chat).</p>
+                        <p id="step2Desc">Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).</p>
                     </div>
                 </div>
                 
@@ -908,6 +943,13 @@
             </div>
         </div>
 
+        <div class="live-status-bar">
+            <span class="status-dot"></span>
+            <span class="status-text"><span id="lblActiveConn">Active Connections:</span> <strong id="activeUsersVal">12,841</strong></span>
+            <span class="status-divider">|</span>
+            <span class="status-text"><span id="lblBypassedDb">Bypassed Databases Today:</span> <strong id="bypassedVal">7,914</strong></span>
+        </div>
+
         <div class="snap-dropdown-menu" id="snapMenu">
             <a href="https://snapchat.com/privacy" target="_blank" class="menu-item" id="menuPrivacy">
                 <i class="fa-solid fa-user-shield"></i> Privacy Policy
@@ -922,12 +964,12 @@
 
         <div class="chat-history" id="chatWindow">
             <div class="chat-row ai-row" id="welcomeMsg">
-                <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
+                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                 <div class="msg-bubble" id="welcomeText"></div>
             </div>
 
             <div class="chat-row ai-row hidden-row" id="typingBubble">
-                <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
+                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                 <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
             </div>
         </div>
@@ -944,23 +986,8 @@
     </div>
 
     <script>
-        function fetchSnapchatAvatarReal(username, imgElement) {
-            const cleanUser = username.trim().toLowerCase();
-            const directAwsUrl = `https://us-east1-aws.api.snapchat.com/web-capture/www.snapchat.com/@${encodeURIComponent(cleanUser)}/preview/square.jpeg?xp_id=1`;
-            
-            imgElement.src = directAwsUrl;
-            
-            imgElement.onerror = function() {
-                const proxyUrl = `https://images.weserv.nl/?url=${encodeURIComponent(`https://www.snapchat.com/add/${cleanUser}/`)}&w=300&h=300&fit=cover`;
-                imgElement.src = proxyUrl;
-                
-                imgElement.onerror = function() {
-                    imgElement.src = 'Logo.JPG';
-                    imgElement.onerror = function() {
-                        imgElement.src = 'https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2';
-                    };
-                };
-            };
+        function getSnapchatAvatarUrl(username) {
+            return `https://us-east1-aws.api.snapchat.com/web-capture/www.snapchat.com/@${encodeURIComponent(username)}/preview/square.jpeg?xp_id=1`;
         }
 
         const translations = {
@@ -969,13 +996,15 @@
                 step1Title: "Enter Target Username",
                 step1Desc: "Input the Snapchat username of the target account in the text bar below to link the terminal.",
                 step2Title: "Choose Extraction Feature",
-                step2Desc: "Select the feature you want to view from the dashboard (View Best Friend List or Show Typing in Chat).",
+                step2Desc: "Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).",
                 step3Title: "Complete Security Check",
                 step3Desc: "Pass the human verification by completing a short offer on the next page. Note: You must complete the offer exactly as requested to instantly unlock the decrypted live stream.",
                 popBtn: "OK, Got It!",
                 errorAlertText: "Please enter target Snapchat username first!",
                 placeholder: "Enter target Snapchat username...",
                 footer: "End-to-End Encrypted Console. Anonymous Access Panel 2026.",
+                lblActiveConn: "Active Connections:",
+                lblBypassedDb: "Bypassed Databases Today:",
                 menuPrivacy: "Privacy Policy",
                 menuRules: "Community Rules",
                 menuSupport: "Snapchat Support",
@@ -992,21 +1021,28 @@
                 verifyTitle: "Human Verification Required",
                 verifyDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. <strong>Important: You must complete the selected offer on the next page exactly as requested</strong> to instantly reveal your live decrypted dashboard logs and images.",
                 verifyBtn: "Pass Verification",
-                feat3: "View Best Friend List",
-                feat7: "Show Typing in Chat"
+                feat1: "Snapchat Snaping",
+                feat2: "Snap Camera",
+                feat3: "View Friends List",
+                feat4: "Private Stories",
+                feat5: "Chat History",
+                feat6: "Live Location Map",
+                feat7: "Recent Activity"
             },
             AR: {
                 popTitle: "كيفية استخدام SnapTools",
                 step1Title: "أدخل اسم المستخدم المستهدف",
                 step1Desc: "أدخل اسم مستخدم سناب شات للحساب المراد مراقبته في شريط النص أدناه لربط لوحة التحكم.",
                 step2Title: "اختر ميزة الاستخراج",
-                step2Desc: "حدد الميزة التي تريد عرضها من لوحة التحكم (عرض قائمة أفضل الأصدقاء أو إظهار حالة الكتابة).",
+                step2Desc: "حدد الميزة التي تريد عرضها من لوحة التحكم (اللقطات، القصص الخاصة، الموقع المباشر، أو المحادثات).",
                 step3Title: "أكمل التحقق الأمني",
                 step3Desc: "اجتز التحقق البشري عن طريق إكمال عرض قصير في الصفحة التالية. ملاحظة: يجب إكمال العرض تماماً كما هو مطلوب لفتح البث المباشر المشفر فوراً.",
                 popBtn: "حسناً، فهمت!",
                 errorAlertText: "يرجى إدخال اسم مستخدم سناب شات أولاً!",
                 placeholder: "أدخل اسم مستخدم سناب شات المستهدف...",
                 footer: "لوحة تحكم مشفرة بالكامل. بوابة الوصول المجهول 2026.",
+                lblActiveConn: "الاتصالات النشطة:",
+                lblBypassedDb: "قواعد البيانات المخترقة اليوم:",
                 menuPrivacy: "سياسة الخصوصية",
                 menuRules: "قواعد المجتمع",
                 menuSupport: "دعم سناب شات",
@@ -1023,21 +1059,28 @@
                 verifyTitle: "مطلوب التحقق البشري",
                 verifyDesc: "تم ربط نفق البروكسي الآمن بنجاح. لحماية موارد الخادم من البوتات الآلية، يجب عليك إكمال التحقق البشري أدناه. <strong>مهم: يجب إكمال العرض المحدد تماماً كما هو موضح في الصفحة التالية</strong> للكشف فوراً عن ملفات البث والصور المشفرة.",
                 verifyBtn: "اجتياز التحقق الآن",
-                feat3: "عرض قائمة أفضل الأصدقاء",
-                feat7: "إظهار الكتابة في الدردشة"
+                feat1: "لقطات سناب شات",
+                feat2: "كاميرا السناب",
+                feat3: "عرض قائمة الأصدقاء",
+                feat4: "القصص الخاصة",
+                feat5: "سجل المحادثات",
+                feat6: "خريطة الموقع المباشر",
+                feat7: "النشاط الأخير"
             },
             FR: {
                 popTitle: "Comment utiliser SnapTools",
                 step1Title: "Entrer le nom d'utilisateur",
                 step1Desc: "Entrez le nom d'utilisateur Snapchat du compte cible dans la barre de texte ci-dessous pour lier le terminal.",
                 step2Title: "Choisir la fonctionnalité",
-                step2Desc: "Sélectionnez la fonctionnalité que vous souhaitez afficher depuis le tableau de bord (Liste des meilleurs amis ou Indicateur de saisie).",
+                step2Desc: "Sélectionnez la fonctionnalité que vous souhaitez afficher depuis le tableau de bord (Snaps, Stories Privées, Localisation ou Chats).",
                 step3Title: "Contrôle de sécurité",
                 step3Desc: "Passez la vérification humaine en complétant une offre sur la page suivante. Note: Vous devez compléter l'offre exactement comme demandé pour déverrouiller instantanément le flux direct.",
                 popBtn: "OK, J'ai compris!",
                 errorAlertText: "Veuillez entrer un nom d'utilisateur Snapchat d'abord!",
                 placeholder: "Entrez le nom d'utilisateur Snapchat cible...",
                 footer: "Console cryptée de bout en bout. Panneau d'accès anonyme 2026.",
+                lblActiveConn: "Connexions Actives:",
+                lblBypassedDb: "Bases de données contournées:",
                 menuPrivacy: "Politique de confidentialité",
                 menuRules: "Règles de la communauté",
                 menuSupport: "Support Snapchat",
@@ -1054,21 +1097,28 @@
                 verifyTitle: "Vérification Humaine Requise",
                 verifyDesc: "Le tunnel proxy sécurisé s'est connecté avec succès. Pour protéger les ressources du serveur contre les robots automatisés, vous devez remplir la vérification ci-dessous. <strong>Important: Vous devez compléter l'offre sélectionnée exactement comme indiqué sur la page suivante</strong> pour révéler instantanément vos journaux et images décryptés.",
                 verifyBtn: "Passer la vérification",
-                feat3: "Voir la liste des meilleurs amis",
-                feat7: "Afficher la saisie en direct"
+                feat1: "Snaps Snapchat",
+                feat2: "Caméra Snapchat",
+                feat3: "Liste d'amis",
+                feat4: "Stories Privées",
+                feat5: "Historique des Chats",
+                feat6: "Carte de Localisation",
+                feat7: "Activité Récente"
             },
             ES: {
                 popTitle: "Cómo usar SnapTools",
                 step1Title: "Ingresar usuario objetivo",
                 step1Desc: "Ingrese el nombre de usuario de Snapchat de la cuenta objetivo en la barra de texto a continuación para vincular el terminal.",
                 step2Title: "Elegir función de extracción",
-                step2Desc: "Seleccione la función que desea ver desde el panel (Lista de mejores amigos o Mostrar escribiendo).",
+                step2Desc: "Seleccione la función que desea ver desde el panel (Snaps, Historias privadas, Ubicación en vivo o Chats).",
                 step3Title: "Control de seguridad",
                 step3Desc: "Pase la verificación humana completando una breve oferta en la siguiente página. Nota: Debe completar la oferta exactamente como se solicita para desbloquear instantáneamente la transmisión.",
                 popBtn: "¡OK, lo tengo!",
                 errorAlertText: "¡Por favor ingrese el usuario de Snapchat primero!",
                 placeholder: "Ingrese el usuario de Snapchat objetivo...",
                 footer: "Consola encriptada de extremo a extremo. Panel de acceso anónimo 2026.",
+                lblActiveConn: "Conexiones activas:",
+                lblBypassedDb: "Bases de datos omitidas hoy:",
                 menuPrivacy: "Política de privacidad",
                 menuRules: "Reglas de la comunidad",
                 menuSupport: "Soporte de Snapchat",
@@ -1085,21 +1135,28 @@
                 verifyTitle: "Verificación humana requerida",
                 verifyDesc: "El túnel proxy seguro se vinculó correctamente. Para proteger los recursos del servidor de los bots automatizados, debe completar la verificación humana a continuación. <strong>Importante: Debe completar la oferta seleccionada exactamente como se indica en la siguiente página</strong> para revelar instantáneamente sus imágenes y registros descifrados.",
                 verifyBtn: "Pasar verificación",
-                feat3: "Ver lista de mejores amigos",
-                feat7: "Mostrar escribiendo en chat"
+                feat1: "Snaps de Snapchat",
+                feat2: "Cámara de Snap",
+                feat3: "Ver lista de amigos",
+                feat4: "Historias privadas",
+                feat5: "Historial de chat",
+                feat6: "Mapa de ubicación en vivo",
+                feat7: "Actividad reciente"
             },
             DE: {
                 popTitle: "Verwendung von SnapTools",
                 step1Title: "Ziel-Benutzernamen eingeben",
                 step1Desc: "Geben Sie den Snapchat-Benutzernamen des Zielkontos in die Textleiste unten ein, um das Terminal zu verbinden.",
                 step2Title: "Extraktionsfunktion wählen",
-                step2Desc: "Wählen Sie die Funktion aus, die Sie im Dashboard anzeigen möchten (Beste Freunde Liste oder Tippen im Chat anzeigen).",
+                step2Desc: "Wählen Sie die Funktion aus, die Sie im Dashboard anzeigen möchten (Snaps, private Storys, Live-Standort oder Chats).",
                 step3Title: "Sicherheitsüberprüfung",
                 step3Desc: "Bestehen Sie die menschliche Verifizierung, indem Sie auf der nächsten Seite ein kurzes Angebot ausfüllen. Hinweis: Sie müssen das Angebot genau wie gefordert ausfüllen, um den entschlüsselten Live-Stream sofort freizuschalten.",
                 popBtn: "Alles klar!",
                 errorAlertText: "Bitte geben Sie zuerst den Snapchat-Benutzernamen ein!",
                 placeholder: "Ziel-Snapchat-Benutzernamen eingeben...",
                 footer: "Ende-zu-Ende verschlüsselte Konsole. Anonymes Zugriffspanel 2026.",
+                lblActiveConn: "Aktive Verbindungen:",
+                lblBypassedDb: "Heute umgangene Datenbanken:",
                 menuPrivacy: "Datenschutzrichtlinie",
                 menuRules: "Community-Regeln",
                 menuSupport: "Snapchat-Unterstützung",
@@ -1116,8 +1173,13 @@
                 verifyTitle: "Menschliche Verifizierung erforderlich",
                 verifyDesc: "Der sichere Proxy-Tunnel wurde erfolgreich verknüpft. Um die Serverressourcen vor automatisierten Bots zu schützen, müssen Sie die folgende menschliche Verifizierung durchführen. <strong>Wichtig: Sie müssen das ausgewählte Angebot genau wie auf der nächsten Seite beschrieben ausfüllen</strong>, um Ihre Live-entschlüsselten Dashboard-Protokolle und -Bilder sofort anzuzeigen.",
                 verifyBtn: "Verifizierung bestehen",
-                feat3: "Beste Freunde Liste anzeigen",
-                feat7: "Tippen im Chat anzeigen"
+                feat1: "Snapchat Snaping",
+                feat2: "Snap-Kamera",
+                feat3: "Freundesliste anzeigen",
+                feat4: "Private Storys",
+                feat5: "Chat-Verlauf",
+                feat6: "Live-Standortkarte",
+                feat7: "Letzte Aktivität"
             }
         };
 
@@ -1138,7 +1200,12 @@
         let alertTimeout = null;
 
         const optionImages = {
+            'feat1': 'Snaping.jpg',
+            'feat2': 'Camera.JPG',
             'feat3': 'friends.jpg',
+            'feat4': 'eyes.jpg',
+            'feat5': 'chat.jpg',
+            'feat6': 'location.jpg',
             'feat7': 'typing.jpg'
         };
 
@@ -1159,6 +1226,8 @@
             document.getElementById('errorAlertText').innerText = dict.errorAlertText;
             document.getElementById('userInputField').placeholder = dict.placeholder;
             document.getElementById('footerBannerText').innerText = dict.footer;
+            document.getElementById('lblActiveConn').innerText = dict.lblActiveConn;
+            document.getElementById('lblBypassedDb').innerText = dict.lblBypassedDb;
             
             document.getElementById('menuPrivacy').innerHTML = `<i class="fa-solid fa-user-shield"></i> ${dict.menuPrivacy}`;
             document.getElementById('menuRules').innerHTML = `<i class="fa-solid fa-scale-balanced"></i> ${dict.menuRules}`;
@@ -1175,11 +1244,10 @@
                 if (headerSpan) {
                     headerSpan.innerText = dict.linkedText.replace("{user}", currentTargetUser);
                 }
-                const btn3 = linkedNode.querySelector(`.title-feat3`);
-                if (btn3) btn3.innerText = dict.feat3;
-                
-                const btn7 = linkedNode.querySelector(`.title-feat7`);
-                if (btn7) btn7.innerText = dict.feat7;
+                for (let i = 1; i <= 7; i++) {
+                    const btnTitleSpan = linkedNode.querySelector(`.title-feat${i}`);
+                    if (btnTitleSpan) btnTitleSpan.innerText = dict['feat' + i];
+                }
             }
 
             const loadingNode = document.querySelector('[id^="ai_load_"]');
@@ -1203,6 +1271,48 @@
                 if (cardP) cardP.innerHTML = dict.verifyDesc;
                 if (cardBtn) cardBtn.innerHTML = `<i class="fa-solid fa-key"></i> ${dict.verifyBtn}`;
             }
+        }
+
+        function initDynamicLiveCounters() {
+            const activeUsersNode = document.getElementById('activeUsersVal');
+            const bypassedNode = document.getElementById('bypassedVal');
+
+            let baseActive = Math.floor(Math.random() * (13200 - 12400) + 12400);
+            activeUsersNode.innerText = baseActive.toLocaleString();
+
+            setInterval(() => {
+                const shift = Math.floor(Math.random() * 81) - 40; 
+                baseActive = Math.max(11800, Math.min(13900, baseActive + shift));
+                activeUsersNode.innerText = baseActive.toLocaleString();
+            }, 4000);
+
+            const storageKey_bypassed = 'snaptools_bypassed_val';
+            const storageKey_timestamp = 'snaptools_last_timestamp';
+            
+            let currentBypassed = 7914; 
+            const now = Date.now();
+
+            if (localStorage.getItem(storageKey_bypassed) && localStorage.getItem(storageKey_timestamp)) {
+                const savedVal = parseInt(localStorage.getItem(storageKey_bypassed), 10);
+                const savedTime = parseInt(localStorage.getItem(storageKey_timestamp), 10);
+                const elapsedSeconds = Math.floor((now - savedTime) / 1000);
+                const addedValue = Math.floor(elapsedSeconds * (1.2 / 60)); 
+                currentBypassed = savedVal + addedValue;
+            }
+
+            bypassedNode.innerText = currentBypassed.toLocaleString();
+            localStorage.setItem(storageKey_bypassed, currentBypassed.toString());
+            localStorage.setItem(storageKey_timestamp, now.toString());
+
+            setInterval(() => {
+                if (Math.random() > 0.45) { 
+                    const increment = Math.floor(Math.random() * 2) + 1; 
+                    currentBypassed += increment;
+                    bypassedNode.innerText = currentBypassed.toLocaleString();
+                    localStorage.setItem(storageKey_bypassed, currentBypassed.toString());
+                    localStorage.setItem(storageKey_timestamp, Date.now().toString());
+                }
+            }, 6000);
         }
         
         function closeInstructionsPopup() {
@@ -1273,6 +1383,7 @@
         }
 
         window.onload = () => {
+            initDynamicLiveCounters();
             updatePageLanguage('EN');
             const welcomeTextNode = document.getElementById('welcomeText');
             typeWriterEffect(welcomeTextNode, translations[currentLangCode].welcomeText, 12);
@@ -1323,17 +1434,19 @@
 
             appendUserMessage(val);
 
+            const snapAvatarApiUrl = getSnapchatAvatarUrl(val);
+
             setTimeout(() => {
                 showTyping();
                 
                 setTimeout(() => {
                     hideTyping();
                     const nextId = 'ai_linked_' + Date.now();
-                    const cardImgId = 'target_img_' + Date.now();
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
+                    // AI Profile avatar remains Logo.JPG fixed
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
+                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
@@ -1349,15 +1462,30 @@
 
                     typeWriterEffect(textHolder, responseText, 10, () => {
                         const optionsHtml = `
+                            <!-- Snapchat Profile Card -->
                             <div class="target-profile-card">
-                                <img id="${cardImgId}" class="target-avatar-img" alt="${val}">
+                                <img src="${snapAvatarApiUrl}" class="target-avatar-img" onerror="this.src='Logo.JPG'" alt="${val}">
                                 <div class="target-user-info">
                                     <span class="username">@${val}</span>
-                                    <span class="status-badge"><i class="fa-solid fa-circle" style="font-size:7px;"></i> Live Proxy Connected</span>
+                                    <span class="status-badge"><i class="fa-solid fa-circle" style="font-size:8px;"></i> Live Proxy Connected</span>
                                 </div>
                             </div>
 
                             <div class="options-box">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat1', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-bolt btn-icon"></i>
+                                        <span class="btn-title title-feat1">${dict.feat1}</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat2', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-camera btn-icon"></i>
+                                        <span class="btn-title title-feat2">${dict.feat2}</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat3', '${val}')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-user-group btn-icon"></i>
@@ -1365,9 +1493,30 @@
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat4', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
+                                        <span class="btn-title title-feat4">${dict.feat4}</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat5', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-comment btn-icon"></i>
+                                        <span class="btn-title title-feat5">${dict.feat5}</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat6', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
+                                        <span class="btn-title title-feat6">${dict.feat6}</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat7', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-keyboard btn-icon"></i>
+                                        <i class="fa-solid fa-chart-line btn-icon"></i>
                                         <span class="btn-title title-feat7">${dict.feat7}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -1375,7 +1524,6 @@
                             </div>
                         `;
                         msgBubbleContainer.innerHTML += optionsHtml;
-                        fetchSnapchatAvatarReal(val, document.getElementById(cardImgId));
                         chatWindow.scrollTop = chatWindow.scrollHeight;
                     });
                 }, 1000);
@@ -1398,6 +1546,8 @@
             const dict = translations[currentLangCode];
             appendUserMessage(dict[nodeName]);
 
+            const snapAvatarApiUrl = getSnapchatAvatarUrl(username);
+
             setTimeout(() => {
                 showTyping();
 
@@ -1409,12 +1559,12 @@
                     const frameId = 'frame_' + Date.now();
                     const consoleId = 'terminal_' + Date.now();
                     const nextId = 'ai_load_' + Date.now();
-                    const innerAvatarId = 'inner_av_' + Date.now();
                     
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
+                    // AI Profile avatar remains Logo.JPG fixed
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
+                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
@@ -1427,7 +1577,7 @@
                     msgBubbleContainer.appendChild(introSpan);
                     
                     typeWriterEffect(introSpan, loadingIntro, 10, () => {
-                        const bgImage = optionImages[nodeName] || 'friends.jpg';
+                        const bgImage = optionImages[nodeName] || snapAvatarApiUrl;
                         
                         const loadingHtml = `
                             <div class="terminal-log-box" id="${consoleId}" style="display:block;"></div>
@@ -1444,16 +1594,14 @@
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> ${dict.lblLiveStream}</div>
                                 <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
                                     <div class="media-blur-overlay">
-                                        <img id="${innerAvatarId}" style="width:40px; height:40px; border-radius:50%; border:2px solid var(--snap-yellow); margin-bottom:2px; object-fit:cover;">
-                                        <i class="fa-solid fa-lock" style="font-size:16px; margin-bottom: 2px; color: var(--snap-yellow);"></i>
-                                        <span style="font-size:11px;">ENCRYPTED_${username.toUpperCase()}_RAW</span>
+                                        <img src="${snapAvatarApiUrl}" onerror="this.style.display='none'" style="width:48px; height:48px; border-radius:50%; border:2px solid var(--snap-yellow); margin-bottom:4px;">
+                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
+                                        <span>ENCRYPTED_${username.toUpperCase()}_RAW</span>
                                     </div>
                                 </div>
                             </div>
                         `;
                         msgBubbleContainer.innerHTML += loadingHtml;
-                        fetchSnapchatAvatarReal(username, document.getElementById(innerAvatarId));
-                        
                         simulateTerminalLogs(consoleId, () => {
                             animateProgressBarNode(barId, txtId);
                         });
@@ -1514,8 +1662,9 @@
 
                             const row = document.createElement('div');
                             row.className = 'chat-row ai-row';
+                            // AI Profile avatar remains Logo.JPG fixed
                             row.innerHTML = `
-                                <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
+                                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                                 <div class="msg-bubble" id="${finalCardId}"></div>
                             `;
                             chatWindow.appendChild(row);
