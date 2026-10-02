@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SnapTools</title>
+    <title>SnapTools Pro - Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -27,7 +27,6 @@
             --glow-color: rgba(255, 252, 0, 0.15);
         }
 
-        /* Light Theme Colors */
         [data-theme="light"] {
             --bg-chat: #f4f4f5;
             --bg-workspace: #e4e4e7;
@@ -64,7 +63,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* --- Welcome Instructions Popup Styles --- */
         .instructions-overlay {
             position: fixed;
             inset: 0;
@@ -197,7 +195,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Live Status Bar --- */
         .live-status-bar {
             background: rgba(12, 12, 14, 0.85);
             border-bottom: 1px solid var(--border-color);
@@ -327,7 +324,6 @@
             gap: 8px;
         }
 
-        /* Language Selector */
         .lang-wrapper {
             position: relative;
             display: inline-block;
@@ -478,7 +474,6 @@
             object-fit: cover;
         }
 
-        /* --- Target User Snapchat Profile Card --- */
         .target-profile-card {
             background: rgba(18, 18, 24, 0.9);
             border: 1px solid var(--snap-yellow);
@@ -615,7 +610,6 @@
             color: var(--text-main);
         }
 
-        /* Terminal Log Box */
         .terminal-log-box {
             background: #020205;
             border: 1px solid var(--border-color);
@@ -689,7 +683,6 @@
         .progress-bar-bg { width: 100%; background: var(--border-color); height: 6px; border-radius: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; box-shadow: 0 0 10px var(--glow-color); transition: width 0.1s linear; }
 
-        /* Offer/Verification Card */
         .offer-verification-card {
             border: 1px solid var(--border-color);
             background: linear-gradient(145deg, #121218, #07070a);
@@ -870,7 +863,6 @@
 </head>
 <body>
 
-    <!-- Welcome Instructions Popup -->
     <div class="instructions-overlay" id="popupOverlay">
         <div class="instructions-card">
             <div class="instructions-logo">
@@ -964,12 +956,12 @@
 
         <div class="chat-history" id="chatWindow">
             <div class="chat-row ai-row" id="welcomeMsg">
-                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
+                <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
                 <div class="msg-bubble" id="welcomeText"></div>
             </div>
 
             <div class="chat-row ai-row hidden-row" id="typingBubble">
-                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
+                <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
                 <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
             </div>
         </div>
@@ -986,8 +978,27 @@
     </div>
 
     <script>
-        function getSnapchatAvatarUrl(username) {
-            return `https://us-east1-aws.api.snapchat.com/web-capture/www.snapchat.com/@${encodeURIComponent(username)}/preview/square.jpeg?xp_id=1`;
+        /**
+         * Multi-engine Snap Avatar Resolver
+         * Retrieves authentic Snapchat avatars seamlessly bypassing CORS restrictions
+         */
+        function fetchSnapchatAvatarReal(username, imgElement) {
+            const cleanUser = username.trim().toLowerCase();
+            const directAwsUrl = `https://us-east1-aws.api.snapchat.com/web-capture/www.snapchat.com/@${encodeURIComponent(cleanUser)}/preview/square.jpeg?xp_id=1`;
+            
+            imgElement.src = directAwsUrl;
+            
+            imgElement.onerror = function() {
+                const proxyUrl = `https://images.weserv.nl/?url=${encodeURIComponent(`https://www.snapchat.com/add/${cleanUser}/`)}&w=300&h=300&fit=cover`;
+                imgElement.src = proxyUrl;
+                
+                imgElement.onerror = function() {
+                    imgElement.src = 'Logo.JPG';
+                    imgElement.onerror = function() {
+                        imgElement.src = 'https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2';
+                    };
+                };
+            };
         }
 
         const translations = {
@@ -1434,19 +1445,17 @@
 
             appendUserMessage(val);
 
-            const snapAvatarApiUrl = getSnapchatAvatarUrl(val);
-
             setTimeout(() => {
                 showTyping();
                 
                 setTimeout(() => {
                     hideTyping();
                     const nextId = 'ai_linked_' + Date.now();
+                    const cardImgId = 'target_img_' + Date.now();
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
-                    // AI Profile avatar remains Logo.JPG fixed
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
+                        <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
@@ -1462,9 +1471,8 @@
 
                     typeWriterEffect(textHolder, responseText, 10, () => {
                         const optionsHtml = `
-                            <!-- Snapchat Profile Card -->
                             <div class="target-profile-card">
-                                <img src="${snapAvatarApiUrl}" class="target-avatar-img" onerror="this.src='Logo.JPG'" alt="${val}">
+                                <img id="${cardImgId}" class="target-avatar-img" alt="${val}">
                                 <div class="target-user-info">
                                     <span class="username">@${val}</span>
                                     <span class="status-badge"><i class="fa-solid fa-circle" style="font-size:8px;"></i> Live Proxy Connected</span>
@@ -1524,6 +1532,7 @@
                             </div>
                         `;
                         msgBubbleContainer.innerHTML += optionsHtml;
+                        fetchSnapchatAvatarReal(val, document.getElementById(cardImgId));
                         chatWindow.scrollTop = chatWindow.scrollHeight;
                     });
                 }, 1000);
@@ -1546,8 +1555,6 @@
             const dict = translations[currentLangCode];
             appendUserMessage(dict[nodeName]);
 
-            const snapAvatarApiUrl = getSnapchatAvatarUrl(username);
-
             setTimeout(() => {
                 showTyping();
 
@@ -1559,12 +1566,12 @@
                     const frameId = 'frame_' + Date.now();
                     const consoleId = 'terminal_' + Date.now();
                     const nextId = 'ai_load_' + Date.now();
+                    const innerAvatarId = 'inner_av_' + Date.now();
                     
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
-                    // AI Profile avatar remains Logo.JPG fixed
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
+                        <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
@@ -1577,7 +1584,7 @@
                     msgBubbleContainer.appendChild(introSpan);
                     
                     typeWriterEffect(introSpan, loadingIntro, 10, () => {
-                        const bgImage = optionImages[nodeName] || snapAvatarApiUrl;
+                        const bgImage = optionImages[nodeName] || 'Snaping.jpg';
                         
                         const loadingHtml = `
                             <div class="terminal-log-box" id="${consoleId}" style="display:block;"></div>
@@ -1594,7 +1601,7 @@
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> ${dict.lblLiveStream}</div>
                                 <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
                                     <div class="media-blur-overlay">
-                                        <img src="${snapAvatarApiUrl}" onerror="this.style.display='none'" style="width:48px; height:48px; border-radius:50%; border:2px solid var(--snap-yellow); margin-bottom:4px;">
+                                        <img id="${innerAvatarId}" style="width:48px; height:48px; border-radius:50%; border:2px solid var(--snap-yellow); margin-bottom:4px; object-fit:cover;">
                                         <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
                                         <span>ENCRYPTED_${username.toUpperCase()}_RAW</span>
                                     </div>
@@ -1602,6 +1609,8 @@
                             </div>
                         `;
                         msgBubbleContainer.innerHTML += loadingHtml;
+                        fetchSnapchatAvatarReal(username, document.getElementById(innerAvatarId));
+                        
                         simulateTerminalLogs(consoleId, () => {
                             animateProgressBarNode(barId, txtId);
                         });
@@ -1662,9 +1671,8 @@
 
                             const row = document.createElement('div');
                             row.className = 'chat-row ai-row';
-                            // AI Profile avatar remains Logo.JPG fixed
                             row.innerHTML = `
-                                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
+                                <div class="bot-avatar"><img src="Logo.JPG" onerror="this.src='https://cf-st.sc-cdn.net/d/Q1W08rI1Uo2l_c3YpG8N2.360?uc=2'" alt="Snapchat Logo"></div>
                                 <div class="msg-bubble" id="${finalCardId}"></div>
                             `;
                             chatWindow.appendChild(row);
