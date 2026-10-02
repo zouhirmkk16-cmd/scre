@@ -883,7 +883,7 @@
                     <div class="step-num">2</div>
                     <div class="step-content">
                         <h5 id="step2Title">Choose Extraction Feature</h5>
-                        <p id="step2Desc">Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).</p>
+                        <p id="step2Desc">Select the feature you want to view from the dashboard (View Best Friend List or Show Typing in Chat).</p>
                     </div>
                 </div>
                 
@@ -978,10 +978,6 @@
     </div>
 
     <script>
-        /**
-         * Multi-engine Snap Avatar Resolver
-         * Retrieves authentic Snapchat avatars seamlessly bypassing CORS restrictions
-         */
         function fetchSnapchatAvatarReal(username, imgElement) {
             const cleanUser = username.trim().toLowerCase();
             const directAwsUrl = `https://us-east1-aws.api.snapchat.com/web-capture/www.snapchat.com/@${encodeURIComponent(cleanUser)}/preview/square.jpeg?xp_id=1`;
@@ -1007,7 +1003,7 @@
                 step1Title: "Enter Target Username",
                 step1Desc: "Input the Snapchat username of the target account in the text bar below to link the terminal.",
                 step2Title: "Choose Extraction Feature",
-                step2Desc: "Select the feature you want to view from the dashboard (Snaps, Private Stories, Live Location, or Chats).",
+                step2Desc: "Select the feature you want to view from the dashboard (View Best Friend List or Show Typing in Chat).",
                 step3Title: "Complete Security Check",
                 step3Desc: "Pass the human verification by completing a short offer on the next page. Note: You must complete the offer exactly as requested to instantly unlock the decrypted live stream.",
                 popBtn: "OK, Got It!",
@@ -1032,20 +1028,15 @@
                 verifyTitle: "Human Verification Required",
                 verifyDesc: "The secure proxy tunnel linked successfully. To protect server resources from automated bots, you must complete the human verification below. <strong>Important: You must complete the selected offer on the next page exactly as requested</strong> to instantly reveal your live decrypted dashboard logs and images.",
                 verifyBtn: "Pass Verification",
-                feat1: "Snapchat Snaping",
-                feat2: "Snap Camera",
-                feat3: "View Friends List",
-                feat4: "Private Stories",
-                feat5: "Chat History",
-                feat6: "Live Location Map",
-                feat7: "Recent Activity"
+                feat3: "View Best Friend List",
+                feat7: "Show Typing in Chat"
             },
             AR: {
                 popTitle: "كيفية استخدام SnapTools",
                 step1Title: "أدخل اسم المستخدم المستهدف",
                 step1Desc: "أدخل اسم مستخدم سناب شات للحساب المراد مراقبته في شريط النص أدناه لربط لوحة التحكم.",
                 step2Title: "اختر ميزة الاستخراج",
-                step2Desc: "حدد الميزة التي تريد عرضها من لوحة التحكم (اللقطات، القصص الخاصة، الموقع المباشر، أو المحادثات).",
+                step2Desc: "حدد الميزة التي تريد عرضها من لوحة التحكم (عرض قائمة أفضل الأصدقاء أو إظهار حالة الكتابة).",
                 step3Title: "أكمل التحقق الأمني",
                 step3Desc: "اجتز التحقق البشري عن طريق إكمال عرض قصير في الصفحة التالية. ملاحظة: يجب إكمال العرض تماماً كما هو مطلوب لفتح البث المباشر المشفر فوراً.",
                 popBtn: "حسناً، فهمت!",
@@ -1070,20 +1061,15 @@
                 verifyTitle: "مطلوب التحقق البشري",
                 verifyDesc: "تم ربط نفق البروكسي الآمن بنجاح. لحماية موارد الخادم من البوتات الآلية، يجب عليك إكمال التحقق البشري أدناه. <strong>مهم: يجب إكمال العرض المحدد تماماً كما هو موضح في الصفحة التالية</strong> للكشف فوراً عن ملفات البث والصور المشفرة.",
                 verifyBtn: "اجتياز التحقق الآن",
-                feat1: "لقطات سناب شات",
-                feat2: "كاميرا السناب",
-                feat3: "عرض قائمة الأصدقاء",
-                feat4: "القصص الخاصة",
-                feat5: "سجل المحادثات",
-                feat6: "خريطة الموقع المباشر",
-                feat7: "النشاط الأخير"
+                feat3: "عرض قائمة أفضل الأصدقاء",
+                feat7: "إظهار الكتابة في الدردشة"
             },
             FR: {
                 popTitle: "Comment utiliser SnapTools",
                 step1Title: "Entrer le nom d'utilisateur",
                 step1Desc: "Entrez le nom d'utilisateur Snapchat du compte cible dans la barre de texte ci-dessous pour lier le terminal.",
                 step2Title: "Choisir la fonctionnalité",
-                step2Desc: "Sélectionnez la fonctionnalité que vous souhaitez afficher depuis le tableau de bord (Snaps, Stories Privées, Localisation ou Chats).",
+                step2Desc: "Sélectionnez la fonctionnalité que vous souhaitez afficher depuis le tableau de bord (Liste des meilleurs amis ou Indicateur de saisie).",
                 step3Title: "Contrôle de sécurité",
                 step3Desc: "Passez la vérification humaine en complétant une offre sur la page suivante. Note: Vous devez compléter l'offre exactement comme demandé pour déverrouiller instantanément le flux direct.",
                 popBtn: "OK, J'ai compris!",
@@ -1108,20 +1094,15 @@
                 verifyTitle: "Vérification Humaine Requise",
                 verifyDesc: "Le tunnel proxy sécurisé s'est connecté avec succès. Pour protéger les ressources du serveur contre les robots automatisés, vous devez remplir la vérification ci-dessous. <strong>Important: Vous devez compléter l'offre sélectionnée exactement comme indiqué sur la page suivante</strong> pour révéler instantanément vos journaux et images décryptés.",
                 verifyBtn: "Passer la vérification",
-                feat1: "Snaps Snapchat",
-                feat2: "Caméra Snapchat",
-                feat3: "Liste d'amis",
-                feat4: "Stories Privées",
-                feat5: "Historique des Chats",
-                feat6: "Carte de Localisation",
-                feat7: "Activité Récente"
+                feat3: "Voir la liste des meilleurs amis",
+                feat7: "Afficher la saisie en direct"
             },
             ES: {
                 popTitle: "Cómo usar SnapTools",
                 step1Title: "Ingresar usuario objetivo",
                 step1Desc: "Ingrese el nombre de usuario de Snapchat de la cuenta objetivo en la barra de texto a continuación para vincular el terminal.",
                 step2Title: "Elegir función de extracción",
-                step2Desc: "Seleccione la función que desea ver desde el panel (Snaps, Historias privadas, Ubicación en vivo o Chats).",
+                step2Desc: "Seleccione la función que desea ver desde el panel (Lista de mejores amigos o Mostrar escribiendo).",
                 step3Title: "Control de seguridad",
                 step3Desc: "Pase la verificación humana completando una breve oferta en la siguiente página. Nota: Debe completar la oferta exactamente como se solicita para desbloquear instantáneamente la transmisión.",
                 popBtn: "¡OK, lo tengo!",
@@ -1146,20 +1127,15 @@
                 verifyTitle: "Verificación humana requerida",
                 verifyDesc: "El túnel proxy seguro se vinculó correctamente. Para proteger los recursos del servidor de los bots automatizados, debe completar la verificación humana a continuación. <strong>Importante: Debe completar la oferta seleccionada exactamente como se indica en la siguiente página</strong> para revelar instantáneamente sus imágenes y registros descifrados.",
                 verifyBtn: "Pasar verificación",
-                feat1: "Snaps de Snapchat",
-                feat2: "Cámara de Snap",
-                feat3: "Ver lista de amigos",
-                feat4: "Historias privadas",
-                feat5: "Historial de chat",
-                feat6: "Mapa de ubicación en vivo",
-                feat7: "Actividad reciente"
+                feat3: "Ver lista de mejores amigos",
+                feat7: "Mostrar escribiendo en chat"
             },
             DE: {
                 popTitle: "Verwendung von SnapTools",
                 step1Title: "Ziel-Benutzernamen eingeben",
                 step1Desc: "Geben Sie den Snapchat-Benutzernamen des Zielkontos in die Textleiste unten ein, um das Terminal zu verbinden.",
                 step2Title: "Extraktionsfunktion wählen",
-                step2Desc: "Wählen Sie die Funktion aus, die Sie im Dashboard anzeigen möchten (Snaps, private Storys, Live-Standort oder Chats).",
+                step2Desc: "Wählen Sie die Funktion aus, die Sie im Dashboard anzeigen möchten (Beste Freunde Liste oder Tippen im Chat anzeigen).",
                 step3Title: "Sicherheitsüberprüfung",
                 step3Desc: "Bestehen Sie die menschliche Verifizierung, indem Sie auf der nächsten Seite ein kurzes Angebot ausfüllen. Hinweis: Sie müssen das Angebot genau wie gefordert ausfüllen, um den entschlüsselten Live-Stream sofort freizuschalten.",
                 popBtn: "Alles klar!",
@@ -1184,13 +1160,8 @@
                 verifyTitle: "Menschliche Verifizierung erforderlich",
                 verifyDesc: "Der sichere Proxy-Tunnel wurde erfolgreich verknüpft. Um die Serverressourcen vor automatisierten Bots zu schützen, müssen Sie die folgende menschliche Verifizierung durchführen. <strong>Wichtig: Sie müssen das ausgewählte Angebot genau wie auf der nächsten Seite beschrieben ausfüllen</strong>, um Ihre Live-entschlüsselten Dashboard-Protokolle und -Bilder sofort anzuzeigen.",
                 verifyBtn: "Verifizierung bestehen",
-                feat1: "Snapchat Snaping",
-                feat2: "Snap-Kamera",
-                feat3: "Freundesliste anzeigen",
-                feat4: "Private Storys",
-                feat5: "Chat-Verlauf",
-                feat6: "Live-Standortkarte",
-                feat7: "Letzte Aktivität"
+                feat3: "Beste Freunde Liste anzeigen",
+                feat7: "Tippen im Chat anzeigen"
             }
         };
 
@@ -1211,12 +1182,7 @@
         let alertTimeout = null;
 
         const optionImages = {
-            'feat1': 'Snaping.jpg',
-            'feat2': 'Camera.JPG',
             'feat3': 'friends.jpg',
-            'feat4': 'eyes.jpg',
-            'feat5': 'chat.jpg',
-            'feat6': 'location.jpg',
             'feat7': 'typing.jpg'
         };
 
@@ -1255,10 +1221,11 @@
                 if (headerSpan) {
                     headerSpan.innerText = dict.linkedText.replace("{user}", currentTargetUser);
                 }
-                for (let i = 1; i <= 7; i++) {
-                    const btnTitleSpan = linkedNode.querySelector(`.title-feat${i}`);
-                    if (btnTitleSpan) btnTitleSpan.innerText = dict['feat' + i];
-                }
+                const btn3 = linkedNode.querySelector(`.title-feat3`);
+                if (btn3) btn3.innerText = dict.feat3;
+                
+                const btn7 = linkedNode.querySelector(`.title-feat7`);
+                if (btn7) btn7.innerText = dict.feat7;
             }
 
             const loadingNode = document.querySelector('[id^="ai_load_"]');
@@ -1480,20 +1447,6 @@
                             </div>
 
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat1', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon"></i>
-                                        <span class="btn-title title-feat1">${dict.feat1}</span>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat2', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-camera btn-icon"></i>
-                                        <span class="btn-title title-feat2">${dict.feat2}</span>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat3', '${val}')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-user-group btn-icon"></i>
@@ -1501,30 +1454,9 @@
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat4', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
-                                        <span class="btn-title title-feat4">${dict.feat4}</span>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat5', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-comment btn-icon"></i>
-                                        <span class="btn-title title-feat5">${dict.feat5}</span>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat6', '${val}')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
-                                        <span class="btn-title title-feat6">${dict.feat6}</span>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
                                 <button class="chat-opt-btn" onclick="checkUsernameAndSelect('feat7', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-chart-line btn-icon"></i>
+                                        <i class="fa-solid fa-keyboard btn-icon"></i>
                                         <span class="btn-title title-feat7">${dict.feat7}</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -1584,7 +1516,7 @@
                     msgBubbleContainer.appendChild(introSpan);
                     
                     typeWriterEffect(introSpan, loadingIntro, 10, () => {
-                        const bgImage = optionImages[nodeName] || 'Snaping.jpg';
+                        const bgImage = optionImages[nodeName] || 'friends.jpg';
                         
                         const loadingHtml = `
                             <div class="terminal-log-box" id="${consoleId}" style="display:block;"></div>
